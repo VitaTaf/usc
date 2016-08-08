@@ -3454,8 +3454,6 @@
     <public type="style" name="Theme.Micro.Dialog" id="0x010304be" />
     <public type="style" name="Theme.Micro.Dialog.Alert" id="0x010304bf" />
     <public type="style" name="Theme.Micro.Dialog.AppError" id="0x010304c0" />
-    <public type="string" name="config_mms_user_agent" id="0x01040033" />
-    <public type="string" name="config_mms_user_agent_profile_url" id="0x01040034" />
     <public type="string" name="APKTOOL_DUMMY_6a3" id="0x010406a3" />
     <public type="string" name="APKTOOL_DUMMY_6a4" id="0x010406a4" />
     <public type="string" name="APKTOOL_DUMMY_6a5" id="0x010406a5" />
@@ -3581,6 +3579,8 @@
     <public type="string" name="db_default_sync_mode" id="0x01040030" />
     <public type="string" name="db_wal_sync_mode" id="0x01040031" />
     <public type="string" name="config_useragentprofile_url" id="0x01040032" />
+    <public type="string" name="config_mms_user_agent" id="0x01040033" />
+    <public type="string" name="config_mms_user_agent_profile_url" id="0x01040034" />
     <public type="string" name="config_isoImagePath" id="0x01040035" />
     <public type="string" name="config_ntpServer" id="0x01040036" />
     <public type="string" name="config_wimaxServiceJarLocation" id="0x01040037" />
@@ -8277,8 +8277,6 @@
     <public type="interpolator" name="trim_start_interpolator" id="0x010c001a" />
     <public type="mipmap" name="sym_def_app_icon" id="0x010d0000" />
     <public type="mipmap" name="sym_app_on_sd_unavailable_icon" id="0x010d0001" />
-    <public type="integer" name="config_mobile_mtu" id="0x010e0076" />
-    <public type="integer" name="config_cdma_3waycall_flash_delay" id="0x010e007b" />
     <public type="integer" name="config_shortAnimTime" id="0x010e0000" />
     <public type="integer" name="config_mediumAnimTime" id="0x010e0001" />
     <public type="integer" name="config_longAnimTime" id="0x010e0002" />
@@ -8397,10 +8395,12 @@
     <public type="integer" name="config_maxResolverActivityColumns" id="0x010e0073" />
     <public type="integer" name="config_multiuserMaximumUsers" id="0x010e0074" />
     <public type="integer" name="config_safe_media_volume_index" id="0x010e0075" />
+    <public type="integer" name="config_mobile_mtu" id="0x010e0076" />
     <public type="integer" name="config_toastDefaultGravity" id="0x010e0077" />
     <public type="integer" name="config_immersive_mode_confirmation_panic" id="0x010e0078" />
     <public type="integer" name="config_valid_wappush_index" id="0x010e0079" />
     <public type="integer" name="config_overrideHasPermanentMenuKey" id="0x010e007a" />
+    <public type="integer" name="config_cdma_3waycall_flash_delay" id="0x010e007b" />
     <public type="integer" name="config_LTE_RSRP_threshold_type" id="0x010e007c" />
     <public type="integer" name="config_next_alarm_condition_lookahead_threshold_hrs" id="0x010e007d" />
     <public type="integer" name="config_downtime_condition_lookahead_threshold_hrs" id="0x010e007e" />
@@ -8547,9 +8547,6 @@
     <public type="xml" name="sms_short_codes" id="0x01110012" />
     <public type="xml" name="storage_list" id="0x01110013" />
     <public type="xml" name="time_zones_by_country" id="0x01110014" />
-    <public type="bool" name="config_dynamic_mms_user_agent" id="0x011200b6" />
-    <public type="bool" name="config_dynamic_mms_user_agent_profile_url" id="0x011200b7" />
-    <public type="bool" name="is_broker_home_mcc_mnc" id="0x01120093" />
     <public type="bool" name="kg_enable_camera_default_widget" id="0x01120000" />
     <public type="bool" name="kg_center_small_widgets_vertically" id="0x01120001" />
     <public type="bool" name="kg_top_align_page_shrink_on_bouncer_visible" id="0x01120002" />
@@ -8695,6 +8692,7 @@
     <public type="bool" name="config_defaultInTouchMode" id="0x01120090" />
     <public type="bool" name="config_show_ampm_in_unlock_screen" id="0x01120091" />
     <public type="bool" name="read_gid_from_usim_for_ruim" id="0x01120092" />
+    <public type="bool" name="is_broker_home_mcc_mnc" id="0x01120093" />
     <public type="bool" name="config_meid_device_id_cdma_lte" id="0x01120094" />
     <public type="bool" name="enhancement_data_roaming_enabled" id="0x01120095" />
     <public type="bool" name="config_api_setAKey_is_enabled" id="0x01120096" />
@@ -8729,6 +8727,8 @@
     <public type="bool" name="app_directed_sms_enabled" id="0x011200b3" />
     <public type="bool" name="config_enable_charset_in_mms_text_part" id="0x011200b4" />
     <public type="bool" name="config_telephony_use_own_number_for_voicemail_in_gsm" id="0x011200b5" />
+    <public type="bool" name="config_dynamic_mms_user_agent" id="0x011200b6" />
+    <public type="bool" name="config_dynamic_mms_user_agent_profile_url" id="0x011200b7" />
     <public type="bool" name="config_verizon_lte_turn_off_wifi_on_ecm" id="0x011200b8" />
     <public type="bool" name="config_att_vioce_priority_block_all_data" id="0x011200b9" />
     <public type="bool" name="vzw_connectivity_service_init" id="0x011200ba" />
