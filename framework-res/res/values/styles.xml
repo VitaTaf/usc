@@ -5277,9 +5277,9 @@
     </style>
     <style name="Widget.Material.SearchView.ActionBar" parent="@style/Widget.Material.SearchView">
         <item name="queryHint">@string/search_hint</item>
-        <item name="queryBackground">@null</item>
-        <item name="submitBackground">@null</item>
-        <item name="searchHintIcon">@null</item>
+        <item name="queryBackground">@empty</item>
+        <item name="submitBackground">@empty</item>
+        <item name="searchHintIcon">@empty</item>
     </style>
     <style name="Widget.Material.TextView.ListSeparator" parent="@style/Widget.TextView.ListSeparator">
         <item name="background">@drawable/list_section_divider_material</item>
@@ -5388,16 +5388,16 @@
         <item name="windowExitAnimation">@anim/popup_exit_material</item>
     </style>
     <style name="AlertDialog.Material" parent="@style/AlertDialog">
-        <item name="fullDark">@null</item>
-        <item name="topDark">@null</item>
-        <item name="centerDark">@null</item>
-        <item name="bottomDark">@null</item>
-        <item name="fullBright">@null</item>
-        <item name="topBright">@null</item>
-        <item name="centerBright">@null</item>
-        <item name="bottomBright">@null</item>
-        <item name="bottomMedium">@null</item>
-        <item name="centerMedium">@null</item>
+        <item name="fullDark">@empty</item>
+        <item name="topDark">@empty</item>
+        <item name="centerDark">@empty</item>
+        <item name="bottomDark">@empty</item>
+        <item name="fullBright">@empty</item>
+        <item name="topBright">@empty</item>
+        <item name="centerBright">@empty</item>
+        <item name="bottomBright">@empty</item>
+        <item name="bottomMedium">@empty</item>
+        <item name="centerMedium">@empty</item>
         <item name="layout">@layout/alert_dialog_material</item>
         <item name="listLayout">@layout/select_dialog_material</item>
         <item name="multiChoiceItemLayout">@layout/select_dialog_multichoice_material</item>

@@ -75,9 +75,9 @@
     <integer name="config_lowBatteryCloseWarningBump">5</integer>
     <integer name="config_defaultNotificationLedOn">500</integer>
     <integer name="config_defaultNotificationLedOff">2000</integer>
-    <integer name="config_notificationsBatteryLowARGB">0xffff0000</integer>
-    <integer name="config_notificationsBatteryMediumARGB">0xffffff00</integer>
-    <integer name="config_notificationsBatteryFullARGB">0xff00ff00</integer>
+    <integer name="config_notificationsBatteryLowARGB">0xFFFF0000</integer>
+    <integer name="config_notificationsBatteryMediumARGB">0xFFFFFF00</integer>
+    <integer name="config_notificationsBatteryFullARGB">0xFF00FF00</integer>
     <integer name="config_notificationsBatteryLedOn">125</integer>
     <integer name="config_notificationsBatteryLedOff">2875</integer>
     <integer name="config_notificationServiceArchiveSize">100</integer>
@@ -120,7 +120,7 @@
     <integer name="config_maxResolverActivityColumns">3</integer>
     <integer name="config_multiuserMaximumUsers">3</integer>
     <integer name="config_safe_media_volume_index">10</integer>
-    <integer name="config_toastDefaultGravity">0x51</integer>
+    <integer name="config_toastDefaultGravity">0x00000051</integer>
     <integer name="config_immersive_mode_confirmation_panic">5000</integer>
     <integer name="config_valid_wappush_index">-1</integer>
     <integer name="config_overrideHasPermanentMenuKey">0</integer>
@@ -130,8 +130,8 @@
     <integer name="max_action_buttons">2</integer>
     <integer name="preferences_left_pane_weight">4</integer>
     <integer name="preferences_right_pane_weight">6</integer>
-    <integer name="preference_screen_header_scrollbarStyle">0x2000000</integer>
-    <integer name="preference_fragment_scrollbarStyle">0x2000000</integer>
+    <integer name="preference_screen_header_scrollbarStyle">0x02000000</integer>
+    <integer name="preference_fragment_scrollbarStyle">0x02000000</integer>
     <integer name="leanback_setup_base_animation_duration">500</integer>
     <integer name="leanback_setup_translation_content_resting_point_v4">0</integer>
     <integer name="leanback_setup_translation_content_cliff_v4">200</integer>
@@ -224,7 +224,7 @@
     <integer name="mot_nv_enable_hidden_menu_fts">8344</integer>
     <integer name="eap_preloaded_ssid_retry_count">0</integer>
     <integer name="config_data_stall_alarm_by_carrier">1200000</integer>
-    <integer name="config_sensorHubSupportedModality">0xffff</integer>
+    <integer name="config_sensorHubSupportedModality">0x0000FFFF</integer>
     <integer name="config_smoothenDelayFirstDecrease">10000</integer>
     <integer name="config_smoothenDecreaseInterval">4000</integer>
     <integer name="config_smoothenDelayFirstIncrease">0</integer>
