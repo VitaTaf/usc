@@ -50,53 +50,40 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 936
     invoke-direct {p0}, Landroid/graphics/drawable/Drawable$ConstantState;-><init>()V
 
-    .line 922
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mThemeAttrs:[I
 
-    .line 923
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBitmap:Landroid/graphics/Bitmap;
 
-    .line 924
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTint:Landroid/content/res/ColorStateList;
 
-    .line 925
     sget-object v0, Landroid/graphics/drawable/Drawable;->DEFAULT_TINT_MODE:Landroid/graphics/PorterDuff$Mode;
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTintMode:Landroid/graphics/PorterDuff$Mode;
 
-    .line 926
     const/16 v0, 0x77
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mGravity:I
 
-    .line 927
     const/high16 v0, 0x3f800000    # 1.0f
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBaseAlpha:F
 
-    .line 928
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeX:Landroid/graphics/Shader$TileMode;
 
-    .line 929
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeY:Landroid/graphics/Shader$TileMode;
 
-    .line 930
     const/16 v0, 0xa0
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTargetDensity:I
 
-    .line 931
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mAutoMirrored:Z
 
-    .line 937
     iput-object p1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBitmap:Landroid/graphics/Bitmap;
 
-    .line 938
     new-instance v0, Landroid/graphics/Paint;
 
     const/4 v1, 0x6
@@ -105,7 +92,6 @@
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mPaint:Landroid/graphics/Paint;
 
-    .line 939
     return-void
 .end method
 
@@ -116,100 +102,78 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 941
     invoke-direct {p0}, Landroid/graphics/drawable/Drawable$ConstantState;-><init>()V
 
-    .line 922
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mThemeAttrs:[I
 
-    .line 923
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBitmap:Landroid/graphics/Bitmap;
 
-    .line 924
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTint:Landroid/content/res/ColorStateList;
 
-    .line 925
     sget-object v0, Landroid/graphics/drawable/Drawable;->DEFAULT_TINT_MODE:Landroid/graphics/PorterDuff$Mode;
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTintMode:Landroid/graphics/PorterDuff$Mode;
 
-    .line 926
     const/16 v0, 0x77
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mGravity:I
 
-    .line 927
     const/high16 v0, 0x3f800000    # 1.0f
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBaseAlpha:F
 
-    .line 928
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeX:Landroid/graphics/Shader$TileMode;
 
-    .line 929
     iput-object v1, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeY:Landroid/graphics/Shader$TileMode;
 
-    .line 930
     const/16 v0, 0xa0
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTargetDensity:I
 
-    .line 931
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mAutoMirrored:Z
 
-    .line 942
     iget-object v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBitmap:Landroid/graphics/Bitmap;
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBitmap:Landroid/graphics/Bitmap;
 
-    .line 943
     iget-object v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTint:Landroid/content/res/ColorStateList;
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTint:Landroid/content/res/ColorStateList;
 
-    .line 944
     iget-object v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTintMode:Landroid/graphics/PorterDuff$Mode;
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTintMode:Landroid/graphics/PorterDuff$Mode;
 
-    .line 945
     iget-object v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mThemeAttrs:[I
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mThemeAttrs:[I
 
-    .line 946
     iget v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mChangingConfigurations:I
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mChangingConfigurations:I
 
-    .line 947
     iget v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mGravity:I
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mGravity:I
 
-    .line 948
     iget-object v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeX:Landroid/graphics/Shader$TileMode;
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeX:Landroid/graphics/Shader$TileMode;
 
-    .line 949
     iget-object v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeY:Landroid/graphics/Shader$TileMode;
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTileModeY:Landroid/graphics/Shader$TileMode;
 
-    .line 950
     iget v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTargetDensity:I
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mTargetDensity:I
 
-    .line 951
     iget v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBaseAlpha:F
 
     iput v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBaseAlpha:F
 
-    .line 952
     new-instance v0, Landroid/graphics/Paint;
 
     iget-object v1, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mPaint:Landroid/graphics/Paint;
@@ -218,17 +182,14 @@
 
     iput-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mPaint:Landroid/graphics/Paint;
 
-    .line 953
     iget-boolean v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mRebuildShader:Z
 
     iput-boolean v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mRebuildShader:Z
 
-    .line 954
     iget-boolean v0, p1, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mAutoMirrored:Z
 
     iput-boolean v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mAutoMirrored:Z
 
-    .line 955
     return-void
 .end method
 
@@ -247,7 +208,6 @@
     .end annotation
 
     .prologue
-    .line 964
     .local p1, "atlasList":Ljava/util/Collection;, "Ljava/util/Collection<Landroid/graphics/Bitmap;>;"
     iget-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBitmap:Landroid/graphics/Bitmap;
 
@@ -265,7 +225,6 @@
 
     if-eqz v0, :cond_0
 
-    .line 965
     iget-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mBitmap:Landroid/graphics/Bitmap;
 
     invoke-virtual {v0}, Landroid/graphics/Bitmap;->getWidth()I
@@ -280,7 +239,6 @@
 
     mul-int/2addr v0, v1
 
-    .line 967
     :goto_0
     return v0
 
@@ -294,7 +252,6 @@
     .locals 1
 
     .prologue
-    .line 959
     iget-object v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mThemeAttrs:[I
 
     if-eqz v0, :cond_0
@@ -314,7 +271,6 @@
     .locals 1
 
     .prologue
-    .line 982
     iget v0, p0, Landroid/graphics/drawable/BitmapDrawable$BitmapState;->mChangingConfigurations:I
 
     return v0
@@ -326,7 +282,6 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 972
     new-instance v0, Landroid/graphics/drawable/BitmapDrawable;
 
     invoke-direct {v0, p0, v1, v1}, Landroid/graphics/drawable/BitmapDrawable;-><init>(Landroid/graphics/drawable/BitmapDrawable$BitmapState;Landroid/content/res/Resources;Landroid/graphics/drawable/BitmapDrawable$1;)V
@@ -339,7 +294,6 @@
     .param p1, "res"    # Landroid/content/res/Resources;
 
     .prologue
-    .line 977
     new-instance v0, Landroid/graphics/drawable/BitmapDrawable;
 
     const/4 v1, 0x0

@@ -25,17 +25,14 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 4564
     iput-object p1, p0, Landroid/media/AudioService$SettingsObserver;->this$0:Landroid/media/AudioService;
 
-    .line 4565
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 4566
     # getter for: Landroid/media/AudioService;->mContentResolver:Landroid/content/ContentResolver;
     invoke-static {p1}, Landroid/media/AudioService;->access$3000(Landroid/media/AudioService;)Landroid/content/ContentResolver;
 
@@ -49,7 +46,6 @@
 
     invoke-virtual {v0, v1, v2, p0}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
-    .line 4568
     # getter for: Landroid/media/AudioService;->mContentResolver:Landroid/content/ContentResolver;
     invoke-static {p1}, Landroid/media/AudioService;->access$3000(Landroid/media/AudioService;)Landroid/content/ContentResolver;
 
@@ -63,7 +59,6 @@
 
     invoke-virtual {v0, v1, v2, p0}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
-    .line 4570
     return-void
 .end method
 
@@ -74,10 +69,8 @@
     .param p1, "selfChange"    # Z
 
     .prologue
-    .line 4574
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 4579
     iget-object v0, p0, Landroid/media/AudioService$SettingsObserver;->this$0:Landroid/media/AudioService;
 
     # getter for: Landroid/media/AudioService;->mSettingsLock:Ljava/lang/Object;
@@ -87,7 +80,6 @@
 
     monitor-enter v1
 
-    .line 4580
     :try_start_0
     iget-object v0, p0, Landroid/media/AudioService$SettingsObserver;->this$0:Landroid/media/AudioService;
 
@@ -97,7 +89,6 @@
 
     if-eqz v0, :cond_0
 
-    .line 4585
     iget-object v0, p0, Landroid/media/AudioService$SettingsObserver;->this$0:Landroid/media/AudioService;
 
     iget-object v2, p0, Landroid/media/AudioService$SettingsObserver;->this$0:Landroid/media/AudioService;
@@ -111,7 +102,6 @@
     # invokes: Landroid/media/AudioService;->setRingerModeInt(IZ)V
     invoke-static {v0, v2, v3}, Landroid/media/AudioService;->access$6400(Landroid/media/AudioService;IZ)V
 
-    .line 4587
     :cond_0
     iget-object v0, p0, Landroid/media/AudioService$SettingsObserver;->this$0:Landroid/media/AudioService;
 
@@ -125,13 +115,10 @@
     # invokes: Landroid/media/AudioService;->readDockAudioSettings(Landroid/content/ContentResolver;)V
     invoke-static {v0, v2}, Landroid/media/AudioService;->access$8700(Landroid/media/AudioService;Landroid/content/ContentResolver;)V
 
-    .line 4588
     monitor-exit v1
 
-    .line 4589
     return-void
 
-    .line 4588
     :catchall_0
     move-exception v0
 

@@ -26,7 +26,6 @@
     .locals 0
 
     .prologue
-    .line 742
     iput-object p1, p0, Landroid/media/AudioService$3;->this$0:Landroid/media/AudioService;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -43,22 +42,18 @@
     .param p3, "extra"    # I
 
     .prologue
-    .line 745
     :try_start_0
     invoke-virtual {p1}, Landroid/media/MediaPlayer;->stop()V
 
-    .line 746
     invoke-virtual {p1}, Landroid/media/MediaPlayer;->release()V
     :try_end_0
     .catch Ljava/lang/IllegalStateException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 748
     :goto_0
     const/4 v0, 0x1
 
     return v0
 
-    .line 747
     :catch_0
     move-exception v0
 
