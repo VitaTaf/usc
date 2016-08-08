@@ -1,0 +1,22 @@
+!!brut.androlib.meta.MetaInfo
+apkFileName: SystemUI.apk
+compressionType: false
+doNotCompress:
+- arsc
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: null
+sdkInfo:
+  minSdkVersion: '22'
+  targetSdkVersion: '22'
+sharedLibrary: false
+unknownFiles: {}
+usesFramework:
+  ids:
+  - 1
+  tag: usc
+version: 2.2.0
+versionInfo:
+  versionCode: '22'
+  versionName: 5.1-1
