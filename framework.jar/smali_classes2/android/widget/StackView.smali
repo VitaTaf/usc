@@ -2351,12 +2351,12 @@
     .end packed-switch
 .end method
 
-.method public onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
     .locals 1
     .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
 
     .prologue
-    invoke-super {p0, p1}, Landroid/widget/AdapterViewAnimator;->onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+    invoke-super {p0, p1}, Landroid/widget/AdapterViewAnimator;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
 
     const-class v0, Landroid/widget/StackView;
 
@@ -2369,14 +2369,14 @@
     return-void
 .end method
 
-.method public onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+.method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
     .locals 2
     .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
 
     .prologue
     const/4 v0, 0x1
 
-    invoke-super {p0, p1}, Landroid/widget/AdapterViewAnimator;->onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+    invoke-super {p0, p1}, Landroid/widget/AdapterViewAnimator;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
 
     const-class v1, Landroid/widget/StackView;
 
@@ -3078,7 +3078,7 @@
     .end packed-switch
 .end method
 
-.method public performAccessibilityAction(ILandroid/os/Bundle;)Z
+.method public performAccessibilityActionInternal(ILandroid/os/Bundle;)Z
     .locals 4
     .param p1, "action"    # I
     .param p2, "arguments"    # Landroid/os/Bundle;
@@ -3088,7 +3088,7 @@
 
     const/4 v1, 0x0
 
-    invoke-super {p0, p1, p2}, Landroid/widget/AdapterViewAnimator;->performAccessibilityAction(ILandroid/os/Bundle;)Z
+    invoke-super {p0, p1, p2}, Landroid/widget/AdapterViewAnimator;->performAccessibilityActionInternal(ILandroid/os/Bundle;)Z
 
     move-result v2
 

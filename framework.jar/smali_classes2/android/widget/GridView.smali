@@ -6257,12 +6257,12 @@
     goto :goto_2
 .end method
 
-.method public onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
     .locals 1
     .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
 
     .prologue
-    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
 
     const-class v0, Landroid/widget/GridView;
 
@@ -6271,50 +6271,6 @@
     move-result-object v0
 
     invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
-.method public onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-    .locals 5
-    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-
-    const-class v4, Landroid/widget/GridView;
-
-    invoke-virtual {v4}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {p1, v4}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
-
-    invoke-virtual {p0}, Landroid/widget/GridView;->getNumColumns()I
-
-    move-result v1
-
-    .local v1, "columnsCount":I
-    invoke-virtual {p0}, Landroid/widget/GridView;->getCount()I
-
-    move-result v4
-
-    div-int v2, v4, v1
-
-    .local v2, "rowsCount":I
-    invoke-virtual {p0}, Landroid/widget/GridView;->getSelectionModeForAccessibility()I
-
-    move-result v3
-
-    .local v3, "selectionMode":I
-    const/4 v4, 0x0
-
-    invoke-static {v2, v1, v4, v3}, Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;->obtain(IIZI)Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
-
-    move-result-object v0
-
-    .local v0, "collectionInfo":Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setCollectionInfo(Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;)V
 
     return-void
 .end method
@@ -6423,6 +6379,50 @@
     const/4 v4, 0x0
 
     goto :goto_1
+.end method
+
+.method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+    .locals 5
+    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
+
+    .prologue
+    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+
+    const-class v4, Landroid/widget/GridView;
+
+    invoke-virtual {v4}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {p1, v4}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
+
+    invoke-virtual {p0}, Landroid/widget/GridView;->getNumColumns()I
+
+    move-result v1
+
+    .local v1, "columnsCount":I
+    invoke-virtual {p0}, Landroid/widget/GridView;->getCount()I
+
+    move-result v4
+
+    div-int v2, v4, v1
+
+    .local v2, "rowsCount":I
+    invoke-virtual {p0}, Landroid/widget/GridView;->getSelectionModeForAccessibility()I
+
+    move-result v3
+
+    .local v3, "selectionMode":I
+    const/4 v4, 0x0
+
+    invoke-static {v2, v1, v4, v3}, Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;->obtain(IIZI)Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
+
+    move-result-object v0
+
+    .local v0, "collectionInfo":Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setCollectionInfo(Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;)V
+
+    return-void
 .end method
 
 .method public onKeyDown(ILandroid/view/KeyEvent;)Z

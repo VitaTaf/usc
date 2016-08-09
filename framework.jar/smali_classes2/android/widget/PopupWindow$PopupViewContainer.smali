@@ -293,7 +293,7 @@
     goto :goto_0
 .end method
 
-.method public sendAccessibilityEvent(I)V
+.method public sendAccessibilityEventInternal(I)V
     .locals 1
     .param p1, "eventType"    # I
 
@@ -320,7 +320,7 @@
     return-void
 
     :cond_0
-    invoke-super {p0, p1}, Landroid/widget/FrameLayout;->sendAccessibilityEvent(I)V
+    invoke-super {p0, p1}, Landroid/widget/FrameLayout;->sendAccessibilityEventInternal(I)V
 
     goto :goto_0
 .end method

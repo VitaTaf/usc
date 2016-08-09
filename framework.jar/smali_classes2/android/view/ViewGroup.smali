@@ -7886,7 +7886,7 @@
     goto :goto_0
 .end method
 
-.method dispatchPopulateAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)Z
+.method public dispatchPopulateAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)Z
     .locals 6
     .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
 
@@ -13537,7 +13537,7 @@
     return-void
 .end method
 
-.method onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
+.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
     .locals 1
     .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
 
@@ -13555,7 +13555,7 @@
     return-void
 .end method
 
-.method onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+.method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
     .locals 5
     .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
 
@@ -13824,7 +13824,7 @@
     goto :goto_0
 .end method
 
-.method onRequestSendAccessibilityEventInternal(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)Z
+.method public onRequestSendAccessibilityEventInternal(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)Z
     .locals 1
     .param p1, "child"    # Landroid/view/View;
     .param p2, "event"    # Landroid/view/accessibility/AccessibilityEvent;

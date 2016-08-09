@@ -10396,12 +10396,12 @@
     goto :goto_2
 .end method
 
-.method public onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
     .locals 1
     .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
 
     .prologue
-    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
 
     const-class v0, Landroid/widget/ListView;
 
@@ -10410,45 +10410,6 @@
     move-result-object v0
 
     invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
-.method public onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-    .locals 5
-    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-
-    const-class v3, Landroid/widget/ListView;
-
-    invoke-virtual {v3}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {p1, v3}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
-
-    invoke-virtual {p0}, Landroid/widget/ListView;->getCount()I
-
-    move-result v1
-
-    .local v1, "rowsCount":I
-    invoke-virtual {p0}, Landroid/widget/ListView;->getSelectionModeForAccessibility()I
-
-    move-result v2
-
-    .local v2, "selectionMode":I
-    const/4 v3, 0x1
-
-    const/4 v4, 0x0
-
-    invoke-static {v1, v3, v4, v2}, Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;->obtain(IIZI)Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
-
-    move-result-object v0
-
-    .local v0, "collectionInfo":Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setCollectionInfo(Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;)V
 
     return-void
 .end method
@@ -10510,6 +10471,45 @@
     move v4, v2
 
     goto :goto_0
+.end method
+
+.method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+    .locals 5
+    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
+
+    .prologue
+    invoke-super {p0, p1}, Landroid/widget/AbsListView;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+
+    const-class v3, Landroid/widget/ListView;
+
+    invoke-virtual {v3}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {p1, v3}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
+
+    invoke-virtual {p0}, Landroid/widget/ListView;->getCount()I
+
+    move-result v1
+
+    .local v1, "rowsCount":I
+    invoke-virtual {p0}, Landroid/widget/ListView;->getSelectionModeForAccessibility()I
+
+    move-result v2
+
+    .local v2, "selectionMode":I
+    const/4 v3, 0x1
+
+    const/4 v4, 0x0
+
+    invoke-static {v1, v3, v4, v2}, Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;->obtain(IIZI)Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
+
+    move-result-object v0
+
+    .local v0, "collectionInfo":Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setCollectionInfo(Landroid/view/accessibility/AccessibilityNodeInfo$CollectionInfo;)V
+
+    return-void
 .end method
 
 .method public onKeyDown(ILandroid/view/KeyEvent;)Z
