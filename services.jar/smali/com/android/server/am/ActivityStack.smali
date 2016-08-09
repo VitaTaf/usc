@@ -7431,16 +7431,14 @@
     goto/16 :goto_0
 .end method
 
-.method final moveTaskToFrontLocked(Lcom/android/server/am/TaskRecord;Lcom/android/server/am/ActivityRecord;Landroid/os/Bundle;Ljava/lang/String;)V
+.method final moveTaskToFrontLocked(Lcom/android/server/am/TaskRecord;ZLandroid/os/Bundle;Ljava/lang/String;)V
     .locals 7
     .param p1, "tr"    # Lcom/android/server/am/TaskRecord;
-    .param p2, "source"    # Lcom/android/server/am/ActivityRecord;
+    .param p2, "noAnimation"    # Z
     .param p3, "options"    # Landroid/os/Bundle;
     .param p4, "reason"    # Ljava/lang/String;
 
     .prologue
-    const/high16 v5, 0x10000
-
     const/16 v4, 0xa
 
     const/4 v6, 0x0
@@ -7466,16 +7464,6 @@
     :cond_0
     if-eqz p2, :cond_1
 
-    iget-object v3, p2, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
-
-    invoke-virtual {v3}, Landroid/content/Intent;->getFlags()I
-
-    move-result v3
-
-    and-int/2addr v3, v5
-
-    if-eqz v3, :cond_1
-
     invoke-static {p3}, Landroid/app/ActivityOptions;->abort(Landroid/os/Bundle;)V
 
     :goto_0
@@ -7492,16 +7480,6 @@
     invoke-virtual {p0, p4}, Lcom/android/server/am/ActivityStack;->moveToFront(Ljava/lang/String;)V
 
     if-eqz p2, :cond_4
-
-    iget-object v3, p2, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
-
-    invoke-virtual {v3}, Landroid/content/Intent;->getFlags()I
-
-    move-result v3
-
-    and-int/2addr v3, v5
-
-    if-eqz v3, :cond_4
 
     iget-object v3, p0, Lcom/android/server/am/ActivityStack;->mWindowManager:Lcom/android/server/wm/WindowManagerService;
 
