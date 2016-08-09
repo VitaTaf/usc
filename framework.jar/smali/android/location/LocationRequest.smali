@@ -430,11 +430,10 @@
 
     packed-switch v2, :pswitch_data_1
 
-    :goto_0
     const/16 v0, 0xc9
 
     .local v0, "quality":I
-    :goto_1
+    :goto_0
     new-instance v2, Landroid/location/LocationRequest;
 
     invoke-direct {v2}, Landroid/location/LocationRequest;-><init>()V
@@ -471,14 +470,14 @@
     const/16 v0, 0x66
 
     .restart local v0    # "quality":I
-    goto :goto_1
+    goto :goto_0
 
     .end local v0    # "quality":I
     :pswitch_1
     const/16 v0, 0x64
 
     .restart local v0    # "quality":I
-    goto :goto_1
+    goto :goto_0
 
     .end local v0    # "quality":I
     :pswitch_2
