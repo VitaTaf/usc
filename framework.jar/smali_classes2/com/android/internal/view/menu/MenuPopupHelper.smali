@@ -3,11 +3,11 @@
 .source "MenuPopupHelper.java"
 
 # interfaces
-.implements Landroid/view/View$OnAttachStateChangeListener;
+.implements Landroid/widget/AdapterView$OnItemClickListener;
 .implements Landroid/view/View$OnKeyListener;
 .implements Landroid/view/ViewTreeObserver$OnGlobalLayoutListener;
-.implements Landroid/widget/AdapterView$OnItemClickListener;
 .implements Landroid/widget/PopupWindow$OnDismissListener;
+.implements Landroid/view/View$OnAttachStateChangeListener;
 .implements Lcom/android/internal/view/menu/MenuPresenter;
 
 
@@ -393,6 +393,15 @@
 
     .prologue
     const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public getGravity()I
+    .locals 1
+
+    .prologue
+    iget v0, p0, Lcom/android/internal/view/menu/MenuPopupHelper;->mDropDownGravity:I
 
     return v0
 .end method
