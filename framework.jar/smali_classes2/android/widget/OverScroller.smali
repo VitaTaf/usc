@@ -498,32 +498,17 @@
 .end method
 
 .method public getCurrVelocity()F
-    .locals 3
+    .locals 4
 
     .prologue
-    iget-object v1, p0, Landroid/widget/OverScroller;->mScrollerX:Landroid/widget/OverScroller$SplineOverScroller;
+    iget-object v0, p0, Landroid/widget/OverScroller;->mScrollerX:Landroid/widget/OverScroller$SplineOverScroller;
 
     # getter for: Landroid/widget/OverScroller$SplineOverScroller;->mCurrVelocity:F
-    invoke-static {v1}, Landroid/widget/OverScroller$SplineOverScroller;->access$200(Landroid/widget/OverScroller$SplineOverScroller;)F
+    invoke-static {v0}, Landroid/widget/OverScroller$SplineOverScroller;->access$200(Landroid/widget/OverScroller$SplineOverScroller;)F
 
-    move-result v1
+    move-result v0
 
-    iget-object v2, p0, Landroid/widget/OverScroller;->mScrollerX:Landroid/widget/OverScroller$SplineOverScroller;
-
-    # getter for: Landroid/widget/OverScroller$SplineOverScroller;->mCurrVelocity:F
-    invoke-static {v2}, Landroid/widget/OverScroller$SplineOverScroller;->access$200(Landroid/widget/OverScroller$SplineOverScroller;)F
-
-    move-result v2
-
-    mul-float v0, v1, v2
-
-    .local v0, "squaredNorm":F
-    iget-object v1, p0, Landroid/widget/OverScroller;->mScrollerY:Landroid/widget/OverScroller$SplineOverScroller;
-
-    # getter for: Landroid/widget/OverScroller$SplineOverScroller;->mCurrVelocity:F
-    invoke-static {v1}, Landroid/widget/OverScroller$SplineOverScroller;->access$200(Landroid/widget/OverScroller$SplineOverScroller;)F
-
-    move-result v1
+    float-to-double v0, v0
 
     iget-object v2, p0, Landroid/widget/OverScroller;->mScrollerY:Landroid/widget/OverScroller$SplineOverScroller;
 
@@ -532,15 +517,15 @@
 
     move-result v2
 
-    mul-float/2addr v1, v2
+    float-to-double v2, v2
 
-    add-float/2addr v0, v1
+    invoke-static {v0, v1, v2, v3}, Ljava/lang/Math;->hypot(DD)D
 
-    invoke-static {v0}, Landroid/util/FloatMath;->sqrt(F)F
+    move-result-wide v0
 
-    move-result v1
+    double-to-float v0, v0
 
-    return v1
+    return v0
 .end method
 
 .method public final getCurrX()I

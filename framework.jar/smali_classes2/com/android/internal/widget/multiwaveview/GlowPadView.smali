@@ -1942,23 +1942,19 @@
     sub-float v30, v11, v33
 
     .local v30, "ty":F
-    move-object/from16 v0, p0
-
-    move/from16 v1, v29
-
-    move/from16 v2, v30
-
-    invoke-direct {v0, v1, v2}, Lcom/android/internal/widget/multiwaveview/GlowPadView;->dist2(FF)F
-
-    move-result v33
-
-    move/from16 v0, v33
+    move/from16 v0, v29
 
     float-to-double v0, v0
 
     move-wide/from16 v34, v0
 
-    invoke-static/range {v34 .. v35}, Ljava/lang/Math;->sqrt(D)D
+    move/from16 v0, v30
+
+    float-to-double v0, v0
+
+    move-wide/from16 v36, v0
+
+    invoke-static/range {v34 .. v37}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v34
 

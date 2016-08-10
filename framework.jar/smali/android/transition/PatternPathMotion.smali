@@ -141,85 +141,68 @@
     return-void
 .end method
 
-.method private static distance(FF)F
-    .locals 2
-    .param p0, "x"    # F
-    .param p1, "y"    # F
-
-    .prologue
-    mul-float v0, p0, p0
-
-    mul-float v1, p1, p1
-
-    add-float/2addr v0, v1
-
-    invoke-static {v0}, Landroid/util/FloatMath;->sqrt(F)F
-
-    move-result v0
-
-    return v0
-.end method
-
 
 # virtual methods
 .method public getPath(FFFF)Landroid/graphics/Path;
-    .locals 10
+    .locals 12
     .param p1, "startX"    # F
     .param p2, "startY"    # F
     .param p3, "endX"    # F
     .param p4, "endY"    # F
 
     .prologue
-    sub-float v2, p3, p1
+    sub-float v8, p3, p1
 
-    .local v2, "dx":F
-    sub-float v3, p4, p2
+    float-to-double v2, v8
 
-    .local v3, "dy":F
-    invoke-static {v2, v3}, Landroid/transition/PatternPathMotion;->distance(FF)F
+    .local v2, "dx":D
+    sub-float v8, p4, p2
 
-    move-result v4
+    float-to-double v4, v8
 
-    .local v4, "length":F
-    float-to-double v6, v3
+    .local v4, "dy":D
+    invoke-static {v2, v3, v4, v5}, Ljava/lang/Math;->hypot(DD)D
 
-    float-to-double v8, v2
+    move-result-wide v8
 
-    invoke-static {v6, v7, v8, v9}, Ljava/lang/Math;->atan2(DD)D
+    double-to-float v6, v8
+
+    .local v6, "length":F
+    invoke-static {v4, v5, v2, v3}, Ljava/lang/Math;->atan2(DD)D
 
     move-result-wide v0
 
     .local v0, "angle":D
-    iget-object v6, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
+    iget-object v8, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
 
-    invoke-virtual {v6, v4, v4}, Landroid/graphics/Matrix;->setScale(FF)V
+    invoke-virtual {v8, v6, v6}, Landroid/graphics/Matrix;->setScale(FF)V
 
-    iget-object v6, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
+    iget-object v8, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
 
     invoke-static {v0, v1}, Ljava/lang/Math;->toDegrees(D)D
 
-    move-result-wide v8
+    move-result-wide v10
 
-    double-to-float v7, v8
+    double-to-float v9, v10
 
-    invoke-virtual {v6, v7}, Landroid/graphics/Matrix;->postRotate(F)Z
+    invoke-virtual {v8, v9}, Landroid/graphics/Matrix;->postRotate(F)Z
 
-    iget-object v6, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
+    iget-object v8, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
 
-    invoke-virtual {v6, p1, p2}, Landroid/graphics/Matrix;->postTranslate(FF)Z
+    invoke-virtual {v8, p1, p2}, Landroid/graphics/Matrix;->postTranslate(FF)Z
 
-    new-instance v5, Landroid/graphics/Path;
+    new-instance v7, Landroid/graphics/Path;
 
-    invoke-direct {v5}, Landroid/graphics/Path;-><init>()V
+    invoke-direct {v7}, Landroid/graphics/Path;-><init>()V
 
-    .local v5, "path":Landroid/graphics/Path;
-    iget-object v6, p0, Landroid/transition/PatternPathMotion;->mPatternPath:Landroid/graphics/Path;
+    .local v7, "path":Landroid/graphics/Path;
+    iget-object v8, p0, Landroid/transition/PatternPathMotion;->mPatternPath:Landroid/graphics/Path;
 
-    iget-object v7, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
+    iget-object v9, p0, Landroid/transition/PatternPathMotion;->mTempMatrix:Landroid/graphics/Matrix;
 
-    invoke-virtual {v6, v7, v5}, Landroid/graphics/Path;->transform(Landroid/graphics/Matrix;Landroid/graphics/Path;)V
+    invoke-virtual {v8, v9, v7}, Landroid/graphics/Path;->transform(Landroid/graphics/Matrix;Landroid/graphics/Path;)V
 
-    return-object v5
+    return-object v7
 .end method
 
 .method public getPatternPath()Landroid/graphics/Path;
@@ -324,9 +307,21 @@
     sub-float v6, v8, v14
 
     .local v6, "dy":F
-    invoke-static {v5, v6}, Landroid/transition/PatternPathMotion;->distance(FF)F
+    float-to-double v0, v5
 
-    move-result v4
+    move-wide/from16 v16, v0
+
+    float-to-double v0, v6
+
+    move-wide/from16 v18, v0
+
+    invoke-static/range {v16 .. v19}, Ljava/lang/Math;->hypot(DD)D
+
+    move-result-wide v16
+
+    move-wide/from16 v0, v16
+
+    double-to-float v4, v0
 
     .local v4, "distance":F
     const/high16 v15, 0x3f800000    # 1.0f

@@ -66,7 +66,7 @@
 .end method
 
 .method public constructor <init>(Ljava/util/ArrayList;)V
-    .locals 18
+    .locals 14
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -79,172 +79,148 @@
 
     .prologue
     .local p1, "points":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Landroid/gesture/GesturePoint;>;"
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    invoke-virtual/range {p1 .. p1}, Ljava/util/ArrayList;->size()I
+    invoke-virtual {p1}, Ljava/util/ArrayList;->size()I
 
-    move-result v3
+    move-result v1
 
-    .local v3, "count":I
-    mul-int/lit8 v10, v3, 0x2
+    .local v1, "count":I
+    mul-int/lit8 v8, v1, 0x2
 
-    new-array v9, v10, [F
+    new-array v7, v8, [F
 
-    .local v9, "tmpPoints":[F
-    new-array v8, v3, [J
+    .local v7, "tmpPoints":[F
+    new-array v6, v1, [J
 
-    .local v8, "times":[J
-    const/4 v2, 0x0
+    .local v6, "times":[J
+    const/4 v0, 0x0
 
-    .local v2, "bx":Landroid/graphics/RectF;
-    const/4 v6, 0x0
-
-    .local v6, "len":F
-    const/4 v5, 0x0
-
-    .local v5, "index":I
+    .local v0, "bx":Landroid/graphics/RectF;
     const/4 v4, 0x0
 
-    .local v4, "i":I
+    .local v4, "len":F
+    const/4 v3, 0x0
+
+    .local v3, "index":I
+    const/4 v2, 0x0
+
+    .local v2, "i":I
     :goto_0
-    if-ge v4, v3, :cond_1
+    if-ge v2, v1, :cond_1
 
-    move-object/from16 v0, p1
+    invoke-virtual {p1, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    invoke-virtual {v0, v4}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    move-result-object v5
 
-    move-result-object v7
+    check-cast v5, Landroid/gesture/GesturePoint;
 
-    check-cast v7, Landroid/gesture/GesturePoint;
+    .local v5, "p":Landroid/gesture/GesturePoint;
+    mul-int/lit8 v8, v2, 0x2
 
-    .local v7, "p":Landroid/gesture/GesturePoint;
-    mul-int/lit8 v10, v4, 0x2
+    iget v9, v5, Landroid/gesture/GesturePoint;->x:F
 
-    iget v11, v7, Landroid/gesture/GesturePoint;->x:F
+    aput v9, v7, v8
 
-    aput v11, v9, v10
+    mul-int/lit8 v8, v2, 0x2
 
-    mul-int/lit8 v10, v4, 0x2
+    add-int/lit8 v8, v8, 0x1
 
-    add-int/lit8 v10, v10, 0x1
+    iget v9, v5, Landroid/gesture/GesturePoint;->y:F
 
-    iget v11, v7, Landroid/gesture/GesturePoint;->y:F
+    aput v9, v7, v8
 
-    aput v11, v9, v10
+    iget-wide v8, v5, Landroid/gesture/GesturePoint;->timestamp:J
 
-    iget-wide v10, v7, Landroid/gesture/GesturePoint;->timestamp:J
+    aput-wide v8, v6, v3
 
-    aput-wide v10, v8, v5
+    if-nez v0, :cond_0
 
-    if-nez v2, :cond_0
+    new-instance v0, Landroid/graphics/RectF;
 
-    new-instance v2, Landroid/graphics/RectF;
+    .end local v0    # "bx":Landroid/graphics/RectF;
+    invoke-direct {v0}, Landroid/graphics/RectF;-><init>()V
 
-    .end local v2    # "bx":Landroid/graphics/RectF;
-    invoke-direct {v2}, Landroid/graphics/RectF;-><init>()V
+    .restart local v0    # "bx":Landroid/graphics/RectF;
+    iget v8, v5, Landroid/gesture/GesturePoint;->y:F
 
-    .restart local v2    # "bx":Landroid/graphics/RectF;
-    iget v10, v7, Landroid/gesture/GesturePoint;->y:F
+    iput v8, v0, Landroid/graphics/RectF;->top:F
 
-    iput v10, v2, Landroid/graphics/RectF;->top:F
+    iget v8, v5, Landroid/gesture/GesturePoint;->x:F
 
-    iget v10, v7, Landroid/gesture/GesturePoint;->x:F
+    iput v8, v0, Landroid/graphics/RectF;->left:F
 
-    iput v10, v2, Landroid/graphics/RectF;->left:F
+    iget v8, v5, Landroid/gesture/GesturePoint;->x:F
 
-    iget v10, v7, Landroid/gesture/GesturePoint;->x:F
+    iput v8, v0, Landroid/graphics/RectF;->right:F
 
-    iput v10, v2, Landroid/graphics/RectF;->right:F
+    iget v8, v5, Landroid/gesture/GesturePoint;->y:F
 
-    iget v10, v7, Landroid/gesture/GesturePoint;->y:F
+    iput v8, v0, Landroid/graphics/RectF;->bottom:F
 
-    iput v10, v2, Landroid/graphics/RectF;->bottom:F
-
-    const/4 v6, 0x0
+    const/4 v4, 0x0
 
     :goto_1
-    add-int/lit8 v5, v5, 0x1
+    add-int/lit8 v3, v3, 0x1
 
-    add-int/lit8 v4, v4, 0x1
+    add-int/lit8 v2, v2, 0x1
 
     goto :goto_0
 
     :cond_0
-    float-to-double v10, v6
+    float-to-double v8, v4
 
-    iget v12, v7, Landroid/gesture/GesturePoint;->x:F
+    iget v10, v5, Landroid/gesture/GesturePoint;->x:F
 
-    add-int/lit8 v13, v4, -0x1
+    add-int/lit8 v11, v2, -0x1
+
+    mul-int/lit8 v11, v11, 0x2
+
+    aget v11, v7, v11
+
+    sub-float/2addr v10, v11
+
+    float-to-double v10, v10
+
+    iget v12, v5, Landroid/gesture/GesturePoint;->y:F
+
+    add-int/lit8 v13, v2, -0x1
 
     mul-int/lit8 v13, v13, 0x2
 
-    aget v13, v9, v13
+    add-int/lit8 v13, v13, 0x1
+
+    aget v13, v7, v13
 
     sub-float/2addr v12, v13
 
     float-to-double v12, v12
 
-    const-wide/high16 v14, 0x4000000000000000L    # 2.0
+    invoke-static {v10, v11, v12, v13}, Ljava/lang/Math;->hypot(DD)D
 
-    invoke-static {v12, v13, v14, v15}, Ljava/lang/Math;->pow(DD)D
+    move-result-wide v10
 
-    move-result-wide v12
+    add-double/2addr v8, v10
 
-    iget v14, v7, Landroid/gesture/GesturePoint;->y:F
+    double-to-float v4, v8
 
-    add-int/lit8 v15, v4, -0x1
+    iget v8, v5, Landroid/gesture/GesturePoint;->x:F
 
-    mul-int/lit8 v15, v15, 0x2
+    iget v9, v5, Landroid/gesture/GesturePoint;->y:F
 
-    add-int/lit8 v15, v15, 0x1
-
-    aget v15, v9, v15
-
-    sub-float/2addr v14, v15
-
-    float-to-double v14, v14
-
-    const-wide/high16 v16, 0x4000000000000000L    # 2.0
-
-    invoke-static/range {v14 .. v17}, Ljava/lang/Math;->pow(DD)D
-
-    move-result-wide v14
-
-    add-double/2addr v12, v14
-
-    invoke-static {v12, v13}, Ljava/lang/Math;->sqrt(D)D
-
-    move-result-wide v12
-
-    add-double/2addr v10, v12
-
-    double-to-float v6, v10
-
-    iget v10, v7, Landroid/gesture/GesturePoint;->x:F
-
-    iget v11, v7, Landroid/gesture/GesturePoint;->y:F
-
-    invoke-virtual {v2, v10, v11}, Landroid/graphics/RectF;->union(FF)V
+    invoke-virtual {v0, v8, v9}, Landroid/graphics/RectF;->union(FF)V
 
     goto :goto_1
 
-    .end local v7    # "p":Landroid/gesture/GesturePoint;
+    .end local v5    # "p":Landroid/gesture/GesturePoint;
     :cond_1
-    move-object/from16 v0, p0
+    iput-object v6, p0, Landroid/gesture/GestureStroke;->timestamps:[J
 
-    iput-object v8, v0, Landroid/gesture/GestureStroke;->timestamps:[J
+    iput-object v7, p0, Landroid/gesture/GestureStroke;->points:[F
 
-    move-object/from16 v0, p0
+    iput-object v0, p0, Landroid/gesture/GestureStroke;->boundingBox:Landroid/graphics/RectF;
 
-    iput-object v9, v0, Landroid/gesture/GestureStroke;->points:[F
-
-    move-object/from16 v0, p0
-
-    iput-object v2, v0, Landroid/gesture/GestureStroke;->boundingBox:Landroid/graphics/RectF;
-
-    move-object/from16 v0, p0
-
-    iput v6, v0, Landroid/gesture/GestureStroke;->length:F
+    iput v4, p0, Landroid/gesture/GestureStroke;->length:F
 
     return-void
 .end method

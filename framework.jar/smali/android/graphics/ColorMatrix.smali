@@ -431,119 +431,125 @@
 .end method
 
 .method public setRotate(IF)V
-    .locals 8
+    .locals 11
     .param p1, "axis"    # I
     .param p2, "degrees"    # F
 
     .prologue
-    const/16 v7, 0xc
+    const/16 v10, 0xc
 
-    const/4 v6, 0x6
+    const/4 v9, 0x6
 
-    const/4 v5, 0x0
+    const/4 v8, 0x0
 
     invoke-virtual {p0}, Landroid/graphics/ColorMatrix;->reset()V
 
-    const v3, 0x40490fdb    # (float)Math.PI
+    float-to-double v4, p2
 
-    mul-float/2addr v3, p2
+    const-wide v6, 0x400921fb54442d18L    # Math.PI
 
-    const/high16 v4, 0x43340000    # 180.0f
+    mul-double/2addr v4, v6
 
-    div-float v1, v3, v4
+    const-wide v6, 0x4066800000000000L    # 180.0
 
-    .local v1, "radians":F
-    invoke-static {v1}, Landroid/util/FloatMath;->cos(F)F
+    div-double v2, v4, v6
 
-    move-result v0
+    .local v2, "radians":D
+    invoke-static {v2, v3}, Ljava/lang/Math;->cos(D)D
+
+    move-result-wide v4
+
+    double-to-float v0, v4
 
     .local v0, "cosine":F
-    invoke-static {v1}, Landroid/util/FloatMath;->sin(F)F
+    invoke-static {v2, v3}, Ljava/lang/Math;->sin(D)D
 
-    move-result v2
+    move-result-wide v4
 
-    .local v2, "sine":F
+    double-to-float v1, v4
+
+    .local v1, "sine":F
     packed-switch p1, :pswitch_data_0
 
-    new-instance v3, Ljava/lang/RuntimeException;
+    new-instance v4, Ljava/lang/RuntimeException;
 
-    invoke-direct {v3}, Ljava/lang/RuntimeException;-><init>()V
+    invoke-direct {v4}, Ljava/lang/RuntimeException;-><init>()V
 
-    throw v3
+    throw v4
 
     :pswitch_0
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+    iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+
+    iget-object v5, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+
+    aput v0, v5, v10
+
+    aput v0, v4, v9
 
     iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
 
-    aput v0, v4, v7
+    const/4 v5, 0x7
 
-    aput v0, v3, v6
+    aput v1, v4, v5
 
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+    iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
 
-    const/4 v4, 0x7
+    const/16 v5, 0xb
 
-    aput v2, v3, v4
+    neg-float v6, v1
 
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
-
-    const/16 v4, 0xb
-
-    neg-float v5, v2
-
-    aput v5, v3, v4
+    aput v6, v4, v5
 
     :goto_0
     return-void
 
     :pswitch_1
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+    iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+
+    iget-object v5, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+
+    aput v0, v5, v10
+
+    aput v0, v4, v8
 
     iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
 
-    aput v0, v4, v7
+    const/4 v5, 0x2
 
-    aput v0, v3, v5
+    neg-float v6, v1
 
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+    aput v6, v4, v5
 
-    const/4 v4, 0x2
+    iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
 
-    neg-float v5, v2
+    const/16 v5, 0xa
 
-    aput v5, v3, v4
-
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
-
-    const/16 v4, 0xa
-
-    aput v2, v3, v4
+    aput v1, v4, v5
 
     goto :goto_0
 
     :pswitch_2
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+    iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+
+    iget-object v5, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+
+    aput v0, v5, v9
+
+    aput v0, v4, v8
 
     iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
 
-    aput v0, v4, v6
+    const/4 v5, 0x1
 
-    aput v0, v3, v5
+    aput v1, v4, v5
 
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
+    iget-object v4, p0, Landroid/graphics/ColorMatrix;->mArray:[F
 
-    const/4 v4, 0x1
+    const/4 v5, 0x5
 
-    aput v2, v3, v4
+    neg-float v6, v1
 
-    iget-object v3, p0, Landroid/graphics/ColorMatrix;->mArray:[F
-
-    const/4 v4, 0x5
-
-    neg-float v5, v2
-
-    aput v5, v3, v4
+    aput v6, v4, v5
 
     goto :goto_0
 

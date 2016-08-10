@@ -6,3 +6,15 @@ framework-res/dist/framework-res.apk
 framework.jar/build/*
 
 framework.jar/dist/framework.jar
+
+android.policy.jar/build/*
+
+android.policy.jar/dist/android.policy.jar
+
+SystemUI/build/*
+
+SystemUI/dist/SystemUI.apk
+
+services.jar/build/*
+
+services.jar/dist/services.jar

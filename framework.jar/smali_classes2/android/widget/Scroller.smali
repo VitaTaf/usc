@@ -966,7 +966,7 @@
 .end method
 
 .method public fling(IIIIIIII)V
-    .locals 20
+    .locals 22
     .param p1, "startX"    # I
     .param p2, "startY"    # I
     .param p3, "velocityX"    # I
@@ -1036,15 +1036,21 @@
     int-to-float v7, v0
 
     .local v7, "dy":F
-    mul-float v17, v6, v6
+    float-to-double v0, v6
 
-    mul-float v18, v7, v7
+    move-wide/from16 v18, v0
 
-    add-float v17, v17, v18
+    float-to-double v0, v7
 
-    invoke-static/range {v17 .. v17}, Landroid/util/FloatMath;->sqrt(F)F
+    move-wide/from16 v20, v0
 
-    move-result v8
+    invoke-static/range {v18 .. v21}, Ljava/lang/Math;->hypot(DD)D
+
+    move-result-wide v18
+
+    move-wide/from16 v0, v18
+
+    double-to-float v8, v0
 
     .local v8, "hyp":F
     div-float v9, v6, v8
@@ -1148,21 +1154,27 @@
 
     iput-boolean v0, v1, Landroid/widget/Scroller;->mFinished:Z
 
-    mul-int v17, p3, p3
+    move/from16 v0, p3
 
-    mul-int v18, p4, p4
+    int-to-double v0, v0
 
-    add-int v17, v17, v18
+    move-wide/from16 v18, v0
 
-    move/from16 v0, v17
+    move/from16 v0, p4
 
-    int-to-float v0, v0
+    int-to-double v0, v0
 
-    move/from16 v17, v0
+    move-wide/from16 v20, v0
 
-    invoke-static/range {v17 .. v17}, Landroid/util/FloatMath;->sqrt(F)F
+    invoke-static/range {v18 .. v21}, Ljava/lang/Math;->hypot(DD)D
 
-    move-result v16
+    move-result-wide v18
+
+    move-wide/from16 v0, v18
+
+    double-to-float v0, v0
+
+    move/from16 v16, v0
 
     .local v16, "velocity":F
     move/from16 v0, v16

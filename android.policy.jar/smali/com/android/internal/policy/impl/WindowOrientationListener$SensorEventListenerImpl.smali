@@ -1250,11 +1250,17 @@
 
     add-float v27, v27, v28
 
-    invoke-static/range {v27 .. v27}, Landroid/util/FloatMath;->sqrt(F)F
+    move/from16 v0, v27
 
-    move-result v27
+    float-to-double v0, v0
 
-    invoke-virtual/range {v26 .. v27}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+    move-wide/from16 v27, v0
+
+    invoke-static/range {v27 .. v28}, Ljava/lang/Math;->sqrt(D)D
+
+    move-result-wide v27
+
+    invoke-virtual/range {v26 .. v28}, Ljava/lang/StringBuilder;->append(D)Ljava/lang/StringBuilder;
 
     move-result-object v26
 
@@ -1392,9 +1398,19 @@
 
     add-float v24, v24, v26
 
-    invoke-static/range {v24 .. v24}, Landroid/util/FloatMath;->sqrt(F)F
+    move/from16 v0, v24
 
-    move-result v8
+    float-to-double v0, v0
+
+    move-wide/from16 v27, v0
+
+    invoke-static/range {v27 .. v28}, Ljava/lang/Math;->sqrt(D)D
+
+    move-result-wide v27
+
+    move-wide/from16 v0, v27
+
+    double-to-float v8, v0
 
     .local v8, "magnitude":F
     const/high16 v24, 0x3f800000    # 1.0f
@@ -1933,11 +1949,17 @@
 
     add-float v27, v27, v28
 
-    invoke-static/range {v27 .. v27}, Landroid/util/FloatMath;->sqrt(F)F
+    move/from16 v0, v27
 
-    move-result v27
+    float-to-double v0, v0
 
-    invoke-virtual/range {v26 .. v27}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+    move-wide/from16 v27, v0
+
+    invoke-static/range {v27 .. v28}, Ljava/lang/Math;->sqrt(D)D
+
+    move-result-wide v27
+
+    invoke-virtual/range {v26 .. v28}, Ljava/lang/StringBuilder;->append(D)Ljava/lang/StringBuilder;
 
     move-result-object v26
 

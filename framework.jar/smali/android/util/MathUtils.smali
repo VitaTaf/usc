@@ -225,7 +225,7 @@
 .end method
 
 .method public static dist(FFFF)F
-    .locals 4
+    .locals 6
     .param p0, "x1"    # F
     .param p1, "y1"    # F
     .param p2, "x2"    # F
@@ -238,15 +238,11 @@
     sub-float v1, p3, p1
 
     .local v1, "y":F
-    mul-float v2, v0, v0
+    float-to-double v2, v0
 
-    mul-float v3, v1, v1
+    float-to-double v4, v1
 
-    add-float/2addr v2, v3
-
-    float-to-double v2, v2
-
-    invoke-static {v2, v3}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v2, v3, v4, v5}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v2
 
@@ -344,20 +340,16 @@
 .end method
 
 .method public static mag(FF)F
-    .locals 2
+    .locals 4
     .param p0, "a"    # F
     .param p1, "b"    # F
 
     .prologue
-    mul-float v0, p0, p0
+    float-to-double v0, p0
 
-    mul-float v1, p1, p1
+    float-to-double v2, p1
 
-    add-float/2addr v0, v1
-
-    float-to-double v0, v0
-
-    invoke-static {v0, v1}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v0, v1, v2, v3}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v0
 

@@ -1004,41 +1004,49 @@
 .end method
 
 .method public roundOut(Landroid/graphics/Rect;)V
-    .locals 4
+    .locals 6
     .param p1, "dst"    # Landroid/graphics/Rect;
 
     .prologue
     iget v0, p0, Landroid/graphics/RectF;->left:F
 
-    invoke-static {v0}, Landroid/util/FloatMath;->floor(F)F
+    float-to-double v0, v0
 
-    move-result v0
+    invoke-static {v0, v1}, Ljava/lang/Math;->floor(D)D
 
-    float-to-int v0, v0
+    move-result-wide v0
+
+    double-to-int v0, v0
 
     iget v1, p0, Landroid/graphics/RectF;->top:F
 
-    invoke-static {v1}, Landroid/util/FloatMath;->floor(F)F
+    float-to-double v2, v1
 
-    move-result v1
+    invoke-static {v2, v3}, Ljava/lang/Math;->floor(D)D
 
-    float-to-int v1, v1
+    move-result-wide v2
+
+    double-to-int v1, v2
 
     iget v2, p0, Landroid/graphics/RectF;->right:F
 
-    invoke-static {v2}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v2, v2
 
-    move-result v2
+    invoke-static {v2, v3}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v2, v2
+    move-result-wide v2
+
+    double-to-int v2, v2
 
     iget v3, p0, Landroid/graphics/RectF;->bottom:F
 
-    invoke-static {v3}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v4, v3
 
-    move-result v3
+    invoke-static {v4, v5}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v3, v3
+    move-result-wide v4
+
+    double-to-int v3, v4
 
     invoke-virtual {p1, v0, v1, v2, v3}, Landroid/graphics/Rect;->set(IIII)V
 

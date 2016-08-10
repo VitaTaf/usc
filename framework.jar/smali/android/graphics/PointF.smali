@@ -86,20 +86,20 @@
 .end method
 
 .method public static length(FF)F
-    .locals 2
+    .locals 4
     .param p0, "x"    # F
     .param p1, "y"    # F
 
     .prologue
-    mul-float v0, p0, p0
+    float-to-double v0, p0
 
-    mul-float v1, p1, p1
+    float-to-double v2, p1
 
-    add-float/2addr v0, v1
+    invoke-static {v0, v1, v2, v3}, Ljava/lang/Math;->hypot(DD)D
 
-    invoke-static {v0}, Landroid/util/FloatMath;->sqrt(F)F
+    move-result-wide v0
 
-    move-result v0
+    double-to-float v0, v0
 
     return v0
 .end method

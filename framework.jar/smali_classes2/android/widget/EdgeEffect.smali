@@ -699,14 +699,14 @@
 .end method
 
 .method public onPull(FF)V
-    .locals 9
+    .locals 10
     .param p1, "deltaDistance"    # F
     .param p2, "displacement"    # F
 
     .prologue
     const/4 v6, 0x1
 
-    const/high16 v8, 0x3f800000    # 1.0f
+    const-wide/high16 v8, 0x3ff0000000000000L    # 1.0
 
     const/4 v7, 0x0
 
@@ -811,41 +811,47 @@
     goto :goto_0
 
     :cond_2
-    iget v4, p0, Landroid/widget/EdgeEffect;->mPullDistance:F
+    const-wide/16 v4, 0x0
 
-    invoke-static {v4}, Ljava/lang/Math;->abs(F)F
+    iget v6, p0, Landroid/widget/EdgeEffect;->mPullDistance:F
 
-    move-result v4
+    invoke-static {v6}, Ljava/lang/Math;->abs(F)F
 
-    iget-object v5, p0, Landroid/widget/EdgeEffect;->mBounds:Landroid/graphics/Rect;
+    move-result v6
 
-    invoke-virtual {v5}, Landroid/graphics/Rect;->height()I
+    iget-object v7, p0, Landroid/widget/EdgeEffect;->mBounds:Landroid/graphics/Rect;
 
-    move-result v5
+    invoke-virtual {v7}, Landroid/graphics/Rect;->height()I
 
-    int-to-float v5, v5
+    move-result v7
 
-    mul-float/2addr v4, v5
+    int-to-float v7, v7
 
-    invoke-static {v4}, Landroid/util/FloatMath;->sqrt(F)F
+    mul-float/2addr v6, v7
 
-    move-result v4
+    float-to-double v6, v6
 
-    div-float v4, v8, v4
+    invoke-static {v6, v7}, Ljava/lang/Math;->sqrt(D)D
 
-    sub-float v4, v8, v4
+    move-result-wide v6
 
-    const v5, 0x3e99999a    # 0.3f
+    div-double v6, v8, v6
 
-    sub-float/2addr v4, v5
+    sub-double v6, v8, v6
 
-    invoke-static {v7, v4}, Ljava/lang/Math;->max(FF)F
+    const-wide v8, 0x3fd3333333333333L    # 0.3
 
-    move-result v4
+    sub-double/2addr v6, v8
 
-    const v5, 0x3f333333    # 0.7f
+    invoke-static {v4, v5, v6, v7}, Ljava/lang/Math;->max(DD)D
 
-    div-float v1, v4, v5
+    move-result-wide v4
+
+    const-wide v6, 0x3fe6666666666666L    # 0.7
+
+    div-double/2addr v4, v6
+
+    double-to-float v1, v4
 
     .local v1, "scale":F
     iput v1, p0, Landroid/widget/EdgeEffect;->mGlowScaleYStart:F

@@ -81,27 +81,8 @@
     return-void
 .end method
 
-.method private static calculateDistance(FF)F
-    .locals 2
-    .param p0, "x"    # F
-    .param p1, "y"    # F
-
-    .prologue
-    mul-float v0, p0, p0
-
-    mul-float v1, p1, p1
-
-    add-float/2addr v0, v1
-
-    invoke-static {v0}, Landroid/util/FloatMath;->sqrt(F)F
-
-    move-result v0
-
-    return v0
-.end method
-
-.method private static calculateMaxDistance(Landroid/view/View;II)F
-    .locals 4
+.method private static calculateMaxDistance(Landroid/view/View;II)D
+    .locals 6
     .param p0, "sceneRoot"    # Landroid/view/View;
     .param p1, "focalX"    # I
     .param p2, "focalY"    # I
@@ -129,19 +110,19 @@
     move-result v1
 
     .local v1, "maxY":I
-    int-to-float v2, v0
+    int-to-double v2, v0
 
-    int-to-float v3, v1
+    int-to-double v4, v1
 
-    invoke-static {v2, v3}, Landroid/transition/Explode;->calculateDistance(FF)F
+    invoke-static {v2, v3, v4, v5}, Ljava/lang/Math;->hypot(DD)D
 
-    move-result v2
+    move-result-wide v2
 
-    return v2
+    return-wide v2
 .end method
 
 .method private calculateOut(Landroid/view/View;Landroid/graphics/Rect;[I)V
-    .locals 18
+    .locals 22
     .param p1, "sceneRoot"    # Landroid/view/View;
     .param p2, "bounds"    # Landroid/graphics/Rect;
     .param p3, "outVector"    # [I
@@ -149,30 +130,30 @@
     .prologue
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Landroid/transition/Explode;->mTempLoc:[I
+    iget-object v11, v0, Landroid/transition/Explode;->mTempLoc:[I
 
     move-object/from16 v0, p1
 
-    invoke-virtual {v0, v13}, Landroid/view/View;->getLocationOnScreen([I)V
+    invoke-virtual {v0, v11}, Landroid/view/View;->getLocationOnScreen([I)V
 
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Landroid/transition/Explode;->mTempLoc:[I
+    iget-object v11, v0, Landroid/transition/Explode;->mTempLoc:[I
 
-    const/4 v14, 0x0
+    const/16 v18, 0x0
 
-    aget v8, v13, v14
+    aget v7, v11, v18
 
-    .local v8, "sceneRootX":I
+    .local v7, "sceneRootX":I
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Landroid/transition/Explode;->mTempLoc:[I
+    iget-object v11, v0, Landroid/transition/Explode;->mTempLoc:[I
 
-    const/4 v14, 0x1
+    const/16 v18, 0x1
 
-    aget v9, v13, v14
+    aget v10, v11, v18
 
-    .local v9, "sceneRootY":I
+    .local v10, "sceneRootY":I
     invoke-virtual/range {p0 .. p0}, Landroid/transition/Explode;->getEpicenter()Landroid/graphics/Rect;
 
     move-result-object v4
@@ -182,40 +163,40 @@
 
     invoke-virtual/range {p1 .. p1}, Landroid/view/View;->getWidth()I
 
-    move-result v13
+    move-result v11
 
-    div-int/lit8 v13, v13, 0x2
+    div-int/lit8 v11, v11, 0x2
 
-    add-int/2addr v13, v8
+    add-int/2addr v11, v7
 
     invoke-virtual/range {p1 .. p1}, Landroid/view/View;->getTranslationX()F
 
-    move-result v14
+    move-result v18
 
-    invoke-static {v14}, Ljava/lang/Math;->round(F)I
+    invoke-static/range {v18 .. v18}, Ljava/lang/Math;->round(F)I
 
-    move-result v14
+    move-result v18
 
-    add-int v5, v13, v14
+    add-int v5, v11, v18
 
     .local v5, "focalX":I
     invoke-virtual/range {p1 .. p1}, Landroid/view/View;->getHeight()I
 
-    move-result v13
+    move-result v11
 
-    div-int/lit8 v13, v13, 0x2
+    div-int/lit8 v11, v11, 0x2
 
-    add-int/2addr v13, v9
+    add-int/2addr v11, v10
 
     invoke-virtual/range {p1 .. p1}, Landroid/view/View;->getTranslationY()F
 
-    move-result v14
+    move-result v18
 
-    invoke-static {v14}, Ljava/lang/Math;->round(F)I
+    invoke-static/range {v18 .. v18}, Ljava/lang/Math;->round(F)I
 
-    move-result v14
+    move-result v18
 
-    add-int v6, v13, v14
+    add-int v6, v11, v18
 
     .local v6, "focalY":I
     :goto_0
@@ -229,96 +210,108 @@
     move-result v3
 
     .local v3, "centerY":I
-    sub-int v13, v2, v5
+    sub-int v11, v2, v5
 
-    int-to-float v11, v13
+    int-to-double v14, v11
 
-    .local v11, "xVector":F
-    sub-int v13, v3, v6
+    .local v14, "xVector":D
+    sub-int v11, v3, v6
 
-    int-to-float v12, v13
+    int-to-double v0, v11
 
-    .local v12, "yVector":F
-    const/4 v13, 0x0
+    move-wide/from16 v16, v0
 
-    cmpl-float v13, v11, v13
+    .local v16, "yVector":D
+    const-wide/16 v18, 0x0
 
-    if-nez v13, :cond_0
+    cmpl-double v11, v14, v18
 
-    const/4 v13, 0x0
+    if-nez v11, :cond_0
 
-    cmpl-float v13, v12, v13
+    const-wide/16 v18, 0x0
 
-    if-nez v13, :cond_0
+    cmpl-double v11, v16, v18
 
-    invoke-static {}, Ljava/lang/Math;->random()D
-
-    move-result-wide v14
-
-    const-wide/high16 v16, 0x4000000000000000L    # 2.0
-
-    mul-double v14, v14, v16
-
-    double-to-float v13, v14
-
-    const/high16 v14, 0x3f800000    # 1.0f
-
-    sub-float v11, v13, v14
+    if-nez v11, :cond_0
 
     invoke-static {}, Ljava/lang/Math;->random()D
 
-    move-result-wide v14
+    move-result-wide v18
 
-    const-wide/high16 v16, 0x4000000000000000L    # 2.0
+    const-wide/high16 v20, 0x4000000000000000L    # 2.0
 
-    mul-double v14, v14, v16
+    mul-double v18, v18, v20
 
-    double-to-float v13, v14
+    const-wide/high16 v20, 0x3ff0000000000000L    # 1.0
 
-    const/high16 v14, 0x3f800000    # 1.0f
+    sub-double v14, v18, v20
 
-    sub-float v12, v13, v14
+    invoke-static {}, Ljava/lang/Math;->random()D
+
+    move-result-wide v18
+
+    const-wide/high16 v20, 0x4000000000000000L    # 2.0
+
+    mul-double v18, v18, v20
+
+    const-wide/high16 v20, 0x3ff0000000000000L    # 1.0
+
+    sub-double v16, v18, v20
 
     :cond_0
-    invoke-static {v11, v12}, Landroid/transition/Explode;->calculateDistance(FF)F
+    invoke-static/range {v14 .. v17}, Ljava/lang/Math;->hypot(DD)D
 
-    move-result v10
+    move-result-wide v12
 
-    .local v10, "vectorSize":F
-    div-float/2addr v11, v10
+    .local v12, "vectorSize":D
+    div-double/2addr v14, v12
 
-    div-float/2addr v12, v10
+    div-double v16, v16, v12
 
-    sub-int v13, v5, v8
+    sub-int v11, v5, v7
 
-    sub-int v14, v6, v9
+    sub-int v18, v6, v10
 
     move-object/from16 v0, p1
 
-    invoke-static {v0, v13, v14}, Landroid/transition/Explode;->calculateMaxDistance(Landroid/view/View;II)F
+    move/from16 v1, v18
 
-    move-result v7
+    invoke-static {v0, v11, v1}, Landroid/transition/Explode;->calculateMaxDistance(Landroid/view/View;II)D
 
-    .local v7, "maxDistance":F
-    const/4 v13, 0x0
+    move-result-wide v8
 
-    mul-float v14, v7, v11
+    .local v8, "maxDistance":D
+    const/4 v11, 0x0
 
-    invoke-static {v14}, Ljava/lang/Math;->round(F)I
+    mul-double v18, v8, v14
 
-    move-result v14
+    invoke-static/range {v18 .. v19}, Ljava/lang/Math;->round(D)J
 
-    aput v14, p3, v13
+    move-result-wide v18
 
-    const/4 v13, 0x1
+    move-wide/from16 v0, v18
 
-    mul-float v14, v7, v12
+    long-to-int v0, v0
 
-    invoke-static {v14}, Ljava/lang/Math;->round(F)I
+    move/from16 v18, v0
 
-    move-result v14
+    aput v18, p3, v11
 
-    aput v14, p3, v13
+    const/4 v11, 0x1
+
+    mul-double v18, v8, v16
+
+    invoke-static/range {v18 .. v19}, Ljava/lang/Math;->round(D)J
+
+    move-result-wide v18
+
+    move-wide/from16 v0, v18
+
+    long-to-int v0, v0
+
+    move/from16 v18, v0
+
+    aput v18, p3, v11
 
     return-void
 
@@ -326,10 +319,10 @@
     .end local v3    # "centerY":I
     .end local v5    # "focalX":I
     .end local v6    # "focalY":I
-    .end local v7    # "maxDistance":F
-    .end local v10    # "vectorSize":F
-    .end local v11    # "xVector":F
-    .end local v12    # "yVector":F
+    .end local v8    # "maxDistance":D
+    .end local v12    # "vectorSize":D
+    .end local v14    # "xVector":D
+    .end local v16    # "yVector":D
     :cond_1
     invoke-virtual {v4}, Landroid/graphics/Rect;->centerX()I
 

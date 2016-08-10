@@ -215,7 +215,7 @@
 .end method
 
 .method public getPath(FFFF)Landroid/graphics/Path;
-    .locals 27
+    .locals 30
     .param p1, "startX"    # F
     .param p2, "startY"    # F
     .param p3, "endX"    # F
@@ -463,9 +463,21 @@
     div-float v26, v24, v9
 
     .local v26, "ratio2":F
-    invoke-static/range {v26 .. v26}, Landroid/util/FloatMath;->sqrt(F)F
+    move/from16 v0, v26
 
-    move-result v25
+    float-to-double v0, v0
+
+    move-wide/from16 v28, v0
+
+    invoke-static/range {v28 .. v29}, Ljava/lang/Math;->sqrt(D)D
+
+    move-result-wide v28
+
+    move-wide/from16 v0, v28
+
+    double-to-float v0, v0
+
+    move/from16 v25, v0
 
     .local v25, "ratio":F
     sub-float v7, v18, v14

@@ -871,7 +871,7 @@
 .end method
 
 .method public onTouchEvent(Landroid/view/MotionEvent;)Z
-    .locals 30
+    .locals 32
     .param p1, "event"    # Landroid/view/MotionEvent;
 
     .prologue
@@ -1750,15 +1750,27 @@
     .end local v18    # "span":F
     .end local v26    # "wasInProgress":Z
     :cond_1a
-    mul-float v27, v19, v19
+    move/from16 v0, v19
 
-    mul-float v28, v20, v20
+    float-to-double v0, v0
 
-    add-float v27, v27, v28
+    move-wide/from16 v28, v0
 
-    invoke-static/range {v27 .. v27}, Landroid/util/FloatMath;->sqrt(F)F
+    move/from16 v0, v20
 
-    move-result v18
+    float-to-double v0, v0
+
+    move-wide/from16 v30, v0
+
+    invoke-static/range {v28 .. v31}, Ljava/lang/Math;->hypot(DD)D
+
+    move-result-wide v28
+
+    move-wide/from16 v0, v28
+
+    double-to-float v0, v0
+
+    move/from16 v18, v0
 
     .restart local v18    # "span":F
     goto/16 :goto_c

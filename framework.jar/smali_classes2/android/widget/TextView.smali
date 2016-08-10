@@ -3951,22 +3951,26 @@
 
     move-result v12
 
-    invoke-static {v12}, Landroid/util/FloatMath;->floor(F)F
+    float-to-double v12, v12
 
-    move-result v12
+    invoke-static {v12, v13}, Ljava/lang/Math;->floor(D)D
 
-    float-to-int v5, v12
+    move-result-wide v12
+
+    double-to-int v5, v12
 
     .local v5, "left":I
     invoke-virtual {v4, v6}, Landroid/text/Layout;->getLineRight(I)F
 
     move-result v12
 
-    invoke-static {v12}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v12, v12
 
-    move-result v12
+    invoke-static {v12, v13}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v7, v12
+    move-result-wide v12
+
+    double-to-int v7, v12
 
     .local v7, "right":I
     sub-int v12, v7, v5
@@ -4077,11 +4081,13 @@
 
     move-result v12
 
-    invoke-static {v12}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v12, v12
 
-    move-result v12
+    invoke-static {v12, v13}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v7, v12
+    move-result-wide v12
+
+    double-to-int v7, v12
 
     .restart local v7    # "right":I
     sub-int v8, v7, v2
@@ -4096,11 +4102,13 @@
 
     move-result v12
 
-    invoke-static {v12}, Landroid/util/FloatMath;->floor(F)F
+    float-to-double v12, v12
 
-    move-result v12
+    invoke-static {v12, v13}, Ljava/lang/Math;->floor(D)D
 
-    float-to-int v8, v12
+    move-result-wide v12
+
+    double-to-int v8, v12
 
     .restart local v8    # "scrollx":I
     goto :goto_2
@@ -4727,11 +4735,13 @@
     goto :goto_2
 
     :cond_2
-    invoke-static {v1}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v4, v1
 
-    move-result v4
+    invoke-static {v4, v5}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v4, v4
+    move-result-wide v4
+
+    double-to-int v4, v4
 
     goto :goto_1
 .end method
@@ -9093,13 +9103,19 @@
 
     move-result v25
 
-    invoke-static/range {v25 .. v25}, Landroid/util/FloatMath;->floor(F)F
-
-    move-result v25
-
     move/from16 v0, v25
 
-    float-to-int v0, v0
+    float-to-double v0, v0
+
+    move-wide/from16 v26, v0
+
+    invoke-static/range {v26 .. v27}, Ljava/lang/Math;->floor(D)D
+
+    move-result-wide v26
+
+    move-wide/from16 v0, v26
+
+    double-to-int v0, v0
 
     move/from16 v17, v0
 
@@ -9112,13 +9128,19 @@
 
     move-result v25
 
-    invoke-static/range {v25 .. v25}, Landroid/util/FloatMath;->ceil(F)F
-
-    move-result v25
-
     move/from16 v0, v25
 
-    float-to-int v0, v0
+    float-to-double v0, v0
+
+    move-wide/from16 v26, v0
+
+    invoke-static/range {v26 .. v27}, Ljava/lang/Math;->ceil(D)D
+
+    move-result-wide v26
+
+    move-wide/from16 v0, v26
+
+    double-to-int v0, v0
 
     move/from16 v19, v0
 
@@ -14163,7 +14185,7 @@
 .end method
 
 .method invalidateCursorPath()V
-    .locals 11
+    .locals 12
 
     .prologue
     iget-boolean v5, p0, Landroid/widget/TextView;->mHighlightPathBogus:Z
@@ -14212,9 +14234,13 @@
 
     move-result v5
 
-    invoke-static {v5}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v8, v5
 
-    move-result v3
+    invoke-static {v8, v9}, Ljava/lang/Math;->ceil(D)D
+
+    move-result-wide v8
+
+    double-to-float v3, v8
 
     .local v3, "thick":F
     const/high16 v5, 0x3f800000    # 1.0f
@@ -14248,11 +14274,13 @@
 
     sub-float/2addr v5, v3
 
-    invoke-static {v5}, Landroid/util/FloatMath;->floor(F)F
+    float-to-double v8, v5
 
-    move-result v5
+    invoke-static {v8, v9}, Ljava/lang/Math;->floor(D)D
 
-    float-to-int v5, v5
+    move-result-wide v8
+
+    double-to-int v5, v8
 
     int-to-float v7, v4
 
@@ -14264,11 +14292,13 @@
 
     sub-float/2addr v7, v3
 
-    invoke-static {v7}, Landroid/util/FloatMath;->floor(F)F
+    float-to-double v8, v7
 
-    move-result v7
+    invoke-static {v8, v9}, Ljava/lang/Math;->floor(D)D
 
-    float-to-int v7, v7
+    move-result-wide v8
+
+    double-to-int v7, v8
 
     int-to-float v8, v1
 
@@ -14280,11 +14310,13 @@
 
     add-float/2addr v8, v3
 
-    invoke-static {v8}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v8, v8
 
-    move-result v8
+    invoke-static {v8, v9}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v8, v8
+    move-result-wide v8
+
+    double-to-int v8, v8
 
     int-to-float v9, v4
 
@@ -14296,11 +14328,13 @@
 
     add-float/2addr v9, v3
 
-    invoke-static {v9}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v10, v9
 
-    move-result v9
+    invoke-static {v10, v11}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v9, v9
+    move-result-wide v10
+
+    double-to-int v9, v10
 
     invoke-virtual {p0, v5, v7, v8, v9}, Landroid/widget/TextView;->invalidate(IIII)V
 
@@ -19401,7 +19435,7 @@
 .end method
 
 .method protected onMeasure(II)V
-    .locals 27
+    .locals 28
     .param p1, "widthMeasureSpec"    # I
     .param p2, "heightMeasureSpec"    # I
 
@@ -19723,11 +19757,17 @@
 
     move-result v2
 
-    invoke-static {v2}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v0, v2
 
-    move-result v2
+    move-wide/from16 v26, v0
 
-    float-to-int v9, v2
+    invoke-static/range {v26 .. v27}, Ljava/lang/Math;->ceil(D)D
+
+    move-result-wide v26
+
+    move-wide/from16 v0, v26
+
+    double-to-int v9, v0
 
     :cond_b
     move/from16 v22, v9
@@ -19842,11 +19882,17 @@
 
     move-result v2
 
-    invoke-static {v2}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v0, v2
 
-    move-result v2
+    move-wide/from16 v26, v0
 
-    float-to-int v0, v2
+    invoke-static/range {v26 .. v27}, Ljava/lang/Math;->ceil(D)D
+
+    move-result-wide v26
+
+    move-wide/from16 v0, v26
+
+    double-to-int v0, v0
 
     move/from16 v16, v0
 

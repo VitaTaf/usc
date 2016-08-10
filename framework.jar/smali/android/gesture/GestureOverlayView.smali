@@ -1326,7 +1326,7 @@
 .end method
 
 .method private touchMove(Landroid/view/MotionEvent;)Landroid/graphics/Rect;
-    .locals 26
+    .locals 28
     .param p1, "event"    # Landroid/view/MotionEvent;
 
     .prologue
@@ -1629,19 +1629,15 @@
 
     move/from16 v22, v0
 
-    mul-float v23, v13, v13
-
-    mul-float v24, v14, v14
-
-    add-float v23, v23, v24
-
-    move/from16 v0, v23
-
-    float-to-double v0, v0
+    float-to-double v0, v13
 
     move-wide/from16 v24, v0
 
-    invoke-static/range {v24 .. v25}, Ljava/lang/Math;->sqrt(D)D
+    float-to-double v0, v14
+
+    move-wide/from16 v26, v0
+
+    invoke-static/range {v24 .. v27}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v24
 

@@ -84,7 +84,7 @@
 .end method
 
 .method public static isDraggingGesture(FFFFFFFFF)Z
-    .locals 14
+    .locals 16
     .param p0, "firstPtrDownX"    # F
     .param p1, "firstPtrDownY"    # F
     .param p2, "secondPtrDownX"    # F
@@ -120,15 +120,11 @@
     return v11
 
     :cond_0
-    mul-float v11, v1, v1
+    float-to-double v12, v1
 
-    mul-float v12, v2, v2
+    float-to-double v14, v2
 
-    add-float/2addr v11, v12
-
-    float-to-double v12, v11
-
-    invoke-static {v12, v13}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v12, v13, v14, v15}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v12
 
@@ -196,15 +192,11 @@
     .restart local v6    # "secondDeltaX":F
     .restart local v7    # "secondDeltaY":F
     :cond_3
-    mul-float v11, v6, v6
+    float-to-double v12, v6
 
-    mul-float v12, v7, v7
+    float-to-double v14, v7
 
-    add-float/2addr v11, v12
-
-    float-to-double v12, v11
-
-    invoke-static {v12, v13}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v12, v13, v14, v15}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v12
 

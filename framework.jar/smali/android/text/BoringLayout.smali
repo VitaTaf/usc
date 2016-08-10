@@ -431,11 +431,13 @@
 
     move-result v5
 
-    invoke-static {v5}, Landroid/util/FloatMath;->ceil(F)F
+    float-to-double v6, v5
 
-    move-result v5
+    invoke-static {v6, v7}, Ljava/lang/Math;->ceil(D)D
 
-    float-to-int v5, v5
+    move-result-wide v6
+
+    double-to-int v5, v6
 
     move-object/from16 v0, v16
 
@@ -787,7 +789,7 @@
 .end method
 
 .method init(Ljava/lang/CharSequence;Landroid/text/TextPaint;ILandroid/text/Layout$Alignment;FFLandroid/text/BoringLayout$Metrics;ZZ)V
-    .locals 11
+    .locals 12
     .param p1, "source"    # Ljava/lang/CharSequence;
     .param p2, "paint"    # Landroid/text/TextPaint;
     .param p3, "outerwidth"    # I
@@ -799,19 +801,21 @@
     .param p9, "trustWidth"    # Z
 
     .prologue
-    instance-of v2, p1, Ljava/lang/String;
+    instance-of v3, p1, Ljava/lang/String;
 
-    if-eqz v2, :cond_1
+    if-eqz v3, :cond_1
 
-    sget-object v2, Landroid/text/Layout$Alignment;->ALIGN_NORMAL:Landroid/text/Layout$Alignment;
+    sget-object v3, Landroid/text/Layout$Alignment;->ALIGN_NORMAL:Landroid/text/Layout$Alignment;
 
-    if-ne p4, v2, :cond_1
+    move-object/from16 v0, p4
+
+    if-ne v0, v3, :cond_1
 
     invoke-interface {p1}, Ljava/lang/CharSequence;->toString()Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v3
 
-    iput-object v2, p0, Landroid/text/BoringLayout;->mDirect:Ljava/lang/String;
+    iput-object v3, p0, Landroid/text/BoringLayout;->mDirect:Ljava/lang/String;
 
     :goto_0
     iput-object p2, p0, Landroid/text/BoringLayout;->mPaint:Landroid/graphics/Paint;
@@ -820,145 +824,147 @@
 
     move-object/from16 v0, p7
 
-    iget v2, v0, Landroid/text/BoringLayout$Metrics;->bottom:I
+    iget v3, v0, Landroid/text/BoringLayout$Metrics;->bottom:I
 
     move-object/from16 v0, p7
 
-    iget v3, v0, Landroid/text/BoringLayout$Metrics;->top:I
+    iget v4, v0, Landroid/text/BoringLayout$Metrics;->top:I
 
-    sub-int v10, v2, v3
+    sub-int v11, v3, v4
 
-    .local v10, "spacing":I
+    .local v11, "spacing":I
     :goto_1
-    iput v10, p0, Landroid/text/BoringLayout;->mBottom:I
+    iput v11, p0, Landroid/text/BoringLayout;->mBottom:I
 
     if-eqz p8, :cond_3
 
     move-object/from16 v0, p7
 
-    iget v2, v0, Landroid/text/BoringLayout$Metrics;->top:I
+    iget v3, v0, Landroid/text/BoringLayout$Metrics;->top:I
 
-    add-int/2addr v2, v10
+    add-int/2addr v3, v11
 
-    iput v2, p0, Landroid/text/BoringLayout;->mDesc:I
+    iput v3, p0, Landroid/text/BoringLayout;->mDesc:I
 
     :goto_2
     if-eqz p9, :cond_4
 
     move-object/from16 v0, p7
 
-    iget v2, v0, Landroid/text/BoringLayout$Metrics;->width:I
+    iget v3, v0, Landroid/text/BoringLayout$Metrics;->width:I
 
-    int-to-float v2, v2
+    int-to-float v3, v3
 
-    iput v2, p0, Landroid/text/BoringLayout;->mMax:F
+    iput v3, p0, Landroid/text/BoringLayout;->mMax:F
 
     :goto_3
     if-eqz p8, :cond_0
 
     move-object/from16 v0, p7
 
-    iget v2, v0, Landroid/text/BoringLayout$Metrics;->top:I
+    iget v3, v0, Landroid/text/BoringLayout$Metrics;->top:I
 
     move-object/from16 v0, p7
 
-    iget v3, v0, Landroid/text/BoringLayout$Metrics;->ascent:I
+    iget v4, v0, Landroid/text/BoringLayout$Metrics;->ascent:I
 
-    sub-int/2addr v2, v3
+    sub-int/2addr v3, v4
 
-    iput v2, p0, Landroid/text/BoringLayout;->mTopPadding:I
-
-    move-object/from16 v0, p7
-
-    iget v2, v0, Landroid/text/BoringLayout$Metrics;->bottom:I
+    iput v3, p0, Landroid/text/BoringLayout;->mTopPadding:I
 
     move-object/from16 v0, p7
 
-    iget v3, v0, Landroid/text/BoringLayout$Metrics;->descent:I
+    iget v3, v0, Landroid/text/BoringLayout$Metrics;->bottom:I
 
-    sub-int/2addr v2, v3
+    move-object/from16 v0, p7
 
-    iput v2, p0, Landroid/text/BoringLayout;->mBottomPadding:I
+    iget v4, v0, Landroid/text/BoringLayout$Metrics;->descent:I
+
+    sub-int/2addr v3, v4
+
+    iput v3, p0, Landroid/text/BoringLayout;->mBottomPadding:I
 
     :cond_0
     return-void
 
-    .end local v10    # "spacing":I
+    .end local v11    # "spacing":I
     :cond_1
-    const/4 v2, 0x0
+    const/4 v3, 0x0
 
-    iput-object v2, p0, Landroid/text/BoringLayout;->mDirect:Ljava/lang/String;
+    iput-object v3, p0, Landroid/text/BoringLayout;->mDirect:Ljava/lang/String;
 
     goto :goto_0
 
     :cond_2
     move-object/from16 v0, p7
 
-    iget v2, v0, Landroid/text/BoringLayout$Metrics;->descent:I
+    iget v3, v0, Landroid/text/BoringLayout$Metrics;->descent:I
 
     move-object/from16 v0, p7
 
-    iget v3, v0, Landroid/text/BoringLayout$Metrics;->ascent:I
+    iget v4, v0, Landroid/text/BoringLayout$Metrics;->ascent:I
 
-    sub-int v10, v2, v3
+    sub-int v11, v3, v4
 
-    .restart local v10    # "spacing":I
+    .restart local v11    # "spacing":I
     goto :goto_1
 
     :cond_3
     move-object/from16 v0, p7
 
-    iget v2, v0, Landroid/text/BoringLayout$Metrics;->ascent:I
+    iget v3, v0, Landroid/text/BoringLayout$Metrics;->ascent:I
 
-    add-int/2addr v2, v10
+    add-int/2addr v3, v11
 
-    iput v2, p0, Landroid/text/BoringLayout;->mDesc:I
+    iput v3, p0, Landroid/text/BoringLayout;->mDesc:I
 
     goto :goto_2
 
     :cond_4
     invoke-static {}, Landroid/text/TextLine;->obtain()Landroid/text/TextLine;
 
-    move-result-object v1
+    move-result-object v2
 
-    .local v1, "line":Landroid/text/TextLine;
-    const/4 v4, 0x0
+    .local v2, "line":Landroid/text/TextLine;
+    const/4 v5, 0x0
 
     invoke-interface {p1}, Ljava/lang/CharSequence;->length()I
 
-    move-result v5
+    move-result v6
 
-    const/4 v6, 0x1
+    const/4 v7, 0x1
 
-    sget-object v7, Landroid/text/Layout;->DIRS_ALL_LEFT_TO_RIGHT:Landroid/text/Layout$Directions;
-
-    const/4 v8, 0x0
+    sget-object v8, Landroid/text/Layout;->DIRS_ALL_LEFT_TO_RIGHT:Landroid/text/Layout$Directions;
 
     const/4 v9, 0x0
 
-    move-object v2, p2
+    const/4 v10, 0x0
 
-    move-object v3, p1
+    move-object v3, p2
 
-    invoke-virtual/range {v1 .. v9}, Landroid/text/TextLine;->set(Landroid/text/TextPaint;Ljava/lang/CharSequence;IIILandroid/text/Layout$Directions;ZLandroid/text/Layout$TabStops;)V
+    move-object v4, p1
 
-    const/4 v2, 0x0
+    invoke-virtual/range {v2 .. v10}, Landroid/text/TextLine;->set(Landroid/text/TextPaint;Ljava/lang/CharSequence;IIILandroid/text/Layout$Directions;ZLandroid/text/Layout$TabStops;)V
 
-    invoke-virtual {v1, v2}, Landroid/text/TextLine;->metrics(Landroid/graphics/Paint$FontMetricsInt;)F
+    const/4 v3, 0x0
 
-    move-result v2
+    invoke-virtual {v2, v3}, Landroid/text/TextLine;->metrics(Landroid/graphics/Paint$FontMetricsInt;)F
 
-    invoke-static {v2}, Landroid/util/FloatMath;->ceil(F)F
+    move-result v3
 
-    move-result v2
+    float-to-double v4, v3
 
-    float-to-int v2, v2
+    invoke-static {v4, v5}, Ljava/lang/Math;->ceil(D)D
 
-    int-to-float v2, v2
+    move-result-wide v4
 
-    iput v2, p0, Landroid/text/BoringLayout;->mMax:F
+    double-to-int v3, v4
 
-    invoke-static {v1}, Landroid/text/TextLine;->recycle(Landroid/text/TextLine;)Landroid/text/TextLine;
+    int-to-float v3, v3
+
+    iput v3, p0, Landroid/text/BoringLayout;->mMax:F
+
+    invoke-static {v2}, Landroid/text/TextLine;->recycle(Landroid/text/TextLine;)Landroid/text/TextLine;
 
     goto :goto_3
 .end method

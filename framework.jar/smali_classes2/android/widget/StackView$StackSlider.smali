@@ -115,16 +115,14 @@
 .end method
 
 .method private getDuration(ZF)F
-    .locals 13
+    .locals 11
     .param p1, "invert"    # Z
     .param p2, "velocity"    # F
 
     .prologue
-    const/high16 v12, 0x43c80000    # 400.0f
+    const/high16 v10, 0x43c80000    # 400.0f
 
     const/4 v4, 0x0
-
-    const-wide/high16 v10, 0x4000000000000000L    # 2.0
 
     iget-object v5, p0, Landroid/widget/StackView$StackSlider;->mView:Landroid/view/View;
 
@@ -143,21 +141,11 @@
 
     int-to-double v6, v5
 
-    invoke-static {v6, v7, v10, v11}, Ljava/lang/Math;->pow(DD)D
-
-    move-result-wide v6
-
     iget v5, v3, Landroid/widget/StackView$LayoutParams;->verticalOffset:I
 
     int-to-double v8, v5
 
-    invoke-static {v8, v9, v10, v11}, Ljava/lang/Math;->pow(DD)D
-
-    move-result-wide v8
-
-    add-double/2addr v6, v8
-
-    invoke-static {v6, v7}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v6, v7, v8, v9}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v6
 
@@ -172,10 +160,6 @@
     move-result v5
 
     int-to-double v6, v5
-
-    invoke-static {v6, v7, v10, v11}, Ljava/lang/Math;->pow(DD)D
-
-    move-result-wide v6
 
     const v5, 0x3ecccccd    # 0.4f
 
@@ -192,13 +176,7 @@
 
     float-to-double v8, v5
 
-    invoke-static {v8, v9, v10, v11}, Ljava/lang/Math;->pow(DD)D
-
-    move-result-wide v8
-
-    add-double/2addr v6, v8
-
-    invoke-static {v6, v7}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v6, v7, v8, v9}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v6
 
@@ -218,7 +196,7 @@
     sub-float/2addr v4, v5
 
     :goto_0
-    mul-float v1, v4, v12
+    mul-float v1, v4, v10
 
     .end local v0    # "d":F
     .end local v2    # "maxd":F
@@ -252,7 +230,7 @@
 
     if-ltz v5, :cond_3
 
-    cmpl-float v5, v1, v12
+    cmpl-float v5, v1, v10
 
     if-lez v5, :cond_0
 

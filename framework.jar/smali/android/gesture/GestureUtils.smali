@@ -795,7 +795,7 @@
 .end method
 
 .method static computeStraightness([F)F
-    .locals 6
+    .locals 8
     .param p0, "points"    # [F
 
     .prologue
@@ -826,15 +826,11 @@
     sub-float v1, v3, v4
 
     .local v1, "dy":F
-    mul-float v3, v0, v0
+    float-to-double v4, v0
 
-    mul-float v4, v1, v1
+    float-to-double v6, v1
 
-    add-float/2addr v3, v4
-
-    float-to-double v4, v3
-
-    invoke-static {v4, v5}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v4, v5, v6, v7}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v4
 
@@ -846,7 +842,7 @@
 .end method
 
 .method static computeStraightness([FF)F
-    .locals 4
+    .locals 6
     .param p0, "points"    # [F
     .param p1, "totalLen"    # F
 
@@ -873,15 +869,11 @@
     sub-float v1, v2, v3
 
     .local v1, "dy":F
-    mul-float v2, v0, v0
+    float-to-double v2, v0
 
-    mul-float v3, v1, v1
+    float-to-double v4, v1
 
-    add-float/2addr v2, v3
-
-    float-to-double v2, v2
-
-    invoke-static {v2, v3}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v2, v3, v4, v5}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v2
 
@@ -893,7 +885,7 @@
 .end method
 
 .method static computeTotalLength([F)F
-    .locals 10
+    .locals 12
     .param p0, "points"    # [F
 
     .prologue
@@ -933,15 +925,11 @@
     .local v2, "dy":F
     float-to-double v6, v4
 
-    mul-float v5, v1, v1
+    float-to-double v8, v1
 
-    mul-float v8, v2, v2
+    float-to-double v10, v2
 
-    add-float/2addr v5, v8
-
-    float-to-double v8, v5
-
-    invoke-static {v8, v9}, Ljava/lang/Math;->sqrt(D)D
+    invoke-static {v8, v9, v10, v11}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v8
 
@@ -2294,7 +2282,7 @@
 .end method
 
 .method public static temporalSampling(Landroid/gesture/GestureStroke;I)[F
-    .locals 22
+    .locals 24
     .param p0, "stroke"    # Landroid/gesture/GestureStroke;
     .param p1, "numPoints"    # I
 
@@ -2424,19 +2412,15 @@
     sub-float v6, v4, v13
 
     .local v6, "deltaY":F
-    mul-float v20, v5, v5
-
-    mul-float v21, v6, v6
-
-    add-float v20, v20, v21
-
-    move/from16 v0, v20
-
-    float-to-double v0, v0
+    float-to-double v0, v5
 
     move-wide/from16 v20, v0
 
-    invoke-static/range {v20 .. v21}, Ljava/lang/Math;->sqrt(D)D
+    float-to-double v0, v6
+
+    move-wide/from16 v22, v0
+
+    invoke-static/range {v20 .. v23}, Ljava/lang/Math;->hypot(DD)D
 
     move-result-wide v20
 
