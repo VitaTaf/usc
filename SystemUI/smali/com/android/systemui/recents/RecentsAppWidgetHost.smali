@@ -43,20 +43,6 @@
 
 
 # virtual methods
-.method protected onCreateView(Landroid/content/Context;ILandroid/appwidget/AppWidgetProviderInfo;)Landroid/appwidget/AppWidgetHostView;
-    .locals 1
-    .param p1, "context"    # Landroid/content/Context;
-    .param p2, "appWidgetId"    # I
-    .param p3, "appWidget"    # Landroid/appwidget/AppWidgetProviderInfo;
-
-    .prologue
-    new-instance v0, Lcom/android/systemui/recents/RecentsAppWidgetHostView;
-
-    invoke-direct {v0, p1}, Lcom/android/systemui/recents/RecentsAppWidgetHostView;-><init>(Landroid/content/Context;)V
-
-    return-object v0
-.end method
-
 .method protected onProviderChanged(ILandroid/appwidget/AppWidgetProviderInfo;)V
     .locals 4
     .param p1, "appWidgetId"    # I

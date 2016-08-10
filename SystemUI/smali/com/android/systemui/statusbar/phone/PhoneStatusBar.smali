@@ -278,7 +278,7 @@
 
 .field private mScreenOnTouchLocation:Landroid/graphics/PointF;
 
-.field private mScreenPinningRequest:Lcom/android/systemui/recent/ScreenPinningRequest;
+.field private mScreenPinningRequest:Lcom/android/systemui/recents/ScreenPinningRequest;
 
 .field private mScrimController:Lcom/android/systemui/statusbar/phone/ScrimController;
 
@@ -12108,9 +12108,9 @@
 
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateRowStates()V
 
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenPinningRequest:Lcom/android/systemui/recent/ScreenPinningRequest;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenPinningRequest:Lcom/android/systemui/recents/ScreenPinningRequest;
 
-    invoke-virtual {v0}, Lcom/android/systemui/recent/ScreenPinningRequest;->onConfigurationChanged()V
+    invoke-virtual {v0}, Lcom/android/systemui/recents/ScreenPinningRequest;->onConfigurationChanged()V
 
     return-void
 .end method
@@ -13867,9 +13867,9 @@
     .param p1, "allowCancel"    # Z
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenPinningRequest:Lcom/android/systemui/recent/ScreenPinningRequest;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenPinningRequest:Lcom/android/systemui/recents/ScreenPinningRequest;
 
-    invoke-virtual {v0, p1}, Lcom/android/systemui/recent/ScreenPinningRequest;->showPrompt(Z)V
+    invoke-virtual {v0, p1}, Lcom/android/systemui/recents/ScreenPinningRequest;->showPrompt(Z)V
 
     return-void
 .end method
@@ -14068,13 +14068,13 @@
 
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notifyUserAboutHiddenNotifications()V
 
-    new-instance v0, Lcom/android/systemui/recent/ScreenPinningRequest;
+    new-instance v0, Lcom/android/systemui/recents/ScreenPinningRequest;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    invoke-direct {v0, v1}, Lcom/android/systemui/recent/ScreenPinningRequest;-><init>(Landroid/content/Context;)V
+    invoke-direct {v0, v1}, Lcom/android/systemui/recents/ScreenPinningRequest;-><init>(Landroid/content/Context;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenPinningRequest:Lcom/android/systemui/recent/ScreenPinningRequest;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenPinningRequest:Lcom/android/systemui/recents/ScreenPinningRequest;
 
     return-void
 .end method

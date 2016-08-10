@@ -1,4 +1,4 @@
-.class public Lcom/android/systemui/recent/ScreenPinningRequest;
+.class public Lcom/android/systemui/recents/ScreenPinningRequest;
 .super Ljava/lang/Object;
 .source "ScreenPinningRequest.java"
 
@@ -9,7 +9,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+        Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
     }
 .end annotation
 
@@ -19,7 +19,7 @@
 
 .field private final mContext:Landroid/content/Context;
 
-.field private mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+.field private mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
 .field private final mWindowManager:Landroid/view/WindowManager;
 
@@ -32,9 +32,9 @@
     .prologue
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    iput-object p1, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mContext:Landroid/content/Context;
+    iput-object p1, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mContext:Landroid/content/Context;
 
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mContext:Landroid/content/Context;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mContext:Landroid/content/Context;
 
     const-string v1, "accessibility"
 
@@ -44,9 +44,9 @@
 
     check-cast v0, Landroid/view/accessibility/AccessibilityManager;
 
-    iput-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mAccessibilityService:Landroid/view/accessibility/AccessibilityManager;
+    iput-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mAccessibilityService:Landroid/view/accessibility/AccessibilityManager;
 
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mContext:Landroid/content/Context;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mContext:Landroid/content/Context;
 
     const-string v1, "window"
 
@@ -56,27 +56,27 @@
 
     check-cast v0, Landroid/view/WindowManager;
 
-    iput-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
+    iput-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
 
     return-void
 .end method
 
-.method static synthetic access$000(Lcom/android/systemui/recent/ScreenPinningRequest;)Landroid/view/WindowManager;
+.method static synthetic access$000(Lcom/android/systemui/recents/ScreenPinningRequest;)Landroid/view/WindowManager;
     .locals 1
-    .param p0, "x0"    # Lcom/android/systemui/recent/ScreenPinningRequest;
+    .param p0, "x0"    # Lcom/android/systemui/recents/ScreenPinningRequest;
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
 
     return-object v0
 .end method
 
-.method static synthetic access$200(Lcom/android/systemui/recent/ScreenPinningRequest;)Landroid/view/accessibility/AccessibilityManager;
+.method static synthetic access$200(Lcom/android/systemui/recents/ScreenPinningRequest;)Landroid/view/accessibility/AccessibilityManager;
     .locals 1
-    .param p0, "x0"    # Lcom/android/systemui/recent/ScreenPinningRequest;
+    .param p0, "x0"    # Lcom/android/systemui/recents/ScreenPinningRequest;
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mAccessibilityService:Landroid/view/accessibility/AccessibilityManager;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mAccessibilityService:Landroid/view/accessibility/AccessibilityManager;
 
     return-object v0
 .end method
@@ -123,19 +123,19 @@
     .locals 2
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
     if-eqz v0, :cond_0
 
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
 
-    iget-object v1, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iget-object v1, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
     invoke-interface {v0, v1}, Landroid/view/WindowManager;->removeView(Landroid/view/View;)V
 
     const/4 v0, 0x0
 
-    iput-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iput-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
     :cond_0
     return-void
@@ -178,7 +178,7 @@
 
     if-eq v0, v1, :cond_0
 
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
     if-ne v0, p1, :cond_1
 
@@ -194,7 +194,7 @@
 
     :cond_1
     :goto_0
-    invoke-virtual {p0}, Lcom/android/systemui/recent/ScreenPinningRequest;->clearPrompt()V
+    invoke-virtual {p0}, Lcom/android/systemui/recents/ScreenPinningRequest;->clearPrompt()V
 
     return-void
 
@@ -208,13 +208,13 @@
     .locals 1
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
     if-eqz v0, :cond_0
 
-    iget-object v0, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iget-object v0, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
-    invoke-virtual {v0}, Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;->onConfigurationChanged()V
+    invoke-virtual {v0}, Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;->onConfigurationChanged()V
 
     :cond_0
     return-void
@@ -225,30 +225,30 @@
     .param p1, "allowCancel"    # Z
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/systemui/recent/ScreenPinningRequest;->clearPrompt()V
+    invoke-virtual {p0}, Lcom/android/systemui/recents/ScreenPinningRequest;->clearPrompt()V
 
-    new-instance v1, Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    new-instance v1, Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
-    iget-object v2, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mContext:Landroid/content/Context;
 
-    invoke-direct {v1, p0, v2, p1}, Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;-><init>(Lcom/android/systemui/recent/ScreenPinningRequest;Landroid/content/Context;Z)V
+    invoke-direct {v1, p0, v2, p1}, Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;-><init>(Lcom/android/systemui/recents/ScreenPinningRequest;Landroid/content/Context;Z)V
 
-    iput-object v1, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iput-object v1, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
-    iget-object v1, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iget-object v1, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
     const/16 v2, 0x100
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;->setSystemUiVisibility(I)V
+    invoke-virtual {v1, v2}, Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;->setSystemUiVisibility(I)V
 
-    invoke-direct {p0}, Lcom/android/systemui/recent/ScreenPinningRequest;->getWindowLayoutParams()Landroid/view/WindowManager$LayoutParams;
+    invoke-direct {p0}, Lcom/android/systemui/recents/ScreenPinningRequest;->getWindowLayoutParams()Landroid/view/WindowManager$LayoutParams;
 
     move-result-object v0
 
     .local v0, "lp":Landroid/view/WindowManager$LayoutParams;
-    iget-object v1, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
+    iget-object v1, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mWindowManager:Landroid/view/WindowManager;
 
-    iget-object v2, p0, Lcom/android/systemui/recent/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recent/ScreenPinningRequest$RequestWindowView;
+    iget-object v2, p0, Lcom/android/systemui/recents/ScreenPinningRequest;->mRequestWindow:Lcom/android/systemui/recents/ScreenPinningRequest$RequestWindowView;
 
     invoke-interface {v1, v2, v0}, Landroid/view/WindowManager;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 

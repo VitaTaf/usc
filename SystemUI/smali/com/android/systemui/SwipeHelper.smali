@@ -1829,16 +1829,6 @@
     return-void
 .end method
 
-.method public setMinSwipeProgress(F)V
-    .locals 0
-    .param p1, "minSwipeProgress"    # F
-
-    .prologue
-    iput p1, p0, Lcom/android/systemui/SwipeHelper;->mMinSwipeProgress:F
-
-    return-void
-.end method
-
 .method public setPagingTouchSlop(F)V
     .locals 0
     .param p1, "pagingTouchSlop"    # F

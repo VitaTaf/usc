@@ -46,7 +46,7 @@
 
     sget-object v2, Lcom/android/systemui/recents/misc/Utilities;->sPropertyMethod:Ljava/lang/reflect/Method;
 
-    invoke-virtual {v2}, Ljava/lang/reflect/AccessibleObject;->isAccessible()Z
+    invoke-virtual {v2}, Ljava/lang/reflect/Method;->isAccessible()Z
 
     move-result v2
 
@@ -56,7 +56,7 @@
 
     const/4 v3, 0x1
 
-    invoke-virtual {v2, v3}, Ljava/lang/reflect/AccessibleObject;->setAccessible(Z)V
+    invoke-virtual {v2, v3}, Ljava/lang/reflect/Method;->setAccessible(Z)V
     :try_end_0
     .catch Ljava/lang/ClassNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
     .catch Ljava/lang/NoSuchMethodException; {:try_start_0 .. :try_end_0} :catch_1
@@ -69,7 +69,7 @@
     move-exception v1
 
     .local v1, "e":Ljava/lang/ClassNotFoundException;
-    invoke-virtual {v1}, Ljava/lang/Throwable;->printStackTrace()V
+    invoke-virtual {v1}, Ljava/lang/ClassNotFoundException;->printStackTrace()V
 
     goto :goto_0
 
@@ -78,7 +78,7 @@
     move-exception v1
 
     .local v1, "e":Ljava/lang/NoSuchMethodException;
-    invoke-virtual {v1}, Ljava/lang/Throwable;->printStackTrace()V
+    invoke-virtual {v1}, Ljava/lang/NoSuchMethodException;->printStackTrace()V
 
     goto :goto_0
 .end method
