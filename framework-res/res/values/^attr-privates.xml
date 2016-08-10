@@ -206,4 +206,9 @@
     <attr name="neverEncrypt" format="boolean" />
     <attr name="cantSaveState" format="boolean" />
     <attr name="primaryUserOnly" format="boolean" />
+    <attr name="popupEnterTransition" format="reference" />
+    <attr name="popupExitTransition" format="reference" />
+    <attr name="interpolatorX" format="reference" />
+    <attr name="interpolatorY" format="reference" />
+    <attr name="interpolatorZ" format="reference" />
 </resources>

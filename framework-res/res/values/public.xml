@@ -8519,6 +8519,8 @@
     <public type="transition" name="slide_top" id="0x010f0005" />
     <public type="transition" name="slide_right" id="0x010f0006" />
     <public type="transition" name="slide_left" id="0x010f0007" />
+    <public type="transition" name="popup_window_enter" id="0x010f0008" />
+    <public type="transition" name="popup_window_exit" id="0x010f0009" />
     <public type="raw" name="loaderror" id="0x01100000" />
     <public type="raw" name="nodomain" id="0x01100001" />
     <public type="raw" name="accessibility_gestures" id="0x01100002" />
@@ -8989,4 +8991,9 @@
     <public type="^attr-private" name="neverEncrypt" id="0x011600ad" />
     <public type="^attr-private" name="cantSaveState" id="0x011600ae" />
     <public type="^attr-private" name="primaryUserOnly" id="0x011600af" />
+    <public type="^attr-private" name="popupEnterTransition" id="0x011600b0" />
+    <public type="^attr-private" name="popupExitTransition" id="0x011600b1" />
+    <public type="^attr-private" name="interpolatorX" id="0x011600b2" />
+    <public type="^attr-private" name="interpolatorY" id="0x011600b3" />
+    <public type="^attr-private" name="interpolatorZ" id="0x011600b4" />
 </resources>

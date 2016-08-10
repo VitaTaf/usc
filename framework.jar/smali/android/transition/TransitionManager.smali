@@ -265,6 +265,59 @@
     return-void
 .end method
 
+.method public static endTransitions(Landroid/view/ViewGroup;)V
+    .locals 5
+    .param p0, "sceneRoot"    # Landroid/view/ViewGroup;
+
+    .prologue
+    sget-object v4, Landroid/transition/TransitionManager;->sPendingTransitions:Ljava/util/ArrayList;
+
+    invoke-virtual {v4, p0}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
+
+    invoke-static {}, Landroid/transition/TransitionManager;->getRunningTransitions()Landroid/util/ArrayMap;
+
+    move-result-object v4
+
+    invoke-virtual {v4, p0}, Landroid/util/ArrayMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Ljava/util/ArrayList;
+
+    .local v2, "runningTransitions":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Landroid/transition/Transition;>;"
+    if-eqz v2, :cond_0
+
+    invoke-virtual {v2}, Ljava/util/ArrayList;->size()I
+
+    move-result v0
+
+    .local v0, "count":I
+    const/4 v1, 0x0
+
+    .local v1, "i":I
+    :goto_0
+    if-ge v1, v0, :cond_0
+
+    invoke-virtual {v2, v1}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v3
+
+    check-cast v3, Landroid/transition/Transition;
+
+    .local v3, "transition":Landroid/transition/Transition;
+    invoke-virtual {v3}, Landroid/transition/Transition;->end()V
+
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_0
+
+    .end local v0    # "count":I
+    .end local v1    # "i":I
+    .end local v3    # "transition":Landroid/transition/Transition;
+    :cond_0
+    return-void
+.end method
+
 .method public static getDefaultTransition()Landroid/transition/Transition;
     .locals 1
 
