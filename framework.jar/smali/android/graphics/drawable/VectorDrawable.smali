@@ -1069,11 +1069,15 @@
     iget-object v3, p0, Landroid/graphics/drawable/VectorDrawable;->mVectorState:Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;
 
     .local v3, "state":Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;
-    if-eqz v3, :cond_0
+    if-nez v3, :cond_0
 
+    :goto_0
+    return-void
+
+    :cond_0
     iget-object v4, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mThemeAttrs:[I
 
-    if-eqz v4, :cond_0
+    if-eqz v4, :cond_1
 
     iget-object v4, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mThemeAttrs:[I
 
@@ -1096,6 +1100,39 @@
 
     invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
 
+    .end local v0    # "a":Landroid/content/res/TypedArray;
+    :cond_1
+    iget-object v4, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mTint:Landroid/content/res/ColorStateList;
+
+    if-eqz v4, :cond_2
+
+    iget-object v4, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mTint:Landroid/content/res/ColorStateList;
+
+    invoke-virtual {v4}, Landroid/content/res/ColorStateList;->canApplyTheme()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_2
+
+    iget-object v4, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mTint:Landroid/content/res/ColorStateList;
+
+    invoke-virtual {v4, p1}, Landroid/content/res/ColorStateList;->applyTheme(Landroid/content/res/Resources$Theme;)V
+
+    :cond_2
+    iget-object v2, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mVPathRenderer:Landroid/graphics/drawable/VectorDrawable$VPathRenderer;
+
+    .local v2, "path":Landroid/graphics/drawable/VectorDrawable$VPathRenderer;
+    if-eqz v2, :cond_3
+
+    invoke-virtual {v2}, Landroid/graphics/drawable/VectorDrawable$VPathRenderer;->canApplyTheme()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_3
+
+    invoke-virtual {v2, p1}, Landroid/graphics/drawable/VectorDrawable$VPathRenderer;->applyTheme(Landroid/content/res/Resources$Theme;)V
+
+    :cond_3
     iget-object v4, p0, Landroid/graphics/drawable/VectorDrawable;->mTintFilter:Landroid/graphics/PorterDuffColorFilter;
 
     iget-object v5, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mTint:Landroid/content/res/ColorStateList;
@@ -1108,23 +1145,7 @@
 
     iput-object v4, p0, Landroid/graphics/drawable/VectorDrawable;->mTintFilter:Landroid/graphics/PorterDuffColorFilter;
 
-    .end local v0    # "a":Landroid/content/res/TypedArray;
-    :cond_0
-    iget-object v2, v3, Landroid/graphics/drawable/VectorDrawable$VectorDrawableState;->mVPathRenderer:Landroid/graphics/drawable/VectorDrawable$VPathRenderer;
-
-    .local v2, "path":Landroid/graphics/drawable/VectorDrawable$VPathRenderer;
-    if-eqz v2, :cond_1
-
-    invoke-virtual {v2}, Landroid/graphics/drawable/VectorDrawable$VPathRenderer;->canApplyTheme()Z
-
-    move-result v4
-
-    if-eqz v4, :cond_1
-
-    invoke-virtual {v2, p1}, Landroid/graphics/drawable/VectorDrawable$VPathRenderer;->applyTheme(Landroid/content/res/Resources$Theme;)V
-
-    :cond_1
-    return-void
+    goto :goto_0
 
     .end local v2    # "path":Landroid/graphics/drawable/VectorDrawable$VPathRenderer;
     .restart local v0    # "a":Landroid/content/res/TypedArray;

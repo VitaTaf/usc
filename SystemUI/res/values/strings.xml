@@ -409,6 +409,8 @@ Also, you're connected to a VPN (\"%3$s\"). Your VPN service provider can monito
     <string name="quick_settings_reset_confirmation_message">It will reappear the next time you turn it on in settings.</string>
     <string name="quick_settings_reset_confirmation_button">Hide</string>
     <string name="accessibility_ime_switch_button">Switch input method button.</string>
+    <string name="accessibility_recents_all_items_dismissed">All recent applications dismissed.</string>
+    <string name="recents_dismiss_all_message">Dismiss all applications</string>
     <string name="quick_settings_tiles_default_2">wifi,bt,inversion,cell1,cell2,airplane,rotation,flashlight,location,cast,hotspot</string>
     <string name="quick_settings_tiles_default_3">wifi,bt,inversion,cell1,cell2,cell3,airplane,rotation,flashlight,location,cast,hotspot</string>
     <string name="zz_moto_accessibility_sim_absent">sim absent</string>
@@ -669,7 +671,6 @@ Contact your carrier if SIM PUK code is not available."</string>
     <string name="lockscreen_emergency_text">Emergency message</string>
     <string name="keyguard_sim_error_message_short">Invalid Card.</string>
     <string name="moto_ds_skip">Skip</string>
-    <item type="string" name="APKTOOL_DUMMY_15d">false</item>
     <item type="string" name="APKTOOL_DUMMY_15e">false</item>
     <item type="string" name="APKTOOL_DUMMY_15f">false</item>
     <item type="string" name="APKTOOL_DUMMY_160">false</item>

@@ -266,7 +266,7 @@
 .end method
 
 .method dismissTask()V
-    .locals 2
+    .locals 3
 
     .prologue
     move-object v0, p0
@@ -276,7 +276,9 @@
 
     invoke-direct {v1, p0, v0}, Lcom/android/systemui/recents/views/TaskView$8;-><init>(Lcom/android/systemui/recents/views/TaskView;Lcom/android/systemui/recents/views/TaskView;)V
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/recents/views/TaskView;->startDeleteTaskAnimation(Ljava/lang/Runnable;)V
+    const/4 v2, 0x0
+
+    invoke-virtual {p0, v1, v2}, Lcom/android/systemui/recents/views/TaskView;->startDeleteTaskAnimation(Ljava/lang/Runnable;I)V
 
     return-void
 .end method
@@ -1286,9 +1288,10 @@
     goto :goto_0
 .end method
 
-.method startDeleteTaskAnimation(Ljava/lang/Runnable;)V
+.method startDeleteTaskAnimation(Ljava/lang/Runnable;I)V
     .locals 4
     .param p1, "r"    # Ljava/lang/Runnable;
+    .param p2, "delay"    # I
 
     .prologue
     const/4 v0, 0x0
@@ -1315,7 +1318,7 @@
 
     move-result-object v0
 
-    const-wide/16 v2, 0x0
+    int-to-long v2, p2
 
     invoke-virtual {v0, v2, v3}, Landroid/view/ViewPropertyAnimator;->setStartDelay(J)Landroid/view/ViewPropertyAnimator;
 

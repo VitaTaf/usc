@@ -567,43 +567,6 @@
     goto :goto_0
 .end method
 
-.method getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
-    .locals 3
-
-    .prologue
-    iget-object v0, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
-
-    .local v0, "ssp":Lcom/android/systemui/recents/misc/SystemServicesProxy;
-    const/4 v2, 0x1
-
-    invoke-virtual {v0, v2}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->getRunningTasks(I)Ljava/util/List;
-
-    move-result-object v1
-
-    .local v1, "tasks":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$RunningTaskInfo;>;"
-    invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
-
-    move-result v2
-
-    if-nez v2, :cond_0
-
-    const/4 v2, 0x0
-
-    invoke-interface {v1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, Landroid/app/ActivityManager$RunningTaskInfo;
-
-    :goto_0
-    return-object v2
-
-    :cond_0
-    const/4 v2, 0x0
-
-    goto :goto_0
-.end method
-
 .method getUnknownTransitionActivityOptions()Landroid/app/ActivityOptions;
     .locals 4
 
@@ -685,16 +648,20 @@
 
     if-eqz v2, :cond_0
 
-    invoke-virtual {p0}, Lcom/android/systemui/recents/Recents;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
+    iget-object v2, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
+
+    invoke-virtual {v2}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
 
     move-result-object v1
 
     .local v1, "topTask":Landroid/app/ActivityManager$RunningTaskInfo;
     if-eqz v1, :cond_0
 
-    const/4 v2, 0x0
+    iget-object v2, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
 
-    invoke-virtual {p0, v1, v2}, Lcom/android/systemui/recents/Recents;->isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
+    const/4 v3, 0x0
+
+    invoke-virtual {v2, v1, v3}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
 
     move-result v2
 
@@ -727,73 +694,6 @@
     .end local v1    # "topTask":Landroid/app/ActivityManager$RunningTaskInfo;
     :cond_0
     return-void
-.end method
-
-.method isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
-    .locals 5
-    .param p1, "topTask"    # Landroid/app/ActivityManager$RunningTaskInfo;
-    .param p2, "isHomeTopMost"    # Ljava/util/concurrent/atomic/AtomicBoolean;
-
-    .prologue
-    const/4 v2, 0x0
-
-    iget-object v0, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
-
-    .local v0, "ssp":Lcom/android/systemui/recents/misc/SystemServicesProxy;
-    if-eqz p1, :cond_1
-
-    iget-object v1, p1, Landroid/app/ActivityManager$RunningTaskInfo;->topActivity:Landroid/content/ComponentName;
-
-    .local v1, "topActivity":Landroid/content/ComponentName;
-    invoke-virtual {v1}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
-
-    move-result-object v3
-
-    const-string v4, "com.android.systemui"
-
-    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v3
-
-    if-eqz v3, :cond_2
-
-    invoke-virtual {v1}, Landroid/content/ComponentName;->getClassName()Ljava/lang/String;
-
-    move-result-object v3
-
-    const-string v4, "com.android.systemui.recents.RecentsActivity"
-
-    invoke-virtual {v3, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v3
-
-    if-eqz v3, :cond_2
-
-    if-eqz p2, :cond_0
-
-    invoke-virtual {p2, v2}, Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V
-
-    :cond_0
-    const/4 v2, 0x1
-
-    .end local v1    # "topActivity":Landroid/content/ComponentName;
-    :cond_1
-    :goto_0
-    return v2
-
-    .restart local v1    # "topActivity":Landroid/content/ComponentName;
-    :cond_2
-    if-eqz p2, :cond_1
-
-    iget v3, p1, Landroid/app/ActivityManager$RunningTaskInfo;->id:I
-
-    invoke-virtual {v0, v3}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->isInHomeStack(I)Z
-
-    move-result v3
-
-    invoke-virtual {p2, v3}, Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V
-
-    goto :goto_0
 .end method
 
 .method public onAnimationStarted()V
@@ -1391,7 +1291,13 @@
     return-void
 
     :cond_1
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/recents/Recents;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v17 .. v17}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
 
     move-result-object v10
 
@@ -1949,7 +1855,9 @@
     .locals 3
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/systemui/recents/Recents;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
+    iget-object v2, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
+
+    invoke-virtual {v2}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
 
     move-result-object v1
 
@@ -1963,7 +1871,9 @@
     .local v0, "isTopTaskHome":Ljava/util/concurrent/atomic/AtomicBoolean;
     if-eqz v1, :cond_0
 
-    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/recents/Recents;->isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
+    iget-object v2, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
+
+    invoke-virtual {v2, v1, v0}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
 
     move-result v2
 
@@ -2391,7 +2301,9 @@
     return-void
 
     :cond_0
-    invoke-virtual {p0}, Lcom/android/systemui/recents/Recents;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
+    iget-object v3, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
+
+    invoke-virtual {v3}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
 
     move-result-object v2
 
@@ -2405,7 +2317,9 @@
     .local v1, "isTopTaskHome":Ljava/util/concurrent/atomic/AtomicBoolean;
     if-eqz v2, :cond_1
 
-    invoke-virtual {p0, v2, v1}, Lcom/android/systemui/recents/Recents;->isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
+    iget-object v3, p0, Lcom/android/systemui/recents/Recents;->mSystemServicesProxy:Lcom/android/systemui/recents/misc/SystemServicesProxy;
+
+    invoke-virtual {v3, v2, v1}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
 
     move-result v3
 

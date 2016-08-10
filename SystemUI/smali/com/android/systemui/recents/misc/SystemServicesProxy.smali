@@ -212,6 +212,39 @@
     return-void
 .end method
 
+.method private getRunningTasks(I)Ljava/util/List;
+    .locals 1
+    .param p1, "numTasks"    # I
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(I)",
+            "Ljava/util/List",
+            "<",
+            "Landroid/app/ActivityManager$RunningTaskInfo;",
+            ">;"
+        }
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mAm:Landroid/app/ActivityManager;
+
+    if-nez v0, :cond_0
+
+    const/4 v0, 0x0
+
+    :goto_0
+    return-object v0
+
+    :cond_0
+    iget-object v0, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mAm:Landroid/app/ActivityManager;
+
+    invoke-virtual {v0, p1}, Landroid/app/ActivityManager;->getRunningTasks(I)Ljava/util/List;
+
+    move-result-object v0
+
+    goto :goto_0
+.end method
+
 .method public static getThumbnail(Landroid/app/ActivityManager;I)Landroid/graphics/Bitmap;
     .locals 6
     .param p0, "activityManager"    # Landroid/app/ActivityManager;
@@ -716,39 +749,6 @@
     goto :goto_0
 .end method
 
-.method public getRunningTasks(I)Ljava/util/List;
-    .locals 1
-    .param p1, "numTasks"    # I
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "(I)",
-            "Ljava/util/List",
-            "<",
-            "Landroid/app/ActivityManager$RunningTaskInfo;",
-            ">;"
-        }
-    .end annotation
-
-    .prologue
-    iget-object v0, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mAm:Landroid/app/ActivityManager;
-
-    if-nez v0, :cond_0
-
-    const/4 v0, 0x0
-
-    :goto_0
-    return-object v0
-
-    :cond_0
-    iget-object v0, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mAm:Landroid/app/ActivityManager;
-
-    invoke-virtual {v0, p1}, Landroid/app/ActivityManager;->getRunningTasks(I)Ljava/util/List;
-
-    move-result-object v0
-
-    goto :goto_0
-.end method
-
 .method public getSystemSetting(Landroid/content/Context;Ljava/lang/String;)I
     .locals 2
     .param p1, "context"    # Landroid/content/Context;
@@ -849,6 +849,40 @@
     goto :goto_0
 .end method
 
+.method public getTopMostTask()Landroid/app/ActivityManager$RunningTaskInfo;
+    .locals 2
+
+    .prologue
+    const/4 v1, 0x1
+
+    invoke-direct {p0, v1}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->getRunningTasks(I)Ljava/util/List;
+
+    move-result-object v0
+
+    .local v0, "tasks":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$RunningTaskInfo;>;"
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    const/4 v1, 0x0
+
+    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Landroid/app/ActivityManager$RunningTaskInfo;
+
+    :goto_0
+    return-object v1
+
+    :cond_0
+    const/4 v1, 0x0
+
+    goto :goto_0
+.end method
+
 .method public getWindowRect()Landroid/graphics/Rect;
     .locals 5
 
@@ -938,6 +972,70 @@
     invoke-virtual {v0, p1}, Landroid/app/ActivityManager;->isInHomeStack(I)Z
 
     move-result v0
+
+    goto :goto_0
+.end method
+
+.method public isRecentsTopMost(Landroid/app/ActivityManager$RunningTaskInfo;Ljava/util/concurrent/atomic/AtomicBoolean;)Z
+    .locals 4
+    .param p1, "topTask"    # Landroid/app/ActivityManager$RunningTaskInfo;
+    .param p2, "isHomeTopMost"    # Ljava/util/concurrent/atomic/AtomicBoolean;
+
+    .prologue
+    const/4 v1, 0x0
+
+    if-eqz p1, :cond_1
+
+    iget-object v0, p1, Landroid/app/ActivityManager$RunningTaskInfo;->topActivity:Landroid/content/ComponentName;
+
+    .local v0, "topActivity":Landroid/content/ComponentName;
+    invoke-virtual {v0}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
+
+    move-result-object v2
+
+    const-string v3, "com.android.systemui"
+
+    invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_2
+
+    invoke-virtual {v0}, Landroid/content/ComponentName;->getClassName()Ljava/lang/String;
+
+    move-result-object v2
+
+    const-string v3, "com.android.systemui.recents.RecentsActivity"
+
+    invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_2
+
+    if-eqz p2, :cond_0
+
+    invoke-virtual {p2, v1}, Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V
+
+    :cond_0
+    const/4 v1, 0x1
+
+    .end local v0    # "topActivity":Landroid/content/ComponentName;
+    :cond_1
+    :goto_0
+    return v1
+
+    .restart local v0    # "topActivity":Landroid/content/ComponentName;
+    :cond_2
+    if-eqz p2, :cond_1
+
+    iget v2, p1, Landroid/app/ActivityManager$RunningTaskInfo;->id:I
+
+    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->isInHomeStack(I)Z
+
+    move-result v2
+
+    invoke-virtual {p2, v2}, Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V
 
     goto :goto_0
 .end method

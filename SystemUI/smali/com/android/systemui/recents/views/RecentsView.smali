@@ -212,7 +212,7 @@
 .end method
 
 .method public launchFocusedTask()Z
-    .locals 11
+    .locals 12
 
     .prologue
     const/4 v5, 0x0
@@ -245,18 +245,23 @@
     iget-object v3, v1, Lcom/android/systemui/recents/views/TaskStackView;->mStack:Lcom/android/systemui/recents/model/TaskStack;
 
     .local v3, "stack":Lcom/android/systemui/recents/model/TaskStack;
-    invoke-virtual {v1}, Lcom/android/systemui/recents/views/TaskStackView;->getChildCount()I
+    invoke-virtual {v1}, Lcom/android/systemui/recents/views/TaskStackView;->getTaskViews()Ljava/util/List;
+
+    move-result-object v11
+
+    .local v11, "taskViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskView;>;"
+    invoke-interface {v11}, Ljava/util/List;->size()I
 
     move-result v10
 
-    .local v10, "taskCount":I
+    .local v10, "taskViewCount":I
     const/4 v9, 0x0
 
     .local v9, "j":I
     :goto_1
     if-ge v9, v10, :cond_2
 
-    invoke-virtual {v1, v9}, Lcom/android/systemui/recents/views/TaskStackView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v11, v9}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v2
 
@@ -286,7 +291,8 @@
     .end local v4    # "task":Lcom/android/systemui/recents/model/Task;
     .end local v6    # "child":Landroid/view/View;
     .end local v9    # "j":I
-    .end local v10    # "taskCount":I
+    .end local v10    # "taskViewCount":I
+    .end local v11    # "taskViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskView;>;"
     :cond_0
     return v5
 
@@ -296,7 +302,8 @@
     .restart local v4    # "task":Lcom/android/systemui/recents/model/Task;
     .restart local v6    # "child":Landroid/view/View;
     .restart local v9    # "j":I
-    .restart local v10    # "taskCount":I
+    .restart local v10    # "taskViewCount":I
+    .restart local v11    # "taskViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskView;>;"
     :cond_1
     add-int/lit8 v9, v9, 0x1
 
@@ -307,7 +314,8 @@
     .end local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
     .end local v4    # "task":Lcom/android/systemui/recents/model/Task;
     .end local v9    # "j":I
-    .end local v10    # "taskCount":I
+    .end local v10    # "taskViewCount":I
+    .end local v11    # "taskViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskView;>;"
     :cond_2
     add-int/lit8 v8, v8, 0x1
 
@@ -431,13 +439,51 @@
     goto :goto_0
 .end method
 
-.method public onAllTaskViewsDismissed()V
-    .locals 1
+.method public onAllTaskViewsDismissed(Ljava/util/ArrayList;)V
+    .locals 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/ArrayList",
+            "<",
+            "Lcom/android/systemui/recents/model/Task;",
+            ">;)V"
+        }
+    .end annotation
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mCb:Lcom/android/systemui/recents/views/RecentsView$RecentsViewCallbacks;
+    .local p1, "removedTasks":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/systemui/recents/model/Task;>;"
+    if-eqz p1, :cond_0
 
-    invoke-interface {v0}, Lcom/android/systemui/recents/views/RecentsView$RecentsViewCallbacks;->onAllTaskViewsDismissed()V
+    invoke-virtual {p1}, Ljava/util/ArrayList;->size()I
+
+    move-result v1
+
+    .local v1, "taskCount":I
+    const/4 v0, 0x0
+
+    .local v0, "i":I
+    :goto_0
+    if-ge v0, v1, :cond_0
+
+    invoke-virtual {p1, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/android/systemui/recents/model/Task;
+
+    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->onTaskViewDismissed(Lcom/android/systemui/recents/model/Task;)V
+
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_0
+
+    .end local v0    # "i":I
+    .end local v1    # "taskCount":I
+    :cond_0
+    iget-object v2, p0, Lcom/android/systemui/recents/views/RecentsView;->mCb:Lcom/android/systemui/recents/views/RecentsView$RecentsViewCallbacks;
+
+    invoke-interface {v2}, Lcom/android/systemui/recents/views/RecentsView$RecentsViewCallbacks;->onAllTaskViewsDismissed()V
 
     return-void
 .end method

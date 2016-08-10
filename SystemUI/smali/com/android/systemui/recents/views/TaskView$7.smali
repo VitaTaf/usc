@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/recents/views/TaskView;->startDeleteTaskAnimation(Ljava/lang/Runnable;)V
+    value = Lcom/android/systemui/recents/views/TaskView;->startDeleteTaskAnimation(Ljava/lang/Runnable;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -45,8 +45,13 @@
     .prologue
     iget-object v0, p0, Lcom/android/systemui/recents/views/TaskView$7;->val$r:Ljava/lang/Runnable;
 
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/TaskView$7;->val$r:Ljava/lang/Runnable;
+
     invoke-interface {v0}, Ljava/lang/Runnable;->run()V
 
+    :cond_0
     iget-object v0, p0, Lcom/android/systemui/recents/views/TaskView$7;->this$0:Lcom/android/systemui/recents/views/TaskView;
 
     const/4 v1, 0x1

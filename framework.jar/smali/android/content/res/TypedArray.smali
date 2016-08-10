@@ -264,9 +264,25 @@
 
 # virtual methods
 .method public extractThemeAttrs()[I
-    .locals 8
+    .locals 1
 
     .prologue
+    const/4 v0, 0x0
+
+    invoke-virtual {p0, v0}, Landroid/content/res/TypedArray;->extractThemeAttrs([I)[I
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public extractThemeAttrs([I)[I
+    .locals 9
+    .param p1, "scrap"    # [I
+
+    .prologue
+    const/4 v8, 0x0
+
     iget-boolean v6, p0, Landroid/content/res/TypedArray;->mRecycled:Z
 
     if-eqz v6, :cond_0
@@ -295,7 +311,7 @@
 
     .local v4, "i":I
     :goto_0
-    if-ge v4, v0, :cond_4
+    if-ge v4, v0, :cond_5
 
     mul-int/lit8 v5, v4, 0x6
 
@@ -317,9 +333,7 @@
     :cond_2
     add-int/lit8 v6, v5, 0x0
 
-    const/4 v7, 0x0
-
-    aput v7, v3, v6
+    aput v8, v3, v6
 
     add-int/lit8 v6, v5, 0x1
 
@@ -330,16 +344,30 @@
 
     if-nez v2, :cond_3
 
-    new-array v2, v0, [I
+    if-eqz p1, :cond_4
+
+    array-length v6, p1
+
+    if-ne v6, v0, :cond_4
+
+    move-object v2, p1
+
+    invoke-static {v2, v8}, Ljava/util/Arrays;->fill([II)V
 
     :cond_3
+    :goto_2
     aput v1, v2, v4
 
     goto :goto_1
 
+    :cond_4
+    new-array v2, v0, [I
+
+    goto :goto_2
+
     .end local v1    # "attr":I
     .end local v5    # "index":I
-    :cond_4
+    :cond_5
     return-object v2
 .end method
 
@@ -599,7 +627,9 @@
 
     iget v5, v3, Landroid/util/TypedValue;->resourceId:I
 
-    invoke-virtual {v4, v3, v5}, Landroid/content/res/Resources;->loadColorStateList(Landroid/util/TypedValue;I)Landroid/content/res/ColorStateList;
+    iget-object v6, p0, Landroid/content/res/TypedArray;->mTheme:Landroid/content/res/Resources$Theme;
+
+    invoke-virtual {v4, v3, v5, v6}, Landroid/content/res/Resources;->loadColorStateList(Landroid/util/TypedValue;ILandroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;
 
     move-result-object v0
 
@@ -735,7 +765,9 @@
 
     iget v2, v0, Landroid/util/TypedValue;->resourceId:I
 
-    invoke-virtual {v1, v0, v2}, Landroid/content/res/Resources;->loadColorStateList(Landroid/util/TypedValue;I)Landroid/content/res/ColorStateList;
+    iget-object v3, p0, Landroid/content/res/TypedArray;->mTheme:Landroid/content/res/Resources$Theme;
+
+    invoke-virtual {v1, v0, v2, v3}, Landroid/content/res/Resources;->loadColorStateList(Landroid/util/TypedValue;ILandroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;
 
     move-result-object v1
 

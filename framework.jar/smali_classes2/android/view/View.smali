@@ -16778,6 +16778,33 @@
     return-object v0
 .end method
 
+.method public getBackgroundColor()I
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/view/View;->mBackground:Landroid/graphics/drawable/Drawable;
+
+    instance-of v0, v0, Landroid/graphics/drawable/ColorDrawable;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/view/View;->mBackground:Landroid/graphics/drawable/Drawable;
+
+    check-cast v0, Landroid/graphics/drawable/ColorDrawable;
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/ColorDrawable;->getColor()I
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
 .method public getBackgroundTintList()Landroid/content/res/ColorStateList;
     .locals 1
 

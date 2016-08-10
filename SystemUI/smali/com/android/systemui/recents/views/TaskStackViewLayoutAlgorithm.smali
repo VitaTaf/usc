@@ -433,7 +433,7 @@
 
 # virtual methods
 .method computeMinMaxScroll(Ljava/util/ArrayList;ZZ)V
-    .locals 20
+    .locals 21
     .param p2, "launchedWithAltTab"    # Z
     .param p3, "launchedFromHome"    # Z
     .annotation system Ldalvik/annotation/Signature;
@@ -452,25 +452,25 @@
 
     iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mTaskProgressMap:Ljava/util/HashMap;
 
-    move-object/from16 v17, v0
+    move-object/from16 v18, v0
 
-    invoke-virtual/range {v17 .. v17}, Ljava/util/HashMap;->clear()V
+    invoke-virtual/range {v18 .. v18}, Ljava/util/HashMap;->clear()V
 
     invoke-virtual/range {p1 .. p1}, Ljava/util/ArrayList;->isEmpty()Z
 
-    move-result v17
+    move-result v18
 
-    if-eqz v17, :cond_0
+    if-eqz v18, :cond_0
 
-    const/16 v17, 0x0
+    const/16 v18, 0x0
 
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 
     iput v0, v1, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mMaxScrollP:F
 
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 
@@ -484,192 +484,13 @@
 
     iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mTaskRect:Landroid/graphics/Rect;
 
-    move-object/from16 v17, v0
+    move-object/from16 v18, v0
 
-    invoke-virtual/range {v17 .. v17}, Landroid/graphics/Rect;->height()I
-
-    move-result v16
-
-    .local v16, "taskHeight":I
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
-
-    move-object/from16 v17, v0
-
-    move-object/from16 v0, v17
-
-    iget v0, v0, Landroid/graphics/Rect;->bottom:I
-
-    move/from16 v17, v0
-
-    move-object/from16 v0, p0
-
-    move/from16 v1, v17
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
-
-    move-result v4
-
-    .local v4, "pAtBottomOfStackRect":F
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
-
-    move-object/from16 v17, v0
-
-    move-object/from16 v0, v17
-
-    iget v0, v0, Landroid/graphics/Rect;->bottom:I
-
-    move/from16 v17, v0
-
-    move-object/from16 v0, p0
-
-    iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mWithinAffiliationOffset:I
-
-    move/from16 v18, v0
-
-    sub-int v17, v17, v18
-
-    move-object/from16 v0, p0
-
-    move/from16 v1, v17
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
-
-    move-result v11
-
-    .local v11, "pWithinAffiliateTop":F
-    move-object/from16 v0, p0
-
-    invoke-virtual {v0, v11}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->curveProgressToScale(F)F
-
-    move-result v12
-
-    .local v12, "scale":F
-    const/high16 v17, 0x3f800000    # 1.0f
-
-    sub-float v17, v17, v12
-
-    move/from16 v0, v16
-
-    int-to-float v0, v0
-
-    move/from16 v18, v0
-
-    mul-float v17, v17, v18
-
-    const/high16 v18, 0x40000000    # 2.0f
-
-    div-float v17, v17, v18
-
-    move/from16 v0, v17
-
-    float-to-int v13, v0
-
-    .local v13, "scaleYOffset":I
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
-
-    move-object/from16 v17, v0
-
-    move-object/from16 v0, v17
-
-    iget v0, v0, Landroid/graphics/Rect;->bottom:I
-
-    move/from16 v17, v0
-
-    move-object/from16 v0, p0
-
-    iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mWithinAffiliationOffset:I
-
-    move/from16 v18, v0
-
-    sub-int v17, v17, v18
-
-    add-int v17, v17, v13
-
-    move-object/from16 v0, p0
-
-    move/from16 v1, v17
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
-
-    move-result v11
-
-    sub-float v10, v4, v11
-
-    .local v10, "pWithinAffiliateOffset":F
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
-
-    move-object/from16 v17, v0
-
-    move-object/from16 v0, v17
-
-    iget v0, v0, Landroid/graphics/Rect;->bottom:I
-
-    move/from16 v17, v0
-
-    move-object/from16 v0, p0
-
-    iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mBetweenAffiliationOffset:I
-
-    move/from16 v18, v0
-
-    sub-int v17, v17, v18
-
-    move-object/from16 v0, p0
-
-    move/from16 v1, v17
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
+    invoke-virtual/range {v18 .. v18}, Landroid/graphics/Rect;->height()I
 
     move-result v17
 
-    sub-float v6, v4, v17
-
-    .local v6, "pBetweenAffiliateOffset":F
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
-
-    move-object/from16 v17, v0
-
-    move-object/from16 v0, v17
-
-    iget v0, v0, Landroid/graphics/Rect;->bottom:I
-
-    move/from16 v17, v0
-
-    sub-int v17, v17, v16
-
-    move-object/from16 v0, p0
-
-    move/from16 v1, v17
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
-
-    move-result v17
-
-    sub-float v9, v4, v17
-
-    .local v9, "pTaskHeightOffset":F
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
-
-    move-object/from16 v17, v0
-
-    move-object/from16 v0, v17
-
-    iget v0, v0, Landroid/graphics/Rect;->bottom:I
-
-    move/from16 v17, v0
-
+    .local v17, "taskHeight":I
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
@@ -684,7 +505,174 @@
 
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackRect:Landroid/graphics/Rect;
+    move/from16 v1, v18
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
+
+    move-result v4
+
+    .local v4, "pAtBottomOfStackRect":F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
+
+    move-object/from16 v18, v0
+
+    move-object/from16 v0, v18
+
+    iget v0, v0, Landroid/graphics/Rect;->bottom:I
+
+    move/from16 v18, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mWithinAffiliationOffset:I
+
+    move/from16 v19, v0
+
+    sub-int v18, v18, v19
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, v18
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
+
+    move-result v12
+
+    .local v12, "pWithinAffiliateTop":F
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v12}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->curveProgressToScale(F)F
+
+    move-result v13
+
+    .local v13, "scale":F
+    const/high16 v18, 0x3f800000    # 1.0f
+
+    sub-float v18, v18, v13
+
+    move/from16 v0, v17
+
+    int-to-float v0, v0
+
+    move/from16 v19, v0
+
+    mul-float v18, v18, v19
+
+    const/high16 v19, 0x40000000    # 2.0f
+
+    div-float v18, v18, v19
+
+    move/from16 v0, v18
+
+    float-to-int v14, v0
+
+    .local v14, "scaleYOffset":I
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
+
+    move-object/from16 v18, v0
+
+    move-object/from16 v0, v18
+
+    iget v0, v0, Landroid/graphics/Rect;->bottom:I
+
+    move/from16 v18, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mWithinAffiliationOffset:I
+
+    move/from16 v19, v0
+
+    sub-int v18, v18, v19
+
+    add-int v18, v18, v14
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, v18
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
+
+    move-result v12
+
+    sub-float v11, v4, v12
+
+    .local v11, "pWithinAffiliateOffset":F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
+
+    move-object/from16 v18, v0
+
+    move-object/from16 v0, v18
+
+    iget v0, v0, Landroid/graphics/Rect;->bottom:I
+
+    move/from16 v18, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mBetweenAffiliationOffset:I
+
+    move/from16 v19, v0
+
+    sub-int v18, v18, v19
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, v18
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
+
+    move-result v18
+
+    sub-float v6, v4, v18
+
+    .local v6, "pBetweenAffiliateOffset":F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
+
+    move-object/from16 v18, v0
+
+    move-object/from16 v0, v18
+
+    iget v0, v0, Landroid/graphics/Rect;->bottom:I
+
+    move/from16 v18, v0
+
+    sub-int v18, v18, v17
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, v18
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
+
+    move-result v18
+
+    sub-float v10, v4, v18
+
+    .local v10, "pTaskHeightOffset":F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
+
+    move-object/from16 v18, v0
+
+    move-object/from16 v0, v18
+
+    iget v0, v0, Landroid/graphics/Rect;->bottom:I
+
+    move/from16 v18, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackVisibleRect:Landroid/graphics/Rect;
 
     move-object/from16 v19, v0
 
@@ -694,21 +682,36 @@
 
     move/from16 v19, v0
 
-    sub-int v18, v18, v19
+    move-object/from16 v0, p0
 
-    sub-int v17, v17, v18
+    iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mStackRect:Landroid/graphics/Rect;
+
+    move-object/from16 v20, v0
+
+    move-object/from16 v0, v20
+
+    iget v0, v0, Landroid/graphics/Rect;->bottom:I
+
+    move/from16 v20, v0
+
+    sub-int v19, v19, v20
+
+    sub-int v18, v18, v19
 
     move-object/from16 v0, p0
 
-    move/from16 v1, v17
+    move/from16 v1, v18
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->screenYToCurveProgress(I)F
 
-    move-result v17
+    move-result v18
 
-    sub-float v7, v4, v17
+    sub-float v8, v4, v18
 
-    .local v7, "pNavBarOffset":F
+    .local v8, "pNavBarOffset":F
+    const/4 v7, 0x0
+
+    .local v7, "pDismissAllButtonOffset":F
     const/high16 v3, 0x3f000000    # 0.5f
 
     .local v3, "pAtBackMostCardTop":F
@@ -717,86 +720,90 @@
     .local v5, "pAtFrontMostCardTop":F
     invoke-virtual/range {p1 .. p1}, Ljava/util/ArrayList;->size()I
 
-    move-result v15
+    move-result v16
 
-    .local v15, "taskCount":I
+    .local v16, "taskCount":I
     const/4 v2, 0x0
 
     .local v2, "i":I
     :goto_1
-    if-ge v2, v15, :cond_3
+    move/from16 v0, v16
+
+    if-ge v2, v0, :cond_3
 
     move-object/from16 v0, p1
 
     invoke-virtual {v0, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    move-result-object v14
+    move-result-object v15
 
-    check-cast v14, Lcom/android/systemui/recents/model/Task;
+    check-cast v15, Lcom/android/systemui/recents/model/Task;
 
-    .local v14, "task":Lcom/android/systemui/recents/model/Task;
+    .local v15, "task":Lcom/android/systemui/recents/model/Task;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mTaskProgressMap:Ljava/util/HashMap;
 
-    move-object/from16 v17, v0
-
-    iget-object v0, v14, Lcom/android/systemui/recents/model/Task;->key:Lcom/android/systemui/recents/model/Task$TaskKey;
-
     move-object/from16 v18, v0
+
+    iget-object v0, v15, Lcom/android/systemui/recents/model/Task;->key:Lcom/android/systemui/recents/model/Task$TaskKey;
+
+    move-object/from16 v19, v0
 
     invoke-static {v5}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
 
-    move-result-object v19
+    move-result-object v20
 
-    invoke-virtual/range {v17 .. v19}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual/range {v18 .. v20}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    add-int/lit8 v17, v15, -0x1
+    add-int/lit8 v18, v16, -0x1
 
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     if-ge v2, v0, :cond_1
 
-    iget-object v0, v14, Lcom/android/systemui/recents/model/Task;->group:Lcom/android/systemui/recents/model/TaskGrouping;
+    iget-object v0, v15, Lcom/android/systemui/recents/model/Task;->group:Lcom/android/systemui/recents/model/TaskGrouping;
 
-    move-object/from16 v17, v0
+    move-object/from16 v18, v0
 
-    move-object/from16 v0, v17
+    move-object/from16 v0, v18
 
-    invoke-virtual {v0, v14}, Lcom/android/systemui/recents/model/TaskGrouping;->isFrontMostTask(Lcom/android/systemui/recents/model/Task;)Z
+    invoke-virtual {v0, v15}, Lcom/android/systemui/recents/model/TaskGrouping;->isFrontMostTask(Lcom/android/systemui/recents/model/Task;)Z
 
-    move-result v17
+    move-result v18
 
-    if-eqz v17, :cond_2
+    if-eqz v18, :cond_2
 
-    move v8, v6
+    move v9, v6
 
-    .local v8, "pPeek":F
+    .local v9, "pPeek":F
     :goto_2
-    add-float/2addr v5, v8
+    add-float/2addr v5, v9
 
-    .end local v8    # "pPeek":F
+    .end local v9    # "pPeek":F
     :cond_1
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_1
 
     :cond_2
-    move v8, v10
+    move v9, v11
 
     goto :goto_2
 
-    .end local v14    # "task":Lcom/android/systemui/recents/model/Task;
+    .end local v15    # "task":Lcom/android/systemui/recents/model/Task;
     :cond_3
-    const/high16 v17, 0x3f800000    # 1.0f
+    add-float v18, v5, v7
 
-    sub-float v17, v17, v9
+    const/high16 v19, 0x3f800000    # 1.0f
 
-    sub-float v17, v17, v7
+    sub-float v19, v19, v10
 
-    sub-float v17, v5, v17
+    sub-float v19, v19, v8
 
-    move/from16 v0, v17
+    sub-float v18, v18, v19
+
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 
@@ -804,13 +811,13 @@
 
     invoke-virtual/range {p1 .. p1}, Ljava/util/ArrayList;->size()I
 
-    move-result v17
+    move-result v18
 
-    const/16 v18, 0x1
+    const/16 v19, 0x1
 
-    move/from16 v0, v17
+    move/from16 v0, v18
 
-    move/from16 v1, v18
+    move/from16 v1, v19
 
     if-ne v0, v1, :cond_4
 
@@ -818,16 +825,16 @@
 
     iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mMaxScrollP:F
 
-    move/from16 v17, v0
+    move/from16 v18, v0
 
-    const/16 v18, 0x0
+    const/16 v19, 0x0
 
-    invoke-static/range {v17 .. v18}, Ljava/lang/Math;->max(FF)F
+    invoke-static/range {v18 .. v19}, Ljava/lang/Math;->max(FF)F
 
-    move-result v17
+    move-result v18
 
     :goto_3
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 
@@ -841,9 +848,9 @@
 
     iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mMaxScrollP:F
 
-    move/from16 v17, v0
+    move/from16 v18, v0
 
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 
@@ -854,25 +861,25 @@
 
     iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mMaxScrollP:F
 
-    move/from16 v17, v0
+    move/from16 v18, v0
 
-    const/16 v18, 0x0
+    const/16 v19, 0x0
 
     move-object/from16 v0, p0
 
     iget v0, v0, Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;->mInitialScrollP:F
 
-    move/from16 v19, v0
+    move/from16 v20, v0
 
-    invoke-static/range {v18 .. v19}, Ljava/lang/Math;->max(FF)F
+    invoke-static/range {v19 .. v20}, Ljava/lang/Math;->max(FF)F
+
+    move-result v19
+
+    invoke-static/range {v18 .. v19}, Ljava/lang/Math;->min(FF)F
 
     move-result v18
 
-    invoke-static/range {v17 .. v18}, Ljava/lang/Math;->min(FF)F
-
-    move-result v17
-
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 
@@ -881,16 +888,16 @@
     goto/16 :goto_0
 
     :cond_4
-    const/16 v17, 0x0
+    const/16 v18, 0x0
 
     goto :goto_3
 
     :cond_5
-    const v17, 0x3f533333    # 0.825f
+    const v18, 0x3f533333    # 0.825f
 
-    sub-float v17, v5, v17
+    sub-float v18, v5, v18
 
-    move/from16 v0, v17
+    move/from16 v0, v18
 
     move-object/from16 v1, p0
 

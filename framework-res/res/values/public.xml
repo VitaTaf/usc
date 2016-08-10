@@ -3454,6 +3454,7 @@
     <public type="style" name="Theme.Micro.Dialog" id="0x010304be" />
     <public type="style" name="Theme.Micro.Dialog.Alert" id="0x010304bf" />
     <public type="style" name="Theme.Micro.Dialog.AppError" id="0x010304c0" />
+    <public type="style" name="Widget.Material.Button.Colored" id="0x010304c1" />
     <public type="string" name="APKTOOL_DUMMY_6a3" id="0x010406a3" />
     <public type="string" name="APKTOOL_DUMMY_6a4" id="0x010406a4" />
     <public type="string" name="APKTOOL_DUMMY_6a5" id="0x010406a5" />
@@ -5881,6 +5882,7 @@
     <public type="color" name="tab_indicator_text_v4" id="0x01060139" />
     <public type="color" name="tertiary_text_holo_dark" id="0x0106013a" />
     <public type="color" name="tertiary_text_holo_light" id="0x0106013b" />
+    <public type="color" name="btn_material_accent" id="0x0106013c" />
     <public type="array" name="emailAddressTypes" id="0x01070000" />
     <public type="array" name="imProtocols" id="0x01070001" />
     <public type="array" name="organizationTypes" id="0x01070002" />

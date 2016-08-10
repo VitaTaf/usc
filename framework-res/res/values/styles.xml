@@ -5940,4 +5940,7 @@
         <item name="fontFamily">sans-serif-condensed-light</item>
         <item name="windowOverscan">true</item>
     </style>
+    <style name="Widget.Material.Button.Colored" parent="@style/Widget.Material.Button">
+        <item name="backgroundTint">@color/btn_material_accent</item>
+    </style>
 </resources>
