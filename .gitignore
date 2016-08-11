@@ -18,3 +18,7 @@ SystemUI/dist/SystemUI.apk
 services.jar/build/*
 
 services.jar/dist/services.jar
+
+am.jar/original/*
+
+am.jar/build/*
