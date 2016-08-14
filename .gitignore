@@ -22,3 +22,5 @@ services.jar/dist/services.jar
 am.jar/original/*
 
 am.jar/build/*
+
+am.jar/dist/am.jar

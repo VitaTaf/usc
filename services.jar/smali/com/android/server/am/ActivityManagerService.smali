@@ -8777,69 +8777,13 @@
 .end method
 
 .method private checkLenovoSafeCenter(Landroid/content/Intent;Ljava/lang/String;)Z
-    .locals 3
+    .locals 2
     .param p1, "intent"    # Landroid/content/Intent;
     .param p2, "callerPackage"    # Ljava/lang/String;
 
     .prologue
     const/4 v0, 0x0
 
-    iget-object v1, p0, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v1
-
-    const v2, 0x11200da
-
-    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getBoolean(I)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    if-eqz p1, :cond_1
-
-    invoke-virtual {p1}, Landroid/content/Intent;->getAction()Ljava/lang/String;
-
-    move-result-object v1
-
-    if-eqz v1, :cond_1
-
-    invoke-virtual {p1}, Landroid/content/Intent;->getAction()Ljava/lang/String;
-
-    move-result-object v1
-
-    const-string v2, "android.net.wifi.WIFI_STATE_CHANGED"
-
-    invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    if-eqz p2, :cond_1
-
-    const-string v1, "com.lenovo.safecenter"
-
-    invoke-virtual {p2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v1
-
-    if-nez v1, :cond_0
-
-    const-string v1, "com.lenovo.safecenter.hd"
-
-    invoke-virtual {p2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    :cond_0
-    const/4 v0, 0x1
-
-    :cond_1
     return v0
 .end method
 
