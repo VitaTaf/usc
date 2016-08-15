@@ -631,6 +631,8 @@
 
 .field public static final enabled:I = 0x101000e
 
+.field public static final end:I = 0x10104d7
+
 .field public static final endColor:I = 0x101019e
 
 .field public static final endYear:I = 0x101017d
@@ -1888,6 +1890,8 @@
 .field public static final stackViewStyle:I = 0x101043e
 
 .field public static final starStyle:I = 0x1010082
+
+.field public static final start:I = 0x10104d6
 
 .field public static final startColor:I = 0x101019d
 

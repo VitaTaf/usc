@@ -2142,6 +2142,8 @@
     <attr name="dialogPreferredPadding" format="dimension" />
     <attr name="searchHintIcon" format="reference" />
     <attr name="revisionCode" format="integer" />
+    <attr name="start" format="dimension" />
+    <attr name="end" format="dimension" />
     <item type="attr" name="APKTOOL_DUMMY_267">false</item>
     <item type="attr" name="APKTOOL_DUMMY_3a8">false</item>
     <item type="attr" name="APKTOOL_DUMMY_3c3">false</item>

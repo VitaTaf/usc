@@ -17,29 +17,53 @@
 # instance fields
 .field public mDrawable:Landroid/graphics/drawable/Drawable;
 
+.field public mGravity:I
+
+.field public mHeight:I
+
 .field public mId:I
 
 .field public mInsetB:I
+
+.field public mInsetE:I
 
 .field public mInsetL:I
 
 .field public mInsetR:I
 
+.field public mInsetS:I
+
 .field public mInsetT:I
 
 .field public mThemeAttrs:[I
 
+.field public mWidth:I
+
 
 # direct methods
 .method constructor <init>()V
-    .locals 1
+    .locals 2
 
     .prologue
+    const/high16 v0, -0x80000000
+
+    const/4 v1, -0x1
+
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    const/4 v0, -0x1
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetS:I
 
-    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mId:I
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetE:I
+
+    iput v1, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mWidth:I
+
+    iput v1, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mHeight:I
+
+    const/4 v0, 0x0
+
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mGravity:I
+
+    iput v1, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mId:I
 
     return-void
 .end method
@@ -51,11 +75,25 @@
     .param p3, "res"    # Landroid/content/res/Resources;
 
     .prologue
+    const/high16 v0, -0x80000000
+
+    const/4 v1, -0x1
+
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    const/4 v0, -0x1
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetS:I
 
-    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mId:I
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetE:I
+
+    iput v1, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mWidth:I
+
+    iput v1, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mHeight:I
+
+    const/4 v0, 0x0
+
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mGravity:I
+
+    iput v1, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mId:I
 
     if-eqz p3, :cond_0
 
@@ -84,7 +122,7 @@
 
     move-result v1
 
-    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setLayoutDirection(I)V
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setLayoutDirection(I)Z
 
     iget-object v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mDrawable:Landroid/graphics/drawable/Drawable;
 
@@ -125,6 +163,26 @@
     iget v0, p1, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetB:I
 
     iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetB:I
+
+    iget v0, p1, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetS:I
+
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetS:I
+
+    iget v0, p1, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetE:I
+
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetE:I
+
+    iget v0, p1, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mWidth:I
+
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mWidth:I
+
+    iget v0, p1, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mHeight:I
+
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mHeight:I
+
+    iget v0, p1, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mGravity:I
+
+    iput v0, p0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mGravity:I
 
     iget v0, p1, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mId:I
 

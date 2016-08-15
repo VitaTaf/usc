@@ -1703,7 +1703,7 @@
 
     move-result v1
 
-    invoke-virtual {p1, v1}, Landroid/graphics/drawable/Drawable;->setLayoutDirection(I)V
+    invoke-virtual {p1, v1}, Landroid/graphics/drawable/Drawable;->setLayoutDirection(I)Z
 
     invoke-virtual {p1}, Landroid/graphics/drawable/Drawable;->isStateful()Z
 

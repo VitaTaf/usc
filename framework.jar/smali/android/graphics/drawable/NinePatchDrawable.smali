@@ -1186,6 +1186,29 @@
     goto :goto_0
 .end method
 
+.method public getDither()Z
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/graphics/drawable/NinePatchDrawable;->mPaint:Landroid/graphics/Paint;
+
+    if-nez v0, :cond_0
+
+    const/4 v0, 0x0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    iget-object v0, p0, Landroid/graphics/drawable/NinePatchDrawable;->mPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v0}, Landroid/graphics/Paint;->isDither()Z
+
+    move-result v0
+
+    goto :goto_0
+.end method
+
 .method public getIntrinsicHeight()I
     .locals 1
 
@@ -1693,7 +1716,7 @@
 
 .method public setColorFilter(Landroid/graphics/ColorFilter;)V
     .locals 1
-    .param p1, "cf"    # Landroid/graphics/ColorFilter;
+    .param p1, "colorFilter"    # Landroid/graphics/ColorFilter;
 
     .prologue
     iget-object v0, p0, Landroid/graphics/drawable/NinePatchDrawable;->mPaint:Landroid/graphics/Paint;

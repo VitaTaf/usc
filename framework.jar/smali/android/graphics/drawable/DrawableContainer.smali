@@ -140,7 +140,7 @@
 
     move-result v1
 
-    invoke-virtual {p1, v1}, Landroid/graphics/drawable/Drawable;->setLayoutDirection(I)V
+    invoke-virtual {p1, v1}, Landroid/graphics/drawable/Drawable;->setLayoutDirection(I)Z
 
     iget-object v1, p0, Landroid/graphics/drawable/DrawableContainer;->mDrawableContainerState:Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;
 
@@ -562,6 +562,17 @@
 
     .prologue
     iget v0, p0, Landroid/graphics/drawable/DrawableContainer;->mCurIndex:I
+
+    return v0
+.end method
+
+.method public getDither()Z
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/graphics/drawable/DrawableContainer;->mDrawableContainerState:Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;
+
+    iget-boolean v0, v0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mDither:Z
 
     return v0
 .end method
@@ -1096,6 +1107,24 @@
     return-void
 .end method
 
+.method public onLayoutDirectionChange(I)Z
+    .locals 2
+    .param p1, "layoutDirection"    # I
+
+    .prologue
+    iget-object v0, p0, Landroid/graphics/drawable/DrawableContainer;->mDrawableContainerState:Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;
+
+    invoke-virtual {p0}, Landroid/graphics/drawable/DrawableContainer;->getCurrentIndex()I
+
+    move-result v1
+
+    invoke-virtual {v0, p1, v1}, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->setLayoutDirection(II)Z
+
+    move-result v0
+
+    return v0
+.end method
+
 .method protected onLevelChange(I)Z
     .locals 1
     .param p1, "level"    # I
@@ -1464,17 +1493,14 @@
 
 .method public setColorFilter(Landroid/graphics/ColorFilter;)V
     .locals 2
-    .param p1, "cf"    # Landroid/graphics/ColorFilter;
+    .param p1, "colorFilter"    # Landroid/graphics/ColorFilter;
 
     .prologue
-    iget-object v1, p0, Landroid/graphics/drawable/DrawableContainer;->mDrawableContainerState:Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;
+    iget-object v0, p0, Landroid/graphics/drawable/DrawableContainer;->mDrawableContainerState:Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;
 
-    if-eqz p1, :cond_1
+    const/4 v1, 0x1
 
-    const/4 v0, 0x1
-
-    :goto_0
-    iput-boolean v0, v1, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mHasColorFilter:Z
+    iput-boolean v1, v0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mHasColorFilter:Z
 
     iget-object v0, p0, Landroid/graphics/drawable/DrawableContainer;->mDrawableContainerState:Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;
 
@@ -1500,11 +1526,6 @@
 
     :cond_0
     return-void
-
-    :cond_1
-    const/4 v0, 0x0
-
-    goto :goto_0
 .end method
 
 .method protected setConstantState(Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;)V
