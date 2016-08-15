@@ -411,6 +411,12 @@ Also, you're connected to a VPN (\"%3$s\"). Your VPN service provider can monito
     <string name="accessibility_ime_switch_button">Switch input method button.</string>
     <string name="accessibility_recents_all_items_dismissed">All recent applications dismissed.</string>
     <string name="recents_dismiss_all_message">Dismiss all applications</string>
+    <string name="recents_multistack_add_stack">+</string>
+    <string name="recents_multistack_remove_stack">-</string>
+    <string name="recents_multistack_resize_stack">[]</string>
+    <string name="recents_multistack_add_stack_dialog_split_horizontal">Split Horizontal</string>
+    <string name="recents_multistack_add_stack_dialog_split_vertical">Split Vertical</string>
+    <string name="recents_multistack_add_stack_dialog_split_custom">Split Custom</string>
     <string name="quick_settings_tiles_default_2">wifi,bt,inversion,cell1,cell2,airplane,rotation,flashlight,location,cast,hotspot</string>
     <string name="quick_settings_tiles_default_3">wifi,bt,inversion,cell1,cell2,cell3,airplane,rotation,flashlight,location,cast,hotspot</string>
     <string name="zz_moto_accessibility_sim_absent">sim absent</string>

@@ -12,6 +12,10 @@
 
 
 # instance fields
+.field public final displayBounds:Landroid/graphics/Rect;
+
+.field public final id:I
+
 .field mAffinitiesGroups:Ljava/util/HashMap;
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -39,13 +43,39 @@
 
 .field mTaskList:Lcom/android/systemui/recents/model/FilteredTaskList;
 
+.field public final stackBounds:Landroid/graphics/Rect;
+
 
 # direct methods
 .method public constructor <init>()V
     .locals 1
 
     .prologue
+    const/4 v0, 0x0
+
+    invoke-direct {p0, v0}, Lcom/android/systemui/recents/model/TaskStack;-><init>(I)V
+
+    return-void
+.end method
+
+.method public constructor <init>(I)V
+    .locals 1
+    .param p1, "stackId"    # I
+
+    .prologue
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    new-instance v0, Landroid/graphics/Rect;
+
+    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/recents/model/TaskStack;->stackBounds:Landroid/graphics/Rect;
+
+    new-instance v0, Landroid/graphics/Rect;
+
+    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/recents/model/TaskStack;->displayBounds:Landroid/graphics/Rect;
 
     new-instance v0, Lcom/android/systemui/recents/model/FilteredTaskList;
 
@@ -64,6 +94,8 @@
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/recents/model/TaskStack;->mAffinitiesGroups:Ljava/util/HashMap;
+
+    iput p1, p0, Lcom/android/systemui/recents/model/TaskStack;->id:I
 
     return-void
 .end method
@@ -713,6 +745,23 @@
     iget-object v0, p0, Lcom/android/systemui/recents/model/TaskStack;->mAffinitiesGroups:Ljava/util/HashMap;
 
     invoke-virtual {v0}, Ljava/util/HashMap;->clear()V
+
+    return-void
+.end method
+
+.method public setBounds(Landroid/graphics/Rect;Landroid/graphics/Rect;)V
+    .locals 1
+    .param p1, "stackBounds"    # Landroid/graphics/Rect;
+    .param p2, "displayBounds"    # Landroid/graphics/Rect;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/model/TaskStack;->stackBounds:Landroid/graphics/Rect;
+
+    invoke-virtual {v0, p1}, Landroid/graphics/Rect;->set(Landroid/graphics/Rect;)V
+
+    iget-object v0, p0, Lcom/android/systemui/recents/model/TaskStack;->displayBounds:Landroid/graphics/Rect;
+
+    invoke-virtual {v0, p2}, Landroid/graphics/Rect;->set(Landroid/graphics/Rect;)V
 
     return-void
 .end method

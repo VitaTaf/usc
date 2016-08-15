@@ -34,9 +34,11 @@
 
 .field static final TRANSACTION_getDisplayId:I = 0x7
 
-.field static final TRANSACTION_injectEvent:I = 0x8
+.field static final TRANSACTION_getStackId:I = 0x8
 
-.field static final TRANSACTION_release:I = 0x9
+.field static final TRANSACTION_injectEvent:I = 0x9
+
+.field static final TRANSACTION_release:I = 0xa
 
 .field static final TRANSACTION_setSurface:I = 0x2
 
@@ -354,6 +356,23 @@
 
     invoke-virtual {p2, v5}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
 
+    invoke-virtual {p0}, Landroid/app/IActivityContainer$Stub;->getStackId()I
+
+    move-result v4
+
+    .restart local v4    # "_result":I
+    invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
+
+    invoke-virtual {p3, v4}, Landroid/os/Parcel;->writeInt(I)V
+
+    goto/16 :goto_0
+
+    .end local v4    # "_result":I
+    :sswitch_9
+    const-string v5, "android.app.IActivityContainer"
+
+    invoke-virtual {p2, v5}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
     invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
 
     move-result v5
@@ -402,7 +421,7 @@
 
     .end local v0    # "_arg0":Landroid/view/InputEvent;
     .end local v4    # "_result":Z
-    :sswitch_9
+    :sswitch_a
     const-string v5, "android.app.IActivityContainer"
 
     invoke-virtual {p2, v5}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
@@ -412,8 +431,6 @@
     invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
 
     goto/16 :goto_0
-
-    nop
 
     :sswitch_data_0
     .sparse-switch
@@ -426,6 +443,7 @@
         0x7 -> :sswitch_7
         0x8 -> :sswitch_8
         0x9 -> :sswitch_9
+        0xa -> :sswitch_a
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method

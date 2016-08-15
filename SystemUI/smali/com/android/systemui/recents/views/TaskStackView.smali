@@ -1161,6 +1161,15 @@
     return-object v0
 .end method
 
+.method getStack()Lcom/android/systemui/recents/model/TaskStack;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/views/TaskStackView;->mStack:Lcom/android/systemui/recents/model/TaskStack;
+
+    return-object v0
+.end method
+
 .method public getStackAlgorithm()Lcom/android/systemui/recents/views/TaskStackViewLayoutAlgorithm;
     .locals 1
 
@@ -1184,6 +1193,15 @@
 
     .prologue
     iget-object v0, p0, Lcom/android/systemui/recents/views/TaskStackView;->mImmutableTaskViews:Ljava/util/List;
+
+    return-object v0
+.end method
+
+.method getTouchableRegion()Landroid/graphics/Rect;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/views/TaskStackView;->mTaskStackBounds:Landroid/graphics/Rect;
 
     return-object v0
 .end method
@@ -1979,6 +1997,27 @@
     :cond_3
     invoke-virtual {p0, v1, v2}, Lcom/android/systemui/recents/views/TaskStackView;->setMeasuredDimension(II)V
 
+    return-void
+.end method
+
+.method public onMultiStackMoveTask(Lcom/android/systemui/recents/views/TaskView;)V
+    .locals 2
+    .param p1, "tv"    # Lcom/android/systemui/recents/views/TaskView;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/views/TaskStackView;->mCb:Lcom/android/systemui/recents/views/TaskStackView$TaskStackViewCallbacks;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/TaskStackView;->mCb:Lcom/android/systemui/recents/views/TaskStackView$TaskStackViewCallbacks;
+
+    invoke-virtual {p1}, Lcom/android/systemui/recents/views/TaskView;->getTask()Lcom/android/systemui/recents/model/Task;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1}, Lcom/android/systemui/recents/views/TaskStackView$TaskStackViewCallbacks;->onMultiStackMoveTask(Lcom/android/systemui/recents/model/Task;)V
+
+    :cond_0
     return-void
 .end method
 

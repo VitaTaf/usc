@@ -63,6 +63,19 @@
 
     const/4 v7, 0x1
 
+    iget-object v6, p0, Lcom/android/systemui/recents/Recents$TaskStackListenerImpl;->this$0:Lcom/android/systemui/recents/Recents;
+
+    iget-object v6, v6, Lcom/android/systemui/recents/Recents;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    iget-boolean v6, v6, Lcom/android/systemui/recents/RecentsConfiguration;->multiStackEnabled:Z
+
+    if-eqz v6, :cond_1
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :cond_1
     invoke-static {}, Lcom/android/systemui/recents/RecentsConfiguration;->getInstance()Lcom/android/systemui/recents/RecentsConfiguration;
 
     move-result-object v0
@@ -70,7 +83,7 @@
     .local v0, "config":Lcom/android/systemui/recents/RecentsConfiguration;
     iget v6, v0, Lcom/android/systemui/recents/RecentsConfiguration;->svelteLevel:I
 
-    if-nez v6, :cond_1
+    if-nez v6, :cond_0
 
     invoke-static {}, Lcom/android/systemui/recents/model/RecentsTaskLoader;->getInstance()Lcom/android/systemui/recents/model/RecentsTaskLoader;
 
@@ -103,13 +116,13 @@
     invoke-direct {v1}, Lcom/android/systemui/recents/model/RecentsTaskLoadPlan$Options;-><init>()V
 
     .local v1, "launchOpts":Lcom/android/systemui/recents/model/RecentsTaskLoadPlan$Options;
-    if-eqz v4, :cond_0
+    if-eqz v4, :cond_2
 
     iget v6, v4, Landroid/app/ActivityManager$RunningTaskInfo;->id:I
 
     iput v6, v1, Lcom/android/systemui/recents/model/RecentsTaskLoadPlan$Options;->runningTaskId:I
 
-    :cond_0
+    :cond_2
     iput v8, v1, Lcom/android/systemui/recents/model/RecentsTaskLoadPlan$Options;->numVisibleTasks:I
 
     iput v8, v1, Lcom/android/systemui/recents/model/RecentsTaskLoadPlan$Options;->numVisibleTaskThumbnails:I
@@ -124,11 +137,5 @@
 
     invoke-virtual {v2, v6, v3, v1}, Lcom/android/systemui/recents/model/RecentsTaskLoader;->loadTasks(Landroid/content/Context;Lcom/android/systemui/recents/model/RecentsTaskLoadPlan;Lcom/android/systemui/recents/model/RecentsTaskLoadPlan$Options;)V
 
-    .end local v1    # "launchOpts":Lcom/android/systemui/recents/model/RecentsTaskLoadPlan$Options;
-    .end local v2    # "loader":Lcom/android/systemui/recents/model/RecentsTaskLoader;
-    .end local v3    # "plan":Lcom/android/systemui/recents/model/RecentsTaskLoadPlan;
-    .end local v4    # "runningTaskInfo":Landroid/app/ActivityManager$RunningTaskInfo;
-    .end local v5    # "ssp":Lcom/android/systemui/recents/misc/SystemServicesProxy;
-    :cond_1
-    return-void
+    goto :goto_0
 .end method

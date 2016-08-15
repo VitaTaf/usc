@@ -24,6 +24,12 @@
 
 .field mInflater:Landroid/view/LayoutInflater;
 
+.field mLayoutAlgorithm:Lcom/android/systemui/recents/views/RecentsViewLayoutAlgorithm;
+
+.field mMultiStackDebugStub:Landroid/view/ViewStub;
+
+.field mMultiStackDebugView:Landroid/view/View;
+
 .field mSearchBar:Landroid/view/View;
 
 .field mStacks:Ljava/util/ArrayList;
@@ -37,14 +43,31 @@
     .end annotation
 .end field
 
+.field mTaskStackViews:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List",
+            "<",
+            "Lcom/android/systemui/recents/views/TaskStackView;",
+            ">;"
+        }
+    .end annotation
+.end field
+
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 0
+    .locals 1
     .param p1, "context"    # Landroid/content/Context;
 
     .prologue
     invoke-direct {p0, p1}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
+
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
 
     return-void
 .end method
@@ -77,7 +100,7 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
-    .locals 1
+    .locals 2
     .param p1, "context"    # Landroid/content/Context;
     .param p2, "attrs"    # Landroid/util/AttributeSet;
     .param p3, "defStyleAttr"    # I
@@ -85,6 +108,12 @@
 
     .prologue
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
+
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
 
     invoke-static {}, Lcom/android/systemui/recents/RecentsConfiguration;->getInstance()Lcom/android/systemui/recents/RecentsConfiguration;
 
@@ -98,98 +127,96 @@
 
     iput-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mInflater:Landroid/view/LayoutInflater;
 
+    new-instance v0, Lcom/android/systemui/recents/views/RecentsViewLayoutAlgorithm;
+
+    iget-object v1, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    invoke-direct {v0, v1}, Lcom/android/systemui/recents/views/RecentsViewLayoutAlgorithm;-><init>(Lcom/android/systemui/recents/RecentsConfiguration;)V
+
+    iput-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mLayoutAlgorithm:Lcom/android/systemui/recents/views/RecentsViewLayoutAlgorithm;
+
     return-void
 .end method
 
 
 # virtual methods
 .method public dismissFocusedTask()V
-    .locals 5
+    .locals 2
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
-
-    move-result v1
-
-    .local v1, "childCount":I
-    const/4 v2, 0x0
-
-    .local v2, "i":I
-    :goto_0
-    if-ge v2, v1, :cond_0
-
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
 
     move-result-object v0
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    .local v0, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
 
-    if-eq v0, v4, :cond_1
+    move-result v1
 
-    move-object v3, v0
+    if-nez v1, :cond_0
 
-    check-cast v3, Lcom/android/systemui/recents/views/TaskStackView;
+    const/4 v1, 0x0
 
-    .local v3, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v3}, Lcom/android/systemui/recents/views/TaskStackView;->dismissFocusedTask()V
+    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    .end local v0    # "child":Landroid/view/View;
-    .end local v3    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    move-result-object v1
+
+    check-cast v1, Lcom/android/systemui/recents/views/TaskStackView;
+
+    invoke-virtual {v1}, Lcom/android/systemui/recents/views/TaskStackView;->dismissFocusedTask()V
+
     :cond_0
     return-void
-
-    .restart local v0    # "child":Landroid/view/View;
-    :cond_1
-    add-int/lit8 v2, v2, 0x1
-
-    goto :goto_0
 .end method
 
 .method public focusNextTask(Z)V
-    .locals 5
+    .locals 3
     .param p1, "forward"    # Z
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
-
-    move-result v1
-
-    .local v1, "childCount":I
-    const/4 v2, 0x0
-
-    .local v2, "i":I
-    :goto_0
-    if-ge v2, v1, :cond_0
-
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
 
     move-result-object v0
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    .local v0, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
 
-    if-eq v0, v4, :cond_1
+    move-result v1
 
-    move-object v3, v0
+    if-nez v1, :cond_0
 
-    check-cast v3, Lcom/android/systemui/recents/views/TaskStackView;
+    const/4 v1, 0x0
 
-    .local v3, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    const/4 v4, 0x1
+    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    invoke-virtual {v3, p1, v4}, Lcom/android/systemui/recents/views/TaskStackView;->focusNextTask(ZZ)V
+    move-result-object v1
 
-    .end local v0    # "child":Landroid/view/View;
-    .end local v3    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    check-cast v1, Lcom/android/systemui/recents/views/TaskStackView;
+
+    const/4 v2, 0x1
+
+    invoke-virtual {v1, p1, v2}, Lcom/android/systemui/recents/views/TaskStackView;->focusNextTask(ZZ)V
+
     :cond_0
     return-void
+.end method
 
-    .restart local v0    # "child":Landroid/view/View;
-    :cond_1
-    add-int/lit8 v2, v2, 0x1
+.method getTaskStackViews()Ljava/util/List;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List",
+            "<",
+            "Lcom/android/systemui/recents/views/TaskStackView;",
+            ">;"
+        }
+    .end annotation
 
-    goto :goto_0
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
+
+    return-object v0
 .end method
 
 .method public hasSearchBar()Z
@@ -217,32 +244,32 @@
     .prologue
     const/4 v5, 0x0
 
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
 
-    move-result v7
+    move-result-object v9
 
-    .local v7, "childCount":I
-    const/4 v8, 0x0
+    .local v9, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v9}, Ljava/util/List;->size()I
 
-    .local v8, "i":I
+    move-result v8
+
+    .local v8, "stackCount":I
+    const/4 v6, 0x0
+
+    .local v6, "i":I
     :goto_0
-    if-ge v8, v7, :cond_0
+    if-ge v6, v8, :cond_0
 
-    invoke-virtual {p0, v8}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v9, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v6
-
-    .local v6, "child":Landroid/view/View;
-    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
-
-    if-eq v6, v0, :cond_2
-
-    move-object v1, v6
+    move-result-object v1
 
     check-cast v1, Lcom/android/systemui/recents/views/TaskStackView;
 
     .local v1, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    iget-object v3, v1, Lcom/android/systemui/recents/views/TaskStackView;->mStack:Lcom/android/systemui/recents/model/TaskStack;
+    invoke-virtual {v1}, Lcom/android/systemui/recents/views/TaskStackView;->getStack()Lcom/android/systemui/recents/model/TaskStack;
+
+    move-result-object v3
 
     .local v3, "stack":Lcom/android/systemui/recents/model/TaskStack;
     invoke-virtual {v1}, Lcom/android/systemui/recents/views/TaskStackView;->getTaskViews()Ljava/util/List;
@@ -255,13 +282,13 @@
     move-result v10
 
     .local v10, "taskViewCount":I
-    const/4 v9, 0x0
+    const/4 v7, 0x0
 
-    .local v9, "j":I
+    .local v7, "j":I
     :goto_1
-    if-ge v9, v10, :cond_2
+    if-ge v7, v10, :cond_2
 
-    invoke-interface {v11, v9}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {v11, v7}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v2
 
@@ -289,8 +316,7 @@
     .end local v2    # "tv":Lcom/android/systemui/recents/views/TaskView;
     .end local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
     .end local v4    # "task":Lcom/android/systemui/recents/model/Task;
-    .end local v6    # "child":Landroid/view/View;
-    .end local v9    # "j":I
+    .end local v7    # "j":I
     .end local v10    # "taskViewCount":I
     .end local v11    # "taskViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskView;>;"
     :cond_0
@@ -300,24 +326,18 @@
     .restart local v2    # "tv":Lcom/android/systemui/recents/views/TaskView;
     .restart local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
     .restart local v4    # "task":Lcom/android/systemui/recents/model/Task;
-    .restart local v6    # "child":Landroid/view/View;
-    .restart local v9    # "j":I
+    .restart local v7    # "j":I
     .restart local v10    # "taskViewCount":I
     .restart local v11    # "taskViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskView;>;"
     :cond_1
-    add-int/lit8 v9, v9, 0x1
+    add-int/lit8 v7, v7, 0x1
 
     goto :goto_1
 
-    .end local v1    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
     .end local v2    # "tv":Lcom/android/systemui/recents/views/TaskView;
-    .end local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
     .end local v4    # "task":Lcom/android/systemui/recents/model/Task;
-    .end local v9    # "j":I
-    .end local v10    # "taskViewCount":I
-    .end local v11    # "taskViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskView;>;"
     :cond_2
-    add-int/lit8 v8, v8, 0x1
+    add-int/lit8 v6, v6, 0x1
 
     goto :goto_0
 .end method
@@ -328,32 +348,32 @@
     .prologue
     const/4 v5, 0x0
 
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
 
-    move-result v7
+    move-result-object v9
 
-    .local v7, "childCount":I
-    const/4 v8, 0x0
+    .local v9, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v9}, Ljava/util/List;->size()I
 
-    .local v8, "i":I
+    move-result v8
+
+    .local v8, "stackCount":I
+    const/4 v6, 0x0
+
+    .local v6, "i":I
     :goto_0
-    if-ge v8, v7, :cond_0
+    if-ge v6, v8, :cond_0
 
-    invoke-virtual {p0, v8}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v9, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v6
-
-    .local v6, "child":Landroid/view/View;
-    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
-
-    if-eq v6, v0, :cond_2
-
-    move-object v1, v6
+    move-result-object v1
 
     check-cast v1, Lcom/android/systemui/recents/views/TaskStackView;
 
     .local v1, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    iget-object v3, v1, Lcom/android/systemui/recents/views/TaskStackView;->mStack:Lcom/android/systemui/recents/model/TaskStack;
+    invoke-virtual {v1}, Lcom/android/systemui/recents/views/TaskStackView;->getStack()Lcom/android/systemui/recents/model/TaskStack;
+
+    move-result-object v3
 
     .local v3, "stack":Lcom/android/systemui/recents/model/TaskStack;
     invoke-virtual {v3}, Lcom/android/systemui/recents/model/TaskStack;->getTasks()Ljava/util/ArrayList;
@@ -372,13 +392,13 @@
     move-result v10
 
     .local v10, "taskCount":I
-    const/4 v9, 0x0
+    const/4 v7, 0x0
 
-    .local v9, "j":I
+    .local v7, "j":I
     :goto_1
-    if-ge v9, v10, :cond_2
+    if-ge v7, v10, :cond_2
 
-    invoke-virtual {v11, v9}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    invoke-virtual {v11, v7}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
     move-result-object v0
 
@@ -388,7 +408,7 @@
 
     if-eqz v0, :cond_1
 
-    invoke-virtual {v11, v9}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    invoke-virtual {v11, v7}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
     move-result-object v4
 
@@ -410,8 +430,7 @@
     .end local v2    # "tv":Lcom/android/systemui/recents/views/TaskView;
     .end local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
     .end local v4    # "task":Lcom/android/systemui/recents/model/Task;
-    .end local v6    # "child":Landroid/view/View;
-    .end local v9    # "j":I
+    .end local v7    # "j":I
     .end local v10    # "taskCount":I
     .end local v11    # "tasks":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/systemui/recents/model/Task;>;"
     :cond_0
@@ -419,22 +438,18 @@
 
     .restart local v1    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
     .restart local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
-    .restart local v6    # "child":Landroid/view/View;
-    .restart local v9    # "j":I
+    .restart local v7    # "j":I
     .restart local v10    # "taskCount":I
     .restart local v11    # "tasks":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/systemui/recents/model/Task;>;"
     :cond_1
-    add-int/lit8 v9, v9, 0x1
+    add-int/lit8 v7, v7, 0x1
 
     goto :goto_1
 
-    .end local v1    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    .end local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
-    .end local v9    # "j":I
+    .end local v7    # "j":I
     .end local v10    # "taskCount":I
-    .end local v11    # "tasks":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/systemui/recents/model/Task;>;"
     :cond_2
-    add-int/lit8 v8, v8, 0x1
+    add-int/lit8 v6, v6, 0x1
 
     goto :goto_0
 .end method
@@ -510,8 +525,76 @@
     return-object v0
 .end method
 
+.method protected onFinishInflate()V
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    iget-boolean v0, v0, Lcom/android/systemui/recents/RecentsConfiguration;->multiStackEnabled:Z
+
+    if-nez v0, :cond_1
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :cond_1
+    const v0, 0x7f0f015e
+
+    invoke-virtual {p0, v0}, Lcom/android/systemui/recents/views/RecentsView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/view/ViewStub;
+
+    iput-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugStub:Landroid/view/ViewStub;
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugStub:Landroid/view/ViewStub;
+
+    invoke-virtual {v0}, Landroid/view/ViewStub;->inflate()Landroid/view/View;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    const v1, 0x7f0f015f
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/android/systemui/recents/views/RecentsView$1;
+
+    invoke-direct {v1, p0}, Lcom/android/systemui/recents/views/RecentsView$1;-><init>(Lcom/android/systemui/recents/views/RecentsView;)V
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    const v1, 0x7f0f0160
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/android/systemui/recents/views/RecentsView$2;
+
+    invoke-direct {v1, p0}, Lcom/android/systemui/recents/views/RecentsView$2;-><init>(Lcom/android/systemui/recents/views/RecentsView;)V
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    goto :goto_0
+.end method
+
 .method protected onLayout(ZIIII)V
-    .locals 9
+    .locals 11
     .param p1, "changed"    # Z
     .param p2, "left"    # I
     .param p3, "top"    # I
@@ -519,106 +602,184 @@
     .param p5, "bottom"    # I
 
     .prologue
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
 
-    if-eqz v4, :cond_0
+    if-eqz v0, :cond_0
 
-    new-instance v3, Landroid/graphics/Rect;
+    new-instance v7, Landroid/graphics/Rect;
 
-    invoke-direct {v3}, Landroid/graphics/Rect;-><init>()V
+    invoke-direct {v7}, Landroid/graphics/Rect;-><init>()V
 
-    .local v3, "searchBarSpaceBounds":Landroid/graphics/Rect;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+    .local v7, "searchBarSpaceBounds":Landroid/graphics/Rect;
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
 
     invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getMeasuredWidth()I
 
-    move-result v5
+    move-result v1
 
     invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getMeasuredHeight()I
 
-    move-result v6
+    move-result v2
 
-    iget-object v7, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+    iget-object v3, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
 
-    iget-object v7, v7, Lcom/android/systemui/recents/RecentsConfiguration;->systemInsets:Landroid/graphics/Rect;
+    iget-object v3, v3, Lcom/android/systemui/recents/RecentsConfiguration;->systemInsets:Landroid/graphics/Rect;
 
-    iget v7, v7, Landroid/graphics/Rect;->top:I
+    iget v3, v3, Landroid/graphics/Rect;->top:I
 
-    invoke-virtual {v4, v5, v6, v7, v3}, Lcom/android/systemui/recents/RecentsConfiguration;->getSearchBarBounds(IIILandroid/graphics/Rect;)V
+    invoke-virtual {v0, v1, v2, v3, v7}, Lcom/android/systemui/recents/RecentsConfiguration;->getSearchBarBounds(IIILandroid/graphics/Rect;)V
 
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
 
-    iget v5, v3, Landroid/graphics/Rect;->left:I
+    iget v1, v7, Landroid/graphics/Rect;->left:I
 
-    iget v6, v3, Landroid/graphics/Rect;->top:I
+    iget v2, v7, Landroid/graphics/Rect;->top:I
 
-    iget v7, v3, Landroid/graphics/Rect;->right:I
+    iget v3, v7, Landroid/graphics/Rect;->right:I
 
-    iget v8, v3, Landroid/graphics/Rect;->bottom:I
+    iget v4, v7, Landroid/graphics/Rect;->bottom:I
 
-    invoke-virtual {v4, v5, v6, v7, v8}, Landroid/view/View;->layout(IIII)V
+    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/view/View;->layout(IIII)V
 
-    .end local v3    # "searchBarSpaceBounds":Landroid/graphics/Rect;
+    .end local v7    # "searchBarSpaceBounds":Landroid/graphics/Rect;
     :cond_0
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
+
+    move-result-object v10
+
+    .local v10, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v10}, Ljava/util/List;->size()I
+
+    move-result v8
+
+    .local v8, "stackCount":I
+    const/4 v6, 0x0
+
+    .local v6, "i":I
+    :goto_0
+    if-ge v6, v8, :cond_2
+
+    invoke-interface {v10, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v9
+
+    check-cast v9, Lcom/android/systemui/recents/views/TaskStackView;
+
+    .local v9, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v9}, Lcom/android/systemui/recents/views/TaskStackView;->getVisibility()I
+
+    move-result v0
+
+    const/16 v1, 0x8
+
+    if-eq v0, v1, :cond_1
+
+    invoke-virtual {v9}, Lcom/android/systemui/recents/views/TaskStackView;->getMeasuredWidth()I
+
+    move-result v0
+
+    add-int/2addr v0, p2
+
+    invoke-virtual {v9}, Lcom/android/systemui/recents/views/TaskStackView;->getMeasuredHeight()I
 
     move-result v1
 
-    .local v1, "childCount":I
-    const/4 v2, 0x0
+    add-int/2addr v1, p3
 
-    .local v2, "i":I
-    :goto_0
-    if-ge v2, v1, :cond_2
-
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
-
-    if-eq v0, v4, :cond_1
-
-    invoke-virtual {v0}, Landroid/view/View;->getVisibility()I
-
-    move-result v4
-
-    const/16 v5, 0x8
-
-    if-eq v4, v5, :cond_1
-
-    invoke-virtual {v0}, Landroid/view/View;->getMeasuredWidth()I
-
-    move-result v4
-
-    add-int/2addr v4, p2
-
-    invoke-virtual {v0}, Landroid/view/View;->getMeasuredHeight()I
-
-    move-result v5
-
-    add-int/2addr v5, p3
-
-    invoke-virtual {v0, p2, p3, v4, v5}, Landroid/view/View;->layout(IIII)V
+    invoke-virtual {v9, p2, p3, v0, v1}, Lcom/android/systemui/recents/views/TaskStackView;->layout(IIII)V
 
     :cond_1
-    add-int/lit8 v2, v2, 0x1
+    add-int/lit8 v6, v6, 0x1
 
     goto :goto_0
 
-    .end local v0    # "child":Landroid/view/View;
+    .end local v9    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
     :cond_2
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    if-eqz v0, :cond_3
+
+    new-instance v5, Landroid/graphics/Rect;
+
+    invoke-direct {v5}, Landroid/graphics/Rect;-><init>()V
+
+    .local v5, "taskStackBounds":Landroid/graphics/Rect;
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getMeasuredWidth()I
+
+    move-result v1
+
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getMeasuredHeight()I
+
+    move-result v2
+
+    iget-object v3, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    iget-object v3, v3, Lcom/android/systemui/recents/RecentsConfiguration;->systemInsets:Landroid/graphics/Rect;
+
+    iget v3, v3, Landroid/graphics/Rect;->top:I
+
+    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    iget-object v4, v4, Lcom/android/systemui/recents/RecentsConfiguration;->systemInsets:Landroid/graphics/Rect;
+
+    iget v4, v4, Landroid/graphics/Rect;->right:I
+
+    invoke-virtual/range {v0 .. v5}, Lcom/android/systemui/recents/RecentsConfiguration;->getAvailableTaskStackBounds(IIIILandroid/graphics/Rect;)V
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    iget v1, v5, Landroid/graphics/Rect;->bottom:I
+
+    iget-object v2, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    iget-object v2, v2, Lcom/android/systemui/recents/RecentsConfiguration;->systemInsets:Landroid/graphics/Rect;
+
+    iget v2, v2, Landroid/graphics/Rect;->bottom:I
+
+    sub-int/2addr v1, v2
+
+    iget-object v2, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    invoke-virtual {v2}, Landroid/view/View;->getMeasuredHeight()I
+
+    move-result v2
+
+    sub-int/2addr v1, v2
+
+    iget-object v2, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    invoke-virtual {v2}, Landroid/view/View;->getMeasuredWidth()I
+
+    move-result v2
+
+    add-int/2addr v2, p2
+
+    iget v3, v5, Landroid/graphics/Rect;->bottom:I
+
+    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    iget-object v4, v4, Lcom/android/systemui/recents/RecentsConfiguration;->systemInsets:Landroid/graphics/Rect;
+
+    iget v4, v4, Landroid/graphics/Rect;->bottom:I
+
+    sub-int/2addr v3, v4
+
+    invoke-virtual {v0, p2, v1, v2, v3}, Landroid/view/View;->layout(IIII)V
+
+    .end local v5    # "taskStackBounds":Landroid/graphics/Rect;
+    :cond_3
     return-void
 .end method
 
 .method protected onMeasure(II)V
-    .locals 12
+    .locals 13
     .param p1, "widthMeasureSpec"    # I
     .param p2, "heightMeasureSpec"    # I
 
     .prologue
-    const/high16 v11, 0x40000000    # 2.0f
+    const/high16 v12, 0x40000000    # 2.0f
 
     invoke-static {p1}, Landroid/view/View$MeasureSpec;->getSize(I)I
 
@@ -634,11 +795,11 @@
 
     if-eqz v0, :cond_0
 
-    new-instance v9, Landroid/graphics/Rect;
+    new-instance v7, Landroid/graphics/Rect;
 
-    invoke-direct {v9}, Landroid/graphics/Rect;-><init>()V
+    invoke-direct {v7}, Landroid/graphics/Rect;-><init>()V
 
-    .local v9, "searchBarSpaceBounds":Landroid/graphics/Rect;
+    .local v7, "searchBarSpaceBounds":Landroid/graphics/Rect;
     iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
 
     iget-object v3, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
@@ -647,29 +808,29 @@
 
     iget v3, v3, Landroid/graphics/Rect;->top:I
 
-    invoke-virtual {v0, v1, v2, v3, v9}, Lcom/android/systemui/recents/RecentsConfiguration;->getSearchBarBounds(IIILandroid/graphics/Rect;)V
+    invoke-virtual {v0, v1, v2, v3, v7}, Lcom/android/systemui/recents/RecentsConfiguration;->getSearchBarBounds(IIILandroid/graphics/Rect;)V
 
     iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
 
-    invoke-virtual {v9}, Landroid/graphics/Rect;->width()I
+    invoke-virtual {v7}, Landroid/graphics/Rect;->width()I
 
     move-result v3
 
-    invoke-static {v3, v11}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
+    invoke-static {v3, v12}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
 
     move-result v3
 
-    invoke-virtual {v9}, Landroid/graphics/Rect;->height()I
+    invoke-virtual {v7}, Landroid/graphics/Rect;->height()I
 
     move-result v4
 
-    invoke-static {v4, v11}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
+    invoke-static {v4, v12}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
 
     move-result v4
 
     invoke-virtual {v0, v3, v4}, Landroid/view/View;->measure(II)V
 
-    .end local v9    # "searchBarSpaceBounds":Landroid/graphics/Rect;
+    .end local v7    # "searchBarSpaceBounds":Landroid/graphics/Rect;
     :cond_0
     new-instance v5, Landroid/graphics/Rect;
 
@@ -690,29 +851,39 @@
 
     iget v4, v4, Landroid/graphics/Rect;->right:I
 
-    invoke-virtual/range {v0 .. v5}, Lcom/android/systemui/recents/RecentsConfiguration;->getTaskStackBounds(IIIILandroid/graphics/Rect;)V
+    invoke-virtual/range {v0 .. v5}, Lcom/android/systemui/recents/RecentsConfiguration;->getAvailableTaskStackBounds(IIIILandroid/graphics/Rect;)V
 
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
 
-    move-result v7
+    move-result-object v10
 
-    .local v7, "childCount":I
-    const/4 v8, 0x0
+    .local v10, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mLayoutAlgorithm:Lcom/android/systemui/recents/views/RecentsViewLayoutAlgorithm;
 
-    .local v8, "i":I
+    invoke-virtual {v0, v10, v5}, Lcom/android/systemui/recents/views/RecentsViewLayoutAlgorithm;->computeStackRects(Ljava/util/List;Landroid/graphics/Rect;)Ljava/util/List;
+
+    move-result-object v11
+
+    .local v11, "stackViewsBounds":Ljava/util/List;, "Ljava/util/List<Landroid/graphics/Rect;>;"
+    invoke-interface {v10}, Ljava/util/List;->size()I
+
+    move-result v8
+
+    .local v8, "stackCount":I
+    const/4 v6, 0x0
+
+    .local v6, "i":I
     :goto_0
-    if-ge v8, v7, :cond_2
+    if-ge v6, v8, :cond_2
 
-    invoke-virtual {p0, v8}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v10, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v6
+    move-result-object v9
 
-    .local v6, "child":Landroid/view/View;
-    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    check-cast v9, Lcom/android/systemui/recents/views/TaskStackView;
 
-    if-eq v6, v0, :cond_1
-
-    invoke-virtual {v6}, Landroid/view/View;->getVisibility()I
+    .local v9, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v9}, Lcom/android/systemui/recents/views/TaskStackView;->getVisibility()I
 
     move-result v0
 
@@ -720,112 +891,130 @@
 
     if-eq v0, v3, :cond_1
 
-    move-object v10, v6
+    invoke-interface {v11, v6}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    check-cast v10, Lcom/android/systemui/recents/views/TaskStackView;
+    move-result-object v0
 
-    .local v10, "tsv":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v10, v5}, Lcom/android/systemui/recents/views/TaskStackView;->setStackInsetRect(Landroid/graphics/Rect;)V
+    check-cast v0, Landroid/graphics/Rect;
 
-    invoke-virtual {v10, p1, p2}, Lcom/android/systemui/recents/views/TaskStackView;->measure(II)V
+    invoke-virtual {v9, v0}, Lcom/android/systemui/recents/views/TaskStackView;->setStackInsetRect(Landroid/graphics/Rect;)V
 
-    .end local v10    # "tsv":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v9, p1, p2}, Lcom/android/systemui/recents/views/TaskStackView;->measure(II)V
+
     :cond_1
-    add-int/lit8 v8, v8, 0x1
+    add-int/lit8 v6, v6, 0x1
 
     goto :goto_0
 
-    .end local v6    # "child":Landroid/view/View;
+    .end local v9    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
     :cond_2
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    if-eqz v0, :cond_3
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    invoke-virtual {v0, v1, v2}, Landroid/view/View;->measure(II)V
+
+    :cond_3
     invoke-virtual {p0, v1, v2}, Lcom/android/systemui/recents/views/RecentsView;->setMeasuredDimension(II)V
 
     return-void
 .end method
 
+.method public onMultiStackMoveTask(Lcom/android/systemui/recents/model/Task;)V
+    .locals 1
+    .param p1, "t"    # Lcom/android/systemui/recents/model/Task;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mCb:Lcom/android/systemui/recents/views/RecentsView$RecentsViewCallbacks;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/systemui/recents/views/RecentsView;->mCb:Lcom/android/systemui/recents/views/RecentsView$RecentsViewCallbacks;
+
+    invoke-interface {v0, p1}, Lcom/android/systemui/recents/views/RecentsView$RecentsViewCallbacks;->onMultiStackMoveTask(Lcom/android/systemui/recents/model/Task;)V
+
+    :cond_0
+    return-void
+.end method
+
 .method public onPackagesChanged(Lcom/android/systemui/recents/model/RecentsPackageMonitor;Ljava/lang/String;I)V
-    .locals 5
+    .locals 4
     .param p1, "monitor"    # Lcom/android/systemui/recents/model/RecentsPackageMonitor;
     .param p2, "packageName"    # Ljava/lang/String;
     .param p3, "userId"    # I
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
+
+    move-result-object v3
+
+    .local v3, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v3}, Ljava/util/List;->size()I
 
     move-result v1
 
-    .local v1, "childCount":I
-    const/4 v2, 0x0
+    .local v1, "stackCount":I
+    const/4 v0, 0x0
 
-    .local v2, "i":I
+    .local v0, "i":I
     :goto_0
-    if-ge v2, v1, :cond_1
+    if-ge v0, v1, :cond_0
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v3, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v0
+    move-result-object v2
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    check-cast v2, Lcom/android/systemui/recents/views/TaskStackView;
 
-    if-eq v0, v4, :cond_0
+    .local v2, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v2, p1, p2, p3}, Lcom/android/systemui/recents/views/TaskStackView;->onPackagesChanged(Lcom/android/systemui/recents/model/RecentsPackageMonitor;Ljava/lang/String;I)V
 
-    move-object v3, v0
-
-    check-cast v3, Lcom/android/systemui/recents/views/TaskStackView;
-
-    .local v3, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v3, p1, p2, p3}, Lcom/android/systemui/recents/views/TaskStackView;->onPackagesChanged(Lcom/android/systemui/recents/model/RecentsPackageMonitor;Ljava/lang/String;I)V
-
-    .end local v3    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    :cond_0
-    add-int/lit8 v2, v2, 0x1
+    add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .end local v0    # "child":Landroid/view/View;
-    :cond_1
+    .end local v2    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_0
     return-void
 .end method
 
 .method public onRecentsHidden()V
-    .locals 5
+    .locals 4
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
+
+    move-result-object v3
+
+    .local v3, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v3}, Ljava/util/List;->size()I
 
     move-result v1
 
-    .local v1, "childCount":I
-    const/4 v2, 0x0
+    .local v1, "stackCount":I
+    const/4 v0, 0x0
 
-    .local v2, "i":I
+    .local v0, "i":I
     :goto_0
-    if-ge v2, v1, :cond_1
+    if-ge v0, v1, :cond_0
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v3, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v0
+    move-result-object v2
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    check-cast v2, Lcom/android/systemui/recents/views/TaskStackView;
 
-    if-eq v0, v4, :cond_0
+    .local v2, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v2}, Lcom/android/systemui/recents/views/TaskStackView;->onRecentsHidden()V
 
-    move-object v3, v0
-
-    check-cast v3, Lcom/android/systemui/recents/views/TaskStackView;
-
-    .local v3, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v3}, Lcom/android/systemui/recents/views/TaskStackView;->onRecentsHidden()V
-
-    .end local v3    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    :cond_0
-    add-int/lit8 v2, v2, 0x1
+    add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .end local v0    # "child":Landroid/view/View;
-    :cond_1
+    .end local v2    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_0
     return-void
 .end method
 
@@ -1123,46 +1312,47 @@
     .local v10, "animStartedListener":Landroid/app/ActivityOptions$OnAnimationStartedListener;
     if-eqz p5, :cond_2
 
-    new-instance v10, Lcom/android/systemui/recents/views/RecentsView$1;
+    new-instance v10, Lcom/android/systemui/recents/views/RecentsView$3;
 
     .end local v10    # "animStartedListener":Landroid/app/ActivityOptions$OnAnimationStartedListener;
     move-object/from16 v0, p0
 
-    invoke-direct {v10, v0}, Lcom/android/systemui/recents/views/RecentsView$1;-><init>(Lcom/android/systemui/recents/views/RecentsView;)V
+    invoke-direct {v10, v0}, Lcom/android/systemui/recents/views/RecentsView$3;-><init>(Lcom/android/systemui/recents/views/RecentsView;)V
 
     .restart local v10    # "animStartedListener":Landroid/app/ActivityOptions$OnAnimationStartedListener;
     :cond_2
-    move-object/from16 v0, v23
+    move-object/from16 v0, p0
 
-    iget-object v7, v0, Lcom/android/systemui/recents/views/TaskViewTransform;->rect:Landroid/graphics/Rect;
+    iget-object v7, v0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
 
-    invoke-virtual {v7}, Landroid/graphics/Rect;->width()I
+    iget-boolean v7, v7, Lcom/android/systemui/recents/RecentsConfiguration;->multiStackEnabled:Z
 
-    move-result v7
+    if-eqz v7, :cond_6
 
-    move-object/from16 v0, v23
+    invoke-virtual {v3}, Landroid/view/View;->getContext()Landroid/content/Context;
 
-    iget-object v8, v0, Lcom/android/systemui/recents/views/TaskViewTransform;->rect:Landroid/graphics/Rect;
+    move-result-object v7
 
-    invoke-virtual {v8}, Landroid/graphics/Rect;->height()I
+    const v8, 0x7f050055
 
-    move-result v8
+    const v9, 0x7f050056
 
     invoke-virtual {v3}, Landroid/view/View;->getHandler()Landroid/os/Handler;
 
-    move-result-object v9
+    move-result-object v12
 
-    invoke-static/range {v3 .. v10}, Landroid/app/ActivityOptions;->makeThumbnailAspectScaleUpAnimation(Landroid/view/View;Landroid/graphics/Bitmap;IIIILandroid/os/Handler;Landroid/app/ActivityOptions$OnAnimationStartedListener;)Landroid/app/ActivityOptions;
+    invoke-static {v7, v8, v9, v12, v10}, Landroid/app/ActivityOptions;->makeCustomAnimation(Landroid/content/Context;IILandroid/os/Handler;Landroid/app/ActivityOptions$OnAnimationStartedListener;)Landroid/app/ActivityOptions;
 
     move-result-object v20
 
     .end local v4    # "b":Landroid/graphics/Bitmap;
     .end local v10    # "animStartedListener":Landroid/app/ActivityOptions$OnAnimationStartedListener;
     :cond_3
+    :goto_2
     move-object/from16 v15, v20
 
     .local v15, "launchOpts":Landroid/app/ActivityOptions;
-    new-instance v11, Lcom/android/systemui/recents/views/RecentsView$2;
+    new-instance v11, Lcom/android/systemui/recents/views/RecentsView$4;
 
     move-object/from16 v12, p0
 
@@ -1170,14 +1360,14 @@
 
     move/from16 v16, p5
 
-    invoke-direct/range {v11 .. v16}, Lcom/android/systemui/recents/views/RecentsView$2;-><init>(Lcom/android/systemui/recents/views/RecentsView;Lcom/android/systemui/recents/model/Task;Lcom/android/systemui/recents/misc/SystemServicesProxy;Landroid/app/ActivityOptions;Z)V
+    invoke-direct/range {v11 .. v16}, Lcom/android/systemui/recents/views/RecentsView$4;-><init>(Lcom/android/systemui/recents/views/RecentsView;Lcom/android/systemui/recents/model/Task;Lcom/android/systemui/recents/misc/SystemServicesProxy;Landroid/app/ActivityOptions;Z)V
 
     .local v11, "launchRunnable":Ljava/lang/Runnable;
-    if-nez p2, :cond_6
+    if-nez p2, :cond_7
 
     invoke-interface {v11}, Ljava/lang/Runnable;->run()V
 
-    :goto_2
+    :goto_3
     return-void
 
     .end local v3    # "sourceView":Landroid/view/View;
@@ -1225,10 +1415,39 @@
     .restart local v4    # "b":Landroid/graphics/Bitmap;
     goto :goto_1
 
+    .restart local v10    # "animStartedListener":Landroid/app/ActivityOptions$OnAnimationStartedListener;
+    :cond_6
+    move-object/from16 v0, v23
+
+    iget-object v7, v0, Lcom/android/systemui/recents/views/TaskViewTransform;->rect:Landroid/graphics/Rect;
+
+    invoke-virtual {v7}, Landroid/graphics/Rect;->width()I
+
+    move-result v7
+
+    move-object/from16 v0, v23
+
+    iget-object v8, v0, Lcom/android/systemui/recents/views/TaskViewTransform;->rect:Landroid/graphics/Rect;
+
+    invoke-virtual {v8}, Landroid/graphics/Rect;->height()I
+
+    move-result v8
+
+    invoke-virtual {v3}, Landroid/view/View;->getHandler()Landroid/os/Handler;
+
+    move-result-object v9
+
+    invoke-static/range {v3 .. v10}, Landroid/app/ActivityOptions;->makeThumbnailAspectScaleUpAnimation(Landroid/view/View;Landroid/graphics/Bitmap;IIIILandroid/os/Handler;Landroid/app/ActivityOptions$OnAnimationStartedListener;)Landroid/app/ActivityOptions;
+
+    move-result-object v20
+
+    goto :goto_2
+
     .end local v4    # "b":Landroid/graphics/Bitmap;
+    .end local v10    # "animStartedListener":Landroid/app/ActivityOptions$OnAnimationStartedListener;
     .restart local v11    # "launchRunnable":Ljava/lang/Runnable;
     .restart local v15    # "launchOpts":Landroid/app/ActivityOptions;
-    :cond_6
+    :cond_7
     move-object/from16 v0, p4
 
     iget-object v7, v0, Lcom/android/systemui/recents/model/Task;->group:Lcom/android/systemui/recents/model/TaskGrouping;
@@ -1239,7 +1458,7 @@
 
     move-result v7
 
-    if-nez v7, :cond_7
+    if-nez v7, :cond_8
 
     move-object/from16 v0, p1
 
@@ -1249,9 +1468,9 @@
 
     invoke-virtual {v0, v1, v11, v2}, Lcom/android/systemui/recents/views/TaskStackView;->startLaunchTaskAnimation(Lcom/android/systemui/recents/views/TaskView;Ljava/lang/Runnable;Z)V
 
-    goto :goto_2
+    goto :goto_3
 
-    :cond_7
+    :cond_8
     const/4 v7, 0x0
 
     move-object/from16 v0, p1
@@ -1264,7 +1483,7 @@
 
     invoke-interface {v11}, Ljava/lang/Runnable;->run()V
 
-    goto :goto_2
+    goto :goto_3
 .end method
 
 .method public onTaskViewDismissed(Lcom/android/systemui/recents/model/Task;)V
@@ -1295,44 +1514,40 @@
 .end method
 
 .method public onUserInteraction()V
-    .locals 5
+    .locals 4
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
+
+    move-result-object v3
+
+    .local v3, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v3}, Ljava/util/List;->size()I
 
     move-result v1
 
-    .local v1, "childCount":I
-    const/4 v2, 0x0
+    .local v1, "stackCount":I
+    const/4 v0, 0x0
 
-    .local v2, "i":I
+    .local v0, "i":I
     :goto_0
-    if-ge v2, v1, :cond_1
+    if-ge v0, v1, :cond_0
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v3, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v0
+    move-result-object v2
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    check-cast v2, Lcom/android/systemui/recents/views/TaskStackView;
 
-    if-eq v0, v4, :cond_0
+    .local v2, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v2}, Lcom/android/systemui/recents/views/TaskStackView;->onUserInteraction()V
 
-    move-object v3, v0
-
-    check-cast v3, Lcom/android/systemui/recents/views/TaskStackView;
-
-    .local v3, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v3}, Lcom/android/systemui/recents/views/TaskStackView;->onUserInteraction()V
-
-    .end local v3    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    :cond_0
-    add-int/lit8 v2, v2, 0x1
+    add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .end local v0    # "child":Landroid/view/View;
-    :cond_1
+    .end local v2    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_0
     return-void
 .end method
 
@@ -1404,7 +1619,7 @@
 .end method
 
 .method public setTaskStacks(Ljava/util/ArrayList;)V
-    .locals 11
+    .locals 7
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -1419,184 +1634,173 @@
     .local p1, "stacks":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/systemui/recents/model/TaskStack;>;"
     invoke-virtual {p1}, Ljava/util/ArrayList;->size()I
 
-    move-result v3
-
-    .local v3, "numStacks":I
-    new-instance v7, Ljava/util/ArrayList;
-
-    invoke-direct {v7}, Ljava/util/ArrayList;-><init>()V
-
-    .local v7, "stackViews":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/systemui/recents/views/TaskStackView;>;"
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
-
     move-result v1
 
-    .local v1, "childCount":I
+    .local v1, "numStacks":I
     const/4 v2, 0x0
 
-    .local v2, "i":I
-    :goto_0
-    if-ge v2, v1, :cond_1
+    .local v2, "numTaskStacksToKeep":I
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    iget-boolean v6, v6, Lcom/android/systemui/recents/RecentsConfiguration;->launchedReuseTaskStackViews:Z
 
-    move-result-object v0
+    if-eqz v6, :cond_0
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v10, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
 
-    if-eq v0, v10, :cond_0
+    invoke-interface {v6}, Ljava/util/List;->size()I
 
-    check-cast v0, Lcom/android/systemui/recents/views/TaskStackView;
+    move-result v6
 
-    .end local v0    # "child":Landroid/view/View;
-    invoke-virtual {v7, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    invoke-static {v6, v1}, Ljava/lang/Math;->min(II)I
+
+    move-result v2
 
     :cond_0
-    add-int/lit8 v2, v2, 0x1
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
+
+    invoke-interface {v6}, Ljava/util/List;->size()I
+
+    move-result v6
+
+    add-int/lit8 v0, v6, -0x1
+
+    .local v0, "i":I
+    :goto_0
+    if-lt v0, v2, :cond_1
+
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
+
+    invoke-interface {v6, v0}, Ljava/util/List;->remove(I)Ljava/lang/Object;
+
+    move-result-object v6
+
+    check-cast v6, Landroid/view/View;
+
+    invoke-virtual {p0, v6}, Lcom/android/systemui/recents/views/RecentsView;->removeView(Landroid/view/View;)V
+
+    add-int/lit8 v0, v0, -0x1
 
     goto :goto_0
 
     :cond_1
-    const/4 v4, 0x0
-
-    .local v4, "numTaskStacksToKeep":I
-    iget-object v10, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
-
-    iget-boolean v10, v10, Lcom/android/systemui/recents/RecentsConfiguration;->launchedReuseTaskStackViews:Z
-
-    if-eqz v10, :cond_2
-
-    invoke-static {v1, v3}, Ljava/lang/Math;->min(II)I
-
-    move-result v4
-
-    :cond_2
-    invoke-virtual {v7}, Ljava/util/ArrayList;->size()I
-
-    move-result v10
-
-    add-int/lit8 v2, v10, -0x1
+    const/4 v0, 0x0
 
     :goto_1
-    if-lt v2, v4, :cond_3
+    if-ge v0, v2, :cond_2
 
-    invoke-virtual {v7, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
 
-    move-result-object v10
-
-    check-cast v10, Landroid/view/View;
-
-    invoke-virtual {p0, v10}, Lcom/android/systemui/recents/views/RecentsView;->removeView(Landroid/view/View;)V
-
-    invoke-virtual {v7, v2}, Ljava/util/ArrayList;->remove(I)Ljava/lang/Object;
-
-    add-int/lit8 v2, v2, -0x1
-
-    goto :goto_1
-
-    :cond_3
-    const/4 v2, 0x0
-
-    :goto_2
-    if-ge v2, v4, :cond_4
-
-    invoke-virtual {v7, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v8
-
-    check-cast v8, Lcom/android/systemui/recents/views/TaskStackView;
-
-    .local v8, "tsv":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v8}, Lcom/android/systemui/recents/views/TaskStackView;->reset()V
-
-    invoke-virtual {p1, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v10
-
-    check-cast v10, Lcom/android/systemui/recents/model/TaskStack;
-
-    invoke-virtual {v8, v10}, Lcom/android/systemui/recents/views/TaskStackView;->setStack(Lcom/android/systemui/recents/model/TaskStack;)V
-
-    add-int/lit8 v2, v2, 0x1
-
-    goto :goto_2
-
-    .end local v8    # "tsv":Lcom/android/systemui/recents/views/TaskStackView;
-    :cond_4
-    iput-object p1, p0, Lcom/android/systemui/recents/views/RecentsView;->mStacks:Ljava/util/ArrayList;
-
-    invoke-virtual {v7}, Ljava/util/ArrayList;->size()I
-
-    move-result v2
-
-    :goto_3
-    if-ge v2, v3, :cond_5
-
-    invoke-virtual {p1, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    invoke-interface {v6, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v5
 
-    check-cast v5, Lcom/android/systemui/recents/model/TaskStack;
+    check-cast v5, Lcom/android/systemui/recents/views/TaskStackView;
 
-    .local v5, "stack":Lcom/android/systemui/recents/model/TaskStack;
-    new-instance v6, Lcom/android/systemui/recents/views/TaskStackView;
+    .local v5, "tsv":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v5}, Lcom/android/systemui/recents/views/TaskStackView;->reset()V
+
+    invoke-virtual {p1, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v6
+
+    check-cast v6, Lcom/android/systemui/recents/model/TaskStack;
+
+    invoke-virtual {v5, v6}, Lcom/android/systemui/recents/views/TaskStackView;->setStack(Lcom/android/systemui/recents/model/TaskStack;)V
+
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_1
+
+    .end local v5    # "tsv":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_2
+    iput-object p1, p0, Lcom/android/systemui/recents/views/RecentsView;->mStacks:Ljava/util/ArrayList;
+
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
+
+    invoke-interface {v6}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    :goto_2
+    if-ge v0, v1, :cond_3
+
+    invoke-virtual {p1, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v3
+
+    check-cast v3, Lcom/android/systemui/recents/model/TaskStack;
+
+    .local v3, "stack":Lcom/android/systemui/recents/model/TaskStack;
+    new-instance v4, Lcom/android/systemui/recents/views/TaskStackView;
 
     invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getContext()Landroid/content/Context;
 
-    move-result-object v10
+    move-result-object v6
 
-    invoke-direct {v6, v10, v5}, Lcom/android/systemui/recents/views/TaskStackView;-><init>(Landroid/content/Context;Lcom/android/systemui/recents/model/TaskStack;)V
+    invoke-direct {v4, v6, v3}, Lcom/android/systemui/recents/views/TaskStackView;-><init>(Landroid/content/Context;Lcom/android/systemui/recents/model/TaskStack;)V
 
-    .local v6, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v6, p0}, Lcom/android/systemui/recents/views/TaskStackView;->setCallbacks(Lcom/android/systemui/recents/views/TaskStackView$TaskStackViewCallbacks;)V
+    .local v4, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v4, p0}, Lcom/android/systemui/recents/views/TaskStackView;->setCallbacks(Lcom/android/systemui/recents/views/TaskStackView$TaskStackViewCallbacks;)V
 
-    invoke-virtual {p0, v6}, Lcom/android/systemui/recents/views/RecentsView;->addView(Landroid/view/View;)V
+    invoke-virtual {p0, v4}, Lcom/android/systemui/recents/views/RecentsView;->addView(Landroid/view/View;)V
 
-    add-int/lit8 v2, v2, 0x1
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
+
+    invoke-interface {v6, v4}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_2
+
+    .end local v3    # "stack":Lcom/android/systemui/recents/model/TaskStack;
+    .end local v4    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_3
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
+
+    iget-boolean v6, v6, Lcom/android/systemui/recents/RecentsConfiguration;->debugModeEnabled:Z
+
+    if-eqz v6, :cond_4
+
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
+
+    invoke-interface {v6}, Ljava/util/List;->size()I
+
+    move-result v6
+
+    add-int/lit8 v0, v6, -0x1
+
+    :goto_3
+    if-ltz v0, :cond_4
+
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mTaskStackViews:Ljava/util/List;
+
+    invoke-interface {v6, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v4
+
+    check-cast v4, Lcom/android/systemui/recents/views/TaskStackView;
+
+    .restart local v4    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mDebugOverlay:Lcom/android/systemui/recents/views/DebugOverlayView;
+
+    invoke-virtual {v4, v6}, Lcom/android/systemui/recents/views/TaskStackView;->setDebugOverlay(Lcom/android/systemui/recents/views/DebugOverlayView;)V
+
+    add-int/lit8 v0, v0, -0x1
 
     goto :goto_3
 
-    .end local v5    # "stack":Lcom/android/systemui/recents/model/TaskStack;
-    .end local v6    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    .end local v4    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_4
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    if-eqz v6, :cond_5
+
+    iget-object v6, p0, Lcom/android/systemui/recents/views/RecentsView;->mMultiStackDebugView:Landroid/view/View;
+
+    invoke-virtual {v6}, Landroid/view/View;->bringToFront()V
+
     :cond_5
-    iget-object v10, p0, Lcom/android/systemui/recents/views/RecentsView;->mConfig:Lcom/android/systemui/recents/RecentsConfiguration;
-
-    iget-boolean v10, v10, Lcom/android/systemui/recents/RecentsConfiguration;->debugModeEnabled:Z
-
-    if-eqz v10, :cond_7
-
-    add-int/lit8 v2, v1, -0x1
-
-    :goto_4
-    if-ltz v2, :cond_7
-
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v9
-
-    .local v9, "v":Landroid/view/View;
-    iget-object v10, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
-
-    if-eq v9, v10, :cond_6
-
-    move-object v6, v9
-
-    check-cast v6, Lcom/android/systemui/recents/views/TaskStackView;
-
-    .restart local v6    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    iget-object v10, p0, Lcom/android/systemui/recents/views/RecentsView;->mDebugOverlay:Lcom/android/systemui/recents/views/DebugOverlayView;
-
-    invoke-virtual {v6, v10}, Lcom/android/systemui/recents/views/TaskStackView;->setDebugOverlay(Lcom/android/systemui/recents/views/DebugOverlayView;)V
-
-    .end local v6    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    :cond_6
-    add-int/lit8 v2, v2, -0x1
-
-    goto :goto_4
-
-    .end local v9    # "v":Landroid/view/View;
-    :cond_7
     invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->requestLayout()V
 
     return-void
@@ -1611,41 +1815,37 @@
 
     invoke-virtual {v4}, Lcom/android/systemui/recents/misc/ReferenceCountedTrigger;->increment()V
 
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
+
+    move-result-object v3
+
+    .local v3, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v3}, Ljava/util/List;->size()I
 
     move-result v1
 
-    .local v1, "childCount":I
-    const/4 v2, 0x0
+    .local v1, "stackCount":I
+    const/4 v0, 0x0
 
-    .local v2, "i":I
+    .local v0, "i":I
     :goto_0
-    if-ge v2, v1, :cond_1
+    if-ge v0, v1, :cond_0
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v3, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v0
+    move-result-object v2
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    check-cast v2, Lcom/android/systemui/recents/views/TaskStackView;
 
-    if-eq v0, v4, :cond_0
+    .local v2, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v2, p1}, Lcom/android/systemui/recents/views/TaskStackView;->startEnterRecentsAnimation(Lcom/android/systemui/recents/views/ViewAnimation$TaskViewEnterContext;)V
 
-    move-object v3, v0
-
-    check-cast v3, Lcom/android/systemui/recents/views/TaskStackView;
-
-    .local v3, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v3, p1}, Lcom/android/systemui/recents/views/TaskStackView;->startEnterRecentsAnimation(Lcom/android/systemui/recents/views/ViewAnimation$TaskViewEnterContext;)V
-
-    .end local v3    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    :cond_0
-    add-int/lit8 v2, v2, 0x1
+    add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .end local v0    # "child":Landroid/view/View;
-    :cond_1
+    .end local v2    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_0
     iget-object v4, p1, Lcom/android/systemui/recents/views/ViewAnimation$TaskViewEnterContext;->postAnimationTrigger:Lcom/android/systemui/recents/misc/ReferenceCountedTrigger;
 
     invoke-virtual {v4}, Lcom/android/systemui/recents/misc/ReferenceCountedTrigger;->decrement()V
@@ -1662,41 +1862,37 @@
 
     invoke-virtual {v4}, Lcom/android/systemui/recents/misc/ReferenceCountedTrigger;->increment()V
 
-    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getChildCount()I
+    invoke-virtual {p0}, Lcom/android/systemui/recents/views/RecentsView;->getTaskStackViews()Ljava/util/List;
+
+    move-result-object v3
+
+    .local v3, "stackViews":Ljava/util/List;, "Ljava/util/List<Lcom/android/systemui/recents/views/TaskStackView;>;"
+    invoke-interface {v3}, Ljava/util/List;->size()I
 
     move-result v1
 
-    .local v1, "childCount":I
-    const/4 v2, 0x0
+    .local v1, "stackCount":I
+    const/4 v0, 0x0
 
-    .local v2, "i":I
+    .local v0, "i":I
     :goto_0
-    if-ge v2, v1, :cond_1
+    if-ge v0, v1, :cond_0
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/recents/views/RecentsView;->getChildAt(I)Landroid/view/View;
+    invoke-interface {v3, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
-    move-result-object v0
+    move-result-object v2
 
-    .local v0, "child":Landroid/view/View;
-    iget-object v4, p0, Lcom/android/systemui/recents/views/RecentsView;->mSearchBar:Landroid/view/View;
+    check-cast v2, Lcom/android/systemui/recents/views/TaskStackView;
 
-    if-eq v0, v4, :cond_0
+    .local v2, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    invoke-virtual {v2, p1}, Lcom/android/systemui/recents/views/TaskStackView;->startExitToHomeAnimation(Lcom/android/systemui/recents/views/ViewAnimation$TaskViewExitContext;)V
 
-    move-object v3, v0
-
-    check-cast v3, Lcom/android/systemui/recents/views/TaskStackView;
-
-    .local v3, "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    invoke-virtual {v3, p1}, Lcom/android/systemui/recents/views/TaskStackView;->startExitToHomeAnimation(Lcom/android/systemui/recents/views/ViewAnimation$TaskViewExitContext;)V
-
-    .end local v3    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
-    :cond_0
-    add-int/lit8 v2, v2, 0x1
+    add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .end local v0    # "child":Landroid/view/View;
-    :cond_1
+    .end local v2    # "stackView":Lcom/android/systemui/recents/views/TaskStackView;
+    :cond_0
     iget-object v4, p1, Lcom/android/systemui/recents/views/ViewAnimation$TaskViewExitContext;->postAnimationTrigger:Lcom/android/systemui/recents/misc/ReferenceCountedTrigger;
 
     invoke-virtual {v4}, Lcom/android/systemui/recents/misc/ReferenceCountedTrigger;->decrement()V

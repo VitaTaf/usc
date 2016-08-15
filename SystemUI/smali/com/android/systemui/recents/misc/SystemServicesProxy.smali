@@ -386,6 +386,47 @@
     goto :goto_0
 .end method
 
+.method public createNewStack(ILandroid/graphics/Rect;Landroid/content/Intent;)V
+    .locals 3
+    .param p1, "displayId"    # I
+    .param p2, "bounds"    # Landroid/graphics/Rect;
+    .param p3, "activity"    # Landroid/content/Intent;
+
+    .prologue
+    :try_start_0
+    iget-object v2, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    invoke-interface {v2, p1}, Landroid/app/IActivityManager;->createStackOnDisplay(I)Landroid/app/IActivityContainer;
+
+    move-result-object v0
+
+    .local v0, "container":Landroid/app/IActivityContainer;
+    if-eqz v0, :cond_0
+
+    invoke-interface {v0}, Landroid/app/IActivityContainer;->getStackId()I
+
+    move-result v2
+
+    invoke-virtual {p0, v2, p2}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->resizeStack(ILandroid/graphics/Rect;)V
+
+    invoke-interface {v0, p3}, Landroid/app/IActivityContainer;->startActivity(Landroid/content/Intent;)I
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    .end local v0    # "container":Landroid/app/IActivityContainer;
+    :cond_0
+    :goto_0
+    return-void
+
+    :catch_0
+    move-exception v1
+
+    .local v1, "e":Landroid/os/RemoteException;
+    invoke-virtual {v1}, Landroid/os/RemoteException;->printStackTrace()V
+
+    goto :goto_0
+.end method
+
 .method public getActivityIcon(Landroid/content/pm/ActivityInfo;I)Landroid/graphics/drawable/Drawable;
     .locals 2
     .param p1, "info"    # Landroid/content/pm/ActivityInfo;
@@ -482,6 +523,91 @@
     goto :goto_0
 .end method
 
+.method public getAllStackInfos()Landroid/util/SparseArray;
+    .locals 7
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Landroid/util/SparseArray",
+            "<",
+            "Landroid/app/ActivityManager$StackInfo;",
+            ">;"
+        }
+    .end annotation
+
+    .prologue
+    iget-object v6, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    if-nez v6, :cond_1
+
+    new-instance v5, Landroid/util/SparseArray;
+
+    invoke-direct {v5}, Landroid/util/SparseArray;-><init>()V
+
+    :cond_0
+    :goto_0
+    return-object v5
+
+    :cond_1
+    :try_start_0
+    new-instance v5, Landroid/util/SparseArray;
+
+    invoke-direct {v5}, Landroid/util/SparseArray;-><init>()V
+
+    .local v5, "stacks":Landroid/util/SparseArray;, "Landroid/util/SparseArray<Landroid/app/ActivityManager$StackInfo;>;"
+    iget-object v6, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    invoke-interface {v6}, Landroid/app/IActivityManager;->getAllStackInfos()Ljava/util/List;
+
+    move-result-object v3
+
+    .local v3, "infos":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$StackInfo;>;"
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v4
+
+    .local v4, "stackCount":I
+    const/4 v1, 0x0
+
+    .local v1, "i":I
+    :goto_1
+    if-ge v1, v4, :cond_0
+
+    invoke-interface {v3, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/app/ActivityManager$StackInfo;
+
+    .local v2, "info":Landroid/app/ActivityManager$StackInfo;
+    iget v6, v2, Landroid/app/ActivityManager$StackInfo;->stackId:I
+
+    invoke-virtual {v5, v6, v2}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_1
+
+    .end local v1    # "i":I
+    .end local v2    # "info":Landroid/app/ActivityManager$StackInfo;
+    .end local v3    # "infos":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$StackInfo;>;"
+    .end local v4    # "stackCount":I
+    .end local v5    # "stacks":Landroid/util/SparseArray;, "Landroid/util/SparseArray<Landroid/app/ActivityManager$StackInfo;>;"
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Landroid/os/RemoteException;
+    invoke-virtual {v0}, Landroid/os/RemoteException;->printStackTrace()V
+
+    new-instance v5, Landroid/util/SparseArray;
+
+    invoke-direct {v5}, Landroid/util/SparseArray;-><init>()V
+
+    goto :goto_0
+.end method
+
 .method public getAppWidgetInfo(I)Landroid/appwidget/AppWidgetProviderInfo;
     .locals 1
     .param p1, "appWidgetId"    # I
@@ -530,6 +656,40 @@
 
     :cond_0
     return-object p1
+.end method
+
+.method public getFocusedStack()I
+    .locals 3
+
+    .prologue
+    const/4 v1, -0x1
+
+    iget-object v2, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    if-nez v2, :cond_0
+
+    :goto_0
+    return v1
+
+    :cond_0
+    :try_start_0
+    iget-object v2, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    invoke-interface {v2}, Landroid/app/IActivityManager;->getFocusedStackId()I
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    move-result v1
+
+    goto :goto_0
+
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Landroid/os/RemoteException;
+    invoke-virtual {v0}, Landroid/os/RemoteException;->printStackTrace()V
+
+    goto :goto_0
 .end method
 
 .method public getGlobalSetting(Landroid/content/Context;Ljava/lang/String;)I
@@ -612,6 +772,62 @@
     iget-object v3, v2, Landroid/content/pm/ResolveInfo;->activityInfo:Landroid/content/pm/ActivityInfo;
 
     iget-object v3, v3, Landroid/content/pm/ActivityInfo;->packageName:Ljava/lang/String;
+
+    goto :goto_0
+.end method
+
+.method public getLauncherApps()Ljava/util/List;
+    .locals 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List",
+            "<",
+            "Landroid/content/pm/ResolveInfo;",
+            ">;"
+        }
+    .end annotation
+
+    .prologue
+    iget-object v2, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mPm:Landroid/content/pm/PackageManager;
+
+    if-nez v2, :cond_0
+
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    :goto_0
+    return-object v0
+
+    :cond_0
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v2, "android.intent.action.MAIN"
+
+    const/4 v3, 0x0
+
+    invoke-direct {v1, v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+
+    .local v1, "mainIntent":Landroid/content/Intent;
+    const-string v2, "android.intent.category.LAUNCHER"
+
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addCategory(Ljava/lang/String;)Landroid/content/Intent;
+
+    iget-object v2, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mPm:Landroid/content/pm/PackageManager;
+
+    const/4 v3, 0x0
+
+    invoke-virtual {v2, v1, v3}, Landroid/content/pm/PackageManager;->queryIntentActivities(Landroid/content/Intent;I)Ljava/util/List;
+
+    move-result-object v0
+
+    .local v0, "activities":Ljava/util/List;, "Ljava/util/List<Landroid/content/pm/ResolveInfo;>;"
+    new-instance v2, Lcom/android/systemui/recents/misc/SystemServicesProxy$1;
+
+    invoke-direct {v2, p0}, Lcom/android/systemui/recents/misc/SystemServicesProxy$1;-><init>(Lcom/android/systemui/recents/misc/SystemServicesProxy;)V
+
+    invoke-static {v0, v2}, Ljava/util/Collections;->sort(Ljava/util/List;Ljava/util/Comparator;)V
 
     goto :goto_0
 .end method
@@ -747,6 +963,18 @@
     move-result-object v7
 
     goto :goto_0
+.end method
+
+.method public getSystemProperty(Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+    .param p1, "key"    # Ljava/lang/String;
+
+    .prologue
+    invoke-static {p1}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
 .end method
 
 .method public getSystemSetting(Landroid/content/Context;Ljava/lang/String;)I
@@ -1112,6 +1340,39 @@
     goto :goto_0
 .end method
 
+.method public moveTaskToStack(IIZ)V
+    .locals 2
+    .param p1, "taskId"    # I
+    .param p2, "stackId"    # I
+    .param p3, "toTop"    # Z
+
+    .prologue
+    iget-object v1, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    if-nez v1, :cond_0
+
+    :goto_0
+    return-void
+
+    :cond_0
+    :try_start_0
+    iget-object v1, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    invoke-interface {v1, p1, p2, p3}, Landroid/app/IActivityManager;->moveTaskToStack(IIZ)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_0
+
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Landroid/os/RemoteException;
+    invoke-virtual {v0}, Landroid/os/RemoteException;->printStackTrace()V
+
+    goto :goto_0
+.end method
+
 .method public registerTaskStackListener(Landroid/app/ITaskStackListener;)V
     .locals 2
     .param p1, "listener"    # Landroid/app/ITaskStackListener;
@@ -1159,6 +1420,38 @@
     iget-object v0, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mAm:Landroid/app/ActivityManager;
 
     invoke-virtual {v0, p1}, Landroid/app/ActivityManager;->removeTask(I)Z
+
+    goto :goto_0
+.end method
+
+.method public resizeStack(ILandroid/graphics/Rect;)V
+    .locals 2
+    .param p1, "stackId"    # I
+    .param p2, "bounds"    # Landroid/graphics/Rect;
+
+    .prologue
+    iget-object v1, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    if-nez v1, :cond_0
+
+    :goto_0
+    return-void
+
+    :cond_0
+    :try_start_0
+    iget-object v1, p0, Lcom/android/systemui/recents/misc/SystemServicesProxy;->mIam:Landroid/app/IActivityManager;
+
+    invoke-interface {v1, p1, p2}, Landroid/app/IActivityManager;->resizeStack(ILandroid/graphics/Rect;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_0
+
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Landroid/os/RemoteException;
+    invoke-virtual {v0}, Landroid/os/RemoteException;->printStackTrace()V
 
     goto :goto_0
 .end method

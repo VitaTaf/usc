@@ -517,6 +517,33 @@
     return-object v0
 .end method
 
+.method public getStackId()I
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/am/ActivityStackSupervisor$ActivityContainer;->this$0:Lcom/android/server/am/ActivityStackSupervisor;
+
+    iget-object v1, v0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    monitor-enter v1
+
+    :try_start_0
+    iget v0, p0, Lcom/android/server/am/ActivityStackSupervisor$ActivityContainer;->mStackId:I
+
+    monitor-exit v1
+
+    return v0
+
+    :catchall_0
+    move-exception v0
+
+    monitor-exit v1
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v0
+.end method
+
 .method public injectEvent(Landroid/view/InputEvent;)Z
     .locals 6
     .param p1, "event"    # Landroid/view/InputEvent;

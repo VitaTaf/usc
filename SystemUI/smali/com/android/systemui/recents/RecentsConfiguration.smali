@@ -62,6 +62,8 @@
 
 .field public maxNumTasksToLoad:I
 
+.field public multiStackEnabled:Z
+
 .field public navBarScrimEnterDuration:I
 
 .field public quintOutInterpolator:Landroid/view/animation/Interpolator;
@@ -251,6 +253,47 @@
 
 
 # virtual methods
+.method public getAvailableTaskStackBounds(IIIILandroid/graphics/Rect;)V
+    .locals 3
+    .param p1, "windowWidth"    # I
+    .param p2, "windowHeight"    # I
+    .param p3, "topInset"    # I
+    .param p4, "rightInset"    # I
+    .param p5, "taskStackBounds"    # Landroid/graphics/Rect;
+
+    .prologue
+    const/4 v2, 0x0
+
+    new-instance v0, Landroid/graphics/Rect;
+
+    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
+
+    .local v0, "searchBarBounds":Landroid/graphics/Rect;
+    invoke-virtual {p0, p1, p2, p3, v0}, Lcom/android/systemui/recents/RecentsConfiguration;->getSearchBarBounds(IIILandroid/graphics/Rect;)V
+
+    iget-boolean v1, p0, Lcom/android/systemui/recents/RecentsConfiguration;->isLandscape:Z
+
+    if-eqz v1, :cond_0
+
+    iget-boolean v1, p0, Lcom/android/systemui/recents/RecentsConfiguration;->hasTransposedSearchBar:Z
+
+    if-eqz v1, :cond_0
+
+    sub-int v1, p1, p4
+
+    invoke-virtual {p5, v2, p3, v1, p2}, Landroid/graphics/Rect;->set(IIII)V
+
+    :goto_0
+    return-void
+
+    :cond_0
+    iget v1, v0, Landroid/graphics/Rect;->bottom:I
+
+    invoke-virtual {p5, v2, v1, p1, p2}, Landroid/graphics/Rect;->set(IIII)V
+
+    goto :goto_0
+.end method
+
 .method public getSearchBarBounds(IIILandroid/graphics/Rect;)V
     .locals 3
     .param p1, "windowWidth"    # I
@@ -290,47 +333,6 @@
     add-int v1, p3, v0
 
     invoke-virtual {p4, v2, p3, p1, v1}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_0
-.end method
-
-.method public getTaskStackBounds(IIIILandroid/graphics/Rect;)V
-    .locals 3
-    .param p1, "windowWidth"    # I
-    .param p2, "windowHeight"    # I
-    .param p3, "topInset"    # I
-    .param p4, "rightInset"    # I
-    .param p5, "taskStackBounds"    # Landroid/graphics/Rect;
-
-    .prologue
-    const/4 v2, 0x0
-
-    new-instance v0, Landroid/graphics/Rect;
-
-    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
-
-    .local v0, "searchBarBounds":Landroid/graphics/Rect;
-    invoke-virtual {p0, p1, p2, p3, v0}, Lcom/android/systemui/recents/RecentsConfiguration;->getSearchBarBounds(IIILandroid/graphics/Rect;)V
-
-    iget-boolean v1, p0, Lcom/android/systemui/recents/RecentsConfiguration;->isLandscape:Z
-
-    if-eqz v1, :cond_0
-
-    iget-boolean v1, p0, Lcom/android/systemui/recents/RecentsConfiguration;->hasTransposedSearchBar:Z
-
-    if-eqz v1, :cond_0
-
-    sub-int v1, p1, p4
-
-    invoke-virtual {p5, v2, p3, v1, p2}, Landroid/graphics/Rect;->set(IIII)V
-
-    :goto_0
-    return-void
-
-    :cond_0
-    iget v1, v0, Landroid/graphics/Rect;->bottom:I
-
-    invoke-virtual {p5, v2, v1, p1, p2}, Landroid/graphics/Rect;->set(IIII)V
 
     goto :goto_0
 .end method
@@ -861,6 +863,20 @@
 
     :goto_1
     iput-boolean v1, p0, Lcom/android/systemui/recents/RecentsConfiguration;->lockToAppEnabled:Z
+
+    const-string v0, "1"
+
+    const-string v1, "overview.enableMultiStack"
+
+    invoke-virtual {p2, v1}, Lcom/android/systemui/recents/misc/SystemServicesProxy;->getSystemProperty(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    iput-boolean v0, p0, Lcom/android/systemui/recents/RecentsConfiguration;->multiStackEnabled:Z
 
     return-void
 
