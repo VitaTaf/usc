@@ -9863,7 +9863,7 @@
 
     move-object/from16 v2, v153
 
-    invoke-virtual {v0, v1, v2}, Landroid/app/ActivityManagerNative;->createActivityContainer(Landroid/os/IBinder;Landroid/app/IActivityContainerCallback;)Landroid/app/IActivityContainer;
+    invoke-virtual {v0, v1, v2}, Landroid/app/ActivityManagerNative;->createVirtualActivityContainer(Landroid/os/IBinder;Landroid/app/IActivityContainerCallback;)Landroid/app/IActivityContainer;
 
     move-result-object v141
 
@@ -9939,6 +9939,61 @@
 
     invoke-virtual {v0, v6}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
 
+    invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v163
+
+    .local v163, "displayId":I
+    move-object/from16 v0, p0
+
+    move/from16 v1, v163
+
+    invoke-virtual {v0, v1}, Landroid/app/ActivityManagerNative;->createStackOnDisplay(I)Landroid/app/IActivityContainer;
+
+    move-result-object v141
+
+    .restart local v141    # "activityContainer":Landroid/app/IActivityContainer;
+    invoke-virtual/range {p3 .. p3}, Landroid/os/Parcel;->writeNoException()V
+
+    if-eqz v141, :cond_7a
+
+    const/4 v6, 0x1
+
+    move-object/from16 v0, p3
+
+    invoke-virtual {v0, v6}, Landroid/os/Parcel;->writeInt(I)V
+
+    invoke-interface/range {v141 .. v141}, Landroid/app/IActivityContainer;->asBinder()Landroid/os/IBinder;
+
+    move-result-object v6
+
+    move-object/from16 v0, p3
+
+    invoke-virtual {v0, v6}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
+
+    :goto_71
+    const/4 v6, 0x1
+
+    goto/16 :goto_0
+
+    :cond_7a
+    const/4 v6, 0x0
+
+    move-object/from16 v0, p3
+
+    invoke-virtual {v0, v6}, Landroid/os/Parcel;->writeInt(I)V
+
+    goto :goto_71
+
+    .end local v141    # "activityContainer":Landroid/app/IActivityContainer;
+    .end local v163    # "displayId":I
+    :pswitch_c0
+    const-string v6, "android.app.IActivityManager"
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v6}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
     invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readStrongBinder()Landroid/os/IBinder;
 
     move-result-object v142
@@ -9952,7 +10007,7 @@
 
     move-result v163
 
-    .local v163, "displayId":I
+    .restart local v163    # "displayId":I
     invoke-virtual/range {p3 .. p3}, Landroid/os/Parcel;->writeNoException()V
 
     move-object/from16 v0, p3
@@ -9967,7 +10022,7 @@
 
     .end local v142    # "activityToken":Landroid/os/IBinder;
     .end local v163    # "displayId":I
-    :pswitch_c0
+    :pswitch_c1
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -9992,7 +10047,7 @@
     goto/16 :goto_0
 
     .end local v174    # "homeActivityToken":Landroid/os/IBinder;
-    :pswitch_c1
+    :pswitch_c2
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10017,7 +10072,7 @@
     goto/16 :goto_0
 
     .end local v244    # "taskId":I
-    :pswitch_c2
+    :pswitch_c3
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10042,7 +10097,7 @@
     goto/16 :goto_0
 
     .end local v60    # "token":Landroid/os/IBinder;
-    :pswitch_c3
+    :pswitch_c4
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10057,7 +10112,7 @@
 
     goto/16 :goto_0
 
-    :pswitch_c4
+    :pswitch_c5
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10072,7 +10127,7 @@
 
     goto/16 :goto_0
 
-    :pswitch_c5
+    :pswitch_c6
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10087,7 +10142,7 @@
 
     goto/16 :goto_0
 
-    :pswitch_c6
+    :pswitch_c7
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10101,11 +10156,11 @@
     .local v184, "isInLockTaskMode":Z
     invoke-virtual/range {p3 .. p3}, Landroid/os/Parcel;->writeNoException()V
 
-    if-eqz v184, :cond_7a
+    if-eqz v184, :cond_7b
 
     const/4 v6, 0x1
 
-    :goto_71
+    :goto_72
     move-object/from16 v0, p3
 
     invoke-virtual {v0, v6}, Landroid/os/Parcel;->writeInt(I)V
@@ -10114,13 +10169,13 @@
 
     goto/16 :goto_0
 
-    :cond_7a
+    :cond_7b
     const/4 v6, 0x0
 
-    goto :goto_71
+    goto :goto_72
 
     .end local v184    # "isInLockTaskMode":Z
-    :pswitch_c7
+    :pswitch_c8
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10159,7 +10214,7 @@
 
     .end local v60    # "token":Landroid/os/IBinder;
     .end local v252    # "values":Landroid/app/ActivityManager$TaskDescription;
-    :pswitch_c8
+    :pswitch_c9
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10182,7 +10237,7 @@
     .local v176, "icon":Landroid/graphics/Bitmap;
     invoke-virtual/range {p3 .. p3}, Landroid/os/Parcel;->writeNoException()V
 
-    if-nez v176, :cond_7b
+    if-nez v176, :cond_7c
 
     const/4 v6, 0x0
 
@@ -10190,12 +10245,12 @@
 
     invoke-virtual {v0, v6}, Landroid/os/Parcel;->writeInt(I)V
 
-    :goto_72
+    :goto_73
     const/4 v6, 0x1
 
     goto/16 :goto_0
 
-    :cond_7b
+    :cond_7c
     const/4 v6, 0x1
 
     move-object/from16 v0, p3
@@ -10210,11 +10265,11 @@
 
     invoke-virtual {v0, v1, v6}, Landroid/graphics/Bitmap;->writeToParcel(Landroid/os/Parcel;I)V
 
-    goto :goto_72
+    goto :goto_73
 
     .end local v170    # "filename":Ljava/lang/String;
     .end local v176    # "icon":Landroid/graphics/Bitmap;
-    :pswitch_c9
+    :pswitch_ca
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10225,18 +10280,18 @@
 
     move-result v6
 
-    if-nez v6, :cond_7c
+    if-nez v6, :cond_7d
 
     const/16 v152, 0x0
 
     .restart local v152    # "bundle":Landroid/os/Bundle;
-    :goto_73
-    if-nez v152, :cond_7d
+    :goto_74
+    if-nez v152, :cond_7e
 
     const/16 v16, 0x0
 
     .local v16, "options":Landroid/app/ActivityOptions;
-    :goto_74
+    :goto_75
     move-object/from16 v0, p0
 
     move-object/from16 v1, v16
@@ -10251,15 +10306,15 @@
 
     .end local v16    # "options":Landroid/app/ActivityOptions;
     .end local v152    # "bundle":Landroid/os/Bundle;
-    :cond_7c
+    :cond_7d
     invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readBundle()Landroid/os/Bundle;
 
     move-result-object v152
 
     .restart local v152    # "bundle":Landroid/os/Bundle;
-    goto :goto_73
+    goto :goto_74
 
-    :cond_7d
+    :cond_7e
     new-instance v16, Landroid/app/ActivityOptions;
 
     move-object/from16 v0, v16
@@ -10268,10 +10323,10 @@
 
     invoke-direct {v0, v1}, Landroid/app/ActivityOptions;-><init>(Landroid/os/Bundle;)V
 
-    goto :goto_74
+    goto :goto_75
 
     .end local v152    # "bundle":Landroid/os/Bundle;
-    :pswitch_ca
+    :pswitch_cb
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10287,12 +10342,12 @@
 
     move-result v6
 
-    if-lez v6, :cond_7e
+    if-lez v6, :cond_7f
 
     const/16 v165, 0x1
 
     .local v165, "enable":Z
-    :goto_75
+    :goto_76
     move-object/from16 v0, p0
 
     move-object/from16 v1, v60
@@ -10306,11 +10361,11 @@
     .restart local v239    # "success":Z
     invoke-virtual/range {p3 .. p3}, Landroid/os/Parcel;->writeNoException()V
 
-    if-eqz v239, :cond_7f
+    if-eqz v239, :cond_80
 
     const/4 v6, 0x1
 
-    :goto_76
+    :goto_77
     move-object/from16 v0, p3
 
     invoke-virtual {v0, v6}, Landroid/os/Parcel;->writeInt(I)V
@@ -10321,22 +10376,22 @@
 
     .end local v165    # "enable":Z
     .end local v239    # "success":Z
-    :cond_7e
+    :cond_7f
     const/16 v165, 0x0
 
-    goto :goto_75
+    goto :goto_76
 
     .restart local v165    # "enable":Z
     .restart local v239    # "success":Z
-    :cond_7f
+    :cond_80
     const/4 v6, 0x0
 
-    goto :goto_76
+    goto :goto_77
 
     .end local v60    # "token":Landroid/os/IBinder;
     .end local v165    # "enable":Z
     .end local v239    # "success":Z
-    :pswitch_cb
+    :pswitch_cc
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10359,11 +10414,11 @@
     .restart local v166    # "enabled":Z
     invoke-virtual/range {p3 .. p3}, Landroid/os/Parcel;->writeNoException()V
 
-    if-eqz v166, :cond_80
+    if-eqz v166, :cond_81
 
     const/4 v6, 0x1
 
-    :goto_77
+    :goto_78
     move-object/from16 v0, p3
 
     invoke-virtual {v0, v6}, Landroid/os/Parcel;->writeInt(I)V
@@ -10372,14 +10427,14 @@
 
     goto/16 :goto_0
 
-    :cond_80
+    :cond_81
     const/4 v6, 0x0
 
-    goto :goto_77
+    goto :goto_78
 
     .end local v60    # "token":Landroid/os/IBinder;
     .end local v166    # "enabled":Z
-    :pswitch_cc
+    :pswitch_cd
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10404,7 +10459,7 @@
     goto/16 :goto_0
 
     .end local v60    # "token":Landroid/os/IBinder;
-    :pswitch_cd
+    :pswitch_ce
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10429,7 +10484,7 @@
     goto/16 :goto_0
 
     .end local v60    # "token":Landroid/os/IBinder;
-    :pswitch_ce
+    :pswitch_cf
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10454,7 +10509,7 @@
     goto/16 :goto_0
 
     .end local v60    # "token":Landroid/os/IBinder;
-    :pswitch_cf
+    :pswitch_d0
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10469,7 +10524,7 @@
 
     goto/16 :goto_0
 
-    :pswitch_d0
+    :pswitch_d1
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10484,7 +10539,7 @@
 
     goto/16 :goto_0
 
-    :pswitch_d1
+    :pswitch_d2
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10500,12 +10555,12 @@
 
     move-result v6
 
-    if-eqz v6, :cond_81
+    if-eqz v6, :cond_82
 
     const/16 v172, 0x1
 
     .local v172, "flag":Z
-    :goto_78
+    :goto_79
     invoke-static/range {v149 .. v149}, Lcom/motorola/datacollection/IDataCollectionListener$Stub;->asInterface(Landroid/os/IBinder;)Lcom/motorola/datacollection/IDataCollectionListener;
 
     move-result-object v196
@@ -10527,13 +10582,13 @@
 
     .end local v172    # "flag":Z
     .end local v196    # "listener":Lcom/motorola/datacollection/IDataCollectionListener;
-    :cond_81
+    :cond_82
     const/16 v172, 0x0
 
-    goto :goto_78
+    goto :goto_79
 
     .end local v149    # "b":Landroid/os/IBinder;
-    :pswitch_d2
+    :pswitch_d3
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10564,7 +10619,7 @@
     goto/16 :goto_0
 
     .end local v179    # "info":Landroid/content/pm/ApplicationInfo;
-    :pswitch_d3
+    :pswitch_d4
     const-string v6, "android.app.IActivityManager"
 
     move-object/from16 v0, p2
@@ -10593,8 +10648,6 @@
     const/4 v6, 0x1
 
     goto/16 :goto_0
-
-    nop
 
     :pswitch_data_0
     .packed-switch 0x2
@@ -10780,8 +10833,8 @@
         :pswitch_5e
         :pswitch_5f
         :pswitch_3a
+        :pswitch_c1
         :pswitch_c0
-        :pswitch_bf
         :pswitch_be
         :pswitch_0
         :pswitch_0
@@ -10810,39 +10863,74 @@
         :pswitch_a7
         :pswitch_9a
         :pswitch_31
-        :pswitch_c1
         :pswitch_c2
-        :pswitch_c4
-        :pswitch_c6
+        :pswitch_c3
+        :pswitch_c5
         :pswitch_c7
+        :pswitch_c8
         :pswitch_7
         :pswitch_8a
         :pswitch_1f
-        :pswitch_c3
-        :pswitch_c5
+        :pswitch_c4
+        :pswitch_c6
         :pswitch_d
         :pswitch_87
-        :pswitch_ca
         :pswitch_cb
         :pswitch_cc
         :pswitch_cd
-        :pswitch_9
         :pswitch_ce
+        :pswitch_9
+        :pswitch_cf
         :pswitch_ab
         :pswitch_3
         :pswitch_20
         :pswitch_21
         :pswitch_e
         :pswitch_f
-        :pswitch_cf
-        :pswitch_c8
-        :pswitch_b6
+        :pswitch_d0
         :pswitch_c9
+        :pswitch_b6
+        :pswitch_ca
         :pswitch_58
         :pswitch_33
-        :pswitch_d0
         :pswitch_d1
         :pswitch_d2
         :pswitch_d3
+        :pswitch_d4
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_0
+        :pswitch_bf
     .end packed-switch
 .end method

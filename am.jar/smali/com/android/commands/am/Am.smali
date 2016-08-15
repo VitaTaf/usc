@@ -5136,7 +5136,7 @@
 .end method
 
 .method private runStackStart()V
-    .locals 7
+    .locals 5
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Exception;
@@ -5151,50 +5151,41 @@
     .local v2, "displayIdStr":Ljava/lang/String;
     invoke-static {v2}, Ljava/lang/Integer;->valueOf(Ljava/lang/String;)Ljava/lang/Integer;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-virtual {v5}, Ljava/lang/Integer;->intValue()I
+    invoke-virtual {v4}, Ljava/lang/Integer;->intValue()I
 
     move-result v1
 
     .local v1, "displayId":I
-    const/4 v5, -0x2
+    const/4 v4, -0x2
 
-    invoke-direct {p0, v5}, Lcom/android/commands/am/Am;->makeIntent(I)Landroid/content/Intent;
-
-    move-result-object v4
-
-    .local v4, "intent":Landroid/content/Intent;
-    :try_start_0
-    iget-object v5, p0, Lcom/android/commands/am/Am;->mAm:Landroid/app/IActivityManager;
-
-    invoke-interface {v5}, Landroid/app/IActivityManager;->getHomeActivityToken()Landroid/os/IBinder;
+    invoke-direct {p0, v4}, Lcom/android/commands/am/Am;->makeIntent(I)Landroid/content/Intent;
 
     move-result-object v3
 
-    .local v3, "homeActivityToken":Landroid/os/IBinder;
-    iget-object v5, p0, Lcom/android/commands/am/Am;->mAm:Landroid/app/IActivityManager;
+    .local v3, "intent":Landroid/content/Intent;
+    :try_start_0
+    iget-object v4, p0, Lcom/android/commands/am/Am;->mAm:Landroid/app/IActivityManager;
 
-    const/4 v6, 0x0
-
-    invoke-interface {v5, v3, v6}, Landroid/app/IActivityManager;->createActivityContainer(Landroid/os/IBinder;Landroid/app/IActivityContainerCallback;)Landroid/app/IActivityContainer;
+    invoke-interface {v4, v1}, Landroid/app/IActivityManager;->createStackOnDisplay(I)Landroid/app/IActivityContainer;
 
     move-result-object v0
 
     .local v0, "container":Landroid/app/IActivityContainer;
-    invoke-interface {v0, v1}, Landroid/app/IActivityContainer;->attachToDisplay(I)V
+    if-eqz v0, :cond_0
 
-    invoke-interface {v0, v4}, Landroid/app/IActivityContainer;->startActivity(Landroid/content/Intent;)I
+    invoke-interface {v0, v3}, Landroid/app/IActivityContainer;->startActivity(Landroid/content/Intent;)I
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
     .end local v0    # "container":Landroid/app/IActivityContainer;
-    .end local v3    # "homeActivityToken":Landroid/os/IBinder;
+    :cond_0
     :goto_0
     return-void
 
     :catch_0
-    move-exception v5
+    move-exception v4
 
     goto :goto_0
 .end method
