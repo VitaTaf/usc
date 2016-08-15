@@ -33,6 +33,14 @@
 
 
 # instance fields
+.field private mHasThumbTint:Z
+
+.field private mHasThumbTintMode:Z
+
+.field private mHasTrackTint:Z
+
+.field private mHasTrackTintMode:Z
+
 .field private mMinFlingVelocity:I
 
 .field private mOffLayout:Landroid/text/Layout;
@@ -79,6 +87,10 @@
 
 .field private mThumbTextPadding:I
 
+.field private mThumbTintList:Landroid/content/res/ColorStateList;
+
+.field private mThumbTintMode:Landroid/graphics/PorterDuff$Mode;
+
 .field private mThumbWidth:I
 
 .field private mTouchMode:I
@@ -90,6 +102,10 @@
 .field private mTouchY:F
 
 .field private mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+.field private mTrackTintList:Landroid/content/res/ColorStateList;
+
+.field private mTrackTintMode:Landroid/graphics/PorterDuff$Mode;
 
 .field private mVelocityTracker:Landroid/view/VelocityTracker;
 
@@ -171,9 +187,27 @@
     .prologue
     const/4 v7, 0x1
 
+    const/4 v4, 0x0
+
     const/4 v6, 0x0
 
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/widget/CompoundButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
+
+    iput-object v4, p0, Landroid/widget/Switch;->mThumbTintList:Landroid/content/res/ColorStateList;
+
+    iput-object v4, p0, Landroid/widget/Switch;->mThumbTintMode:Landroid/graphics/PorterDuff$Mode;
+
+    iput-boolean v6, p0, Landroid/widget/Switch;->mHasThumbTint:Z
+
+    iput-boolean v6, p0, Landroid/widget/Switch;->mHasThumbTintMode:Z
+
+    iput-object v4, p0, Landroid/widget/Switch;->mTrackTintList:Landroid/content/res/ColorStateList;
+
+    iput-object v4, p0, Landroid/widget/Switch;->mTrackTintMode:Landroid/graphics/PorterDuff$Mode;
+
+    iput-boolean v6, p0, Landroid/widget/Switch;->mHasTrackTint:Z
+
+    iput-boolean v6, p0, Landroid/widget/Switch;->mHasTrackTintMode:Z
 
     invoke-static {}, Landroid/view/VelocityTracker;->obtain()Landroid/view/VelocityTracker;
 
@@ -271,7 +305,7 @@
 
     iput-object v4, p0, Landroid/widget/Switch;->mTextOff:Ljava/lang/CharSequence;
 
-    const/16 v4, 0x9
+    const/16 v4, 0xb
 
     invoke-virtual {v0, v4, v7}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
 
@@ -422,6 +456,140 @@
     const/4 v0, 0x0
 
     goto :goto_0
+.end method
+
+.method private applyThumbTint()V
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
+
+    if-eqz v0, :cond_3
+
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasThumbTint:Z
+
+    if-nez v0, :cond_0
+
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasThumbTintMode:Z
+
+    if-eqz v0, :cond_3
+
+    :cond_0
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->mutate()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    iput-object v0, p0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
+
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasThumbTint:Z
+
+    if-eqz v0, :cond_1
+
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
+
+    iget-object v1, p0, Landroid/widget/Switch;->mThumbTintList:Landroid/content/res/ColorStateList;
+
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setTintList(Landroid/content/res/ColorStateList;)V
+
+    :cond_1
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasThumbTintMode:Z
+
+    if-eqz v0, :cond_2
+
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
+
+    iget-object v1, p0, Landroid/widget/Switch;->mThumbTintMode:Landroid/graphics/PorterDuff$Mode;
+
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setTintMode(Landroid/graphics/PorterDuff$Mode;)V
+
+    :cond_2
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->isStateful()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3
+
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {p0}, Landroid/widget/Switch;->getDrawableState()[I
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setState([I)Z
+
+    :cond_3
+    return-void
+.end method
+
+.method private applyTrackTint()V
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    if-eqz v0, :cond_3
+
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasTrackTint:Z
+
+    if-nez v0, :cond_0
+
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasTrackTintMode:Z
+
+    if-eqz v0, :cond_3
+
+    :cond_0
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->mutate()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    iput-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasTrackTint:Z
+
+    if-eqz v0, :cond_1
+
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    iget-object v1, p0, Landroid/widget/Switch;->mTrackTintList:Landroid/content/res/ColorStateList;
+
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setTintList(Landroid/content/res/ColorStateList;)V
+
+    :cond_1
+    iget-boolean v0, p0, Landroid/widget/Switch;->mHasTrackTintMode:Z
+
+    if-eqz v0, :cond_2
+
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    iget-object v1, p0, Landroid/widget/Switch;->mTrackTintMode:Landroid/graphics/PorterDuff$Mode;
+
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setTintMode(Landroid/graphics/PorterDuff$Mode;)V
+
+    :cond_2
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->isStateful()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3
+
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {p0}, Landroid/widget/Switch;->getDrawableState()[I
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setState([I)Z
+
+    :cond_3
+    return-void
 .end method
 
 .method private cancelPositionAnimator()V
@@ -1405,11 +1573,47 @@
     return v0
 .end method
 
+.method public getThumbTintList()Landroid/content/res/ColorStateList;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbTintList:Landroid/content/res/ColorStateList;
+
+    return-object v0
+.end method
+
+.method public getThumbTintMode()Landroid/graphics/PorterDuff$Mode;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/Switch;->mThumbTintMode:Landroid/graphics/PorterDuff$Mode;
+
+    return-object v0
+.end method
+
 .method public getTrackDrawable()Landroid/graphics/drawable/Drawable;
     .locals 1
 
     .prologue
     iget-object v0, p0, Landroid/widget/Switch;->mTrackDrawable:Landroid/graphics/drawable/Drawable;
+
+    return-object v0
+.end method
+
+.method public getTrackTintList()Landroid/content/res/ColorStateList;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackTintList:Landroid/content/res/ColorStateList;
+
+    return-object v0
+.end method
+
+.method public getTrackTintMode()Landroid/graphics/PorterDuff$Mode;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/Switch;->mTrackTintMode:Landroid/graphics/PorterDuff$Mode;
 
     return-object v0
 .end method
@@ -3091,6 +3295,38 @@
     return-void
 .end method
 
+.method public setThumbTintList(Landroid/content/res/ColorStateList;)V
+    .locals 1
+    .param p1, "tint"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    iput-object p1, p0, Landroid/widget/Switch;->mThumbTintList:Landroid/content/res/ColorStateList;
+
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Landroid/widget/Switch;->mHasThumbTint:Z
+
+    invoke-direct {p0}, Landroid/widget/Switch;->applyThumbTint()V
+
+    return-void
+.end method
+
+.method public setThumbTintMode(Landroid/graphics/PorterDuff$Mode;)V
+    .locals 1
+    .param p1, "tintMode"    # Landroid/graphics/PorterDuff$Mode;
+
+    .prologue
+    iput-object p1, p0, Landroid/widget/Switch;->mThumbTintMode:Landroid/graphics/PorterDuff$Mode;
+
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Landroid/widget/Switch;->mHasThumbTintMode:Z
+
+    invoke-direct {p0}, Landroid/widget/Switch;->applyThumbTint()V
+
+    return-void
+.end method
+
 .method public setTrackDrawable(Landroid/graphics/drawable/Drawable;)V
     .locals 2
     .param p1, "track"    # Landroid/graphics/drawable/Drawable;
@@ -3133,6 +3369,38 @@
     move-result-object v0
 
     invoke-virtual {p0, v0}, Landroid/widget/Switch;->setTrackDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    return-void
+.end method
+
+.method public setTrackTintList(Landroid/content/res/ColorStateList;)V
+    .locals 1
+    .param p1, "tint"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    iput-object p1, p0, Landroid/widget/Switch;->mTrackTintList:Landroid/content/res/ColorStateList;
+
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Landroid/widget/Switch;->mHasTrackTint:Z
+
+    invoke-direct {p0}, Landroid/widget/Switch;->applyTrackTint()V
+
+    return-void
+.end method
+
+.method public setTrackTintMode(Landroid/graphics/PorterDuff$Mode;)V
+    .locals 1
+    .param p1, "tintMode"    # Landroid/graphics/PorterDuff$Mode;
+
+    .prologue
+    iput-object p1, p0, Landroid/widget/Switch;->mTrackTintMode:Landroid/graphics/PorterDuff$Mode;
+
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Landroid/widget/Switch;->mHasTrackTintMode:Z
+
+    invoke-direct {p0}, Landroid/widget/Switch;->applyTrackTint()V
 
     return-void
 .end method

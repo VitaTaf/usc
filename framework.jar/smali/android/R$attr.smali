@@ -2226,6 +2226,10 @@
 
 .field public static final track:I = 0x101036f
 
+.field public static final trackTint:I = 0x10104d8
+
+.field public static final trackTintMode:I = 0x10104d9
+
 .field public static final transcriptMode:I = 0x1010100
 
 .field public static final transformPivotX:I = 0x1010320
