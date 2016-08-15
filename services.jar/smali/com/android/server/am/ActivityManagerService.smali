@@ -30377,33 +30377,10 @@
 .end method
 
 .method public final activityPaused(Landroid/os/IBinder;)V
-    .locals 6
+    .locals 4
     .param p1, "token"    # Landroid/os/IBinder;
 
     .prologue
-    const/4 v5, 0x0
-
-    sget-object v3, Lcom/motorola/kpi/Kpi6paTop$Tag;->AMS3:Lcom/motorola/kpi/Kpi6paTop$Tag;
-
-    const/4 v4, 0x1
-
-    new-array v4, v4, [Ljava/lang/Object;
-
-    aput-object p1, v4, v5
-
-    invoke-static {v3, v4}, Lcom/motorola/kpi/Kpi6paTop;->log(Lcom/motorola/kpi/Kpi6paTop$Tag;[Ljava/lang/Object;)V
-
-    sget-boolean v3, Lcom/android/server/am/ActivityManagerService;->DEBUG_KPI:Z
-
-    if-eqz v3, :cond_0
-
-    const-string v3, "KPI-8"
-
-    const-string v4, "ActivityManagerService.activityPaused start "
-
-    invoke-static {v3, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    :cond_0
     invoke-static {}, Landroid/os/Binder;->clearCallingIdentity()J
 
     move-result-wide v0
@@ -30417,13 +30394,13 @@
     move-result-object v2
 
     .local v2, "stack":Lcom/android/server/am/ActivityStack;
-    if-eqz v2, :cond_1
+    if-eqz v2, :cond_0
 
     const/4 v3, 0x0
 
     invoke-virtual {v2, p1, v3}, Lcom/android/server/am/ActivityStack;->activityPausedLocked(Landroid/os/IBinder;Z)V
 
-    :cond_1
+    :cond_0
     monitor-exit p0
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
@@ -30445,7 +30422,7 @@
 .end method
 
 .method public final activityResumed(Landroid/os/IBinder;)V
-    .locals 5
+    .locals 4
     .param p1, "token"    # Landroid/os/IBinder;
 
     .prologue
@@ -30473,17 +30450,6 @@
 
     invoke-static {v0, v1}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
-    sget-boolean v3, Lcom/android/server/am/ActivityManagerService;->DEBUG_KPI:Z
-
-    if-eqz v3, :cond_1
-
-    const-string v3, "KPI-9"
-
-    const-string v4, "ActivityManagerService.activityPaused complete "
-
-    invoke-static {v3, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    :cond_1
     return-void
 
     .end local v2    # "stack":Lcom/android/server/am/ActivityStack;
@@ -33419,18 +33385,10 @@
 .end method
 
 .method public final attachApplication(Landroid/app/IApplicationThread;)V
-    .locals 5
+    .locals 4
     .param p1, "thread"    # Landroid/app/IApplicationThread;
 
     .prologue
-    sget-object v1, Lcom/motorola/kpi/Kpi6paTop$Tag;->AMS4:Lcom/motorola/kpi/Kpi6paTop$Tag;
-
-    const/4 v4, 0x0
-
-    new-array v4, v4, [Ljava/lang/Object;
-
-    invoke-static {v1, v4}, Lcom/motorola/kpi/Kpi6paTop;->log(Lcom/motorola/kpi/Kpi6paTop$Tag;[Ljava/lang/Object;)V
-
     monitor-enter p0
 
     :try_start_0

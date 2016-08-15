@@ -187,18 +187,6 @@
     .end annotation
 
     .prologue
-    const/4 v4, 0x0
-
-    sget-object v2, Lcom/motorola/kpi/Kpi6paTop$Tag;->AT3:Lcom/motorola/kpi/Kpi6paTop$Tag;
-
-    const/4 v3, 0x1
-
-    new-array v3, v3, [Ljava/lang/Object;
-
-    aput-object p1, v3, v4
-
-    invoke-static {v2, v3}, Lcom/motorola/kpi/Kpi6paTop;->log(Lcom/motorola/kpi/Kpi6paTop$Tag;[Ljava/lang/Object;)V
-
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
@@ -218,6 +206,8 @@
     iget-object v2, p0, Landroid/app/ActivityManagerProxy;->mRemote:Landroid/os/IBinder;
 
     const/16 v3, 0x27
+
+    const/4 v4, 0x0
 
     invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
@@ -489,14 +479,6 @@
     .end annotation
 
     .prologue
-    const/4 v4, 0x0
-
-    sget-object v2, Lcom/motorola/kpi/Kpi6paTop$Tag;->AT4:Lcom/motorola/kpi/Kpi6paTop$Tag;
-
-    new-array v3, v4, [Ljava/lang/Object;
-
-    invoke-static {v2, v3}, Lcom/motorola/kpi/Kpi6paTop;->log(Lcom/motorola/kpi/Kpi6paTop$Tag;[Ljava/lang/Object;)V
-
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
@@ -520,6 +502,8 @@
     iget-object v2, p0, Landroid/app/ActivityManagerProxy;->mRemote:Landroid/os/IBinder;
 
     const/16 v3, 0x11
+
+    const/4 v4, 0x0
 
     invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
