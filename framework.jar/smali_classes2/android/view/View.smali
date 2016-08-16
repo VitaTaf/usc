@@ -667,30 +667,6 @@
 
 .field protected static final VIEW_LOG_TAG:Ljava/lang/String; = "View"
 
-.field static final VIEW_STATE_ACCELERATED:I = 0x40
-
-.field static final VIEW_STATE_ACTIVATED:I = 0x20
-
-.field static final VIEW_STATE_DRAG_CAN_ACCEPT:I = 0x100
-
-.field static final VIEW_STATE_DRAG_HOVERED:I = 0x200
-
-.field static final VIEW_STATE_ENABLED:I = 0x8
-
-.field static final VIEW_STATE_FOCUSED:I = 0x4
-
-.field static final VIEW_STATE_HOVERED:I = 0x80
-
-.field static final VIEW_STATE_IDS:[I
-
-.field static final VIEW_STATE_PRESSED:I = 0x10
-
-.field static final VIEW_STATE_SELECTED:I = 0x2
-
-.field private static final VIEW_STATE_SETS:[[I
-
-.field static final VIEW_STATE_WINDOW_FOCUSED:I = 0x1
-
 .field private static final VISIBILITY_FLAGS:[I
 
 .field static final VISIBILITY_MASK:I = 0xc
@@ -1171,610 +1147,416 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 12
+    .locals 6
 
     .prologue
-    const/4 v9, 0x0
+    const/4 v5, 0x6
 
-    sput-boolean v9, Landroid/view/View;->mDebugViewAttributes:Z
+    const/4 v4, 0x4
 
-    const/4 v9, 0x0
+    const/4 v3, 0x1
 
-    sput-boolean v9, Landroid/view/View;->sCompatibilityDone:Z
-
-    const/4 v9, 0x0
-
-    sput-boolean v9, Landroid/view/View;->sUseBrokenMakeMeasureSpec:Z
-
-    const/4 v9, 0x0
-
-    sput-boolean v9, Landroid/view/View;->sIgnoreMeasureCache:Z
-
-    const/4 v9, 0x3
-
-    new-array v9, v9, [I
-
-    fill-array-data v9, :array_0
-
-    sput-object v9, Landroid/view/View;->VISIBILITY_FLAGS:[I
-
-    const/4 v9, 0x3
-
-    new-array v9, v9, [I
-
-    fill-array-data v9, :array_1
-
-    sput-object v9, Landroid/view/View;->DRAWING_CACHE_QUALITY_FLAGS:[I
-
-    const/16 v9, 0x14
-
-    new-array v9, v9, [I
-
-    fill-array-data v9, :array_2
-
-    sput-object v9, Landroid/view/View;->VIEW_STATE_IDS:[I
-
-    sget-object v9, Landroid/view/View;->VIEW_STATE_IDS:[I
-
-    array-length v9, v9
-
-    div-int/lit8 v9, v9, 0x2
-
-    sget-object v10, Lcom/android/internal/R$styleable;->ViewDrawableStates:[I
-
-    array-length v10, v10
-
-    if-eq v9, v10, :cond_0
-
-    new-instance v9, Ljava/lang/IllegalStateException;
-
-    const-string v10, "VIEW_STATE_IDs array length does not match ViewDrawableStates style array"
-
-    invoke-direct {v9, v10}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
-
-    throw v9
-
-    :cond_0
-    sget-object v9, Landroid/view/View;->VIEW_STATE_IDS:[I
-
-    array-length v9, v9
-
-    new-array v4, v9, [I
-
-    .local v4, "orderedIds":[I
-    const/4 v1, 0x0
-
-    .local v1, "i":I
-    :goto_0
-    sget-object v9, Lcom/android/internal/R$styleable;->ViewDrawableStates:[I
-
-    array-length v9, v9
-
-    if-ge v1, v9, :cond_3
-
-    sget-object v9, Lcom/android/internal/R$styleable;->ViewDrawableStates:[I
-
-    aget v8, v9, v1
-
-    .local v8, "viewState":I
-    const/4 v2, 0x0
-
-    .local v2, "j":I
-    :goto_1
-    sget-object v9, Landroid/view/View;->VIEW_STATE_IDS:[I
-
-    array-length v9, v9
-
-    if-ge v2, v9, :cond_2
-
-    sget-object v9, Landroid/view/View;->VIEW_STATE_IDS:[I
-
-    aget v9, v9, v2
-
-    if-ne v9, v8, :cond_1
-
-    mul-int/lit8 v9, v1, 0x2
-
-    aput v8, v4, v9
-
-    mul-int/lit8 v9, v1, 0x2
-
-    add-int/lit8 v9, v9, 0x1
-
-    sget-object v10, Landroid/view/View;->VIEW_STATE_IDS:[I
-
-    add-int/lit8 v11, v2, 0x1
-
-    aget v10, v10, v11
-
-    aput v10, v4, v9
-
-    :cond_1
-    add-int/lit8 v2, v2, 0x2
-
-    goto :goto_1
-
-    :cond_2
-    add-int/lit8 v1, v1, 0x1
-
-    goto :goto_0
-
-    .end local v2    # "j":I
-    .end local v8    # "viewState":I
-    :cond_3
-    sget-object v9, Landroid/view/View;->VIEW_STATE_IDS:[I
-
-    array-length v9, v9
-
-    div-int/lit8 v0, v9, 0x2
-
-    .local v0, "NUM_BITS":I
-    const/4 v9, 0x1
-
-    shl-int/2addr v9, v0
-
-    new-array v9, v9, [[I
-
-    sput-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    const/4 v2, 0x3
 
     const/4 v1, 0x0
 
-    :goto_2
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-boolean v1, Landroid/view/View;->mDebugViewAttributes:Z
 
-    array-length v9, v9
+    sput-boolean v1, Landroid/view/View;->sCompatibilityDone:Z
 
-    if-ge v1, v9, :cond_6
+    sput-boolean v1, Landroid/view/View;->sUseBrokenMakeMeasureSpec:Z
 
-    invoke-static {v1}, Ljava/lang/Integer;->bitCount(I)I
+    sput-boolean v1, Landroid/view/View;->sIgnoreMeasureCache:Z
 
-    move-result v3
+    new-array v0, v2, [I
 
-    .local v3, "numBits":I
-    new-array v7, v3, [I
+    fill-array-data v0, :array_0
 
-    .local v7, "set":[I
-    const/4 v5, 0x0
+    sput-object v0, Landroid/view/View;->VISIBILITY_FLAGS:[I
 
-    .local v5, "pos":I
-    const/4 v2, 0x0
+    new-array v0, v2, [I
 
-    .restart local v2    # "j":I
-    :goto_3
-    array-length v9, v4
+    fill-array-data v0, :array_1
 
-    if-ge v2, v9, :cond_5
+    sput-object v0, Landroid/view/View;->DRAWING_CACHE_QUALITY_FLAGS:[I
 
-    add-int/lit8 v9, v2, 0x1
+    invoke-static {v1}, Landroid/util/StateSet;->get(I)[I
 
-    aget v9, v4, v9
+    move-result-object v0
 
-    and-int/2addr v9, v1
+    sput-object v0, Landroid/view/View;->EMPTY_STATE_SET:[I
 
-    if-eqz v9, :cond_4
+    invoke-static {v3}, Landroid/util/StateSet;->get(I)[I
 
-    add-int/lit8 v6, v5, 0x1
+    move-result-object v0
 
-    .end local v5    # "pos":I
-    .local v6, "pos":I
-    aget v9, v4, v2
+    sput-object v0, Landroid/view/View;->WINDOW_FOCUSED_STATE_SET:[I
 
-    aput v9, v7, v5
+    const/4 v0, 0x2
 
-    move v5, v6
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    .end local v6    # "pos":I
-    .restart local v5    # "pos":I
-    :cond_4
-    add-int/lit8 v2, v2, 0x2
+    move-result-object v0
 
-    goto :goto_3
+    sput-object v0, Landroid/view/View;->SELECTED_STATE_SET:[I
 
-    :cond_5
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    invoke-static {v2}, Landroid/util/StateSet;->get(I)[I
 
-    aput-object v7, v9, v1
+    move-result-object v0
 
-    add-int/lit8 v1, v1, 0x1
+    sput-object v0, Landroid/view/View;->SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    goto :goto_2
+    invoke-static {v4}, Landroid/util/StateSet;->get(I)[I
 
-    .end local v2    # "j":I
-    .end local v3    # "numBits":I
-    .end local v5    # "pos":I
-    .end local v7    # "set":[I
-    :cond_6
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    move-result-object v0
 
-    const/4 v10, 0x0
+    sput-object v0, Landroid/view/View;->FOCUSED_STATE_SET:[I
 
-    aget-object v9, v9, v10
+    const/4 v0, 0x5
 
-    sput-object v9, Landroid/view/View;->EMPTY_STATE_SET:[I
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    move-result-object v0
 
-    const/4 v10, 0x1
+    sput-object v0, Landroid/view/View;->FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
 
-    aget-object v9, v9, v10
+    invoke-static {v5}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->FOCUSED_SELECTED_STATE_SET:[I
 
-    const/4 v10, 0x2
+    const/4 v0, 0x7
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->SELECTED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/4 v10, 0x3
+    const/16 v0, 0x8
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_STATE_SET:[I
 
-    const/4 v10, 0x4
+    const/16 v0, 0x9
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/4 v10, 0x5
+    const/16 v0, 0xa
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_SELECTED_STATE_SET:[I
 
-    const/4 v10, 0x6
+    const/16 v0, 0xb
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->FOCUSED_SELECTED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/4 v10, 0x7
+    const/16 v0, 0xc
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x8
+    const/16 v0, 0xd
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x9
+    const/16 v0, 0xe
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_FOCUSED_SELECTED_STATE_SET:[I
 
-    const/16 v10, 0xa
+    const/16 v0, 0xf
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_SELECTED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->ENABLED_FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0xb
+    const/16 v0, 0x10
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_STATE_SET:[I
 
-    const/16 v10, 0xc
+    const/16 v0, 0x11
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0xd
+    const/16 v0, 0x12
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_SELECTED_STATE_SET:[I
 
-    const/16 v10, 0xe
+    const/16 v0, 0x13
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_FOCUSED_SELECTED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0xf
+    const/16 v0, 0x14
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->ENABLED_FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x10
+    const/16 v0, 0x15
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x11
+    const/16 v0, 0x16
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_FOCUSED_SELECTED_STATE_SET:[I
 
-    const/16 v10, 0x12
+    const/16 v0, 0x17
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_SELECTED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x13
+    const/16 v0, 0x18
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_STATE_SET:[I
 
-    const/16 v10, 0x14
+    const/16 v0, 0x19
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x15
+    const/16 v0, 0x1a
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_SELECTED_STATE_SET:[I
 
-    const/16 v10, 0x16
+    const/16 v0, 0x1b
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_FOCUSED_SELECTED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x17
+    const/16 v0, 0x1c
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x18
+    const/16 v0, 0x1d
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x19
+    const/16 v0, 0x1e
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_WINDOW_FOCUSED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_SELECTED_STATE_SET:[I
 
-    const/16 v10, 0x1a
+    const/16 v0, 0x1f
 
-    aget-object v9, v9, v10
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_SELECTED_STATE_SET:[I
+    move-result-object v0
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
 
-    const/16 v10, 0x1b
+    new-instance v0, Ljava/lang/ThreadLocal;
 
-    aget-object v9, v9, v10
+    invoke-direct {v0}, Ljava/lang/ThreadLocal;-><init>()V
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    sput-object v0, Landroid/view/View;->sThreadLocal:Ljava/lang/ThreadLocal;
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    new-array v0, v4, [I
 
-    const/16 v10, 0x1c
+    fill-array-data v0, :array_2
 
-    aget-object v9, v9, v10
+    sput-object v0, Landroid/view/View;->LAYOUT_DIRECTION_FLAGS:[I
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_STATE_SET:[I
+    new-array v0, v5, [I
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    fill-array-data v0, :array_3
 
-    const/16 v10, 0x1d
+    sput-object v0, Landroid/view/View;->PFLAG2_TEXT_DIRECTION_FLAGS:[I
 
-    aget-object v9, v9, v10
+    const/4 v0, 0x7
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_WINDOW_FOCUSED_STATE_SET:[I
+    new-array v0, v0, [I
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    fill-array-data v0, :array_4
 
-    const/16 v10, 0x1e
+    sput-object v0, Landroid/view/View;->PFLAG2_TEXT_ALIGNMENT_FLAGS:[I
 
-    aget-object v9, v9, v10
+    new-instance v0, Ljava/util/concurrent/atomic/AtomicInteger;
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_SELECTED_STATE_SET:[I
+    invoke-direct {v0, v3}, Ljava/util/concurrent/atomic/AtomicInteger;-><init>(I)V
 
-    sget-object v9, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    sput-object v0, Landroid/view/View;->sNextGeneratedId:Ljava/util/concurrent/atomic/AtomicInteger;
 
-    const/16 v10, 0x1f
+    new-instance v0, Landroid/view/View$3;
 
-    aget-object v9, v9, v10
+    const-string v1, "alpha"
 
-    sput-object v9, Landroid/view/View;->PRESSED_ENABLED_FOCUSED_SELECTED_WINDOW_FOCUSED_STATE_SET:[I
+    invoke-direct {v0, v1}, Landroid/view/View$3;-><init>(Ljava/lang/String;)V
 
-    new-instance v9, Ljava/lang/ThreadLocal;
+    sput-object v0, Landroid/view/View;->ALPHA:Landroid/util/Property;
 
-    invoke-direct {v9}, Ljava/lang/ThreadLocal;-><init>()V
+    new-instance v0, Landroid/view/View$4;
 
-    sput-object v9, Landroid/view/View;->sThreadLocal:Ljava/lang/ThreadLocal;
+    const-string v1, "translationX"
 
-    const/4 v9, 0x4
+    invoke-direct {v0, v1}, Landroid/view/View$4;-><init>(Ljava/lang/String;)V
 
-    new-array v9, v9, [I
+    sput-object v0, Landroid/view/View;->TRANSLATION_X:Landroid/util/Property;
 
-    fill-array-data v9, :array_3
+    new-instance v0, Landroid/view/View$5;
 
-    sput-object v9, Landroid/view/View;->LAYOUT_DIRECTION_FLAGS:[I
+    const-string v1, "translationY"
 
-    const/4 v9, 0x6
+    invoke-direct {v0, v1}, Landroid/view/View$5;-><init>(Ljava/lang/String;)V
 
-    new-array v9, v9, [I
+    sput-object v0, Landroid/view/View;->TRANSLATION_Y:Landroid/util/Property;
 
-    fill-array-data v9, :array_4
+    new-instance v0, Landroid/view/View$6;
 
-    sput-object v9, Landroid/view/View;->PFLAG2_TEXT_DIRECTION_FLAGS:[I
+    const-string v1, "translationZ"
 
-    const/4 v9, 0x7
+    invoke-direct {v0, v1}, Landroid/view/View$6;-><init>(Ljava/lang/String;)V
 
-    new-array v9, v9, [I
+    sput-object v0, Landroid/view/View;->TRANSLATION_Z:Landroid/util/Property;
 
-    fill-array-data v9, :array_5
+    new-instance v0, Landroid/view/View$7;
 
-    sput-object v9, Landroid/view/View;->PFLAG2_TEXT_ALIGNMENT_FLAGS:[I
+    const-string v1, "x"
 
-    new-instance v9, Ljava/util/concurrent/atomic/AtomicInteger;
+    invoke-direct {v0, v1}, Landroid/view/View$7;-><init>(Ljava/lang/String;)V
 
-    const/4 v10, 0x1
+    sput-object v0, Landroid/view/View;->X:Landroid/util/Property;
 
-    invoke-direct {v9, v10}, Ljava/util/concurrent/atomic/AtomicInteger;-><init>(I)V
+    new-instance v0, Landroid/view/View$8;
 
-    sput-object v9, Landroid/view/View;->sNextGeneratedId:Ljava/util/concurrent/atomic/AtomicInteger;
+    const-string v1, "y"
 
-    new-instance v9, Landroid/view/View$3;
+    invoke-direct {v0, v1}, Landroid/view/View$8;-><init>(Ljava/lang/String;)V
 
-    const-string v10, "alpha"
+    sput-object v0, Landroid/view/View;->Y:Landroid/util/Property;
 
-    invoke-direct {v9, v10}, Landroid/view/View$3;-><init>(Ljava/lang/String;)V
+    new-instance v0, Landroid/view/View$9;
 
-    sput-object v9, Landroid/view/View;->ALPHA:Landroid/util/Property;
+    const-string v1, "z"
 
-    new-instance v9, Landroid/view/View$4;
+    invoke-direct {v0, v1}, Landroid/view/View$9;-><init>(Ljava/lang/String;)V
 
-    const-string v10, "translationX"
+    sput-object v0, Landroid/view/View;->Z:Landroid/util/Property;
 
-    invoke-direct {v9, v10}, Landroid/view/View$4;-><init>(Ljava/lang/String;)V
+    new-instance v0, Landroid/view/View$10;
 
-    sput-object v9, Landroid/view/View;->TRANSLATION_X:Landroid/util/Property;
+    const-string v1, "rotation"
 
-    new-instance v9, Landroid/view/View$5;
+    invoke-direct {v0, v1}, Landroid/view/View$10;-><init>(Ljava/lang/String;)V
 
-    const-string v10, "translationY"
+    sput-object v0, Landroid/view/View;->ROTATION:Landroid/util/Property;
 
-    invoke-direct {v9, v10}, Landroid/view/View$5;-><init>(Ljava/lang/String;)V
+    new-instance v0, Landroid/view/View$11;
 
-    sput-object v9, Landroid/view/View;->TRANSLATION_Y:Landroid/util/Property;
+    const-string v1, "rotationX"
 
-    new-instance v9, Landroid/view/View$6;
+    invoke-direct {v0, v1}, Landroid/view/View$11;-><init>(Ljava/lang/String;)V
 
-    const-string v10, "translationZ"
+    sput-object v0, Landroid/view/View;->ROTATION_X:Landroid/util/Property;
 
-    invoke-direct {v9, v10}, Landroid/view/View$6;-><init>(Ljava/lang/String;)V
+    new-instance v0, Landroid/view/View$12;
 
-    sput-object v9, Landroid/view/View;->TRANSLATION_Z:Landroid/util/Property;
+    const-string v1, "rotationY"
 
-    new-instance v9, Landroid/view/View$7;
+    invoke-direct {v0, v1}, Landroid/view/View$12;-><init>(Ljava/lang/String;)V
 
-    const-string v10, "x"
+    sput-object v0, Landroid/view/View;->ROTATION_Y:Landroid/util/Property;
 
-    invoke-direct {v9, v10}, Landroid/view/View$7;-><init>(Ljava/lang/String;)V
+    new-instance v0, Landroid/view/View$13;
 
-    sput-object v9, Landroid/view/View;->X:Landroid/util/Property;
+    const-string v1, "scaleX"
 
-    new-instance v9, Landroid/view/View$8;
+    invoke-direct {v0, v1}, Landroid/view/View$13;-><init>(Ljava/lang/String;)V
 
-    const-string v10, "y"
+    sput-object v0, Landroid/view/View;->SCALE_X:Landroid/util/Property;
 
-    invoke-direct {v9, v10}, Landroid/view/View$8;-><init>(Ljava/lang/String;)V
+    new-instance v0, Landroid/view/View$14;
 
-    sput-object v9, Landroid/view/View;->Y:Landroid/util/Property;
+    const-string v1, "scaleY"
 
-    new-instance v9, Landroid/view/View$9;
+    invoke-direct {v0, v1}, Landroid/view/View$14;-><init>(Ljava/lang/String;)V
 
-    const-string v10, "z"
-
-    invoke-direct {v9, v10}, Landroid/view/View$9;-><init>(Ljava/lang/String;)V
-
-    sput-object v9, Landroid/view/View;->Z:Landroid/util/Property;
-
-    new-instance v9, Landroid/view/View$10;
-
-    const-string v10, "rotation"
-
-    invoke-direct {v9, v10}, Landroid/view/View$10;-><init>(Ljava/lang/String;)V
-
-    sput-object v9, Landroid/view/View;->ROTATION:Landroid/util/Property;
-
-    new-instance v9, Landroid/view/View$11;
-
-    const-string v10, "rotationX"
-
-    invoke-direct {v9, v10}, Landroid/view/View$11;-><init>(Ljava/lang/String;)V
-
-    sput-object v9, Landroid/view/View;->ROTATION_X:Landroid/util/Property;
-
-    new-instance v9, Landroid/view/View$12;
-
-    const-string v10, "rotationY"
-
-    invoke-direct {v9, v10}, Landroid/view/View$12;-><init>(Ljava/lang/String;)V
-
-    sput-object v9, Landroid/view/View;->ROTATION_Y:Landroid/util/Property;
-
-    new-instance v9, Landroid/view/View$13;
-
-    const-string v10, "scaleX"
-
-    invoke-direct {v9, v10}, Landroid/view/View$13;-><init>(Ljava/lang/String;)V
-
-    sput-object v9, Landroid/view/View;->SCALE_X:Landroid/util/Property;
-
-    new-instance v9, Landroid/view/View$14;
-
-    const-string v10, "scaleY"
-
-    invoke-direct {v9, v10}, Landroid/view/View$14;-><init>(Ljava/lang/String;)V
-
-    sput-object v9, Landroid/view/View;->SCALE_Y:Landroid/util/Property;
+    sput-object v0, Landroid/view/View;->SCALE_Y:Landroid/util/Property;
 
     return-void
+
+    nop
 
     :array_0
     .array-data 4
@@ -1792,37 +1574,13 @@
 
     :array_2
     .array-data 4
-        0x101009d
-        0x1
-        0x10100a1
-        0x2
-        0x101009c
-        0x4
-        0x101009e
-        0x8
-        0x10100a7
-        0x10
-        0x10102fe
-        0x20
-        0x101031b
-        0x40
-        0x1010367
-        0x80
-        0x1010368
-        0x100
-        0x1010369
-        0x200
-    .end array-data
-
-    :array_3
-    .array-data 4
         0x0
         0x1
         0x2
         0x3
     .end array-data
 
-    :array_4
+    :array_3
     .array-data 4
         0x0
         0x40
@@ -1832,7 +1590,7 @@
         0x140
     .end array-data
 
-    :array_5
+    :array_4
     .array-data 4
         0x0
         0x2000
@@ -7801,9 +7559,6 @@
     .param p2, "childMeasuredState"    # I
 
     .prologue
-    move v0, p0
-
-    .local v0, "result":I
     invoke-static {p1}, Landroid/view/View$MeasureSpec;->getMode(I)I
 
     move-result v1
@@ -7816,6 +7571,9 @@
     .local v2, "specSize":I
     sparse-switch v1, :sswitch_data_0
 
+    move v0, p0
+
+    .local v0, "result":I
     :goto_0
     const/high16 v3, -0x1000000
 
@@ -7825,35 +7583,35 @@
 
     return v3
 
+    .end local v0    # "result":I
     :sswitch_0
-    move v0, p0
-
-    goto :goto_0
-
-    :sswitch_1
     if-ge v2, p0, :cond_0
 
     const/high16 v3, 0x1000000
 
     or-int v0, v2, v3
 
+    .restart local v0    # "result":I
     goto :goto_0
 
+    .end local v0    # "result":I
     :cond_0
     move v0, p0
 
+    .restart local v0    # "result":I
     goto :goto_0
 
-    :sswitch_2
+    .end local v0    # "result":I
+    :sswitch_1
     move v0, v2
 
+    .restart local v0    # "result":I
     goto :goto_0
 
     :sswitch_data_0
     .sparse-switch
-        -0x80000000 -> :sswitch_1
-        0x0 -> :sswitch_0
-        0x40000000 -> :sswitch_2
+        -0x80000000 -> :sswitch_0
+        0x40000000 -> :sswitch_1
     .end sparse-switch
 .end method
 
@@ -24640,9 +24398,9 @@
     or-int/lit16 v4, v4, 0x200
 
     :cond_b
-    sget-object v5, Landroid/view/View;->VIEW_STATE_SETS:[[I
+    invoke-static {v4}, Landroid/util/StateSet;->get(I)[I
 
-    aget-object v0, v5, v4
+    move-result-object v0
 
     .local v0, "drawableState":[I
     if-eqz p1, :cond_0
@@ -27030,33 +26788,69 @@
 .end method
 
 .method protected onVisibilityChanged(Landroid/view/View;I)V
-    .locals 2
+    .locals 5
     .param p1, "changedView"    # Landroid/view/View;
     .param p2, "visibility"    # I
 
     .prologue
-    if-nez p2, :cond_0
+    const/4 v2, 0x0
 
-    iget-object v0, p0, Landroid/view/View;->mAttachInfo:Landroid/view/View$AttachInfo;
+    if-nez p2, :cond_2
 
-    if-eqz v0, :cond_1
+    invoke-virtual {p0}, Landroid/view/View;->getVisibility()I
+
+    move-result v3
+
+    if-nez v3, :cond_2
+
+    const/4 v1, 0x1
+
+    .local v1, "visible":Z
+    :goto_0
+    if-eqz v1, :cond_0
+
+    iget-object v3, p0, Landroid/view/View;->mAttachInfo:Landroid/view/View$AttachInfo;
+
+    if-eqz v3, :cond_3
 
     invoke-direct {p0}, Landroid/view/View;->initialAwakenScrollBars()Z
 
     :cond_0
-    :goto_0
-    return-void
+    :goto_1
+    iget-object v0, p0, Landroid/view/View;->mBackground:Landroid/graphics/drawable/Drawable;
+
+    .local v0, "dr":Landroid/graphics/drawable/Drawable;
+    if-eqz v0, :cond_1
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->isVisible()Z
+
+    move-result v3
+
+    if-eq v1, v3, :cond_1
+
+    invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/Drawable;->setVisible(ZZ)Z
 
     :cond_1
-    iget v0, p0, Landroid/view/View;->mPrivateFlags:I
+    return-void
 
-    const/high16 v1, 0x8000000
-
-    or-int/2addr v0, v1
-
-    iput v0, p0, Landroid/view/View;->mPrivateFlags:I
+    .end local v0    # "dr":Landroid/graphics/drawable/Drawable;
+    .end local v1    # "visible":Z
+    :cond_2
+    move v1, v2
 
     goto :goto_0
+
+    .restart local v1    # "visible":Z
+    :cond_3
+    iget v3, p0, Landroid/view/View;->mPrivateFlags:I
+
+    const/high16 v4, 0x8000000
+
+    or-int/2addr v3, v4
+
+    iput v3, p0, Landroid/view/View;->mPrivateFlags:I
+
+    goto :goto_1
 .end method
 
 .method public onWindowFocusChanged(Z)V
@@ -35683,38 +35477,17 @@
 .end method
 
 .method public setVisibility(I)V
-    .locals 3
+    .locals 1
     .param p1, "visibility"    # I
     .annotation runtime Landroid/view/RemotableViewMethod;
     .end annotation
 
     .prologue
-    const/4 v1, 0x0
-
     const/16 v0, 0xc
 
     invoke-virtual {p0, p1, v0}, Landroid/view/View;->setFlags(II)V
 
-    iget-object v0, p0, Landroid/view/View;->mBackground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_0
-
-    iget-object v2, p0, Landroid/view/View;->mBackground:Landroid/graphics/drawable/Drawable;
-
-    if-nez p1, :cond_1
-
-    const/4 v0, 0x1
-
-    :goto_0
-    invoke-virtual {v2, v0, v1}, Landroid/graphics/drawable/Drawable;->setVisible(ZZ)Z
-
-    :cond_0
     return-void
-
-    :cond_1
-    move v0, v1
-
-    goto :goto_0
 .end method
 
 .method public setWillNotCacheDrawing(Z)V

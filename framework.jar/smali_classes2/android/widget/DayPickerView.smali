@@ -1047,6 +1047,18 @@
     return-void
 .end method
 
+.method setCalendarDayBackgroundColor(Landroid/content/res/ColorStateList;)V
+    .locals 1
+    .param p1, "dayBackgroundColor"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/DayPickerView;->mAdapter:Landroid/widget/SimpleMonthAdapter;
+
+    invoke-virtual {v0, p1}, Landroid/widget/SimpleMonthAdapter;->setCalendarDayBackgroundColor(Landroid/content/res/ColorStateList;)V
+
+    return-void
+.end method
+
 .method setCalendarTextAppearance(I)V
     .locals 1
     .param p1, "resId"    # I

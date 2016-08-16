@@ -2331,6 +2331,108 @@
     return v1
 .end method
 
+.method public getLayerInsetBottom(I)I
+    .locals 2
+    .param p1, "index"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iget v1, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetB:I
+
+    return v1
+.end method
+
+.method public getLayerInsetEnd(I)I
+    .locals 2
+    .param p1, "index"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iget v1, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetE:I
+
+    return v1
+.end method
+
+.method public getLayerInsetLeft(I)I
+    .locals 2
+    .param p1, "index"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iget v1, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetL:I
+
+    return v1
+.end method
+
+.method public getLayerInsetRight(I)I
+    .locals 2
+    .param p1, "index"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iget v1, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetR:I
+
+    return v1
+.end method
+
+.method public getLayerInsetStart(I)I
+    .locals 2
+    .param p1, "index"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iget v1, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetS:I
+
+    return v1
+.end method
+
+.method public getLayerInsetTop(I)I
+    .locals 2
+    .param p1, "index"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iget v1, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetT:I
+
+    return v1
+.end method
+
 .method public getLayerWidth(I)I
     .locals 2
     .param p1, "index"    # I
@@ -3268,6 +3370,24 @@
     return-void
 .end method
 
+.method public setLayerHeight(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "h"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mHeight:I
+
+    return-void
+.end method
+
 .method public setLayerInset(IIIII)V
     .locals 8
     .param p1, "index"    # I
@@ -3294,6 +3414,60 @@
     move v7, v6
 
     invoke-direct/range {v0 .. v7}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetInternal(IIIIIII)V
+
+    return-void
+.end method
+
+.method public setLayerInsetBottom(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "b"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetB:I
+
+    return-void
+.end method
+
+.method public setLayerInsetEnd(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "e"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetE:I
+
+    return-void
+.end method
+
+.method public setLayerInsetLeft(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "l"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetL:I
 
     return-void
 .end method
@@ -3328,6 +3502,60 @@
     return-void
 .end method
 
+.method public setLayerInsetRight(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "r"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetR:I
+
+    return-void
+.end method
+
+.method public setLayerInsetStart(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "s"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetS:I
+
+    return-void
+.end method
+
+.method public setLayerInsetTop(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "t"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mInsetT:I
+
+    return-void
+.end method
+
 .method public setLayerSize(III)V
     .locals 2
     .param p1, "index"    # I
@@ -3345,6 +3573,24 @@
     iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mWidth:I
 
     iput p3, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mHeight:I
+
+    return-void
+.end method
+
+.method public setLayerWidth(II)V
+    .locals 2
+    .param p1, "index"    # I
+    .param p2, "w"    # I
+
+    .prologue
+    iget-object v1, p0, Landroid/graphics/drawable/LayerDrawable;->mLayerState:Landroid/graphics/drawable/LayerDrawable$LayerState;
+
+    iget-object v1, v1, Landroid/graphics/drawable/LayerDrawable$LayerState;->mChildren:[Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+
+    aget-object v0, v1, p1
+
+    .local v0, "childDrawable":Landroid/graphics/drawable/LayerDrawable$ChildDrawable;
+    iput p2, v0, Landroid/graphics/drawable/LayerDrawable$ChildDrawable;->mWidth:I
 
     return-void
 .end method

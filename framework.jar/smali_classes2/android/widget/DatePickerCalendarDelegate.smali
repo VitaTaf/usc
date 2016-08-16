@@ -614,7 +614,7 @@
 
     invoke-virtual {v11, v0}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    const/16 v24, 0x14
+    const/16 v24, 0x13
 
     move/from16 v0, v24
 
@@ -999,30 +999,34 @@
     move-result-object v10
 
     .local v10, "calendarTextColor":Landroid/content/res/ColorStateList;
-    const/16 v24, 0x12
-
-    move/from16 v0, v24
-
-    invoke-virtual {v6, v0, v14}, Landroid/content/res/TypedArray;->getColor(II)I
-
-    move-result v9
-
-    .local v9, "calendarSelectedTextColor":I
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mDayPickerView:Landroid/widget/DayPickerView;
 
     move-object/from16 v24, v0
 
-    const v25, 0x10100a1
+    move-object/from16 v0, v24
 
-    move/from16 v0, v25
+    invoke-virtual {v0, v10}, Landroid/widget/DayPickerView;->setCalendarTextColor(Landroid/content/res/ColorStateList;)V
 
-    invoke-static {v10, v0, v9}, Landroid/content/res/ColorStateList;->addFirstIfMissing(Landroid/content/res/ColorStateList;II)Landroid/content/res/ColorStateList;
+    const/16 v24, 0x14
 
-    move-result-object v25
+    move/from16 v0, v24
 
-    invoke-virtual/range {v24 .. v25}, Landroid/widget/DayPickerView;->setCalendarTextColor(Landroid/content/res/ColorStateList;)V
+    invoke-virtual {v6, v0}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
+
+    move-result-object v9
+
+    .local v9, "calendarDayBackgroundColor":Landroid/content/res/ColorStateList;
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mDayPickerView:Landroid/widget/DayPickerView;
+
+    move-object/from16 v24, v0
+
+    move-object/from16 v0, v24
+
+    invoke-virtual {v0, v9}, Landroid/widget/DayPickerView;->setCalendarDayBackgroundColor(Landroid/content/res/ColorStateList;)V
 
     const v24, 0x104067d
 

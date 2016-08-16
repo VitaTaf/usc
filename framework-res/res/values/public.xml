@@ -3607,18 +3607,6 @@
     <public type="string" name="config_persistentDataPackageName" id="0x01040047" />
     <public type="string" name="config_webViewPackageName" id="0x01040048" />
     <public type="string" name="prohibit_manual_network_selection_in_gobal_mode" id="0x01040049" />
-    <public type="string" name="timepicker_circle_radius_multiplier" id="0x0104004a" />
-    <public type="string" name="timepicker_circle_radius_multiplier_24HourMode" id="0x0104004b" />
-    <public type="string" name="timepicker_selection_radius_multiplier" id="0x0104004c" />
-    <public type="string" name="timepicker_ampm_circle_radius_multiplier" id="0x0104004d" />
-    <public type="string" name="timepicker_numbers_radius_multiplier_normal" id="0x0104004e" />
-    <public type="string" name="timepicker_numbers_radius_multiplier_inner" id="0x0104004f" />
-    <public type="string" name="timepicker_numbers_radius_multiplier_outer" id="0x01040050" />
-    <public type="string" name="timepicker_text_size_multiplier_normal" id="0x01040051" />
-    <public type="string" name="timepicker_text_size_multiplier_inner" id="0x01040052" />
-    <public type="string" name="timepicker_text_size_multiplier_outer" id="0x01040053" />
-    <public type="string" name="timepicker_transition_mid_radius_multiplier" id="0x01040054" />
-    <public type="string" name="timepicker_transition_end_radius_multiplier" id="0x01040055" />
     <public type="string" name="numeric_date_template" id="0x01040056" />
     <public type="string" name="month_day_year" id="0x01040057" />
     <public type="string" name="time_of_day" id="0x01040058" />
@@ -5455,7 +5443,7 @@
     <public type="dimen" name="datepicker_month_label_size" id="0x0105008c" />
     <public type="dimen" name="datepicker_month_day_label_text_size" id="0x0105008d" />
     <public type="dimen" name="datepicker_month_list_item_header_height" id="0x0105008e" />
-    <public type="dimen" name="datepicker_day_number_select_circle_radius" id="0x0105008f" />
+    <public type="dimen" name="timepicker_selection_radius_multiplier" id="0x0105008f" />
     <public type="dimen" name="datepicker_view_animator_height" id="0x01050090" />
     <public type="dimen" name="datepicker_year_picker_padding_top" id="0x01050091" />
     <public type="dimen" name="datepicker_year_label_height" id="0x01050092" />
@@ -5480,6 +5468,7 @@
     <public type="dimen" name="light_radius" id="0x010500a5" />
     <public type="dimen" name="ambient_shadow_alpha" id="0x010500a6" />
     <public type="dimen" name="spot_shadow_alpha" id="0x010500a7" />
+    <public type="dimen" name="timepicker_numbers_radius_multiplier_normal" id="0x010500a8" />
     <public type="dimen" name="disabled_alpha_leanback_formwizard" id="0x010500af" />
     <public type="dimen" name="leanback_setup_alpha_animiation_max_opacity" id="0x010500b0" />
     <public type="dimen" name="leanback_setup_alpha_animiation_min_opacity" id="0x010500b1" />
@@ -5563,7 +5552,16 @@
     <public type="dimen" name="dialog_padding_material" id="0x010500ff" />
     <public type="dimen" name="dialog_padding_top_material" id="0x01050100" />
     <public type="dimen" name="dialog_list_padding_vertical_material" id="0x01050101" />
-    <public type="dimen" name="APKTOOL_DUMMY_a8" id="0x010500a8" />
+    <public type="dimen" name="timepicker_numbers_radius_multiplier_inner" id="0x01050102" />
+    <public type="dimen" name="timepicker_numbers_radius_multiplier_outer" id="0x01050103" />
+    <public type="dimen" name="timepicker_text_size_multiplier_normal" id="0x01050104" />
+    <public type="dimen" name="timepicker_text_size_multiplier_inner" id="0x01050105" />
+    <public type="dimen" name="timepicker_text_size_multiplier_outer" id="0x01050106" />
+    <public type="dimen" name="timepicker_transition_mid_radius_multiplier" id="0x01050107" />
+    <public type="dimen" name="timepicker_transition_end_radius_multiplier" id="0x01050108" />
+    <public type="dimen" name="scrubber_track_height_material" id="0x0105010a" />
+    <public type="dimen" name="progress_bar_height_material" id="0x0105010b" />
+    <public type="dimen" name="APKTOOL_DUMMY_109" id="0x01050109" />
     <public type="dimen" name="keyguard_pattern_unlock_clock_font_size" id="0x010500ab" />
     <public type="dimen" name="glowpadview_target_placement_radius" id="0x010500ac" />
     <public type="dimen" name="keyguard_pattern_unlock_status_line_font_size" id="0x010500ad" />
@@ -5888,6 +5886,11 @@
     <public type="color" name="tertiary_text_holo_light" id="0x0106013b" />
     <public type="color" name="btn_material_accent" id="0x0106013c" />
     <public type="color" name="control_highlight_material" id="0x0106013d" />
+    <public type="color" name="control_checkable_material" id="0x0106013e" />
+    <public type="color" name="control_default_material" id="0x0106013f" />
+    <public type="color" name="switch_track_material" id="0x01060140" />
+    <public type="color" name="tab_indicator_material" id="0x01060141" />
+    <public type="color" name="white_disabled_material" id="0x01060142" />
     <public type="array" name="emailAddressTypes" id="0x01070000" />
     <public type="array" name="imProtocols" id="0x01070001" />
     <public type="array" name="organizationTypes" id="0x01070002" />
@@ -6044,7 +6047,8 @@
     <public type="drawable" name="btn_browser_zoom_page_overview" id="0x010800d4" />
     <public type="drawable" name="btn_cab_done_holo_dark" id="0x010800d9" />
     <public type="drawable" name="btn_cab_done_holo_light" id="0x010800da" />
-    <public type="drawable" name="btn_cab_done_material" id="0x010800db" />
+    <public type="drawable" name="action_bar_item_background_material" id="0x010800db" />
+    <public type="drawable" name="control_background_material" id="0x010800dc" />
     <public type="drawable" name="btn_check" id="0x010800df" />
     <public type="drawable" name="btn_check_holo_dark" id="0x010800e2" />
     <public type="drawable" name="btn_check_holo_light" id="0x010800e3" />
@@ -6360,8 +6364,6 @@
     <public type="drawable" name="input_method_fullscreen_background_holo" id="0x01080762" />
     <public type="drawable" name="screen_background_holo_light" id="0x01080763" />
     <public type="drawable" name="screen_background_holo_dark" id="0x01080764" />
-    <public type="drawable" name="action_bar_item_background_material" id="0x01080765" />
-    <public type="drawable" name="control_background_material" id="0x01080766" />
     <public type="drawable" name="ic_jog_dial_sound_off" id="0x0108036a" />
     <public type="drawable" name="ic_jog_dial_sound_on" id="0x0108036b" />
     <public type="drawable" name="ic_jog_dial_unlock" id="0x0108036c" />
@@ -6590,7 +6592,6 @@
     <public type="drawable" name="btn_cab_done_default_holo_light" id="0x010800d6" />
     <public type="drawable" name="btn_cab_done_focused_holo_dark" id="0x010800d7" />
     <public type="drawable" name="btn_cab_done_focused_holo_light" id="0x010800d8" />
-    <public type="drawable" name="btn_cab_done_mtrl_alpha" id="0x010800dc" />
     <public type="drawable" name="btn_cab_done_pressed_holo_dark" id="0x010800dd" />
     <public type="drawable" name="btn_cab_done_pressed_holo_light" id="0x010800de" />
     <public type="drawable" name="btn_check_buttonless_off" id="0x010800e0" />
@@ -6917,7 +6918,6 @@
     <public type="drawable" name="btn_switch_to_on_mtrl_00010" id="0x01080240" />
     <public type="drawable" name="btn_switch_to_on_mtrl_00011" id="0x01080241" />
     <public type="drawable" name="btn_switch_to_on_mtrl_00012" id="0x01080242" />
-    <public type="drawable" name="btn_toggle_indicator_mtrl_alpha" id="0x01080247" />
     <public type="drawable" name="btn_toggle_off" id="0x01080249" />
     <public type="drawable" name="btn_toggle_off_disabled_focused_holo_dark" id="0x0108024a" />
     <public type="drawable" name="btn_toggle_off_disabled_focused_holo_light" id="0x0108024b" />
@@ -7423,7 +7423,6 @@
     <public type="drawable" name="pressed_application_background_static" id="0x01080561" />
     <public type="drawable" name="progress_bg_holo_dark" id="0x01080562" />
     <public type="drawable" name="progress_bg_holo_light" id="0x01080563" />
-    <public type="drawable" name="progress_mtrl_alpha" id="0x01080571" />
     <public type="drawable" name="progress_primary_holo_dark" id="0x01080572" />
     <public type="drawable" name="progress_primary_holo_light" id="0x01080573" />
     <public type="drawable" name="progress_secondary_holo_dark" id="0x01080574" />
@@ -7546,7 +7545,6 @@
     <public type="drawable" name="spinner_dropdown_background_up" id="0x01080635" />
     <public type="drawable" name="spinner_focused_holo_dark_am" id="0x01080637" />
     <public type="drawable" name="spinner_focused_holo_light_am" id="0x01080639" />
-    <public type="drawable" name="spinner_mtrl_am_alpha" id="0x0108063a" />
     <public type="drawable" name="spinner_normal" id="0x0108063b" />
     <public type="drawable" name="spinner_press" id="0x0108063d" />
     <public type="drawable" name="spinner_pressed_holo_dark_am" id="0x0108063f" />
@@ -7644,7 +7642,6 @@
     <public type="drawable" name="switch_thumb_holo_light" id="0x010806b1" />
     <public type="drawable" name="switch_thumb_pressed_holo_dark" id="0x010806b4" />
     <public type="drawable" name="switch_thumb_pressed_holo_light" id="0x010806b5" />
-    <public type="drawable" name="switch_track_mtrl_alpha" id="0x010806b9" />
     <public type="drawable" name="sym_action_add" id="0x010806ba" />
     <public type="drawable" name="sym_app_on_sd_unavailable_icon" id="0x010806bb" />
     <public type="drawable" name="sym_keyboard_delete" id="0x010806bc" />
@@ -8908,7 +8905,7 @@
     <public type="^attr-private" name="popupPromptView" id="0x01160051" />
     <public type="^attr-private" name="disableChildrenWhenDisabled" id="0x01160052" />
     <public type="^attr-private" name="internalLayout" id="0x01160053" />
-    <public type="^attr-private" name="calendarSelectedTextColor" id="0x01160054" />
+    <public type="^attr-private" name="controlBackground" id="0x01160054" />
     <public type="^attr-private" name="quickContactWindowSize" id="0x01160055" />
     <public type="^attr-private" name="majorWeightMin" id="0x01160056" />
     <public type="^attr-private" name="minorWeightMin" id="0x01160057" />
@@ -9005,5 +9002,5 @@
     <public type="^attr-private" name="interpolatorX" id="0x011600b2" />
     <public type="^attr-private" name="interpolatorY" id="0x011600b3" />
     <public type="^attr-private" name="interpolatorZ" id="0x011600b4" />
-    <public type="^attr-private" name="controlBackground" id="0x011600b5" />
+    <public type="^attr-private" name="calendarDayBackgroundColor" id="0x011600b5" />
 </resources>

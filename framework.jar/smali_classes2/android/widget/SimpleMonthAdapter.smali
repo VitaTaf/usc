@@ -12,6 +12,8 @@
 
 
 # instance fields
+.field private mCalendarDayBackgroundColor:Landroid/content/res/ColorStateList;
+
 .field private mCalendarTextColors:Landroid/content/res/ColorStateList;
 
 .field private final mContext:Landroid/content/Context;
@@ -62,6 +64,14 @@
     move-result-object v0
 
     iput-object v0, p0, Landroid/widget/SimpleMonthAdapter;->mCalendarTextColors:Landroid/content/res/ColorStateList;
+
+    const v0, -0xff01
+
+    invoke-static {v0}, Landroid/content/res/ColorStateList;->valueOf(I)Landroid/content/res/ColorStateList;
+
+    move-result-object v0
+
+    iput-object v0, p0, Landroid/widget/SimpleMonthAdapter;->mCalendarDayBackgroundColor:Landroid/content/res/ColorStateList;
 
     new-instance v0, Landroid/widget/SimpleMonthAdapter$1;
 
@@ -249,14 +259,13 @@
     .param p3, "parent"    # Landroid/view/ViewGroup;
 
     .prologue
-    if-eqz p2, :cond_1
+    if-eqz p2, :cond_0
 
     move-object v0, p2
 
     check-cast v0, Landroid/widget/SimpleMonthView;
 
     .local v0, "v":Landroid/widget/SimpleMonthView;
-    :cond_0
     :goto_0
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mMinDate:Ljava/util/Calendar;
 
@@ -291,7 +300,7 @@
 
     move-result v4
 
-    if-eqz v4, :cond_2
+    if-eqz v4, :cond_1
 
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mSelectedDay:Ljava/util/Calendar;
 
@@ -305,9 +314,9 @@
     :goto_1
     invoke-virtual {v0}, Landroid/widget/SimpleMonthView;->reuse()V
 
-    if-ne v8, v2, :cond_3
+    if-ne v8, v2, :cond_2
 
-    if-ne v9, v3, :cond_3
+    if-ne v9, v3, :cond_2
 
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mMinDate:Ljava/util/Calendar;
 
@@ -327,7 +336,7 @@
 
     move-result v4
 
-    if-ne v4, v2, :cond_4
+    if-ne v4, v2, :cond_3
 
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mMaxDate:Ljava/util/Calendar;
 
@@ -337,7 +346,7 @@
 
     move-result v4
 
-    if-ne v4, v3, :cond_4
+    if-ne v4, v3, :cond_3
 
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mMaxDate:Ljava/util/Calendar;
 
@@ -366,7 +375,7 @@
     .end local v7    # "currentMonth":I
     .end local v8    # "minMonth":I
     .end local v9    # "minYear":I
-    :cond_1
+    :cond_0
     new-instance v0, Landroid/widget/SimpleMonthView;
 
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mContext:Landroid/content/Context;
@@ -395,13 +404,21 @@
 
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mCalendarTextColors:Landroid/content/res/ColorStateList;
 
-    if-eqz v4, :cond_0
+    invoke-virtual {v0, v4}, Landroid/widget/SimpleMonthView;->setMonthTextColor(Landroid/content/res/ColorStateList;)V
 
     iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mCalendarTextColors:Landroid/content/res/ColorStateList;
 
-    invoke-virtual {v0, v4}, Landroid/widget/SimpleMonthView;->setTextColor(Landroid/content/res/ColorStateList;)V
+    invoke-virtual {v0, v4}, Landroid/widget/SimpleMonthView;->setDayOfWeekTextColor(Landroid/content/res/ColorStateList;)V
 
-    goto :goto_0
+    iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mCalendarTextColors:Landroid/content/res/ColorStateList;
+
+    invoke-virtual {v0, v4}, Landroid/widget/SimpleMonthView;->setDayTextColor(Landroid/content/res/ColorStateList;)V
+
+    iget-object v4, p0, Landroid/widget/SimpleMonthAdapter;->mCalendarDayBackgroundColor:Landroid/content/res/ColorStateList;
+
+    invoke-virtual {v0, v4}, Landroid/widget/SimpleMonthView;->setDayBackgroundColor(Landroid/content/res/ColorStateList;)V
+
+    goto/16 :goto_0
 
     .end local v10    # "params":Landroid/widget/AbsListView$LayoutParams;
     .restart local v2    # "month":I
@@ -409,19 +426,19 @@
     .restart local v7    # "currentMonth":I
     .restart local v8    # "minMonth":I
     .restart local v9    # "minYear":I
-    :cond_2
+    :cond_1
     const/4 v1, -0x1
 
     .restart local v1    # "selectedDay":I
     goto :goto_1
 
-    :cond_3
+    :cond_2
     const/4 v5, 0x1
 
     .restart local v5    # "enabledDayRangeStart":I
     goto :goto_2
 
-    :cond_4
+    :cond_3
     const/16 v6, 0x1f
 
     .restart local v6    # "enabledDayRangeEnd":I
@@ -435,6 +452,16 @@
     const/4 v0, 0x1
 
     return v0
+.end method
+
+.method setCalendarDayBackgroundColor(Landroid/content/res/ColorStateList;)V
+    .locals 0
+    .param p1, "dayBackgroundColor"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    iput-object p1, p0, Landroid/widget/SimpleMonthAdapter;->mCalendarDayBackgroundColor:Landroid/content/res/ColorStateList;
+
+    return-void
 .end method
 
 .method setCalendarTextAppearance(I)V

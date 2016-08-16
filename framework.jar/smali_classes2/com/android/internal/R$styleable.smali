@@ -1135,7 +1135,7 @@
 
 .field public static final DatePicker:[I
 
-.field public static final DatePicker_calendarSelectedTextColor:I = 0x12
+.field public static final DatePicker_calendarDayBackgroundColor:I = 0x14
 
 .field public static final DatePicker_calendarTextColor:I = 0xf
 
@@ -1160,13 +1160,13 @@
 
 .field public static final DatePicker_headerMonthTextAppearance:I = 0xa
 
-.field public static final DatePicker_headerSelectedTextColor:I = 0x14
+.field public static final DatePicker_headerSelectedTextColor:I = 0x13
 
 .field public static final DatePicker_headerYearTextAppearance:I = 0xc
 
 .field public static final DatePicker_internalLayout:I = 0x11
 
-.field public static final DatePicker_legacyLayout:I = 0x13
+.field public static final DatePicker_legacyLayout:I = 0x12
 
 .field public static final DatePicker_maxDate:I = 0x5
 
@@ -2795,7 +2795,7 @@
 
 .field public static final Spinner:[I
 
-.field public static final Spinner_disableChildrenWhenDisabled:I = 0x8
+.field public static final Spinner_disableChildrenWhenDisabled:I = 0x9
 
 .field public static final Spinner_dropDownSelector:I = 0x1
 
@@ -2807,7 +2807,9 @@
 
 .field public static final Spinner_popupElevation:I = 0x6
 
-.field public static final Spinner_popupPromptView:I = 0x7
+.field public static final Spinner_popupPromptView:I = 0x8
+
+.field public static final Spinner_popupTheme:I = 0x7
 
 .field public static final Spinner_prompt:I = 0x3
 
@@ -4139,9 +4141,11 @@
 
 .field public static final ViewStub:[I
 
-.field public static final ViewStub_inflatedId:I = 0x1
+.field public static final ViewStub_id:I = 0x0
 
-.field public static final ViewStub_layout:I = 0x0
+.field public static final ViewStub_inflatedId:I = 0x2
+
+.field public static final ViewStub_layout:I = 0x1
 
 .field public static final ViewSwitcher:[I
 
@@ -6145,7 +6149,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->SpellChecker_Subtype:[I
 
-    const/16 v0, 0x9
+    const/16 v0, 0xa
 
     new-array v0, v0, [I
 
@@ -6475,7 +6479,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->ViewGroup_MarginLayout:[I
 
-    new-array v0, v4, [I
+    new-array v0, v5, [I
 
     fill-array-data v0, :array_cc
 
@@ -7278,9 +7282,9 @@
         0x101049b
         0x10104b3
         0x1160053
-        0x1160054
         0x1160064
         0x1160065
+        0x11600b5
     .end array-data
 
     :array_3f
@@ -8351,6 +8355,7 @@
         0x1010262
         0x10102f1
         0x101048c
+        0x10104a9
         0x1160051
         0x1160052
     .end array-data
@@ -8873,7 +8878,7 @@
         0x116002d
         0x116002e
         0x116002f
-        0x11600b5
+        0x1160054
     .end array-data
 
     :array_b8
@@ -9169,6 +9174,7 @@
 
     :array_cc
     .array-data 4
+        0x10100d0
         0x10100f2
         0x10100f3
     .end array-data

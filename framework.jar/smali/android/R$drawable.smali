@@ -69,10 +69,6 @@
 
 .field public static final btn_cab_done_holo_light:I = 0x10800da
 
-.field public static final btn_cab_done_material:I = 0x10800db
-
-.field public static final btn_cab_done_mtrl_alpha:I = 0x10800dc
-
 .field public static final btn_cab_done_pressed_holo_dark:I = 0x10800dd
 
 .field public static final btn_cab_done_pressed_holo_light:I = 0x10800de
@@ -816,8 +812,6 @@
 .field public static final btn_toggle_holo_dark:I = 0x1080245
 
 .field public static final btn_toggle_holo_light:I = 0x1080246
-
-.field public static final btn_toggle_indicator_mtrl_alpha:I = 0x1080247
 
 .field public static final btn_toggle_material:I = 0x1080248
 
@@ -2667,8 +2661,6 @@
 
 .field public static final progress_medium_white:I = 0x1080570
 
-.field public static final progress_mtrl_alpha:I = 0x1080571
-
 .field public static final progress_primary_holo_dark:I = 0x1080572
 
 .field public static final progress_primary_holo_light:I = 0x1080573
@@ -3095,8 +3087,6 @@
 
 .field public static final spinner_focused_holo_light_am:I = 0x1080639
 
-.field public static final spinner_mtrl_am_alpha:I = 0x108063a
-
 .field public static final spinner_normal:I = 0x108063b
 
 .field public static final spinner_normal_holo:I = 0x108063c
@@ -3427,8 +3417,6 @@
 .field public static final switch_track_holo_light:I = 0x10806b7
 
 .field public static final switch_track_material:I = 0x10806b8
-
-.field public static final switch_track_mtrl_alpha:I = 0x10806b9
 
 .field public static final sym_action_add:I = 0x10806ba
 

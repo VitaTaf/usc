@@ -15,8 +15,6 @@
 # static fields
 .field private static final DAY_SEPARATOR_WIDTH:I = 0x1
 
-.field private static final DEFAULT_HEIGHT:I = 0x20
-
 .field private static final DEFAULT_NUM_DAYS:I = 0x7
 
 .field private static final DEFAULT_NUM_ROWS:I = 0x6
@@ -27,29 +25,33 @@
 
 .field private static final MAX_NUM_ROWS:I = 0x6
 
-.field private static final MIN_HEIGHT:I = 0xa
-
-.field private static final SELECTED_CIRCLE_ALPHA:I = 0x3c
+.field private static final MIN_ROW_HEIGHT:I = 0xa
 
 
 # instance fields
+.field private mActivatedDay:I
+
 .field private final mCalendar:Ljava/util/Calendar;
+
+.field private final mDayBackgroundPaint:Landroid/graphics/Paint;
 
 .field private mDayFormatter:Ljava/text/SimpleDateFormat;
 
 .field private final mDayLabelCalendar:Ljava/util/Calendar;
 
-.field private mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-.field private mDayNumberPaint:Landroid/graphics/Paint;
-
-.field private mDayNumberSelectedPaint:Landroid/graphics/Paint;
+.field private final mDayOfWeekPaint:Landroid/graphics/Paint;
 
 .field private mDayOfWeekStart:I
 
+.field private final mDayOfWeekTextSize:I
+
 .field private mDayOfWeekTypeface:Ljava/lang/String;
 
-.field private final mDaySelectedCircleSize:I
+.field private final mDayPaint:Landroid/graphics/Paint;
+
+.field private mDayTextColor:Landroid/content/res/ColorStateList;
+
+.field private final mDayTextSize:I
 
 .field private mDisabledTextColor:I
 
@@ -63,21 +65,15 @@
 
 .field private mLockAccessibilityDelegate:Z
 
-.field private final mMiniDayNumberTextSize:I
-
 .field private mMonth:I
 
-.field private mMonthDayLabelPaint:Landroid/graphics/Paint;
+.field private final mMonthHeaderHeight:I
 
-.field private final mMonthDayLabelTextSize:I
+.field private final mMonthPaint:Landroid/graphics/Paint;
 
-.field private final mMonthHeaderSize:I
+.field private final mMonthTextSize:I
 
-.field private final mMonthLabelTextSize:I
-
-.field private mMonthTitlePaint:Landroid/graphics/Paint;
-
-.field private mMonthTitleTypeface:Ljava/lang/String;
+.field private mMonthTypeface:Ljava/lang/String;
 
 .field private mNormalTextColor:I
 
@@ -91,9 +87,7 @@
 
 .field private mPadding:I
 
-.field private mRowHeight:I
-
-.field private mSelectedDay:I
+.field private final mRowHeight:I
 
 .field private mSelectedDayColor:I
 
@@ -166,6 +160,30 @@
 
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/view/View;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
 
+    new-instance v1, Landroid/graphics/Paint;
+
+    invoke-direct {v1}, Landroid/graphics/Paint;-><init>()V
+
+    iput-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
+
+    new-instance v1, Landroid/graphics/Paint;
+
+    invoke-direct {v1}, Landroid/graphics/Paint;-><init>()V
+
+    iput-object v1, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
+
+    new-instance v1, Landroid/graphics/Paint;
+
+    invoke-direct {v1}, Landroid/graphics/Paint;-><init>()V
+
+    iput-object v1, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
+
+    new-instance v1, Landroid/graphics/Paint;
+
+    invoke-direct {v1}, Landroid/graphics/Paint;-><init>()V
+
+    iput-object v1, p0, Landroid/widget/SimpleMonthView;->mDayBackgroundPaint:Landroid/graphics/Paint;
+
     new-instance v1, Ljava/text/SimpleDateFormat;
 
     const-string v2, "EEEEE"
@@ -180,13 +198,9 @@
 
     iput v5, p0, Landroid/widget/SimpleMonthView;->mPadding:I
 
-    const/16 v1, 0x20
-
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
-
     iput-boolean v5, p0, Landroid/widget/SimpleMonthView;->mHasToday:Z
 
-    iput v6, p0, Landroid/widget/SimpleMonthView;->mSelectedDay:I
+    iput v6, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
 
     iput v6, p0, Landroid/widget/SimpleMonthView;->mToday:I
 
@@ -243,7 +257,7 @@
 
     move-result-object v1
 
-    iput-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthTitleTypeface:Ljava/lang/String;
+    iput-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthTypeface:Ljava/lang/String;
 
     new-instance v1, Ljava/lang/StringBuilder;
 
@@ -271,7 +285,7 @@
 
     move-result v1
 
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mMiniDayNumberTextSize:I
+    iput v1, p0, Landroid/widget/SimpleMonthView;->mDayTextSize:I
 
     const v1, 0x105008c
 
@@ -279,7 +293,7 @@
 
     move-result v1
 
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mMonthLabelTextSize:I
+    iput v1, p0, Landroid/widget/SimpleMonthView;->mMonthTextSize:I
 
     const v1, 0x105008d
 
@@ -287,7 +301,7 @@
 
     move-result v1
 
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelTextSize:I
+    iput v1, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekTextSize:I
 
     const v1, 0x105008e
 
@@ -295,27 +309,25 @@
 
     move-result v1
 
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    iput v1, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
 
-    const v1, 0x105008f
+    const/16 v1, 0xa
 
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+    const v2, 0x1050090
+
+    invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getDimensionPixelOffset(I)I
+
+    move-result v2
+
+    iget v3, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
+
+    sub-int/2addr v2, v3
+
+    div-int/lit8 v2, v2, 0x6
+
+    invoke-static {v1, v2}, Ljava/lang/Math;->max(II)I
 
     move-result v1
-
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mDaySelectedCircleSize:I
-
-    const v1, 0x1050090
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelOffset(I)I
-
-    move-result v1
-
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
-
-    sub-int/2addr v1, v2
-
-    div-int/lit8 v1, v1, 0x6
 
     iput v1, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
 
@@ -333,7 +345,7 @@
 
     iput-boolean v4, p0, Landroid/widget/SimpleMonthView;->mLockAccessibilityDelegate:Z
 
-    invoke-direct {p0}, Landroid/widget/SimpleMonthView;->initView()V
+    invoke-direct {p0}, Landroid/widget/SimpleMonthView;->initPaints()V
 
     return-void
 .end method
@@ -387,7 +399,7 @@
     .param p0, "x0"    # Landroid/widget/SimpleMonthView;
 
     .prologue
-    iget v0, p0, Landroid/widget/SimpleMonthView;->mSelectedDay:I
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
 
     return v0
 .end method
@@ -418,7 +430,7 @@
     .param p0, "x0"    # Landroid/widget/SimpleMonthView;
 
     .prologue
-    iget v0, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
 
     return v0
 .end method
@@ -508,173 +520,193 @@
 .end method
 
 .method private drawDays(Landroid/graphics/Canvas;)V
-    .locals 10
+    .locals 13
     .param p1, "canvas"    # Landroid/graphics/Canvas;
 
     .prologue
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mWidth:I
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mMiniDayNumberTextSize:I
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mPadding:I
 
-    add-int/2addr v6, v7
+    mul-int/lit8 v10, v10, 0x2
 
-    div-int/lit8 v6, v6, 0x2
+    sub-int/2addr v9, v10
 
-    add-int/lit8 v6, v6, -0x1
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mNumDays:I
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    mul-int/lit8 v10, v10, 0x2
 
-    add-int v5, v6, v7
+    div-int v2, v9, v10
 
-    .local v5, "y":I
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mWidth:I
+    .local v2, "dayWidthHalf":I
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mPadding:I
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mDayTextSize:I
 
-    mul-int/lit8 v7, v7, 0x2
+    add-int/2addr v9, v10
 
-    sub-int/2addr v6, v7
+    div-int/lit8 v9, v9, 0x2
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mNumDays:I
+    add-int/lit8 v9, v9, -0x1
 
-    mul-int/lit8 v7, v7, 0x2
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
 
-    div-int v1, v6, v7
+    add-int v8, v9, v10
 
-    .local v1, "dayWidthHalf":I
+    .local v8, "y":I
     invoke-direct {p0}, Landroid/widget/SimpleMonthView;->findDayOffset()I
 
-    move-result v2
+    move-result v4
 
-    .local v2, "j":I
+    .local v4, "j":I
     const/4 v0, 0x1
 
     .local v0, "day":I
     :goto_0
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mNumCells:I
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mNumCells:I
 
-    if-gt v0, v6, :cond_5
+    if-gt v0, v9, :cond_4
 
-    mul-int/lit8 v6, v2, 0x2
+    mul-int/lit8 v9, v4, 0x2
 
-    add-int/lit8 v6, v6, 0x1
+    add-int/lit8 v9, v9, 0x1
 
-    mul-int/2addr v6, v1
+    mul-int/2addr v9, v2
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mPadding:I
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mPadding:I
 
-    add-int v4, v6, v7
+    add-int v7, v9, v10
 
-    .local v4, "x":I
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mSelectedDay:I
+    .local v7, "x":I
+    const/4 v5, 0x0
 
-    if-ne v6, v0, :cond_0
+    .local v5, "stateMask":I
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
 
-    int-to-float v6, v4
+    if-lt v0, v9, :cond_0
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mMiniDayNumberTextSize:I
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
 
-    div-int/lit8 v7, v7, 0x3
+    if-gt v0, v9, :cond_0
 
-    sub-int v7, v5, v7
-
-    int-to-float v7, v7
-
-    iget v8, p0, Landroid/widget/SimpleMonthView;->mDaySelectedCircleSize:I
-
-    int-to-float v8, v8
-
-    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {p1, v6, v7, v8, v9}, Landroid/graphics/Canvas;->drawCircle(FFFLandroid/graphics/Paint;)V
+    or-int/lit8 v5, v5, 0x8
 
     :cond_0
-    iget-boolean v6, p0, Landroid/widget/SimpleMonthView;->mHasToday:Z
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
 
-    if-eqz v6, :cond_3
+    if-ne v9, v0, :cond_1
 
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mToday:I
+    or-int/lit8 v5, v5, 0x20
 
-    if-ne v6, v0, :cond_3
+    int-to-float v9, v7
 
-    iget-object v6, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mDayTextSize:I
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mSelectedDayColor:I
+    div-int/lit8 v10, v10, 0x3
 
-    invoke-virtual {v6, v7}, Landroid/graphics/Paint;->setColor(I)V
+    sub-int v10, v8, v10
 
-    :goto_1
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
+    int-to-float v10, v10
 
-    if-lt v0, v6, :cond_1
+    iget v11, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
 
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
+    div-int/lit8 v11, v11, 0x2
 
-    if-le v0, v6, :cond_4
+    int-to-float v11, v11
+
+    iget-object v12, p0, Landroid/widget/SimpleMonthView;->mDayBackgroundPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {p1, v9, v10, v11, v12}, Landroid/graphics/Canvas;->drawCircle(FFFLandroid/graphics/Paint;)V
 
     :cond_1
-    iget-object v3, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    .local v3, "paint":Landroid/graphics/Paint;
-    :goto_2
-    const-string v6, "%d"
-
-    const/4 v7, 0x1
-
-    new-array v7, v7, [Ljava/lang/Object;
-
-    const/4 v8, 0x0
-
-    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-
-    move-result-object v9
-
-    aput-object v9, v7, v8
-
-    invoke-static {v6, v7}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+    invoke-static {v5}, Landroid/util/StateSet;->get(I)[I
 
     move-result-object v6
 
-    int-to-float v7, v4
+    .local v6, "stateSet":[I
+    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mDayTextColor:Landroid/content/res/ColorStateList;
 
-    int-to-float v8, v5
+    const/4 v10, 0x0
 
-    invoke-virtual {p1, v6, v7, v8, v3}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
+    invoke-virtual {v9, v6, v10}, Landroid/content/res/ColorStateList;->getColorForState([II)I
 
-    add-int/lit8 v2, v2, 0x1
+    move-result v1
 
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mNumDays:I
+    .local v1, "dayTextColor":I
+    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
 
-    if-ne v2, v6, :cond_2
+    invoke-virtual {v9, v1}, Landroid/graphics/Paint;->setColor(I)V
 
-    const/4 v2, 0x0
+    iget-boolean v9, p0, Landroid/widget/SimpleMonthView;->mHasToday:Z
 
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
+    if-eqz v9, :cond_3
 
-    add-int/2addr v5, v6
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mToday:I
+
+    if-ne v9, v0, :cond_3
+
+    const/4 v3, 0x1
+
+    .local v3, "isDayToday":Z
+    :goto_1
+    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v9, v3}, Landroid/graphics/Paint;->setFakeBoldText(Z)V
+
+    const-string v9, "%d"
+
+    const/4 v10, 0x1
+
+    new-array v10, v10, [Ljava/lang/Object;
+
+    const/4 v11, 0x0
+
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v12
+
+    aput-object v12, v10, v11
+
+    invoke-static {v9, v10}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v9
+
+    int-to-float v10, v7
+
+    int-to-float v11, v8
+
+    iget-object v12, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {p1, v9, v10, v11, v12}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
+
+    add-int/lit8 v4, v4, 0x1
+
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mNumDays:I
+
+    if-ne v4, v9, :cond_2
+
+    const/4 v4, 0x0
+
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
+
+    add-int/2addr v8, v9
 
     :cond_2
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .end local v3    # "paint":Landroid/graphics/Paint;
+    .end local v3    # "isDayToday":Z
     :cond_3
-    iget-object v6, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
-
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mNormalTextColor:I
-
-    invoke-virtual {v6, v7}, Landroid/graphics/Paint;->setColor(I)V
+    const/4 v3, 0x0
 
     goto :goto_1
 
+    .end local v1    # "dayTextColor":I
+    .end local v5    # "stateMask":I
+    .end local v6    # "stateSet":[I
+    .end local v7    # "x":I
     :cond_4
-    iget-object v3, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
-
-    goto :goto_2
-
-    .end local v4    # "x":I
-    :cond_5
     return-void
 .end method
 
@@ -698,9 +730,9 @@
     div-float v0, v2, v4
 
     .local v0, "x":F
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    iget v2, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
 
-    iget v3, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelTextSize:I
+    iget v3, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekTextSize:I
 
     sub-int/2addr v2, v3
 
@@ -713,7 +745,7 @@
 
     move-result-object v2
 
-    iget-object v3, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
+    iget-object v3, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
 
     invoke-virtual {p1, v2, v0, v1, v3}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
 
@@ -725,9 +757,9 @@
     .param p1, "canvas"    # Landroid/graphics/Canvas;
 
     .prologue
-    iget v6, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    iget v6, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
 
-    iget v7, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelTextSize:I
+    iget v7, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekTextSize:I
 
     div-int/lit8 v7, v7, 0x2
 
@@ -800,7 +832,7 @@
 
     int-to-float v7, v5
 
-    iget-object v8, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
+    iget-object v8, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
 
     invoke-virtual {p1, v1, v6, v7, v8}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
 
@@ -881,7 +913,7 @@
     return v1
 
     :cond_2
-    iget v5, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    iget v5, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
 
     int-to-float v5, v5
 
@@ -1051,41 +1083,27 @@
     return-object v0
 .end method
 
-.method private initView()V
-    .locals 4
+.method private initPaints()V
+    .locals 3
 
     .prologue
-    const/4 v3, 0x0
-
     const/4 v2, 0x1
 
-    new-instance v0, Landroid/graphics/Paint;
-
-    invoke-direct {v0}, Landroid/graphics/Paint;-><init>()V
-
-    iput-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
 
     invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setAntiAlias(Z)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
 
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mNormalTextColor:I
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setColor(I)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
-
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mMonthLabelTextSize:I
+    iget v1, p0, Landroid/widget/SimpleMonthView;->mMonthTextSize:I
 
     int-to-float v1, v1
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextSize(F)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
 
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthTitleTypeface:Ljava/lang/String;
+    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthTypeface:Ljava/lang/String;
 
     invoke-static {v1, v2}, Landroid/graphics/Typeface;->create(Ljava/lang/String;I)Landroid/graphics/Typeface;
 
@@ -1093,183 +1111,85 @@
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTypeface(Landroid/graphics/Typeface;)Landroid/graphics/Typeface;
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
 
     sget-object v1, Landroid/graphics/Paint$Align;->CENTER:Landroid/graphics/Paint$Align;
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextAlign(Landroid/graphics/Paint$Align;)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
 
     sget-object v1, Landroid/graphics/Paint$Style;->FILL:Landroid/graphics/Paint$Style;
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setStyle(Landroid/graphics/Paint$Style;)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setFakeBoldText(Z)V
-
-    new-instance v0, Landroid/graphics/Paint;
-
-    invoke-direct {v0}, Landroid/graphics/Paint;-><init>()V
-
-    iput-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
 
     invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setAntiAlias(Z)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
 
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mNormalTextColor:I
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setColor(I)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
-
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelTextSize:I
+    iget v1, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekTextSize:I
 
     int-to-float v1, v1
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextSize(F)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
 
     iget-object v1, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekTypeface:Ljava/lang/String;
 
-    invoke-static {v1, v3}, Landroid/graphics/Typeface;->create(Ljava/lang/String;I)Landroid/graphics/Typeface;
+    invoke-static {v1, v2}, Landroid/graphics/Typeface;->create(Ljava/lang/String;I)Landroid/graphics/Typeface;
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTypeface(Landroid/graphics/Typeface;)Landroid/graphics/Typeface;
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
 
     sget-object v1, Landroid/graphics/Paint$Align;->CENTER:Landroid/graphics/Paint$Align;
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextAlign(Landroid/graphics/Paint$Align;)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
 
     sget-object v1, Landroid/graphics/Paint$Style;->FILL:Landroid/graphics/Paint$Style;
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setStyle(Landroid/graphics/Paint$Style;)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setFakeBoldText(Z)V
-
-    new-instance v0, Landroid/graphics/Paint;
-
-    invoke-direct {v0}, Landroid/graphics/Paint;-><init>()V
-
-    iput-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayBackgroundPaint:Landroid/graphics/Paint;
 
     invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setAntiAlias(Z)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mSelectedDayColor:I
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setColor(I)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    const/16 v1, 0x3c
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setAlpha(I)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    sget-object v1, Landroid/graphics/Paint$Align;->CENTER:Landroid/graphics/Paint$Align;
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextAlign(Landroid/graphics/Paint$Align;)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayBackgroundPaint:Landroid/graphics/Paint;
 
     sget-object v1, Landroid/graphics/Paint$Style;->FILL:Landroid/graphics/Paint$Style;
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setStyle(Landroid/graphics/Paint$Style;)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setFakeBoldText(Z)V
-
-    new-instance v0, Landroid/graphics/Paint;
-
-    invoke-direct {v0}, Landroid/graphics/Paint;-><init>()V
-
-    iput-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
 
     invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setAntiAlias(Z)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
 
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mMiniDayNumberTextSize:I
+    iget v1, p0, Landroid/widget/SimpleMonthView;->mDayTextSize:I
 
     int-to-float v1, v1
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextSize(F)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
 
     sget-object v1, Landroid/graphics/Paint$Align;->CENTER:Landroid/graphics/Paint$Align;
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextAlign(Landroid/graphics/Paint$Align;)V
 
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/graphics/Paint;
 
     sget-object v1, Landroid/graphics/Paint$Style;->FILL:Landroid/graphics/Paint$Style;
 
     invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setStyle(Landroid/graphics/Paint$Style;)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0, v3}, Landroid/graphics/Paint;->setFakeBoldText(Z)V
-
-    new-instance v0, Landroid/graphics/Paint;
-
-    invoke-direct {v0}, Landroid/graphics/Paint;-><init>()V
-
-    iput-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0, v2}, Landroid/graphics/Paint;->setAntiAlias(Z)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mDisabledTextColor:I
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setColor(I)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    iget v1, p0, Landroid/widget/SimpleMonthView;->mMiniDayNumberTextSize:I
-
-    int-to-float v1, v1
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextSize(F)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    sget-object v1, Landroid/graphics/Paint$Align;->CENTER:Landroid/graphics/Paint$Align;
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setTextAlign(Landroid/graphics/Paint$Align;)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    sget-object v1, Landroid/graphics/Paint$Style;->FILL:Landroid/graphics/Paint$Style;
-
-    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setStyle(Landroid/graphics/Paint$Style;)V
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0, v3}, Landroid/graphics/Paint;->setFakeBoldText(Z)V
 
     return-void
 .end method
@@ -1505,7 +1425,7 @@
 
     mul-int/2addr v1, v2
 
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    iget v2, p0, Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
 
     add-int/2addr v1, v2
 
@@ -1657,6 +1577,68 @@
     return-void
 .end method
 
+.method setDayBackgroundColor(Landroid/content/res/ColorStateList;)V
+    .locals 3
+    .param p1, "daySelectorColor"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    const/16 v1, 0x28
+
+    invoke-static {v1}, Landroid/util/StateSet;->get(I)[I
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    invoke-virtual {p1, v1, v2}, Landroid/content/res/ColorStateList;->getColorForState([II)I
+
+    move-result v0
+
+    .local v0, "activatedColor":I
+    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mDayBackgroundPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v1, v0}, Landroid/graphics/Paint;->setColor(I)V
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
+
+    return-void
+.end method
+
+.method setDayOfWeekTextColor(Landroid/content/res/ColorStateList;)V
+    .locals 3
+    .param p1, "dayOfWeekTextColor"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    sget-object v1, Landroid/widget/SimpleMonthView;->ENABLED_STATE_SET:[I
+
+    const/4 v2, 0x0
+
+    invoke-virtual {p1, v1, v2}, Landroid/content/res/ColorStateList;->getColorForState([II)I
+
+    move-result v0
+
+    .local v0, "enabledColor":I
+    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v1, v0}, Landroid/graphics/Paint;->setColor(I)V
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
+
+    return-void
+.end method
+
+.method setDayTextColor(Landroid/content/res/ColorStateList;)V
+    .locals 0
+    .param p1, "dayTextColor"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    iput-object p1, p0, Landroid/widget/SimpleMonthView;->mDayTextColor:Landroid/content/res/ColorStateList;
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
+
+    return-void
+.end method
+
 .method setMonthParams(IIIIII)V
     .locals 8
     .param p1, "selectedDay"    # I
@@ -1669,28 +1651,19 @@
     .prologue
     const/16 v7, 0x20
 
-    const/16 v4, 0xa
-
     const/4 v6, 0x1
 
-    iget v3, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
-
-    if-ge v3, v4, :cond_0
-
-    iput v4, p0, Landroid/widget/SimpleMonthView;->mRowHeight:I
-
-    :cond_0
-    iput p1, p0, Landroid/widget/SimpleMonthView;->mSelectedDay:I
+    iput p1, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
 
     invoke-static {p2}, Landroid/widget/SimpleMonthView;->isValidMonth(I)Z
 
     move-result v3
 
-    if-eqz v3, :cond_1
+    if-eqz v3, :cond_0
 
     iput p2, p0, Landroid/widget/SimpleMonthView;->mMonth:I
 
-    :cond_1
+    :cond_0
     iput p3, p0, Landroid/widget/SimpleMonthView;->mYear:I
 
     new-instance v2, Landroid/text/format/Time;
@@ -1746,27 +1719,27 @@
 
     move-result v3
 
-    if-eqz v3, :cond_5
+    if-eqz v3, :cond_4
 
     iput p4, p0, Landroid/widget/SimpleMonthView;->mWeekStart:I
 
     :goto_0
-    if-lez p5, :cond_2
+    if-lez p5, :cond_1
 
-    if-ge p6, v7, :cond_2
+    if-ge p6, v7, :cond_1
 
     iput p5, p0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
 
-    :cond_2
-    if-lez p6, :cond_3
+    :cond_1
+    if-lez p6, :cond_2
 
-    if-ge p6, v7, :cond_3
+    if-ge p6, v7, :cond_2
 
-    if-lt p6, p5, :cond_3
+    if-lt p6, p5, :cond_2
 
     iput p6, p0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
 
-    :cond_3
+    :cond_2
     iget v3, p0, Landroid/widget/SimpleMonthView;->mMonth:I
 
     iget v4, p0, Landroid/widget/SimpleMonthView;->mYear:I
@@ -1783,7 +1756,7 @@
     :goto_1
     iget v3, p0, Landroid/widget/SimpleMonthView;->mNumCells:I
 
-    if-ge v1, v3, :cond_6
+    if-ge v1, v3, :cond_5
 
     add-int/lit8 v0, v1, 0x1
 
@@ -1792,20 +1765,20 @@
 
     move-result v3
 
-    if-eqz v3, :cond_4
+    if-eqz v3, :cond_3
 
     iput-boolean v6, p0, Landroid/widget/SimpleMonthView;->mHasToday:Z
 
     iput v0, p0, Landroid/widget/SimpleMonthView;->mToday:I
 
-    :cond_4
+    :cond_3
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_1
 
     .end local v0    # "day":I
     .end local v1    # "i":I
-    :cond_5
+    :cond_4
     iget-object v3, p0, Landroid/widget/SimpleMonthView;->mCalendar:Ljava/util/Calendar;
 
     invoke-virtual {v3}, Ljava/util/Calendar;->getFirstDayOfWeek()I
@@ -1817,7 +1790,7 @@
     goto :goto_0
 
     .restart local v1    # "i":I
-    :cond_6
+    :cond_5
     invoke-direct {p0}, Landroid/widget/SimpleMonthView;->calculateNumRows()I
 
     move-result v3
@@ -1831,101 +1804,35 @@
     return-void
 .end method
 
+.method setMonthTextColor(Landroid/content/res/ColorStateList;)V
+    .locals 3
+    .param p1, "monthTextColor"    # Landroid/content/res/ColorStateList;
+
+    .prologue
+    sget-object v1, Landroid/widget/SimpleMonthView;->ENABLED_STATE_SET:[I
+
+    const/4 v2, 0x0
+
+    invoke-virtual {p1, v1, v2}, Landroid/content/res/ColorStateList;->getColorForState([II)I
+
+    move-result v0
+
+    .local v0, "enabledColor":I
+    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v1, v0}, Landroid/graphics/Paint;->setColor(I)V
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
+
+    return-void
+.end method
+
 .method public setOnDayClickListener(Landroid/widget/SimpleMonthView$OnDayClickListener;)V
     .locals 0
     .param p1, "listener"    # Landroid/widget/SimpleMonthView$OnDayClickListener;
 
     .prologue
     iput-object p1, p0, Landroid/widget/SimpleMonthView;->mOnDayClickListener:Landroid/widget/SimpleMonthView$OnDayClickListener;
-
-    return-void
-.end method
-
-.method setTextColor(Landroid/content/res/ColorStateList;)V
-    .locals 3
-    .param p1, "colors"    # Landroid/content/res/ColorStateList;
-
-    .prologue
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getContext()Landroid/content/Context;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v0
-
-    .local v0, "res":Landroid/content/res/Resources;
-    sget-object v1, Landroid/widget/SimpleMonthView;->ENABLED_STATE_SET:[I
-
-    const v2, 0x10600a7
-
-    invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getColor(I)I
-
-    move-result v2
-
-    invoke-virtual {p1, v1, v2}, Landroid/content/res/ColorStateList;->getColorForState([II)I
-
-    move-result v1
-
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mNormalTextColor:I
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthTitlePaint:Landroid/graphics/Paint;
-
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mNormalTextColor:I
-
-    invoke-virtual {v1, v2}, Landroid/graphics/Paint;->setColor(I)V
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthDayLabelPaint:Landroid/graphics/Paint;
-
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mNormalTextColor:I
-
-    invoke-virtual {v1, v2}, Landroid/graphics/Paint;->setColor(I)V
-
-    sget-object v1, Landroid/widget/SimpleMonthView;->EMPTY_STATE_SET:[I
-
-    const v2, 0x10600a9
-
-    invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getColor(I)I
-
-    move-result v2
-
-    invoke-virtual {p1, v1, v2}, Landroid/content/res/ColorStateList;->getColorForState([II)I
-
-    move-result v1
-
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mDisabledTextColor:I
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mDayNumberDisabledPaint:Landroid/graphics/Paint;
-
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mDisabledTextColor:I
-
-    invoke-virtual {v1, v2}, Landroid/graphics/Paint;->setColor(I)V
-
-    sget-object v1, Landroid/widget/SimpleMonthView;->ENABLED_SELECTED_STATE_SET:[I
-
-    const v2, 0x1060012
-
-    invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getColor(I)I
-
-    move-result v2
-
-    invoke-virtual {p1, v1, v2}, Landroid/content/res/ColorStateList;->getColorForState([II)I
-
-    move-result v1
-
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mSelectedDayColor:I
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mSelectedDayColor:I
-
-    invoke-virtual {v1, v2}, Landroid/graphics/Paint;->setColor(I)V
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mDayNumberSelectedPaint:Landroid/graphics/Paint;
-
-    const/16 v2, 0x3c
-
-    invoke-virtual {v1, v2}, Landroid/graphics/Paint;->setAlpha(I)V
 
     return-void
 .end method

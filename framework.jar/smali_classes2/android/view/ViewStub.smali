@@ -41,13 +41,9 @@
     .param p1, "context"    # Landroid/content/Context;
 
     .prologue
-    invoke-direct {p0}, Landroid/view/View;-><init>()V
-
     const/4 v0, 0x0
 
-    iput v0, p0, Landroid/view/ViewStub;->mLayoutResource:I
-
-    invoke-direct {p0, p1}, Landroid/view/ViewStub;->initialize(Landroid/content/Context;)V
+    invoke-direct {p0, p1, v0}, Landroid/view/ViewStub;-><init>(Landroid/content/Context;I)V
 
     return-void
 .end method
@@ -58,15 +54,11 @@
     .param p2, "layoutResource"    # I
 
     .prologue
-    invoke-direct {p0}, Landroid/view/View;-><init>()V
-
     const/4 v0, 0x0
 
-    iput v0, p0, Landroid/view/ViewStub;->mLayoutResource:I
+    invoke-direct {p0, p1, v0}, Landroid/view/ViewStub;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
     iput p2, p0, Landroid/view/ViewStub;->mLayoutResource:I
-
-    invoke-direct {p0, p1}, Landroid/view/ViewStub;->initialize(Landroid/content/Context;)V
 
     return-void
 .end method
@@ -99,20 +91,20 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
-    .locals 4
+    .locals 5
     .param p1, "context"    # Landroid/content/Context;
     .param p2, "attrs"    # Landroid/util/AttributeSet;
     .param p3, "defStyleAttr"    # I
     .param p4, "defStyleRes"    # I
 
     .prologue
-    const/4 v3, -0x1
+    const/4 v4, 0x1
 
-    const/4 v2, 0x0
+    const/4 v3, 0x0
 
-    invoke-direct {p0}, Landroid/view/View;-><init>()V
+    const/4 v2, -0x1
 
-    iput v2, p0, Landroid/view/ViewStub;->mLayoutResource:I
+    invoke-direct {p0, p1}, Landroid/view/View;-><init>(Landroid/content/Context;)V
 
     sget-object v1, Lcom/android/internal/R$styleable;->ViewStub:[I
 
@@ -121,31 +113,21 @@
     move-result-object v0
 
     .local v0, "a":Landroid/content/res/TypedArray;
-    const/4 v1, 0x1
+    const/4 v1, 0x2
 
-    invoke-virtual {v0, v1, v3}, Landroid/content/res/TypedArray;->getResourceId(II)I
+    invoke-virtual {v0, v1, v2}, Landroid/content/res/TypedArray;->getResourceId(II)I
 
     move-result v1
 
     iput v1, p0, Landroid/view/ViewStub;->mInflatedId:I
 
-    invoke-virtual {v0, v2, v2}, Landroid/content/res/TypedArray;->getResourceId(II)I
+    invoke-virtual {v0, v4, v3}, Landroid/content/res/TypedArray;->getResourceId(II)I
 
     move-result v1
 
     iput v1, p0, Landroid/view/ViewStub;->mLayoutResource:I
 
-    invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
-
-    sget-object v1, Lcom/android/internal/R$styleable;->View:[I
-
-    invoke-virtual {p1, p2, v1, p3, p4}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[III)Landroid/content/res/TypedArray;
-
-    move-result-object v0
-
-    const/16 v1, 0x9
-
-    invoke-virtual {v0, v1, v3}, Landroid/content/res/TypedArray;->getResourceId(II)I
+    invoke-virtual {v0, v3, v2}, Landroid/content/res/TypedArray;->getResourceId(II)I
 
     move-result v1
 
@@ -153,25 +135,11 @@
 
     invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
 
-    invoke-direct {p0, p1}, Landroid/view/ViewStub;->initialize(Landroid/content/Context;)V
+    const/16 v1, 0x8
 
-    return-void
-.end method
+    invoke-virtual {p0, v1}, Landroid/view/ViewStub;->setVisibility(I)V
 
-.method private initialize(Landroid/content/Context;)V
-    .locals 1
-    .param p1, "context"    # Landroid/content/Context;
-
-    .prologue
-    iput-object p1, p0, Landroid/view/ViewStub;->mContext:Landroid/content/Context;
-
-    const/16 v0, 0x8
-
-    invoke-virtual {p0, v0}, Landroid/view/ViewStub;->setVisibility(I)V
-
-    const/4 v0, 0x1
-
-    invoke-virtual {p0, v0}, Landroid/view/ViewStub;->setWillNotDraw(Z)V
+    invoke-virtual {p0, v4}, Landroid/view/ViewStub;->setWillNotDraw(Z)V
 
     return-void
 .end method

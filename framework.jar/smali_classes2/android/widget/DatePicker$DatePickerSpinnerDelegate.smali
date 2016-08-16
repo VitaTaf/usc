@@ -175,7 +175,7 @@
     move-result-object v9
 
     .local v9, "maxDate":Ljava/lang/String;
-    const/16 v14, 0x13
+    const/16 v14, 0x12
 
     const v15, 0x1090042
 

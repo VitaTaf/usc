@@ -1634,6 +1634,51 @@
     return-void
 .end method
 
+.method protected onVisibilityChanged(Landroid/view/View;I)V
+    .locals 4
+    .param p1, "changedView"    # Landroid/view/View;
+    .param p2, "visibility"    # I
+
+    .prologue
+    const/4 v2, 0x0
+
+    invoke-super {p0, p1, p2}, Landroid/view/ViewGroup;->onVisibilityChanged(Landroid/view/View;I)V
+
+    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
+
+    .local v0, "dr":Landroid/graphics/drawable/Drawable;
+    if-eqz v0, :cond_0
+
+    if-nez p2, :cond_1
+
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getVisibility()I
+
+    move-result v3
+
+    if-nez v3, :cond_1
+
+    const/4 v1, 0x1
+
+    .local v1, "visible":Z
+    :goto_0
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->isVisible()Z
+
+    move-result v3
+
+    if-eq v1, v3, :cond_0
+
+    invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/Drawable;->setVisible(ZZ)Z
+
+    .end local v1    # "visible":Z
+    :cond_0
+    return-void
+
+    :cond_1
+    move v1, v2
+
+    goto :goto_0
+.end method
+
 .method public setForeground(Landroid/graphics/drawable/Drawable;)V
     .locals 4
     .param p1, "d"    # Landroid/graphics/drawable/Drawable;
@@ -1882,39 +1927,6 @@
     iput-boolean p1, p0, Landroid/widget/FrameLayout;->mMeasureAllChildren:Z
 
     return-void
-.end method
-
-.method public setVisibility(I)V
-    .locals 3
-    .param p1, "visibility"    # I
-    .annotation runtime Landroid/view/RemotableViewMethod;
-    .end annotation
-
-    .prologue
-    const/4 v1, 0x0
-
-    invoke-super {p0, p1}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_0
-
-    iget-object v2, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-nez p1, :cond_1
-
-    const/4 v0, 0x1
-
-    :goto_0
-    invoke-virtual {v2, v0, v1}, Landroid/graphics/drawable/Drawable;->setVisible(ZZ)Z
-
-    :cond_0
-    return-void
-
-    :cond_1
-    move v0, v1
-
-    goto :goto_0
 .end method
 
 .method public shouldDelayChildPressedState()Z

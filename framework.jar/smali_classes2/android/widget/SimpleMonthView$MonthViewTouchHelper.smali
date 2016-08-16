@@ -67,7 +67,7 @@
     .local v4, "offsetX":I
     iget-object v9, p0, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->this$0:Landroid/widget/SimpleMonthView;
 
-    # getter for: Landroid/widget/SimpleMonthView;->mMonthHeaderSize:I
+    # getter for: Landroid/widget/SimpleMonthView;->mMonthHeaderHeight:I
     invoke-static {v9}, Landroid/widget/SimpleMonthView;->access$500(Landroid/widget/SimpleMonthView;)I
 
     move-result v5
@@ -198,7 +198,7 @@
     .local v0, "date":Ljava/lang/CharSequence;
     iget-object v1, p0, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->this$0:Landroid/widget/SimpleMonthView;
 
-    # getter for: Landroid/widget/SimpleMonthView;->mSelectedDay:I
+    # getter for: Landroid/widget/SimpleMonthView;->mActivatedDay:I
     invoke-static {v1}, Landroid/widget/SimpleMonthView;->access$200(Landroid/widget/SimpleMonthView;)I
 
     move-result v1
@@ -387,7 +387,7 @@
 
     iget-object v0, p0, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->this$0:Landroid/widget/SimpleMonthView;
 
-    # getter for: Landroid/widget/SimpleMonthView;->mSelectedDay:I
+    # getter for: Landroid/widget/SimpleMonthView;->mActivatedDay:I
     invoke-static {v0}, Landroid/widget/SimpleMonthView;->access$200(Landroid/widget/SimpleMonthView;)I
 
     move-result v0

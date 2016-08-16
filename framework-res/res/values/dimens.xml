@@ -143,7 +143,7 @@
     <dimen name="datepicker_month_label_size">14.0sp</dimen>
     <dimen name="datepicker_month_day_label_text_size">12.0sp</dimen>
     <dimen name="datepicker_month_list_item_header_height">48.0dip</dimen>
-    <dimen name="datepicker_day_number_select_circle_radius">16.0dip</dimen>
+    <item type="dimen" name="timepicker_selection_radius_multiplier">0.16</item>
     <dimen name="datepicker_view_animator_height">226.0dip</dimen>
     <dimen name="datepicker_year_picker_padding_top">8.0dip</dimen>
     <dimen name="datepicker_year_label_height">64.0dip</dimen>
@@ -168,6 +168,7 @@
     <dimen name="light_radius">600.0dip</dimen>
     <item type="dimen" name="ambient_shadow_alpha">0.075</item>
     <item type="dimen" name="spot_shadow_alpha">0.15</item>
+    <item type="dimen" name="timepicker_numbers_radius_multiplier_normal">0.81</item>
     <item type="dimen" name="disabled_alpha_leanback_formwizard">0.2</item>
     <item type="dimen" name="leanback_setup_alpha_animiation_max_opacity">1.0</item>
     <item type="dimen" name="leanback_setup_alpha_animiation_min_opacity">0.0</item>
@@ -251,5 +252,14 @@
     <dimen name="dialog_padding_material">24.0dip</dimen>
     <dimen name="dialog_padding_top_material">18.0dip</dimen>
     <dimen name="dialog_list_padding_vertical_material">8.0dip</dimen>
-    <item type="dimen" name="APKTOOL_DUMMY_a8">false</item>
+    <item type="dimen" name="timepicker_numbers_radius_multiplier_inner">0.6</item>
+    <item type="dimen" name="timepicker_numbers_radius_multiplier_outer">0.83</item>
+    <item type="dimen" name="timepicker_text_size_multiplier_normal">0.17</item>
+    <item type="dimen" name="timepicker_text_size_multiplier_inner">0.14</item>
+    <item type="dimen" name="timepicker_text_size_multiplier_outer">0.11</item>
+    <item type="dimen" name="timepicker_transition_mid_radius_multiplier">0.95</item>
+    <item type="dimen" name="timepicker_transition_end_radius_multiplier">1.3</item>
+    <dimen name="scrubber_track_height_material">2.0dip</dimen>
+    <dimen name="progress_bar_height_material">4.0dip</dimen>
+    <item type="dimen" name="APKTOOL_DUMMY_109">false</item>
 </resources>

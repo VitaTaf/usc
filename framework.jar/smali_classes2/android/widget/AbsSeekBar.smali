@@ -400,7 +400,7 @@
 .end method
 
 .method private setThumbPos(ILandroid/graphics/drawable/Drawable;FI)V
-    .locals 21
+    .locals 17
     .param p1, "w"    # I
     .param p2, "thumb"    # Landroid/graphics/drawable/Drawable;
     .param p3, "scale"    # F
@@ -409,180 +409,146 @@
     .prologue
     move-object/from16 v0, p0
 
-    iget v0, v0, Landroid/widget/AbsSeekBar;->mPaddingLeft:I
+    iget v13, v0, Landroid/widget/AbsSeekBar;->mPaddingLeft:I
 
-    move/from16 v17, v0
-
-    sub-int v17, p1, v17
+    sub-int v13, p1, v13
 
     move-object/from16 v0, p0
 
-    iget v0, v0, Landroid/widget/AbsSeekBar;->mPaddingRight:I
+    iget v14, v0, Landroid/widget/AbsSeekBar;->mPaddingRight:I
 
-    move/from16 v18, v0
+    sub-int v1, v13, v14
 
-    sub-int v4, v17, v18
-
-    .local v4, "available":I
+    .local v1, "available":I
     invoke-virtual/range {p2 .. p2}, Landroid/graphics/drawable/Drawable;->getIntrinsicWidth()I
 
-    move-result v15
+    move-result v11
 
-    .local v15, "thumbWidth":I
+    .local v11, "thumbWidth":I
     invoke-virtual/range {p2 .. p2}, Landroid/graphics/drawable/Drawable;->getIntrinsicHeight()I
 
-    move-result v13
+    move-result v9
 
-    .local v13, "thumbHeight":I
-    sub-int/2addr v4, v15
+    .local v9, "thumbHeight":I
+    sub-int/2addr v1, v11
 
     move-object/from16 v0, p0
 
-    iget v0, v0, Landroid/widget/AbsSeekBar;->mThumbOffset:I
+    iget v13, v0, Landroid/widget/AbsSeekBar;->mThumbOffset:I
 
-    move/from16 v17, v0
+    mul-int/lit8 v13, v13, 0x2
 
-    mul-int/lit8 v17, v17, 0x2
+    add-int/2addr v1, v13
 
-    add-int v4, v4, v17
+    int-to-float v13, v1
 
-    int-to-float v0, v4
+    mul-float v13, v13, p3
 
-    move/from16 v17, v0
+    const/high16 v14, 0x3f000000    # 0.5f
 
-    mul-float v17, v17, p3
+    add-float/2addr v13, v14
 
-    const/high16 v18, 0x3f000000    # 0.5f
+    float-to-int v10, v13
 
-    add-float v17, v17, v18
-
-    move/from16 v0, v17
-
-    float-to-int v14, v0
-
-    .local v14, "thumbPos":I
-    const/high16 v17, -0x80000000
+    .local v10, "thumbPos":I
+    const/high16 v13, -0x80000000
 
     move/from16 v0, p4
 
-    move/from16 v1, v17
-
-    if-ne v0, v1, :cond_1
-
-    invoke-virtual/range {p2 .. p2}, Landroid/graphics/drawable/Drawable;->getBounds()Landroid/graphics/Rect;
-
-    move-result-object v11
-
-    .local v11, "oldBounds":Landroid/graphics/Rect;
-    iget v0, v11, Landroid/graphics/Rect;->top:I
-
-    move/from16 v16, v0
-
-    .local v16, "top":I
-    iget v6, v11, Landroid/graphics/Rect;->bottom:I
-
-    .end local v11    # "oldBounds":Landroid/graphics/Rect;
-    .local v6, "bottom":I
-    :goto_0
-    invoke-virtual/range {p0 .. p0}, Landroid/widget/AbsSeekBar;->isLayoutRtl()Z
-
-    move-result v17
-
-    if-eqz v17, :cond_2
-
-    move-object/from16 v0, p0
-
-    iget-boolean v0, v0, Landroid/widget/AbsSeekBar;->mMirrorForRtl:Z
-
-    move/from16 v17, v0
-
-    if-eqz v17, :cond_2
-
-    sub-int v8, v4, v14
-
-    .local v8, "left":I
-    :goto_1
-    add-int v12, v8, v15
-
-    .local v12, "right":I
-    invoke-virtual/range {p0 .. p0}, Landroid/widget/AbsSeekBar;->getBackground()Landroid/graphics/drawable/Drawable;
-
-    move-result-object v5
-
-    .local v5, "background":Landroid/graphics/drawable/Drawable;
-    if-eqz v5, :cond_0
+    if-ne v0, v13, :cond_1
 
     invoke-virtual/range {p2 .. p2}, Landroid/graphics/drawable/Drawable;->getBounds()Landroid/graphics/Rect;
 
     move-result-object v7
 
-    .local v7, "bounds":Landroid/graphics/Rect;
+    .local v7, "oldBounds":Landroid/graphics/Rect;
+    iget v12, v7, Landroid/graphics/Rect;->top:I
+
+    .local v12, "top":I
+    iget v3, v7, Landroid/graphics/Rect;->bottom:I
+
+    .end local v7    # "oldBounds":Landroid/graphics/Rect;
+    .local v3, "bottom":I
+    :goto_0
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/AbsSeekBar;->isLayoutRtl()Z
+
+    move-result v13
+
+    if-eqz v13, :cond_2
+
     move-object/from16 v0, p0
 
-    iget v0, v0, Landroid/widget/AbsSeekBar;->mPaddingLeft:I
+    iget-boolean v13, v0, Landroid/widget/AbsSeekBar;->mMirrorForRtl:Z
 
-    move/from16 v17, v0
+    if-eqz v13, :cond_2
+
+    sub-int v4, v1, v10
+
+    .local v4, "left":I
+    :goto_1
+    add-int v8, v4, v11
+
+    .local v8, "right":I
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/AbsSeekBar;->getBackground()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v2
+
+    .local v2, "background":Landroid/graphics/drawable/Drawable;
+    if-eqz v2, :cond_0
 
     move-object/from16 v0, p0
 
-    iget v0, v0, Landroid/widget/AbsSeekBar;->mThumbOffset:I
+    iget v13, v0, Landroid/widget/AbsSeekBar;->mPaddingLeft:I
 
-    move/from16 v18, v0
-
-    sub-int v9, v17, v18
-
-    .local v9, "offsetX":I
     move-object/from16 v0, p0
 
-    iget v10, v0, Landroid/widget/AbsSeekBar;->mPaddingTop:I
+    iget v14, v0, Landroid/widget/AbsSeekBar;->mThumbOffset:I
 
-    .local v10, "offsetY":I
-    add-int v17, v8, v9
+    sub-int v5, v13, v14
 
-    add-int v18, v16, v10
+    .local v5, "offsetX":I
+    move-object/from16 v0, p0
 
-    add-int v19, v12, v9
+    iget v6, v0, Landroid/widget/AbsSeekBar;->mPaddingTop:I
 
-    add-int v20, v6, v10
+    .local v6, "offsetY":I
+    add-int v13, v4, v5
 
-    move/from16 v0, v17
+    add-int v14, v12, v6
 
-    move/from16 v1, v18
+    add-int v15, v8, v5
 
-    move/from16 v2, v19
+    add-int v16, v3, v6
 
-    move/from16 v3, v20
+    move/from16 v0, v16
 
-    invoke-virtual {v5, v0, v1, v2, v3}, Landroid/graphics/drawable/Drawable;->setHotspotBounds(IIII)V
+    invoke-virtual {v2, v13, v14, v15, v0}, Landroid/graphics/drawable/Drawable;->setHotspotBounds(IIII)V
 
-    .end local v7    # "bounds":Landroid/graphics/Rect;
-    .end local v9    # "offsetX":I
-    .end local v10    # "offsetY":I
+    .end local v5    # "offsetX":I
+    .end local v6    # "offsetY":I
     :cond_0
     move-object/from16 v0, p2
 
-    move/from16 v1, v16
-
-    invoke-virtual {v0, v8, v1, v12, v6}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
+    invoke-virtual {v0, v4, v12, v8, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
     return-void
 
-    .end local v5    # "background":Landroid/graphics/drawable/Drawable;
-    .end local v6    # "bottom":I
-    .end local v8    # "left":I
-    .end local v12    # "right":I
-    .end local v16    # "top":I
+    .end local v2    # "background":Landroid/graphics/drawable/Drawable;
+    .end local v3    # "bottom":I
+    .end local v4    # "left":I
+    .end local v8    # "right":I
+    .end local v12    # "top":I
     :cond_1
-    move/from16 v16, p4
+    move/from16 v12, p4
 
-    .restart local v16    # "top":I
-    add-int v6, p4, v13
+    .restart local v12    # "top":I
+    add-int v3, p4, v9
 
-    .restart local v6    # "bottom":I
+    .restart local v3    # "bottom":I
     goto :goto_0
 
     :cond_2
-    move v8, v14
+    move v4, v10
 
     goto :goto_1
 .end method
@@ -741,12 +707,12 @@
 .end method
 
 .method private updateThumbAndTrackPos(II)V
-    .locals 10
+    .locals 11
     .param p1, "w"    # I
     .param p2, "h"    # I
 
     .prologue
-    const/4 v6, 0x0
+    const/4 v7, 0x0
 
     invoke-virtual {p0}, Landroid/widget/AbsSeekBar;->getCurrentDrawable()Landroid/graphics/drawable/Drawable;
 
@@ -756,32 +722,32 @@
     iget-object v0, p0, Landroid/widget/AbsSeekBar;->mThumb:Landroid/graphics/drawable/Drawable;
 
     .local v0, "thumb":Landroid/graphics/drawable/Drawable;
-    iget v7, p0, Landroid/widget/AbsSeekBar;->mMaxHeight:I
+    iget v8, p0, Landroid/widget/AbsSeekBar;->mMaxHeight:I
 
-    iget v8, p0, Landroid/widget/AbsSeekBar;->mPaddingTop:I
+    iget v9, p0, Landroid/widget/AbsSeekBar;->mPaddingTop:I
 
-    sub-int v8, p2, v8
+    sub-int v9, p2, v9
 
-    iget v9, p0, Landroid/widget/AbsSeekBar;->mPaddingBottom:I
+    iget v10, p0, Landroid/widget/AbsSeekBar;->mPaddingBottom:I
 
-    sub-int/2addr v8, v9
+    sub-int/2addr v9, v10
 
-    invoke-static {v7, v8}, Ljava/lang/Math;->min(II)I
+    invoke-static {v8, v9}, Ljava/lang/Math;->min(II)I
 
     move-result v4
 
     .local v4, "trackHeight":I
     if-nez v0, :cond_2
 
-    move v1, v6
+    move v1, v7
 
     .local v1, "thumbHeight":I
     :goto_0
     if-le v1, v4, :cond_3
 
-    sub-int v7, v1, v4
+    sub-int v8, v1, v4
 
-    div-int/lit8 v5, v7, 0x2
+    div-int/lit8 v5, v8, 0x2
 
     .local v5, "trackOffset":I
     const/4 v2, 0x0
@@ -790,34 +756,28 @@
     :goto_1
     if-eqz v3, :cond_0
 
-    iget v7, p0, Landroid/widget/AbsSeekBar;->mPaddingRight:I
+    iget v8, p0, Landroid/widget/AbsSeekBar;->mPaddingRight:I
 
-    sub-int v7, p1, v7
+    sub-int v8, p1, v8
 
-    iget v8, p0, Landroid/widget/AbsSeekBar;->mPaddingLeft:I
+    iget v9, p0, Landroid/widget/AbsSeekBar;->mPaddingLeft:I
 
-    sub-int/2addr v7, v8
+    sub-int v6, v8, v9
 
-    iget v8, p0, Landroid/widget/AbsSeekBar;->mPaddingBottom:I
+    .local v6, "trackWidth":I
+    add-int v8, v5, v4
 
-    sub-int v8, p2, v8
+    invoke-virtual {v3, v7, v5, v6, v8}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    sub-int/2addr v8, v5
-
-    iget v9, p0, Landroid/widget/AbsSeekBar;->mPaddingTop:I
-
-    sub-int/2addr v8, v9
-
-    invoke-virtual {v3, v6, v5, v7, v8}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
+    .end local v6    # "trackWidth":I
     :cond_0
     if-eqz v0, :cond_1
 
     invoke-direct {p0}, Landroid/widget/AbsSeekBar;->getScale()F
 
-    move-result v6
+    move-result v7
 
-    invoke-direct {p0, p1, v0, v6, v2}, Landroid/widget/AbsSeekBar;->setThumbPos(ILandroid/graphics/drawable/Drawable;FI)V
+    invoke-direct {p0, p1, v0, v7, v2}, Landroid/widget/AbsSeekBar;->setThumbPos(ILandroid/graphics/drawable/Drawable;FI)V
 
     :cond_1
     return-void
@@ -837,9 +797,9 @@
     const/4 v5, 0x0
 
     .restart local v5    # "trackOffset":I
-    sub-int v7, v4, v1
+    sub-int v8, v4, v1
 
-    div-int/lit8 v2, v7, 0x2
+    div-int/lit8 v2, v8, 0x2
 
     .restart local v2    # "thumbOffset":I
     goto :goto_1
@@ -1388,13 +1348,14 @@
     throw v4
 .end method
 
-.method onProgressRefresh(FZ)V
+.method onProgressRefresh(FZI)V
     .locals 3
     .param p1, "scale"    # F
     .param p2, "fromUser"    # Z
+    .param p3, "progress"    # I
 
     .prologue
-    invoke-super {p0, p1, p2}, Landroid/widget/ProgressBar;->onProgressRefresh(FZ)V
+    invoke-super {p0, p1, p2, p3}, Landroid/widget/ProgressBar;->onProgressRefresh(FZI)V
 
     iget-object v0, p0, Landroid/widget/AbsSeekBar;->mThumb:Landroid/graphics/drawable/Drawable;
 

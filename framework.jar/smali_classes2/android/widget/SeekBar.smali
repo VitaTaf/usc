@@ -83,13 +83,14 @@
     return-object v0
 .end method
 
-.method onProgressRefresh(FZ)V
-    .locals 2
+.method onProgressRefresh(FZI)V
+    .locals 1
     .param p1, "scale"    # F
     .param p2, "fromUser"    # Z
+    .param p3, "progress"    # I
 
     .prologue
-    invoke-super {p0, p1, p2}, Landroid/widget/AbsSeekBar;->onProgressRefresh(FZ)V
+    invoke-super {p0, p1, p2, p3}, Landroid/widget/AbsSeekBar;->onProgressRefresh(FZI)V
 
     iget-object v0, p0, Landroid/widget/SeekBar;->mOnSeekBarChangeListener:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
@@ -97,11 +98,7 @@
 
     iget-object v0, p0, Landroid/widget/SeekBar;->mOnSeekBarChangeListener:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 
-    invoke-virtual {p0}, Landroid/widget/SeekBar;->getProgress()I
-
-    move-result v1
-
-    invoke-interface {v0, p0, v1, p2}, Landroid/widget/SeekBar$OnSeekBarChangeListener;->onProgressChanged(Landroid/widget/SeekBar;IZ)V
+    invoke-interface {v0, p0, p3, p2}, Landroid/widget/SeekBar$OnSeekBarChangeListener;->onProgressChanged(Landroid/widget/SeekBar;IZ)V
 
     :cond_0
     return-void

@@ -25,6 +25,8 @@
 
 .field public static final config_defaultNotificationColor:I = 0x106010c
 
+.field public static final control_highlight_material:I = 0x106013d
+
 .field public static final darker_gray:I = 0x1060000
 
 .field public static final date_picker_calendar_holo_dark:I = 0x1060113

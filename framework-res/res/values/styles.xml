@@ -2032,9 +2032,9 @@
         <item name="calendarTextColor">@color/date_picker_calendar_holo_dark</item>
         <item name="datePickerMode">spinner</item>
         <item name="internalLayout">@layout/date_picker_holo</item>
-        <item name="calendarSelectedTextColor">@color/holo_blue_light</item>
         <item name="legacyLayout">@layout/date_picker_legacy_holo</item>
         <item name="headerSelectedTextColor">@color/holo_blue_light</item>
+        <item name="calendarDayBackgroundColor">@color/holo_blue_dark</item>
     </style>
     <style name="Theme.Holo.Light.NoActionBar" parent="@style/Theme.Holo.Light">
         <item name="windowNoTitle">true</item>
@@ -3173,9 +3173,10 @@
         <item name="actionModeFindDrawable">@drawable/ic_menu_find_material</item>
         <item name="actionModeWebSearchDrawable">@drawable/ic_menu_search_material</item>
         <item name="searchViewStyle">@style/Widget.Material.SearchView</item>
-        <item name="actionBarPopupTheme">@null</item>
+        <item name="actionBarPopupTheme">?popupTheme</item>
         <item name="timePickerStyle">@style/Widget.Material.TimePicker</item>
         <item name="timePickerDialogTheme">?dialogTheme</item>
+        <item name="popupTheme">@null</item>
         <item name="toolbarStyle">@style/Widget.Material.Toolbar</item>
         <item name="windowClipToOutline">true</item>
         <item name="datePickerDialogTheme">?dialogTheme</item>
@@ -3217,8 +3218,8 @@
         <item name="findOnPageNextDrawable">@drawable/ic_find_next_material</item>
         <item name="findOnPagePreviousDrawable">@drawable/ic_find_previous_material</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_dark</item>
-        <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
         <item name="controlBackground">@drawable/control_background_material</item>
+        <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
     </style>
     <style name="Theme.Material.Dialog" parent="@style/Theme.Material.BaseDialog" />
     <style name="Theme.Material.Dialog.Alert" parent="@style/Theme.Material.Dialog.BaseAlert" />
@@ -3521,7 +3522,6 @@
         <item name="actionModeFindDrawable">@drawable/ic_menu_find_material</item>
         <item name="actionModeWebSearchDrawable">@drawable/ic_menu_search_material</item>
         <item name="searchViewStyle">@style/Widget.Material.Light.SearchView</item>
-        <item name="actionBarPopupTheme">@null</item>
         <item name="timePickerStyle">@style/Widget.Material.Light.TimePicker</item>
         <item name="timePickerDialogTheme">?dialogTheme</item>
         <item name="toolbarStyle">@style/Widget.Material.Toolbar</item>
@@ -3564,15 +3564,15 @@
         <item name="findOnPageNextDrawable">@drawable/ic_find_next_material</item>
         <item name="findOnPagePreviousDrawable">@drawable/ic_find_previous_material</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
-        <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
         <item name="controlBackground">@drawable/control_background_material</item>
+        <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
     </style>
     <style name="Theme.Material.Light.DarkActionBar" parent="@style/Theme.Material.Light">
         <item name="actionBarWidgetTheme">@null</item>
         <item name="actionBarTheme">@style/ThemeOverlay.Material.Dark.ActionBar</item>
         <item name="colorPrimary">@color/primary_material_dark</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material.Light</item>
+        <item name="popupTheme">@style/ThemeOverlay.Material.Light</item>
     </style>
     <style name="Theme.Material.Light.Dialog" parent="@style/Theme.Material.Light.BaseDialog" />
     <style name="Theme.Material.Light.Dialog.Alert" parent="@style/Theme.Material.Light.Dialog.BaseAlert" />
@@ -3839,12 +3839,12 @@
         <item name="headerYearTextAppearance">@style/TextAppearance.Material.DatePicker.YearLabel</item>
         <item name="yearListItemTextAppearance">@style/TextAppearance.Material.DatePicker.List.YearLabel</item>
         <item name="yearListSelectorColor">?colorControlActivated</item>
-        <item name="calendarTextColor">?textColorSecondary</item>
+        <item name="calendarTextColor">?^attr-private/textColorSecondaryActivated</item>
         <item name="datePickerMode">calendar</item>
         <item name="internalLayout">@layout/date_picker_holo</item>
-        <item name="calendarSelectedTextColor">?colorControlActivated</item>
         <item name="legacyLayout">@layout/date_picker_legacy_holo</item>
         <item name="headerSelectedTextColor">?textColorPrimaryInverse</item>
+        <item name="calendarDayBackgroundColor">?colorControlActivated</item>
     </style>
     <style name="Widget.Material.DropDownItem" parent="@style/Widget.DropDownItem">
         <item name="textAppearance">@style/TextAppearance.Material.Widget.DropDownItem</item>
@@ -4015,7 +4015,7 @@
         <item name="headerBackground">@drawable/time_picker_header_material</item>
         <item name="headerTimeTextAppearance">@style/TextAppearance.Material.TimePicker.TimeLabel</item>
         <item name="headerAmPmTextAppearance">@style/TextAppearance.Material.TimePicker.AmPmLabel</item>
-        <item name="numbersTextColor">?textColorSecondary</item>
+        <item name="numbersTextColor">?^attr-private/textColorSecondaryActivated</item>
         <item name="numbersBackgroundColor">#10ffffff</item>
         <item name="numbersSelectorColor">?colorControlActivated</item>
         <item name="amPmTextColor">?textColorSecondary</item>
@@ -4925,9 +4925,9 @@
         <item name="calendarTextColor">@color/date_picker_calendar_holo_light</item>
         <item name="datePickerMode">spinner</item>
         <item name="internalLayout">@layout/date_picker_holo</item>
-        <item name="calendarSelectedTextColor">@color/holo_blue_light</item>
         <item name="legacyLayout">@layout/date_picker_legacy_holo</item>
         <item name="headerSelectedTextColor">@color/holo_blue_light</item>
+        <item name="calendarDayBackgroundColor">@color/holo_blue_light</item>
     </style>
     <style name="Widget.Holo.Light.ActivityChooserView" parent="@style/Widget.Holo.ActivityChooserView">
         <item name="background">@drawable/ab_share_pack_holo_light</item>

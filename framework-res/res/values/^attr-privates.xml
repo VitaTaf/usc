@@ -93,7 +93,7 @@
     <attr name="popupPromptView" format="reference" />
     <attr name="disableChildrenWhenDisabled" format="boolean" />
     <attr name="internalLayout" format="reference" />
-    <attr name="calendarSelectedTextColor" format="color" />
+    <attr name="controlBackground" format="color" />
     <attr name="quickContactWindowSize">
         <enum name="modeLarge" value="3" />
         <enum name="modeMedium" value="2" />
@@ -211,5 +211,5 @@
     <attr name="interpolatorX" format="reference" />
     <attr name="interpolatorY" format="reference" />
     <attr name="interpolatorZ" format="reference" />
-    <attr name="controlBackground" format="color" />
+    <attr name="calendarDayBackgroundColor" format="color" />
 </resources>
