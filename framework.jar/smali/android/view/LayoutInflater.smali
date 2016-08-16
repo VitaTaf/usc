@@ -18,6 +18,8 @@
 # static fields
 .field private static final ATTRS_THEME:[I
 
+.field private static final ATTR_LAYOUT:Ljava/lang/String; = "layout"
+
 .field private static final DEBUG:Z = false
 
 .field private static final TAG:Ljava/lang/String;
@@ -83,6 +85,8 @@
 .end field
 
 .field private mPrivateFactory:Landroid/view/LayoutInflater$Factory2;
+
+.field private mTempValue:Landroid/util/TypedValue;
 
 
 # direct methods
@@ -275,7 +279,7 @@
 .end method
 
 .method private parseInclude(Lorg/xmlpull/v1/XmlPullParser;Landroid/view/View;Landroid/util/AttributeSet;Z)V
-    .locals 21
+    .locals 26
     .param p1, "parser"    # Lorg/xmlpull/v1/XmlPullParser;
     .param p2, "parent"    # Landroid/view/View;
     .param p3, "attrs"    # Landroid/util/AttributeSet;
@@ -292,7 +296,51 @@
 
     instance-of v3, v0, Landroid/view/ViewGroup;
 
-    if-eqz v3, :cond_c
+    if-eqz v3, :cond_12
+
+    if-eqz p4, :cond_2
+
+    invoke-virtual/range {p2 .. p2}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v11
+
+    .local v11, "context":Landroid/content/Context;
+    :goto_0
+    sget-object v3, Landroid/view/LayoutInflater;->ATTRS_THEME:[I
+
+    move-object/from16 v0, p3
+
+    invoke-virtual {v11, v0, v3}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[I)Landroid/content/res/TypedArray;
+
+    move-result-object v20
+
+    .local v20, "ta":Landroid/content/res/TypedArray;
+    const/4 v3, 0x0
+
+    const/4 v7, 0x0
+
+    move-object/from16 v0, v20
+
+    invoke-virtual {v0, v3, v7}, Landroid/content/res/TypedArray;->getResourceId(II)I
+
+    move-result v21
+
+    .local v21, "themeResId":I
+    if-eqz v21, :cond_0
+
+    new-instance v12, Landroid/view/ContextThemeWrapper;
+
+    move/from16 v0, v21
+
+    invoke-direct {v12, v11, v0}, Landroid/view/ContextThemeWrapper;-><init>(Landroid/content/Context;I)V
+
+    .end local v11    # "context":Landroid/content/Context;
+    .local v12, "context":Landroid/content/Context;
+    move-object v11, v12
+
+    .end local v12    # "context":Landroid/content/Context;
+    :cond_0
+    invoke-virtual/range {v20 .. v20}, Landroid/content/res/TypedArray;->recycle()V
 
     const/4 v3, 0x0
 
@@ -304,10 +352,10 @@
 
     invoke-interface {v0, v3, v7, v8}, Landroid/util/AttributeSet;->getAttributeResourceValue(Ljava/lang/String;Ljava/lang/String;I)I
 
-    move-result v15
+    move-result v18
 
-    .local v15, "layout":I
-    if-nez v15, :cond_1
+    .local v18, "layout":I
+    if-nez v18, :cond_4
 
     const/4 v3, 0x0
 
@@ -317,33 +365,138 @@
 
     invoke-interface {v0, v3, v7}, Landroid/util/AttributeSet;->getAttributeValue(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v18
+    move-result-object v23
 
-    .local v18, "value":Ljava/lang/String;
-    if-nez v18, :cond_0
+    .local v23, "value":Ljava/lang/String;
+    if-eqz v23, :cond_1
 
+    invoke-virtual/range {v23 .. v23}, Ljava/lang/String;->length()I
+
+    move-result v3
+
+    const/4 v7, 0x1
+
+    if-ge v3, v7, :cond_3
+
+    :cond_1
     new-instance v3, Landroid/view/InflateException;
 
-    const-string v7, "You must specifiy a layout in the include tag: <include layout=\"@layout/layoutID\" />"
+    const-string v7, "You must specify a layout in the include tag: <include layout=\"@layout/layoutID\" />"
 
     invoke-direct {v3, v7}, Landroid/view/InflateException;-><init>(Ljava/lang/String;)V
 
     throw v3
 
-    :cond_0
+    .end local v18    # "layout":I
+    .end local v20    # "ta":Landroid/content/res/TypedArray;
+    .end local v21    # "themeResId":I
+    .end local v23    # "value":Ljava/lang/String;
+    :cond_2
+    move-object/from16 v0, p0
+
+    iget-object v11, v0, Landroid/view/LayoutInflater;->mContext:Landroid/content/Context;
+
+    goto :goto_0
+
+    .restart local v18    # "layout":I
+    .restart local v20    # "ta":Landroid/content/res/TypedArray;
+    .restart local v21    # "themeResId":I
+    .restart local v23    # "value":Ljava/lang/String;
+    :cond_3
+    invoke-virtual {v11}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v3
+
+    const/4 v7, 0x1
+
+    move-object/from16 v0, v23
+
+    invoke-virtual {v0, v7}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object v7
+
+    const/4 v8, 0x0
+
+    const/16 v25, 0x0
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v3, v7, v8, v0}, Landroid/content/res/Resources;->getIdentifier(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I
+
+    move-result v18
+
+    .end local v23    # "value":Ljava/lang/String;
+    :cond_4
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Landroid/view/LayoutInflater;->mTempValue:Landroid/util/TypedValue;
+
+    if-nez v3, :cond_5
+
+    new-instance v3, Landroid/util/TypedValue;
+
+    invoke-direct {v3}, Landroid/util/TypedValue;-><init>()V
+
+    move-object/from16 v0, p0
+
+    iput-object v3, v0, Landroid/view/LayoutInflater;->mTempValue:Landroid/util/TypedValue;
+
+    :cond_5
+    if-eqz v18, :cond_6
+
+    invoke-virtual {v11}, Landroid/content/Context;->getTheme()Landroid/content/res/Resources$Theme;
+
+    move-result-object v3
+
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Landroid/view/LayoutInflater;->mTempValue:Landroid/util/TypedValue;
+
+    const/4 v8, 0x1
+
+    move/from16 v0, v18
+
+    invoke-virtual {v3, v0, v7, v8}, Landroid/content/res/Resources$Theme;->resolveAttribute(ILandroid/util/TypedValue;Z)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_6
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Landroid/view/LayoutInflater;->mTempValue:Landroid/util/TypedValue;
+
+    iget v0, v3, Landroid/util/TypedValue;->resourceId:I
+
+    move/from16 v18, v0
+
+    :cond_6
+    if-nez v18, :cond_7
+
+    const/4 v3, 0x0
+
+    const-string v7, "layout"
+
+    move-object/from16 v0, p3
+
+    invoke-interface {v0, v3, v7}, Landroid/util/AttributeSet;->getAttributeValue(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v23
+
+    .restart local v23    # "value":Ljava/lang/String;
     new-instance v3, Landroid/view/InflateException;
 
     new-instance v7, Ljava/lang/StringBuilder;
 
     invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v8, "You must specifiy a valid layout reference. The layout ID "
+    const-string v8, "You must specify a valid layout reference. The layout ID "
 
     invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v7
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v23
 
     invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -363,8 +516,8 @@
 
     throw v3
 
-    .end local v18    # "value":Ljava/lang/String;
-    :cond_1
+    .end local v23    # "value":Ljava/lang/String;
+    :cond_7
     invoke-virtual/range {p0 .. p0}, Landroid/view/LayoutInflater;->getContext()Landroid/content/Context;
 
     move-result-object v3
@@ -373,7 +526,9 @@
 
     move-result-object v3
 
-    invoke-virtual {v3, v15}, Landroid/content/res/Resources;->getLayout(I)Landroid/content/res/XmlResourceParser;
+    move/from16 v0, v18
+
+    invoke-virtual {v3, v0}, Landroid/content/res/Resources;->getLayout(I)Landroid/content/res/XmlResourceParser;
 
     move-result-object v4
 
@@ -384,30 +539,30 @@
     move-result-object v6
 
     .local v6, "childAttrs":Landroid/util/AttributeSet;
-    :cond_2
+    :cond_8
     invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->next()I
 
-    move-result v17
+    move-result v22
 
-    .local v17, "type":I
+    .local v22, "type":I
     const/4 v3, 0x2
 
-    move/from16 v0, v17
+    move/from16 v0, v22
 
-    if-eq v0, v3, :cond_3
+    if-eq v0, v3, :cond_9
 
     const/4 v3, 0x1
 
-    move/from16 v0, v17
+    move/from16 v0, v22
 
-    if-ne v0, v3, :cond_2
+    if-ne v0, v3, :cond_8
 
-    :cond_3
+    :cond_9
     const/4 v3, 0x2
 
-    move/from16 v0, v17
+    move/from16 v0, v22
 
-    if-eq v0, v3, :cond_4
+    if-eq v0, v3, :cond_a
 
     new-instance v3, Landroid/view/InflateException;
 
@@ -440,7 +595,7 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     .end local v6    # "childAttrs":Landroid/util/AttributeSet;
-    .end local v17    # "type":I
+    .end local v22    # "type":I
     :catchall_0
     move-exception v3
 
@@ -449,8 +604,8 @@
     throw v3
 
     .restart local v6    # "childAttrs":Landroid/util/AttributeSet;
-    .restart local v17    # "type":I
-    :cond_4
+    .restart local v22    # "type":I
+    :cond_a
     :try_start_1
     invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->getName()Ljava/lang/String;
 
@@ -463,7 +618,7 @@
 
     move-result v3
 
-    if-eqz v3, :cond_8
+    if-eqz v3, :cond_e
 
     const/4 v7, 0x0
 
@@ -477,43 +632,43 @@
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
-    :goto_0
+    :goto_1
     invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->close()V
 
     invoke-interface/range {p1 .. p1}, Lorg/xmlpull/v1/XmlPullParser;->getDepth()I
 
-    move-result v11
+    move-result v13
 
-    .local v11, "currentDepth":I
-    :cond_5
+    .local v13, "currentDepth":I
+    :cond_b
     invoke-interface/range {p1 .. p1}, Lorg/xmlpull/v1/XmlPullParser;->next()I
 
-    move-result v17
+    move-result v22
 
     const/4 v3, 0x3
 
-    move/from16 v0, v17
+    move/from16 v0, v22
 
-    if-ne v0, v3, :cond_6
+    if-ne v0, v3, :cond_c
 
     invoke-interface/range {p1 .. p1}, Lorg/xmlpull/v1/XmlPullParser;->getDepth()I
 
     move-result v3
 
-    if-le v3, v11, :cond_7
+    if-le v3, v13, :cond_d
 
-    :cond_6
+    :cond_c
     const/4 v3, 0x1
 
-    move/from16 v0, v17
+    move/from16 v0, v22
 
-    if-ne v0, v3, :cond_5
+    if-ne v0, v3, :cond_b
 
-    :cond_7
+    :cond_d
     return-void
 
-    .end local v11    # "currentDepth":I
-    :cond_8
+    .end local v13    # "currentDepth":I
+    :cond_e
     :try_start_2
     move-object/from16 v0, p0
 
@@ -530,33 +685,85 @@
 
     check-cast v0, Landroid/view/ViewGroup;
 
-    move-object v13, v0
+    move-object v14, v0
+
+    .local v14, "group":Landroid/view/ViewGroup;
+    sget-object v3, Lcom/android/internal/R$styleable;->Include:[I
+
+    move-object/from16 v0, p3
+
+    invoke-virtual {v11, v0, v3}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[I)Landroid/content/res/TypedArray;
+
+    move-result-object v9
+
+    .local v9, "a":Landroid/content/res/TypedArray;
+    const/4 v3, 0x0
+
+    const/4 v7, -0x1
+
+    invoke-virtual {v9, v3, v7}, Landroid/content/res/TypedArray;->getResourceId(II)I
+
+    move-result v17
+
+    .local v17, "id":I
+    const/4 v3, 0x1
+
+    const/4 v7, -0x1
+
+    invoke-virtual {v9, v3, v7}, Landroid/content/res/TypedArray;->getInt(II)I
+
+    move-result v24
+
+    .local v24, "visibility":I
+    const/4 v3, 0x2
+
+    invoke-virtual {v9, v3}, Landroid/content/res/TypedArray;->hasValue(I)Z
+
+    move-result v16
+
+    .local v16, "hasWidth":Z
+    const/4 v3, 0x3
+
+    invoke-virtual {v9, v3}, Landroid/content/res/TypedArray;->hasValue(I)Z
+
+    move-result v15
+
+    .local v15, "hasHeight":Z
+    invoke-virtual {v9}, Landroid/content/res/TypedArray;->recycle()V
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
-    .local v13, "group":Landroid/view/ViewGroup;
-    const/16 v16, 0x0
+    const/16 v19, 0x0
 
-    .local v16, "params":Landroid/view/ViewGroup$LayoutParams;
+    .local v19, "params":Landroid/view/ViewGroup$LayoutParams;
+    if-eqz v16, :cond_f
+
+    if-eqz v15, :cond_f
+
     :try_start_3
     move-object/from16 v0, p3
 
-    invoke-virtual {v13, v0}, Landroid/view/ViewGroup;->generateLayoutParams(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;
+    invoke-virtual {v14, v0}, Landroid/view/ViewGroup;->generateLayoutParams(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;
     :try_end_3
     .catch Ljava/lang/RuntimeException; {:try_start_3 .. :try_end_3} :catch_0
-    .catchall {:try_start_3 .. :try_end_3} :catchall_1
+    .catchall {:try_start_3 .. :try_end_3} :catchall_0
 
-    move-result-object v16
+    move-result-object v19
 
-    if-eqz v16, :cond_9
+    :cond_f
+    :goto_2
+    if-nez v19, :cond_10
 
     :try_start_4
-    move-object/from16 v0, v16
+    invoke-virtual {v14, v6}, Landroid/view/ViewGroup;->generateLayoutParams(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v19
+
+    :cond_10
+    move-object/from16 v0, v19
 
     invoke-virtual {v5, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    :cond_9
-    :goto_1
     const/4 v7, 0x1
 
     const/4 v8, 0x1
@@ -565,135 +772,63 @@
 
     invoke-virtual/range {v3 .. v8}, Landroid/view/LayoutInflater;->rInflate(Lorg/xmlpull/v1/XmlPullParser;Landroid/view/View;Landroid/util/AttributeSet;ZZ)V
 
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Landroid/view/LayoutInflater;->mContext:Landroid/content/Context;
-
-    sget-object v7, Lcom/android/internal/R$styleable;->View:[I
-
-    const/4 v8, 0x0
-
-    const/16 v20, 0x0
-
-    move-object/from16 v0, p3
-
-    move/from16 v1, v20
-
-    invoke-virtual {v3, v0, v7, v8, v1}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[III)Landroid/content/res/TypedArray;
-
-    move-result-object v9
-
-    .local v9, "a":Landroid/content/res/TypedArray;
-    const/16 v3, 0x9
-
-    const/4 v7, -0x1
-
-    invoke-virtual {v9, v3, v7}, Landroid/content/res/TypedArray;->getResourceId(II)I
-
-    move-result v14
-
-    .local v14, "id":I
-    const/16 v3, 0x15
-
-    const/4 v7, -0x1
-
-    invoke-virtual {v9, v3, v7}, Landroid/content/res/TypedArray;->getInt(II)I
-
-    move-result v19
-
-    .local v19, "visibility":I
-    invoke-virtual {v9}, Landroid/content/res/TypedArray;->recycle()V
-
     const/4 v3, -0x1
 
-    if-eq v14, v3, :cond_a
+    move/from16 v0, v17
 
-    invoke-virtual {v5, v14}, Landroid/view/View;->setId(I)V
+    if-eq v0, v3, :cond_11
 
-    :cond_a
-    packed-switch v19, :pswitch_data_0
+    move/from16 v0, v17
 
-    :goto_2
-    invoke-virtual {v13, v5}, Landroid/view/ViewGroup;->addView(Landroid/view/View;)V
-    :try_end_4
-    .catchall {:try_start_4 .. :try_end_4} :catchall_0
+    invoke-virtual {v5, v0}, Landroid/view/View;->setId(I)V
 
-    goto :goto_0
+    :cond_11
+    packed-switch v24, :pswitch_data_0
 
-    .end local v9    # "a":Landroid/content/res/TypedArray;
-    .end local v14    # "id":I
-    .end local v19    # "visibility":I
-    :catch_0
-    move-exception v12
-
-    .local v12, "e":Ljava/lang/RuntimeException;
-    :try_start_5
-    invoke-virtual {v13, v6}, Landroid/view/ViewGroup;->generateLayoutParams(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;
-    :try_end_5
-    .catchall {:try_start_5 .. :try_end_5} :catchall_1
-
-    move-result-object v16
-
-    if-eqz v16, :cond_9
-
-    :try_start_6
-    move-object/from16 v0, v16
-
-    invoke-virtual {v5, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+    :goto_3
+    invoke-virtual {v14, v5}, Landroid/view/ViewGroup;->addView(Landroid/view/View;)V
 
     goto :goto_1
 
-    .end local v12    # "e":Ljava/lang/RuntimeException;
-    :catchall_1
-    move-exception v3
-
-    if-eqz v16, :cond_b
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v5, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
-
-    :cond_b
-    throw v3
-
-    .restart local v9    # "a":Landroid/content/res/TypedArray;
-    .restart local v14    # "id":I
-    .restart local v19    # "visibility":I
     :pswitch_0
     const/4 v3, 0x0
 
     invoke-virtual {v5, v3}, Landroid/view/View;->setVisibility(I)V
 
-    goto :goto_2
+    goto :goto_3
 
     :pswitch_1
     const/4 v3, 0x4
 
     invoke-virtual {v5, v3}, Landroid/view/View;->setVisibility(I)V
 
-    goto :goto_2
+    goto :goto_3
 
     :pswitch_2
     const/16 v3, 0x8
 
     invoke-virtual {v5, v3}, Landroid/view/View;->setVisibility(I)V
-    :try_end_6
-    .catchall {:try_start_6 .. :try_end_6} :catchall_0
+    :try_end_4
+    .catchall {:try_start_4 .. :try_end_4} :catchall_0
 
-    goto :goto_2
+    goto :goto_3
 
     .end local v4    # "childParser":Landroid/content/res/XmlResourceParser;
     .end local v5    # "view":Landroid/view/View;
     .end local v6    # "childAttrs":Landroid/util/AttributeSet;
     .end local v9    # "a":Landroid/content/res/TypedArray;
     .end local v10    # "childName":Ljava/lang/String;
-    .end local v13    # "group":Landroid/view/ViewGroup;
-    .end local v14    # "id":I
-    .end local v15    # "layout":I
-    .end local v16    # "params":Landroid/view/ViewGroup$LayoutParams;
-    .end local v17    # "type":I
-    .end local v19    # "visibility":I
-    :cond_c
+    .end local v14    # "group":Landroid/view/ViewGroup;
+    .end local v15    # "hasHeight":Z
+    .end local v16    # "hasWidth":Z
+    .end local v17    # "id":I
+    .end local v18    # "layout":I
+    .end local v19    # "params":Landroid/view/ViewGroup$LayoutParams;
+    .end local v20    # "ta":Landroid/content/res/TypedArray;
+    .end local v21    # "themeResId":I
+    .end local v22    # "type":I
+    .end local v24    # "visibility":I
+    :cond_12
     new-instance v3, Landroid/view/InflateException;
 
     const-string v7, "<include /> can only be used inside of a ViewGroup"
@@ -701,6 +836,28 @@
     invoke-direct {v3, v7}, Landroid/view/InflateException;-><init>(Ljava/lang/String;)V
 
     throw v3
+
+    .restart local v4    # "childParser":Landroid/content/res/XmlResourceParser;
+    .restart local v5    # "view":Landroid/view/View;
+    .restart local v6    # "childAttrs":Landroid/util/AttributeSet;
+    .restart local v9    # "a":Landroid/content/res/TypedArray;
+    .restart local v10    # "childName":Ljava/lang/String;
+    .restart local v14    # "group":Landroid/view/ViewGroup;
+    .restart local v15    # "hasHeight":Z
+    .restart local v16    # "hasWidth":Z
+    .restart local v17    # "id":I
+    .restart local v18    # "layout":I
+    .restart local v19    # "params":Landroid/view/ViewGroup$LayoutParams;
+    .restart local v20    # "ta":Landroid/content/res/TypedArray;
+    .restart local v21    # "themeResId":I
+    .restart local v22    # "type":I
+    .restart local v24    # "visibility":I
+    :catch_0
+    move-exception v3
+
+    goto :goto_2
+
+    nop
 
     :pswitch_data_0
     .packed-switch 0x0
@@ -771,7 +928,9 @@
 
     const/4 v7, 0x0
 
-    iget-object v5, p0, Landroid/view/LayoutInflater;->mContext:Landroid/content/Context;
+    invoke-virtual {p2}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v5
 
     sget-object v6, Lcom/android/internal/R$styleable;->ViewTag:[I
 

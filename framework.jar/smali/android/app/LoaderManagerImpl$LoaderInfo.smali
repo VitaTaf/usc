@@ -3,8 +3,8 @@
 .source "LoaderManager.java"
 
 # interfaces
-.implements Landroid/content/Loader$OnLoadCanceledListener;
 .implements Landroid/content/Loader$OnLoadCompleteListener;
+.implements Landroid/content/Loader$OnLoadCanceledListener;
 
 
 # annotations
@@ -619,7 +619,7 @@
 
     invoke-virtual {p3, p1}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 
-    const-string v0, "mData="
+    const-string/jumbo v0, "mData="
 
     invoke-virtual {p3, v0}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 

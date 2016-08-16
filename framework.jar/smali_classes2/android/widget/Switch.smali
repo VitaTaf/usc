@@ -1411,6 +1411,19 @@
     return-void
 .end method
 
+.method public getAccessibilityClassName()Ljava/lang/CharSequence;
+    .locals 1
+
+    .prologue
+    const-class v0, Landroid/widget/Switch;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public getCompoundPaddingLeft()I
     .locals 3
 
@@ -2017,38 +2030,12 @@
     goto :goto_3
 .end method
 
-.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-    .locals 1
-    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/widget/CompoundButton;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-
-    const-class v0, Landroid/widget/Switch;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
 .method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
     .locals 5
     .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
 
     .prologue
     invoke-super {p0, p1}, Landroid/widget/CompoundButton;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-
-    const-class v3, Landroid/widget/Switch;
-
-    invoke-virtual {v3}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {p1, v3}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
 
     invoke-virtual {p0}, Landroid/widget/Switch;->isChecked()Z
 
@@ -2592,6 +2579,79 @@
     iget-object v0, p0, Landroid/widget/Switch;->mTextOff:Ljava/lang/CharSequence;
 
     goto :goto_0
+.end method
+
+.method public onProvideAssistData(Landroid/view/ViewAssistData;Landroid/os/Bundle;)V
+    .locals 5
+    .param p1, "data"    # Landroid/view/ViewAssistData;
+    .param p2, "extras"    # Landroid/os/Bundle;
+
+    .prologue
+    invoke-super {p0, p1, p2}, Landroid/widget/CompoundButton;->onProvideAssistData(Landroid/view/ViewAssistData;Landroid/os/Bundle;)V
+
+    invoke-virtual {p0}, Landroid/widget/Switch;->isChecked()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_1
+
+    iget-object v2, p0, Landroid/widget/Switch;->mTextOn:Ljava/lang/CharSequence;
+
+    .local v2, "switchText":Ljava/lang/CharSequence;
+    :goto_0
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_0
+
+    invoke-virtual {p1}, Landroid/view/ViewAssistData;->getText()Ljava/lang/CharSequence;
+
+    move-result-object v1
+
+    .local v1, "oldText":Ljava/lang/CharSequence;
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_2
+
+    invoke-virtual {p1, v2}, Landroid/view/ViewAssistData;->setText(Ljava/lang/CharSequence;)V
+
+    .end local v1    # "oldText":Ljava/lang/CharSequence;
+    :cond_0
+    :goto_1
+    return-void
+
+    .end local v2    # "switchText":Ljava/lang/CharSequence;
+    :cond_1
+    iget-object v2, p0, Landroid/widget/Switch;->mTextOff:Ljava/lang/CharSequence;
+
+    goto :goto_0
+
+    .restart local v1    # "oldText":Ljava/lang/CharSequence;
+    .restart local v2    # "switchText":Ljava/lang/CharSequence;
+    :cond_2
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    .local v0, "newText":Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/CharSequence;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const/16 v4, 0x20
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/CharSequence;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p1, v0}, Landroid/view/ViewAssistData;->setText(Ljava/lang/CharSequence;)V
+
+    goto :goto_1
 .end method
 
 .method public onTouchEvent(Landroid/view/MotionEvent;)Z

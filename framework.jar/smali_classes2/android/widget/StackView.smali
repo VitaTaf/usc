@@ -2245,6 +2245,19 @@
     goto :goto_1
 .end method
 
+.method public getAccessibilityClassName()Ljava/lang/CharSequence;
+    .locals 1
+
+    .prologue
+    const-class v0, Landroid/widget/StackView;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method getFrameForChild()Landroid/widget/FrameLayout;
     .locals 5
 
@@ -2351,24 +2364,6 @@
     .end packed-switch
 .end method
 
-.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-    .locals 1
-    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/widget/AdapterViewAnimator;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-
-    const-class v0, Landroid/widget/StackView;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
 .method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
     .locals 2
     .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
@@ -2377,14 +2372,6 @@
     const/4 v0, 0x1
 
     invoke-super {p0, p1}, Landroid/widget/AdapterViewAnimator;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-
-    const-class v1, Landroid/widget/StackView;
-
-    invoke-virtual {v1}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {p1, v1}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
 
     invoke-virtual {p0}, Landroid/widget/StackView;->getChildCount()I
 

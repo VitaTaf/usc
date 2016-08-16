@@ -1999,6 +1999,19 @@
     return v0
 .end method
 
+.method public getAccessibilityClassName()Ljava/lang/CharSequence;
+    .locals 1
+
+    .prologue
+    const-class v0, Landroid/widget/DatePicker;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public getCalendarView()Landroid/widget/CalendarView;
     .locals 2
 
@@ -2232,38 +2245,6 @@
     invoke-direct {v0, v1, v2}, Ljava/text/SimpleDateFormat;-><init>(Ljava/lang/String;Ljava/util/Locale;)V
 
     iput-object v0, p0, Landroid/widget/DatePickerCalendarDelegate;->mDayFormat:Ljava/text/SimpleDateFormat;
-
-    return-void
-.end method
-
-.method public onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
-    .locals 1
-    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
-
-    .prologue
-    const-class v0, Landroid/widget/DatePicker;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
-.method public onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-    .locals 1
-    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    .prologue
-    const-class v0, Landroid/widget/DatePicker;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
 
     return-void
 .end method

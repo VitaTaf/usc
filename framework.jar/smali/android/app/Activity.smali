@@ -5318,10 +5318,18 @@
 .end method
 
 .method public onProvideAssistData(Landroid/os/Bundle;)V
-    .locals 0
+    .locals 2
     .param p1, "data"    # Landroid/os/Bundle;
 
     .prologue
+    const-string v0, "android:assist"
+
+    new-instance v1, Landroid/app/AssistData;
+
+    invoke-direct {v1, p0}, Landroid/app/AssistData;-><init>(Landroid/app/Activity;)V
+
+    invoke-virtual {p1, v0, v1}, Landroid/os/Bundle;->putParcelable(Ljava/lang/String;Landroid/os/Parcelable;)V
+
     return-void
 .end method
 

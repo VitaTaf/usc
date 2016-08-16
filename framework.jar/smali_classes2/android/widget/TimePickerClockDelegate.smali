@@ -4318,38 +4318,6 @@
     return-void
 .end method
 
-.method public onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
-    .locals 1
-    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
-
-    .prologue
-    const-class v0, Landroid/widget/TimePicker;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
-.method public onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-    .locals 1
-    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    .prologue
-    const-class v0, Landroid/widget/TimePicker;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
 .method public onPopulateAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
     .locals 6
     .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;

@@ -211,4 +211,5 @@
     <attr name="interpolatorX" format="reference" />
     <attr name="interpolatorY" format="reference" />
     <attr name="interpolatorZ" format="reference" />
+    <attr name="controlBackground" format="color" />
 </resources>

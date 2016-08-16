@@ -1759,6 +1759,19 @@
     return v3
 .end method
 
+.method public getAccessibilityClassName()Ljava/lang/CharSequence;
+    .locals 1
+
+    .prologue
+    const-class v0, Landroid/widget/ExpandableListView;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public bridge synthetic getAdapter()Landroid/widget/Adapter;
     .locals 1
 
@@ -2133,42 +2146,6 @@
     move-result v0
 
     return v0
-.end method
-
-.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-    .locals 1
-    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/widget/ListView;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-
-    const-class v0, Landroid/widget/ExpandableListView;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
-.method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-    .locals 1
-    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/widget/ListView;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-
-    const-class v0, Landroid/widget/ExpandableListView;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
 .end method
 
 .method public onRestoreInstanceState(Landroid/os/Parcelable;)V

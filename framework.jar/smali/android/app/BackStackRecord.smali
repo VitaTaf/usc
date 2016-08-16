@@ -3451,7 +3451,7 @@
     :cond_1
     invoke-virtual {p2, p1}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 
-    const-string v5, "mEnterAnim=#"
+    const-string/jumbo v5, "mEnterAnim=#"
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 
@@ -3883,6 +3883,8 @@
     .end local v4    # "op":Landroid/app/BackStackRecord$Op;
     :cond_10
     return-void
+
+    nop
 
     :pswitch_data_0
     .packed-switch 0x0

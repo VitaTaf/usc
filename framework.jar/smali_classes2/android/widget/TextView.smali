@@ -10826,6 +10826,19 @@
     return-void
 .end method
 
+.method public getAccessibilityClassName()Ljava/lang/CharSequence;
+    .locals 1
+
+    .prologue
+    const-class v0, Landroid/widget/TextView;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public getAccessibilitySelectionEnd()I
     .locals 1
 
@@ -18473,14 +18486,6 @@
     .prologue
     invoke-super {p0, p1}, Landroid/view/View;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
 
-    const-class v1, Landroid/widget/TextView;
-
-    invoke-virtual {v1}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {p1, v1}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
     invoke-direct {p0}, Landroid/widget/TextView;->hasPasswordTransformationMethod()Z
 
     move-result v0
@@ -18532,14 +18537,6 @@
     const/4 v6, 0x1
 
     invoke-super {p0, p1}, Landroid/view/View;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-
-    const-class v4, Landroid/widget/TextView;
-
-    invoke-virtual {v4}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {p1, v4}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
 
     invoke-direct {p0}, Landroid/widget/TextView;->hasPasswordTransformationMethod()Z
 
@@ -20449,6 +20446,45 @@
     const/4 v0, 0x0
 
     return v0
+.end method
+
+.method public onProvideAssistData(Landroid/view/ViewAssistData;Landroid/os/Bundle;)V
+    .locals 4
+    .param p1, "data"    # Landroid/view/ViewAssistData;
+    .param p2, "extras"    # Landroid/os/Bundle;
+
+    .prologue
+    invoke-super {p0, p1, p2}, Landroid/view/View;->onProvideAssistData(Landroid/view/ViewAssistData;Landroid/os/Bundle;)V
+
+    invoke-direct {p0}, Landroid/widget/TextView;->hasPasswordTransformationMethod()Z
+
+    move-result v0
+
+    .local v0, "isPassword":Z
+    if-nez v0, :cond_0
+
+    invoke-virtual {p0}, Landroid/widget/TextView;->getText()Ljava/lang/CharSequence;
+
+    move-result-object v1
+
+    invoke-virtual {p0}, Landroid/widget/TextView;->getSelectionStart()I
+
+    move-result v2
+
+    invoke-virtual {p0}, Landroid/widget/TextView;->getSelectionEnd()I
+
+    move-result v3
+
+    invoke-virtual {p1, v1, v2, v3}, Landroid/view/ViewAssistData;->setText(Ljava/lang/CharSequence;II)V
+
+    :cond_0
+    invoke-virtual {p0}, Landroid/widget/TextView;->getHint()Ljava/lang/CharSequence;
+
+    move-result-object v1
+
+    invoke-virtual {p1, v1}, Landroid/view/ViewAssistData;->setHint(Ljava/lang/CharSequence;)V
+
+    return-void
 .end method
 
 .method public onResolveDrawables(I)V

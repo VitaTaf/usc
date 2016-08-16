@@ -1836,6 +1836,19 @@
     return-object v0
 .end method
 
+.method public getAccessibilityClassName()Ljava/lang/CharSequence;
+    .locals 1
+
+    .prologue
+    const-class v0, Landroid/widget/Gallery;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method protected getChildDrawingOrder(II)I
     .locals 3
     .param p1, "childCount"    # I
@@ -2338,24 +2351,6 @@
     return-void
 .end method
 
-.method public onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-    .locals 1
-    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/widget/AbsSpinner;->onInitializeAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
-
-    const-class v0, Landroid/widget/Gallery;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
-
-    return-void
-.end method
-
 .method public onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
     .locals 2
     .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
@@ -2364,14 +2359,6 @@
     const/4 v0, 0x1
 
     invoke-super {p0, p1}, Landroid/widget/AbsSpinner;->onInitializeAccessibilityNodeInfoInternal(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-
-    const-class v1, Landroid/widget/Gallery;
-
-    invoke-virtual {v1}, Ljava/lang/Class;->getName()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {p1, v1}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
 
     iget v1, p0, Landroid/widget/Gallery;->mItemCount:I
 

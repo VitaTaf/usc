@@ -1580,9 +1580,9 @@
     return-void
 .end method
 
-.method public setup(IF)V
+.method public setup(FF)V
     .locals 5
-    .param p1, "maxRadius"    # I
+    .param p1, "maxRadius"    # F
     .param p2, "density"    # F
 
     .prologue
@@ -1590,17 +1590,15 @@
 
     const/4 v4, 0x0
 
-    const/4 v2, -0x1
+    cmpl-float v2, p1, v4
 
-    if-eq p1, v2, :cond_0
+    if-ltz v2, :cond_0
 
     const/4 v2, 0x1
 
     iput-boolean v2, p0, Landroid/graphics/drawable/Ripple;->mHasMaxRadius:Z
 
-    int-to-float v2, p1
-
-    iput v2, p0, Landroid/graphics/drawable/Ripple;->mOuterRadius:F
+    iput p1, p0, Landroid/graphics/drawable/Ripple;->mOuterRadius:F
 
     :goto_0
     iput v4, p0, Landroid/graphics/drawable/Ripple;->mOuterX:F

@@ -296,7 +296,7 @@
     return v0
 .end method
 
-.method public super_performAccessibilityActionInternal(ILandroid/os/Bundle;)Z
+.method public super_performAccessibilityAction(ILandroid/os/Bundle;)Z
     .locals 1
     .param p1, "action"    # I
     .param p2, "arguments"    # Landroid/os/Bundle;

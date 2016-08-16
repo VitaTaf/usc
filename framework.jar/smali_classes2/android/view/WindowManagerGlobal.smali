@@ -1717,6 +1717,178 @@
     throw v2
 .end method
 
+.method public getRootViews(Landroid/os/IBinder;)Ljava/util/ArrayList;
+    .locals 11
+    .param p1, "token"    # Landroid/os/IBinder;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/os/IBinder;",
+            ")",
+            "Ljava/util/ArrayList",
+            "<",
+            "Landroid/view/ViewRootImpl;",
+            ">;"
+        }
+    .end annotation
+
+    .prologue
+    new-instance v7, Ljava/util/ArrayList;
+
+    invoke-direct {v7}, Ljava/util/ArrayList;-><init>()V
+
+    .local v7, "views":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Landroid/view/ViewRootImpl;>;"
+    iget-object v9, p0, Landroid/view/WindowManagerGlobal;->mLock:Ljava/lang/Object;
+
+    monitor-enter v9
+
+    :try_start_0
+    iget-object v8, p0, Landroid/view/WindowManagerGlobal;->mRoots:Ljava/util/ArrayList;
+
+    invoke-virtual {v8}, Ljava/util/ArrayList;->size()I
+
+    move-result v3
+
+    .local v3, "numRoots":I
+    const/4 v0, 0x0
+
+    .local v0, "i":I
+    :goto_0
+    if-ge v0, v3, :cond_5
+
+    iget-object v8, p0, Landroid/view/WindowManagerGlobal;->mParams:Ljava/util/ArrayList;
+
+    invoke-virtual {v8, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v4
+
+    check-cast v4, Landroid/view/WindowManager$LayoutParams;
+
+    .local v4, "params":Landroid/view/WindowManager$LayoutParams;
+    iget-object v8, v4, Landroid/view/WindowManager$LayoutParams;->token:Landroid/os/IBinder;
+
+    if-nez v8, :cond_1
+
+    :cond_0
+    :goto_1
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_0
+
+    :cond_1
+    iget-object v8, v4, Landroid/view/WindowManager$LayoutParams;->token:Landroid/os/IBinder;
+
+    if-eq v8, p1, :cond_3
+
+    const/4 v1, 0x0
+
+    .local v1, "isChild":Z
+    iget v8, v4, Landroid/view/WindowManager$LayoutParams;->type:I
+
+    const/16 v10, 0x3e8
+
+    if-lt v8, v10, :cond_2
+
+    iget v8, v4, Landroid/view/WindowManager$LayoutParams;->type:I
+
+    const/16 v10, 0x7cf
+
+    if-gt v8, v10, :cond_2
+
+    const/4 v2, 0x0
+
+    .local v2, "j":I
+    :goto_2
+    if-ge v2, v3, :cond_2
+
+    iget-object v8, p0, Landroid/view/WindowManagerGlobal;->mViews:Ljava/util/ArrayList;
+
+    invoke-virtual {v8, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v6
+
+    check-cast v6, Landroid/view/View;
+
+    .local v6, "viewj":Landroid/view/View;
+    iget-object v8, p0, Landroid/view/WindowManagerGlobal;->mParams:Ljava/util/ArrayList;
+
+    invoke-virtual {v8, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v5
+
+    check-cast v5, Landroid/view/WindowManager$LayoutParams;
+
+    .local v5, "paramsj":Landroid/view/WindowManager$LayoutParams;
+    iget-object v8, v4, Landroid/view/WindowManager$LayoutParams;->token:Landroid/os/IBinder;
+
+    invoke-virtual {v6}, Landroid/view/View;->getWindowToken()Landroid/os/IBinder;
+
+    move-result-object v10
+
+    if-ne v8, v10, :cond_4
+
+    iget-object v8, v5, Landroid/view/WindowManager$LayoutParams;->token:Landroid/os/IBinder;
+
+    if-ne v8, p1, :cond_4
+
+    const/4 v1, 0x1
+
+    .end local v2    # "j":I
+    .end local v5    # "paramsj":Landroid/view/WindowManager$LayoutParams;
+    .end local v6    # "viewj":Landroid/view/View;
+    :cond_2
+    if-eqz v1, :cond_0
+
+    .end local v1    # "isChild":Z
+    :cond_3
+    iget-object v8, p0, Landroid/view/WindowManagerGlobal;->mRoots:Ljava/util/ArrayList;
+
+    invoke-virtual {v8, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v8
+
+    invoke-virtual {v7, v8}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto :goto_1
+
+    .end local v0    # "i":I
+    .end local v3    # "numRoots":I
+    .end local v4    # "params":Landroid/view/WindowManager$LayoutParams;
+    :catchall_0
+    move-exception v8
+
+    monitor-exit v9
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v8
+
+    .restart local v0    # "i":I
+    .restart local v1    # "isChild":Z
+    .restart local v2    # "j":I
+    .restart local v3    # "numRoots":I
+    .restart local v4    # "params":Landroid/view/WindowManager$LayoutParams;
+    .restart local v5    # "paramsj":Landroid/view/WindowManager$LayoutParams;
+    .restart local v6    # "viewj":Landroid/view/View;
+    :cond_4
+    add-int/lit8 v2, v2, 0x1
+
+    goto :goto_2
+
+    .end local v1    # "isChild":Z
+    .end local v2    # "j":I
+    .end local v4    # "params":Landroid/view/WindowManager$LayoutParams;
+    .end local v5    # "paramsj":Landroid/view/WindowManager$LayoutParams;
+    .end local v6    # "viewj":Landroid/view/View;
+    :cond_5
+    :try_start_1
+    monitor-exit v9
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    return-object v7
+.end method
+
 .method public getViewRootNames()[Ljava/lang/String;
     .locals 5
 

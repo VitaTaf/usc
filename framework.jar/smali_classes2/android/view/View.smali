@@ -16609,6 +16609,19 @@
     goto :goto_0
 .end method
 
+.method public getAccessibilityClassName()Ljava/lang/CharSequence;
+    .locals 1
+
+    .prologue
+    const-class v0, Landroid/view/View;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public getAccessibilityDelegate()Landroid/view/View$AccessibilityDelegate;
     .locals 1
 
@@ -25591,9 +25604,7 @@
     .prologue
     invoke-virtual {p1, p0}, Landroid/view/accessibility/AccessibilityEvent;->setSource(Landroid/view/View;)V
 
-    const-class v2, Landroid/view/View;
-
-    invoke-virtual {v2}, Ljava/lang/Class;->getName()Ljava/lang/String;
+    invoke-virtual {p0}, Landroid/view/View;->getAccessibilityClassName()Ljava/lang/CharSequence;
 
     move-result-object v2
 
@@ -25939,9 +25950,7 @@
 
     invoke-virtual {p1, v8}, Landroid/view/accessibility/AccessibilityNodeInfo;->setPackageName(Ljava/lang/CharSequence;)V
 
-    const-class v8, Landroid/view/View;
-
-    invoke-virtual {v8}, Ljava/lang/Class;->getName()Ljava/lang/String;
+    invoke-virtual {p0}, Landroid/view/View;->getAccessibilityClassName()Ljava/lang/CharSequence;
 
     move-result-object v8
 
@@ -26381,6 +26390,15 @@
 .method public onPopulateAccessibilityEventInternal(Landroid/view/accessibility/AccessibilityEvent;)V
     .locals 0
     .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
+
+    .prologue
+    return-void
+.end method
+
+.method public onProvideAssistData(Landroid/view/ViewAssistData;Landroid/os/Bundle;)V
+    .locals 0
+    .param p1, "data"    # Landroid/view/ViewAssistData;
+    .param p2, "extras"    # Landroid/os/Bundle;
 
     .prologue
     return-void

@@ -940,9 +940,11 @@
 
     iget v1, v1, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
 
+    int-to-float v1, v1
+
     iget v2, p0, Landroid/graphics/drawable/RippleDrawable;->mDensity:F
 
-    invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/RippleBackground;->setup(IF)V
+    invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/RippleBackground;->setup(FF)V
 
     iget-object v0, p0, Landroid/graphics/drawable/RippleDrawable;->mBackground:Landroid/graphics/drawable/RippleBackground;
 
@@ -1017,9 +1019,11 @@
 
     iget v3, v3, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
 
+    int-to-float v3, v3
+
     iget v4, p0, Landroid/graphics/drawable/RippleDrawable;->mDensity:F
 
-    invoke-virtual {v2, v3, v4}, Landroid/graphics/drawable/Ripple;->setup(IF)V
+    invoke-virtual {v2, v3, v4}, Landroid/graphics/drawable/Ripple;->setup(FF)V
 
     iget-object v2, p0, Landroid/graphics/drawable/RippleDrawable;->mRipple:Landroid/graphics/drawable/Ripple;
 
@@ -1303,7 +1307,7 @@
 .end method
 
 .method private updateStateFromTypedArray(Landroid/content/res/TypedArray;)V
-    .locals 4
+    .locals 5
     .param p1, "a"    # Landroid/content/res/TypedArray;
     .annotation system Ldalvik/annotation/Throws;
         value = {
@@ -1345,6 +1349,20 @@
     iput-object v0, v2, Landroid/graphics/drawable/RippleDrawable$RippleState;->mColor:Landroid/content/res/ColorStateList;
 
     :cond_0
+    iget-object v2, p0, Landroid/graphics/drawable/RippleDrawable;->mState:Landroid/graphics/drawable/RippleDrawable$RippleState;
+
+    const/4 v3, 0x1
+
+    iget-object v4, p0, Landroid/graphics/drawable/RippleDrawable;->mState:Landroid/graphics/drawable/RippleDrawable$RippleState;
+
+    iget v4, v4, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
+
+    invoke-virtual {p1, v3, v4}, Landroid/content/res/TypedArray;->getDimensionPixelSize(II)I
+
+    move-result v3
+
+    iput v3, v2, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
+
     invoke-direct {p0, p1}, Landroid/graphics/drawable/RippleDrawable;->verifyRequiredAttributes(Landroid/content/res/TypedArray;)V
 
     return-void
@@ -1716,17 +1734,6 @@
     return-void
 .end method
 
-.method public getMaxRadius()I
-    .locals 1
-
-    .prologue
-    iget-object v0, p0, Landroid/graphics/drawable/RippleDrawable;->mState:Landroid/graphics/drawable/RippleDrawable$RippleState;
-
-    iget v0, v0, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
-
-    return v0
-.end method
-
 .method public getOpacity()I
     .locals 1
 
@@ -1783,6 +1790,17 @@
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_0
+.end method
+
+.method public getRadius()I
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/graphics/drawable/RippleDrawable;->mState:Landroid/graphics/drawable/RippleDrawable$RippleState;
+
+    iget v0, v0, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
+
+    return v0
 .end method
 
 .method public inflate(Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)V
@@ -2206,39 +2224,26 @@
     return-void
 .end method
 
-.method public setMaxRadius(I)V
-    .locals 2
-    .param p1, "maxRadius"    # I
-
-    .prologue
-    const/4 v0, -0x1
-
-    if-eq p1, v0, :cond_0
-
-    if-gez p1, :cond_0
-
-    new-instance v0, Ljava/lang/IllegalArgumentException;
-
-    const-string/jumbo v1, "maxRadius must be RADIUS_AUTO or >= 0"
-
-    invoke-direct {v0, v1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
-
-    throw v0
-
-    :cond_0
-    iget-object v0, p0, Landroid/graphics/drawable/RippleDrawable;->mState:Landroid/graphics/drawable/RippleDrawable$RippleState;
-
-    iput p1, v0, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
-
-    return-void
-.end method
-
 .method public setPaddingMode(I)V
     .locals 0
     .param p1, "mode"    # I
 
     .prologue
     invoke-super {p0, p1}, Landroid/graphics/drawable/LayerDrawable;->setPaddingMode(I)V
+
+    return-void
+.end method
+
+.method public setRadius(I)V
+    .locals 1
+    .param p1, "radius"    # I
+
+    .prologue
+    iget-object v0, p0, Landroid/graphics/drawable/RippleDrawable;->mState:Landroid/graphics/drawable/RippleDrawable$RippleState;
+
+    iput p1, v0, Landroid/graphics/drawable/RippleDrawable$RippleState;->mMaxRadius:I
+
+    invoke-virtual {p0}, Landroid/graphics/drawable/RippleDrawable;->invalidateSelf()V
 
     return-void
 .end method

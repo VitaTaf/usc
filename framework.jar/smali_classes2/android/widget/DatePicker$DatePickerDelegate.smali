@@ -54,12 +54,6 @@
 .method public abstract onConfigurationChanged(Landroid/content/res/Configuration;)V
 .end method
 
-.method public abstract onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
-.end method
-
-.method public abstract onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
-.end method
-
 .method public abstract onPopulateAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
 .end method
 
