@@ -4,9 +4,9 @@
 
 # interfaces
 .implements Landroid/content/DialogInterface;
+.implements Landroid/view/Window$Callback;
 .implements Landroid/view/KeyEvent$Callback;
 .implements Landroid/view/View$OnCreateContextMenuListener;
-.implements Landroid/view/Window$Callback;
 .implements Landroid/view/Window$OnWindowDismissedCallback;
 
 
@@ -173,11 +173,11 @@
 
     iput-object v2, p0, Landroid/app/Dialog;->mWindowManager:Landroid/view/WindowManager;
 
+    new-instance v1, Landroid/view/PhoneWindow;
+
     iget-object v2, p0, Landroid/app/Dialog;->mContext:Landroid/content/Context;
 
-    invoke-static {v2}, Lcom/android/internal/policy/PolicyManager;->makeNewWindow(Landroid/content/Context;)Landroid/view/Window;
-
-    move-result-object v1
+    invoke-direct {v1, v2}, Landroid/view/PhoneWindow;-><init>(Landroid/content/Context;)V
 
     .local v1, "w":Landroid/view/Window;
     iput-object v1, p0, Landroid/app/Dialog;->mWindow:Landroid/view/Window;

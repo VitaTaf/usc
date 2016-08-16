@@ -732,9 +732,9 @@
 
     iput-object v7, p0, Lcom/android/server/wm/WindowManagerService;->mCurrentProfileIds:[I
 
-    invoke-static {}, Lcom/android/internal/policy/PolicyManager;->makeNewWindowManager()Landroid/view/WindowManagerPolicy;
+    new-instance v7, Lcom/android/server/policy/PhoneWindowManager;
 
-    move-result-object v7
+    invoke-direct {v7}, Lcom/android/server/policy/PhoneWindowManager;-><init>()V
 
     iput-object v7, p0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
 
