@@ -4110,7 +4110,7 @@
     .param p1, "win"    # Landroid/view/WindowManagerPolicy$WindowState;
 
     .prologue
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getContentFrameLw()Landroid/graphics/Rect;
+    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getDisplayFrameLw()Landroid/graphics/Rect;
 
     move-result-object v1
 
@@ -4164,145 +4164,33 @@
 .end method
 
 .method private offsetVoiceInputWindowLw(Landroid/view/WindowManagerPolicy$WindowState;)V
-    .locals 7
+    .locals 2
     .param p1, "win"    # Landroid/view/WindowManagerPolicy$WindowState;
 
     .prologue
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getAttrs()Landroid/view/WindowManager$LayoutParams;
+    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getDisplayFrameLw()Landroid/graphics/Rect;
 
-    move-result-object v5
+    move-result-object v1
 
-    iget v1, v5, Landroid/view/WindowManager$LayoutParams;->gravity:I
+    iget v0, v1, Landroid/graphics/Rect;->top:I
 
-    .local v1, "gravity":I
-    and-int/lit8 v5, v1, 0x6
+    .local v0, "top":I
+    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getGivenContentInsetsLw()Landroid/graphics/Rect;
 
-    packed-switch v5, :pswitch_data_0
+    move-result-object v1
+
+    iget v1, v1, Landroid/graphics/Rect;->top:I
+
+    add-int/2addr v0, v1
+
+    iget v1, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentBottom:I
+
+    if-le v1, v0, :cond_0
+
+    iput v0, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentBottom:I
 
     :cond_0
-    :goto_0
-    :pswitch_0
-    and-int/lit8 v5, v1, 0x60
-
-    sparse-switch v5, :sswitch_data_0
-
-    :cond_1
-    :goto_1
     return-void
-
-    :pswitch_1
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getContentFrameLw()Landroid/graphics/Rect;
-
-    move-result-object v5
-
-    iget v5, v5, Landroid/graphics/Rect;->right:I
-
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getGivenContentInsetsLw()Landroid/graphics/Rect;
-
-    move-result-object v6
-
-    iget v6, v6, Landroid/graphics/Rect;->right:I
-
-    sub-int v3, v5, v6
-
-    .local v3, "right":I
-    iget v5, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentLeft:I
-
-    if-ge v5, v3, :cond_0
-
-    iput v3, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentLeft:I
-
-    goto :goto_0
-
-    .end local v3    # "right":I
-    :pswitch_2
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getContentFrameLw()Landroid/graphics/Rect;
-
-    move-result-object v5
-
-    iget v5, v5, Landroid/graphics/Rect;->left:I
-
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getGivenContentInsetsLw()Landroid/graphics/Rect;
-
-    move-result-object v6
-
-    iget v6, v6, Landroid/graphics/Rect;->left:I
-
-    sub-int v2, v5, v6
-
-    .local v2, "left":I
-    iget v5, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentRight:I
-
-    if-ge v5, v2, :cond_0
-
-    iput v2, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentRight:I
-
-    goto :goto_0
-
-    .end local v2    # "left":I
-    :sswitch_0
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getContentFrameLw()Landroid/graphics/Rect;
-
-    move-result-object v5
-
-    iget v5, v5, Landroid/graphics/Rect;->bottom:I
-
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getGivenContentInsetsLw()Landroid/graphics/Rect;
-
-    move-result-object v6
-
-    iget v6, v6, Landroid/graphics/Rect;->bottom:I
-
-    sub-int v0, v5, v6
-
-    .local v0, "bottom":I
-    iget v5, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentTop:I
-
-    if-ge v5, v0, :cond_1
-
-    iput v0, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentTop:I
-
-    goto :goto_1
-
-    .end local v0    # "bottom":I
-    :sswitch_1
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getContentFrameLw()Landroid/graphics/Rect;
-
-    move-result-object v5
-
-    iget v5, v5, Landroid/graphics/Rect;->top:I
-
-    invoke-interface {p1}, Landroid/view/WindowManagerPolicy$WindowState;->getGivenContentInsetsLw()Landroid/graphics/Rect;
-
-    move-result-object v6
-
-    iget v6, v6, Landroid/graphics/Rect;->top:I
-
-    sub-int v4, v5, v6
-
-    .local v4, "top":I
-    iget v5, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentBottom:I
-
-    if-ge v5, v4, :cond_1
-
-    iput v4, p0, Lcom/android/server/policy/PhoneWindowManager;->mVoiceContentBottom:I
-
-    goto :goto_1
-
-    nop
-
-    :pswitch_data_0
-    .packed-switch 0x2
-        :pswitch_1
-        :pswitch_0
-        :pswitch_2
-    .end packed-switch
-
-    :sswitch_data_0
-    .sparse-switch
-        0x20 -> :sswitch_0
-        0x40 -> :sswitch_1
-    .end sparse-switch
 .end method
 
 .method private performAuditoryFeedbackForAccessibilityIfNeed()V
@@ -11150,11 +11038,9 @@
 
     iget-object v0, p0, Lcom/android/server/policy/PhoneWindowManager;->mStatusBar:Landroid/view/WindowManagerPolicy$WindowState;
 
-    invoke-virtual {p2, v0}, Ljava/io/PrintWriter;->println(Ljava/lang/Object;)V
+    invoke-virtual {p2, v0}, Ljava/io/PrintWriter;->print(Ljava/lang/Object;)V
 
-    invoke-virtual {p2, p1}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
-
-    const-string v0, "isStatusBarKeyguard="
+    const-string v0, " isStatusBarKeyguard="
 
     invoke-virtual {p2, v0}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 
@@ -11162,7 +11048,7 @@
 
     move-result v0
 
-    invoke-virtual {p2, v0}, Ljava/io/PrintWriter;->print(Z)V
+    invoke-virtual {p2, v0}, Ljava/io/PrintWriter;->println(Z)V
 
     :cond_7
     iget-object v0, p0, Lcom/android/server/policy/PhoneWindowManager;->mNavigationBar:Landroid/view/WindowManagerPolicy$WindowState;
@@ -18363,8 +18249,15 @@
 
     const/16 v3, 0x7db
 
+    if-eq v2, v3, :cond_3d
+
+    iget v2, v15, Landroid/view/WindowManager$LayoutParams;->type:I
+
+    const/16 v3, 0x7ef
+
     if-ne v2, v3, :cond_e
 
+    :cond_3d
     move-object/from16 v0, p0
 
     iget v2, v0, Lcom/android/server/policy/PhoneWindowManager;->mDockLeft:I

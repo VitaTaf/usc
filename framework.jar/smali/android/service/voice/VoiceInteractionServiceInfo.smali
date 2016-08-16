@@ -254,11 +254,32 @@
     goto :goto_0
 
     :cond_6
-    if-eqz v4, :cond_7
+    :try_start_3
+    iget-object v7, p0, Landroid/service/voice/VoiceInteractionServiceInfo;->mRecognitionService:Ljava/lang/String;
+
+    if-nez v7, :cond_7
+
+    const-string v7, "No recognitionService specified"
+
+    iput-object v7, p0, Landroid/service/voice/VoiceInteractionServiceInfo;->mParseError:Ljava/lang/String;
+    :try_end_3
+    .catch Lorg/xmlpull/v1/XmlPullParserException; {:try_start_3 .. :try_end_3} :catch_0
+    .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_1
+    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_3 .. :try_end_3} :catch_2
+    .catchall {:try_start_3 .. :try_end_3} :catchall_0
+
+    if-eqz v4, :cond_0
 
     invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->close()V
 
+    goto/16 :goto_0
+
     :cond_7
+    if-eqz v4, :cond_8
+
+    invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->close()V
+
+    :cond_8
     iput-object p2, p0, Landroid/service/voice/VoiceInteractionServiceInfo;->mServiceInfo:Landroid/content/pm/ServiceInfo;
 
     goto/16 :goto_0
@@ -272,46 +293,6 @@
     move-exception v2
 
     .local v2, "e":Lorg/xmlpull/v1/XmlPullParserException;
-    :try_start_3
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v8, "Error parsing voice interation service meta-data: "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    iput-object v7, p0, Landroid/service/voice/VoiceInteractionServiceInfo;->mParseError:Ljava/lang/String;
-
-    const-string v7, "VoiceInteractionServiceInfo"
-
-    const-string v8, "error parsing voice interaction service meta-data"
-
-    invoke-static {v7, v8, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
-    :try_end_3
-    .catchall {:try_start_3 .. :try_end_3} :catchall_0
-
-    if-eqz v4, :cond_0
-
-    invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->close()V
-
-    goto/16 :goto_0
-
-    .end local v2    # "e":Lorg/xmlpull/v1/XmlPullParserException;
-    :catch_1
-    move-exception v2
-
-    .local v2, "e":Ljava/io/IOException;
     :try_start_4
     new-instance v7, Ljava/lang/StringBuilder;
 
@@ -347,11 +328,11 @@
 
     goto/16 :goto_0
 
-    .end local v2    # "e":Ljava/io/IOException;
-    :catch_2
+    .end local v2    # "e":Lorg/xmlpull/v1/XmlPullParserException;
+    :catch_1
     move-exception v2
 
-    .local v2, "e":Landroid/content/pm/PackageManager$NameNotFoundException;
+    .local v2, "e":Ljava/io/IOException;
     :try_start_5
     new-instance v7, Ljava/lang/StringBuilder;
 
@@ -387,15 +368,55 @@
 
     goto/16 :goto_0
 
+    .end local v2    # "e":Ljava/io/IOException;
+    :catch_2
+    move-exception v2
+
+    .local v2, "e":Landroid/content/pm/PackageManager$NameNotFoundException;
+    :try_start_6
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "Error parsing voice interation service meta-data: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    iput-object v7, p0, Landroid/service/voice/VoiceInteractionServiceInfo;->mParseError:Ljava/lang/String;
+
+    const-string v7, "VoiceInteractionServiceInfo"
+
+    const-string v8, "error parsing voice interaction service meta-data"
+
+    invoke-static {v7, v8, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+    :try_end_6
+    .catchall {:try_start_6 .. :try_end_6} :catchall_0
+
+    if-eqz v4, :cond_0
+
+    invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->close()V
+
+    goto/16 :goto_0
+
     .end local v2    # "e":Landroid/content/pm/PackageManager$NameNotFoundException;
     :catchall_0
     move-exception v7
 
-    if-eqz v4, :cond_8
+    if-eqz v4, :cond_9
 
     invoke-interface {v4}, Landroid/content/res/XmlResourceParser;->close()V
 
-    :cond_8
+    :cond_9
     throw v7
 .end method
 

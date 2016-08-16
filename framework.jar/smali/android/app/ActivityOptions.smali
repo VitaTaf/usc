@@ -12,6 +12,8 @@
 
 
 # static fields
+.field public static final ANIM_CLIP_REVEAL:I = 0xb
+
 .field public static final ANIM_CUSTOM:I = 0x1
 
 .field public static final ANIM_CUSTOM_IN_PLACE:I = 0xa
@@ -366,6 +368,7 @@
         :pswitch_4
         :pswitch_4
         :pswitch_2
+        :pswitch_3
     .end packed-switch
 .end method
 
@@ -459,6 +462,54 @@
     const/16 v2, 0x9
 
     goto :goto_0
+.end method
+
+.method public static makeClipRevealAnimation(Landroid/view/View;IIII)Landroid/app/ActivityOptions;
+    .locals 3
+    .param p0, "source"    # Landroid/view/View;
+    .param p1, "startX"    # I
+    .param p2, "startY"    # I
+    .param p3, "width"    # I
+    .param p4, "height"    # I
+
+    .prologue
+    new-instance v0, Landroid/app/ActivityOptions;
+
+    invoke-direct {v0}, Landroid/app/ActivityOptions;-><init>()V
+
+    .local v0, "opts":Landroid/app/ActivityOptions;
+    const/16 v2, 0xb
+
+    iput v2, v0, Landroid/app/ActivityOptions;->mAnimationType:I
+
+    const/4 v2, 0x2
+
+    new-array v1, v2, [I
+
+    .local v1, "pts":[I
+    invoke-virtual {p0, v1}, Landroid/view/View;->getLocationOnScreen([I)V
+
+    const/4 v2, 0x0
+
+    aget v2, v1, v2
+
+    add-int/2addr v2, p1
+
+    iput v2, v0, Landroid/app/ActivityOptions;->mStartX:I
+
+    const/4 v2, 0x1
+
+    aget v2, v1, v2
+
+    add-int/2addr v2, p2
+
+    iput v2, v0, Landroid/app/ActivityOptions;->mStartY:I
+
+    iput p3, v0, Landroid/app/ActivityOptions;->mWidth:I
+
+    iput p4, v0, Landroid/app/ActivityOptions;->mHeight:I
+
+    return-object v0
 .end method
 
 .method public static makeCustomAnimation(Landroid/content/Context;II)Landroid/app/ActivityOptions;
@@ -1550,6 +1601,7 @@
         :pswitch_4
         :pswitch_4
         :pswitch_2
+        :pswitch_3
     .end packed-switch
 .end method
 

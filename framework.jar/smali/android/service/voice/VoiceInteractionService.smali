@@ -22,6 +22,8 @@
 
 .field public static final SERVICE_META_DATA:Ljava/lang/String; = "android.voice_interaction"
 
+.field public static final START_WITH_ASSIST:I = 0x1
+
 
 # instance fields
 .field mHandler:Landroid/service/voice/VoiceInteractionService$MyHandler;
@@ -429,8 +431,21 @@
 .end method
 
 .method public startSession(Landroid/os/Bundle;)V
+    .locals 1
+    .param p1, "args"    # Landroid/os/Bundle;
+
+    .prologue
+    const/4 v0, 0x0
+
+    invoke-virtual {p0, p1, v0}, Landroid/service/voice/VoiceInteractionService;->startSession(Landroid/os/Bundle;I)V
+
+    return-void
+.end method
+
+.method public startSession(Landroid/os/Bundle;I)V
     .locals 2
     .param p1, "args"    # Landroid/os/Bundle;
+    .param p2, "flags"    # I
 
     .prologue
     iget-object v0, p0, Landroid/service/voice/VoiceInteractionService;->mSystemService:Lcom/android/internal/app/IVoiceInteractionManagerService;
@@ -451,7 +466,7 @@
 
     iget-object v1, p0, Landroid/service/voice/VoiceInteractionService;->mInterface:Landroid/service/voice/IVoiceInteractionService;
 
-    invoke-interface {v0, v1, p1}, Lcom/android/internal/app/IVoiceInteractionManagerService;->startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;)V
+    invoke-interface {v0, v1, p1, p2}, Lcom/android/internal/app/IVoiceInteractionManagerService;->startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;I)V
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 

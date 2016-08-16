@@ -3,8 +3,8 @@
 .source "VoiceInteractionSession.java"
 
 # interfaces
-.implements Landroid/inputmethodservice/SoftInputWindow$Callback;
 .implements Lcom/android/internal/os/HandlerCaller$Callback;
+.implements Landroid/inputmethodservice/SoftInputWindow$Callback;
 
 
 # annotations
@@ -592,6 +592,43 @@
 
     goto/16 :goto_0
 
+    :sswitch_a
+    const-string v2, "VoiceInteractionSession"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string/jumbo v3, "onHandleAssist: "
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    iget-object v1, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
+
+    check-cast v1, Landroid/os/Bundle;
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v2, p0, Landroid/service/voice/VoiceInteractionSession$MyCallbacks;->this$0:Landroid/service/voice/VoiceInteractionSession;
+
+    iget-object v1, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
+
+    check-cast v1, Landroid/os/Bundle;
+
+    invoke-virtual {v2, v1}, Landroid/service/voice/VoiceInteractionSession;->onHandleAssist(Landroid/os/Bundle;)V
+
+    goto/16 :goto_0
+
     nop
 
     :sswitch_data_0
@@ -606,6 +643,7 @@
         0x65 -> :sswitch_7
         0x66 -> :sswitch_8
         0x67 -> :sswitch_9
+        0x68 -> :sswitch_a
     .end sparse-switch
 .end method
 

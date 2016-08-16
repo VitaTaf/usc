@@ -284,9 +284,31 @@
 
     iput-object p5, v0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;->mInteractor:Lcom/android/internal/app/IVoiceInteractor;
 
+    iget-object v0, p0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;->mActiveSession:Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;
+
+    iget-boolean v0, v0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;->mHaveAssistData:Z
+
+    if-eqz v0, :cond_2
+
+    :try_start_0
+    iget-object v0, p0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;->mActiveSession:Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;
+
+    iget-object v0, v0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;->mAssistData:Landroid/os/Bundle;
+
+    invoke-interface {p4, v0}, Landroid/service/voice/IVoiceInteractionSession;->handleAssist(Landroid/os/Bundle;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    :cond_2
+    :goto_1
     const/4 v0, 0x1
 
     goto :goto_0
+
+    :catch_0
+    move-exception v0
+
+    goto :goto_1
 .end method
 
 .method public dumpLocked(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V
@@ -615,11 +637,12 @@
     return-void
 .end method
 
-.method public startSessionLocked(IILandroid/os/Bundle;)V
+.method public startSessionLocked(IILandroid/os/Bundle;I)V
     .locals 1
     .param p1, "callingPid"    # I
     .param p2, "callingUid"    # I
     .param p3, "args"    # Landroid/os/Bundle;
+    .param p4, "flags"    # I
 
     .prologue
     iget-object v0, p0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;->mActiveSession:Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;
@@ -637,7 +660,7 @@
     :cond_0
     new-instance v0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;
 
-    invoke-direct {v0, p0, p3}, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;-><init>(Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;Landroid/os/Bundle;)V
+    invoke-direct {v0, p0, p3, p4}, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;-><init>(Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;Landroid/os/Bundle;I)V
 
     iput-object v0, p0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;->mActiveSession:Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl$SessionConnection;
 

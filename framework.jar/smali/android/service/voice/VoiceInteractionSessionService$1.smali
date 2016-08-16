@@ -32,10 +32,11 @@
 
 
 # virtual methods
-.method public newSession(Landroid/os/IBinder;Landroid/os/Bundle;)V
+.method public newSession(Landroid/os/IBinder;Landroid/os/Bundle;I)V
     .locals 3
     .param p1, "token"    # Landroid/os/IBinder;
     .param p2, "args"    # Landroid/os/Bundle;
+    .param p3, "startFlags"    # I
 
     .prologue
     iget-object v0, p0, Landroid/service/voice/VoiceInteractionSessionService$1;->this$0:Landroid/service/voice/VoiceInteractionSessionService;
@@ -48,7 +49,7 @@
 
     const/4 v2, 0x1
 
-    invoke-virtual {v1, v2, p1, p2}, Lcom/android/internal/os/HandlerCaller;->obtainMessageOO(ILjava/lang/Object;Ljava/lang/Object;)Landroid/os/Message;
+    invoke-virtual {v1, v2, p3, p1, p2}, Lcom/android/internal/os/HandlerCaller;->obtainMessageIOO(IILjava/lang/Object;Ljava/lang/Object;)Landroid/os/Message;
 
     move-result-object v1
 

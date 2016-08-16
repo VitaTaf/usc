@@ -793,6 +793,8 @@
     .local v3, "themedCache":Landroid/util/LongSparseArray;, "Landroid/util/LongSparseArray<Ljava/lang/ref/WeakReference<Landroid/graphics/drawable/Drawable$ConstantState;>;>;"
     if-nez v3, :cond_5
 
+    invoke-direct {p0, p4}, Landroid/content/res/Resources;->pruneCaches(Landroid/util/ArrayMap;)V
+
     new-instance v3, Landroid/util/LongSparseArray;
 
     .end local v3    # "themedCache":Landroid/util/LongSparseArray;, "Landroid/util/LongSparseArray<Ljava/lang/ref/WeakReference<Landroid/graphics/drawable/Drawable$ConstantState;>;>;"
@@ -1694,6 +1696,130 @@
     move-result-object v0
 
     goto :goto_0
+.end method
+
+.method private pruneCache(Landroid/util/LongSparseArray;)Z
+    .locals 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/util/LongSparseArray",
+            "<",
+            "Ljava/lang/ref/WeakReference",
+            "<",
+            "Landroid/graphics/drawable/Drawable$ConstantState;",
+            ">;>;)Z"
+        }
+    .end annotation
+
+    .prologue
+    .local p1, "cache":Landroid/util/LongSparseArray;, "Landroid/util/LongSparseArray<Ljava/lang/ref/WeakReference<Landroid/graphics/drawable/Drawable$ConstantState;>;>;"
+    invoke-virtual {p1}, Landroid/util/LongSparseArray;->size()I
+
+    move-result v0
+
+    .local v0, "N":I
+    add-int/lit8 v2, v0, -0x1
+
+    .local v2, "i":I
+    :goto_0
+    if-ltz v2, :cond_2
+
+    invoke-virtual {p1, v2}, Landroid/util/LongSparseArray;->valueAt(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/lang/ref/WeakReference;
+
+    .local v1, "entry":Ljava/lang/ref/WeakReference;
+    if-eqz v1, :cond_0
+
+    invoke-virtual {v1}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v3
+
+    if-nez v3, :cond_1
+
+    :cond_0
+    invoke-virtual {p1, v2}, Landroid/util/LongSparseArray;->removeAt(I)V
+
+    :cond_1
+    add-int/lit8 v2, v2, -0x1
+
+    goto :goto_0
+
+    .end local v1    # "entry":Ljava/lang/ref/WeakReference;
+    :cond_2
+    invoke-virtual {p1}, Landroid/util/LongSparseArray;->size()I
+
+    move-result v3
+
+    if-nez v3, :cond_3
+
+    const/4 v3, 0x1
+
+    :goto_1
+    return v3
+
+    :cond_3
+    const/4 v3, 0x0
+
+    goto :goto_1
+.end method
+
+.method private pruneCaches(Landroid/util/ArrayMap;)V
+    .locals 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/util/ArrayMap",
+            "<",
+            "Ljava/lang/String;",
+            "Landroid/util/LongSparseArray",
+            "<",
+            "Ljava/lang/ref/WeakReference",
+            "<",
+            "Landroid/graphics/drawable/Drawable$ConstantState;",
+            ">;>;>;)V"
+        }
+    .end annotation
+
+    .prologue
+    .local p1, "caches":Landroid/util/ArrayMap;, "Landroid/util/ArrayMap<Ljava/lang/String;Landroid/util/LongSparseArray<Ljava/lang/ref/WeakReference<Landroid/graphics/drawable/Drawable$ConstantState;>;>;>;"
+    invoke-virtual {p1}, Landroid/util/ArrayMap;->size()I
+
+    move-result v0
+
+    .local v0, "N":I
+    add-int/lit8 v2, v0, -0x1
+
+    .local v2, "i":I
+    :goto_0
+    if-ltz v2, :cond_1
+
+    invoke-virtual {p1, v2}, Landroid/util/ArrayMap;->valueAt(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Landroid/util/LongSparseArray;
+
+    .local v1, "cache":Landroid/util/LongSparseArray;, "Landroid/util/LongSparseArray<Ljava/lang/ref/WeakReference<Landroid/graphics/drawable/Drawable$ConstantState;>;>;"
+    invoke-direct {p0, v1}, Landroid/content/res/Resources;->pruneCache(Landroid/util/LongSparseArray;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_0
+
+    invoke-virtual {p1, v2}, Landroid/util/ArrayMap;->removeAt(I)Ljava/lang/Object;
+
+    :cond_0
+    add-int/lit8 v2, v2, -0x1
+
+    goto :goto_0
+
+    .end local v1    # "cache":Landroid/util/LongSparseArray;, "Landroid/util/LongSparseArray<Ljava/lang/ref/WeakReference<Landroid/graphics/drawable/Drawable$ConstantState;>;>;"
+    :cond_1
+    return-void
 .end method
 
 .method public static resourceHasPackage(I)Z

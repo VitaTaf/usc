@@ -278,8 +278,6 @@
     .locals 11
 
     .prologue
-    const/4 v10, 0x0
-
     const/4 v0, 0x0
 
     .local v0, "animating":Z
@@ -293,7 +291,7 @@
 
     .local v2, "stackNdx":I
     :goto_0
-    if-ltz v2, :cond_6
+    if-ltz v2, :cond_5
 
     iget-object v9, p0, Lcom/android/server/wm/DisplayContent;->mStacks:Ljava/util/ArrayList;
 
@@ -369,19 +367,11 @@
     check-cast v8, Lcom/android/server/wm/AppWindowToken;
 
     .local v8, "wtoken":Lcom/android/server/wm/AppWindowToken;
-    iget-boolean v9, v8, Lcom/android/server/wm/AppWindowToken;->mDeferRemoval:Z
+    iget-boolean v9, v8, Lcom/android/server/wm/AppWindowToken;->mIsExiting:Z
 
     if-eqz v9, :cond_3
 
-    iget-object v9, v1, Lcom/android/server/wm/TaskStack;->mExitingAppTokens:Lcom/android/server/wm/AppTokenList;
-
-    invoke-virtual {v9, v8}, Lcom/android/server/wm/AppTokenList;->remove(Ljava/lang/Object;)Z
-
-    iput-boolean v10, v8, Lcom/android/server/wm/AppWindowToken;->mDeferRemoval:Z
-
-    iget-object v9, p0, Lcom/android/server/wm/DisplayContent;->mService:Lcom/android/server/wm/WindowManagerService;
-
-    invoke-virtual {v9, v8}, Lcom/android/server/wm/WindowManagerService;->removeAppFromTaskLocked(Lcom/android/server/wm/AppWindowToken;)V
+    invoke-virtual {v8}, Lcom/android/server/wm/AppWindowToken;->removeAppFromTaskLocked()V
 
     :cond_3
     add-int/lit8 v6, v6, -0x1
@@ -390,17 +380,6 @@
 
     .end local v8    # "wtoken":Lcom/android/server/wm/AppWindowToken;
     :cond_4
-    iget-boolean v9, v3, Lcom/android/server/wm/Task;->mDeferRemoval:Z
-
-    if-eqz v9, :cond_5
-
-    iput-boolean v10, v3, Lcom/android/server/wm/Task;->mDeferRemoval:Z
-
-    iget-object v9, p0, Lcom/android/server/wm/DisplayContent;->mService:Lcom/android/server/wm/WindowManagerService;
-
-    invoke-virtual {v9, v3}, Lcom/android/server/wm/WindowManagerService;->removeTaskLocked(Lcom/android/server/wm/Task;)V
-
-    :cond_5
     add-int/lit8 v4, v4, -0x1
 
     goto :goto_1
@@ -411,12 +390,12 @@
     .end local v5    # "tasks":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/server/wm/Task;>;"
     .end local v6    # "tokenNdx":I
     .end local v7    # "tokens":Lcom/android/server/wm/AppTokenList;
-    :cond_6
-    if-nez v0, :cond_7
+    :cond_5
+    if-nez v0, :cond_6
 
     iget-boolean v9, p0, Lcom/android/server/wm/DisplayContent;->mDeferredRemoval:Z
 
-    if-eqz v9, :cond_7
+    if-eqz v9, :cond_6
 
     iget-object v9, p0, Lcom/android/server/wm/DisplayContent;->mService:Lcom/android/server/wm/WindowManagerService;
 
@@ -424,7 +403,7 @@
 
     invoke-virtual {v9, v10}, Lcom/android/server/wm/WindowManagerService;->onDisplayRemoved(I)V
 
-    :cond_7
+    :cond_6
     return-void
 .end method
 

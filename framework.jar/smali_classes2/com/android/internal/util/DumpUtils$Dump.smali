@@ -15,5 +15,5 @@
 
 
 # virtual methods
-.method public abstract dump(Ljava/io/PrintWriter;)V
+.method public abstract dump(Ljava/io/PrintWriter;Ljava/lang/String;)V
 .end method

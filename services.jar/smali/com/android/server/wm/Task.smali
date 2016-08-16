@@ -8,6 +8,8 @@
 
 .field mDeferRemoval:Z
 
+.field final mService:Lcom/android/server/wm/WindowManagerService;
+
 .field mStack:Lcom/android/server/wm/TaskStack;
 
 .field final mUserId:I
@@ -16,11 +18,12 @@
 
 
 # direct methods
-.method constructor <init>(Lcom/android/server/wm/AppWindowToken;Lcom/android/server/wm/TaskStack;I)V
+.method constructor <init>(Lcom/android/server/wm/AppWindowToken;Lcom/android/server/wm/TaskStack;ILcom/android/server/wm/WindowManagerService;)V
     .locals 1
     .param p1, "wtoken"    # Lcom/android/server/wm/AppWindowToken;
     .param p2, "stack"    # Lcom/android/server/wm/TaskStack;
     .param p3, "userId"    # I
+    .param p4, "service"    # Lcom/android/server/wm/WindowManagerService;
 
     .prologue
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,6 +49,8 @@
     iput-object p2, p0, Lcom/android/server/wm/Task;->mStack:Lcom/android/server/wm/TaskStack;
 
     iput p3, p0, Lcom/android/server/wm/Task;->mUserId:I
+
+    iput-object p4, p0, Lcom/android/server/wm/Task;->mService:Lcom/android/server/wm/WindowManagerService;
 
     return-void
 .end method
@@ -161,8 +166,81 @@
 
     invoke-static {v1, v2}, Landroid/util/EventLog;->writeEvent(I[Ljava/lang/Object;)I
 
+    iget-boolean v1, p0, Lcom/android/server/wm/Task;->mDeferRemoval:Z
+
+    if-eqz v1, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/server/wm/Task;->removeLocked()V
+
     :cond_0
     return v0
+.end method
+
+.method removeLocked()V
+    .locals 5
+
+    .prologue
+    const/4 v4, 0x1
+
+    const/4 v3, 0x0
+
+    iget-object v0, p0, Lcom/android/server/wm/Task;->mAppTokens:Lcom/android/server/wm/AppTokenList;
+
+    invoke-virtual {v0}, Lcom/android/server/wm/AppTokenList;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/server/wm/Task;->mStack:Lcom/android/server/wm/TaskStack;
+
+    invoke-virtual {v0}, Lcom/android/server/wm/TaskStack;->isAnimating()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    iput-boolean v4, p0, Lcom/android/server/wm/Task;->mDeferRemoval:Z
+
+    :goto_0
+    return-void
+
+    :cond_0
+    const/16 v0, 0x791b
+
+    const/4 v1, 0x2
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    iget v2, p0, Lcom/android/server/wm/Task;->taskId:I
+
+    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v2
+
+    aput-object v2, v1, v3
+
+    const-string v2, "removeTask"
+
+    aput-object v2, v1, v4
+
+    invoke-static {v0, v1}, Landroid/util/EventLog;->writeEvent(I[Ljava/lang/Object;)I
+
+    iput-boolean v3, p0, Lcom/android/server/wm/Task;->mDeferRemoval:Z
+
+    iget-object v0, p0, Lcom/android/server/wm/Task;->mStack:Lcom/android/server/wm/TaskStack;
+
+    invoke-virtual {v0, p0}, Lcom/android/server/wm/TaskStack;->removeTask(Lcom/android/server/wm/Task;)V
+
+    iget-object v0, p0, Lcom/android/server/wm/Task;->mService:Lcom/android/server/wm/WindowManagerService;
+
+    iget-object v0, v0, Lcom/android/server/wm/WindowManagerService;->mTaskIdToTask:Landroid/util/SparseArray;
+
+    iget v1, p0, Lcom/android/server/wm/Task;->taskId:I
+
+    invoke-virtual {v0, v1}, Landroid/util/SparseArray;->delete(I)V
+
+    goto :goto_0
 .end method
 
 .method setSendingToBottom(Z)V

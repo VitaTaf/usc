@@ -309,6 +309,8 @@
 
 .field public static final REPORT_ASSIST_CONTEXT_EXTRAS_TRANSACTION:I = 0xa3
 
+.field public static final REQUEST_ASSIST_CONTEXT_EXTRAS_TRANSACTION:I = 0x11d
+
 .field public static final REQUEST_BUG_REPORT_TRANSACTION:I = 0x9e
 
 .field public static final REQUEST_VISIBLE_BEHIND_TRANSACTION:I = 0xe2
@@ -1725,6 +1727,14 @@
 .end method
 
 .method public abstract reportAssistContextExtras(Landroid/os/IBinder;Landroid/os/Bundle;)V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
+.method public abstract requestAssistContextExtras(ILcom/android/internal/os/IResultReceiver;)V
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/os/RemoteException;

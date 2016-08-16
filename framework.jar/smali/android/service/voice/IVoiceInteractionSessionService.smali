@@ -15,7 +15,7 @@
 
 
 # virtual methods
-.method public abstract newSession(Landroid/os/IBinder;Landroid/os/Bundle;)V
+.method public abstract newSession(Landroid/os/IBinder;Landroid/os/Bundle;I)V
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/os/RemoteException;

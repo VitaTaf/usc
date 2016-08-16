@@ -26,6 +26,8 @@
 
 .field static final MSG_DESTROY:I = 0x67
 
+.field static final MSG_HANDLE_ASSIST:I = 0x68
+
 .field static final MSG_START_ABORT_VOICE:I = 0x3
 
 .field static final MSG_START_COMMAND:I = 0x4
@@ -87,8 +89,6 @@
 .field mThemeAttrs:Landroid/content/res/TypedArray;
 
 .field final mTmpInsets:Landroid/service/voice/VoiceInteractionSession$Insets;
-
-.field final mTmpLocation:[I
 
 .field mToken:Landroid/os/IBinder;
 
@@ -157,12 +157,6 @@
 
     iput-object v0, p0, Landroid/service/voice/VoiceInteractionSession;->mTmpInsets:Landroid/service/voice/VoiceInteractionSession$Insets;
 
-    const/4 v0, 0x2
-
-    new-array v0, v0, [I
-
-    iput-object v0, p0, Landroid/service/voice/VoiceInteractionSession;->mTmpLocation:[I
-
     new-instance v0, Ljava/lang/ref/WeakReference;
 
     invoke-direct {v0, p0}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
@@ -214,18 +208,19 @@
 
 
 # virtual methods
-.method doCreate(Lcom/android/internal/app/IVoiceInteractionManagerService;Landroid/os/IBinder;Landroid/os/Bundle;)V
+.method doCreate(Lcom/android/internal/app/IVoiceInteractionManagerService;Landroid/os/IBinder;Landroid/os/Bundle;I)V
     .locals 0
     .param p1, "service"    # Lcom/android/internal/app/IVoiceInteractionManagerService;
     .param p2, "token"    # Landroid/os/IBinder;
     .param p3, "args"    # Landroid/os/Bundle;
+    .param p4, "startFlags"    # I
 
     .prologue
     iput-object p1, p0, Landroid/service/voice/VoiceInteractionSession;->mSystemService:Lcom/android/internal/app/IVoiceInteractionManagerService;
 
     iput-object p2, p0, Landroid/service/voice/VoiceInteractionSession;->mToken:Landroid/os/IBinder;
 
-    invoke-virtual {p0, p3}, Landroid/service/voice/VoiceInteractionSession;->onCreate(Landroid/os/Bundle;)V
+    invoke-virtual {p0, p3, p4}, Landroid/service/voice/VoiceInteractionSession;->onCreate(Landroid/os/Bundle;I)V
 
     return-void
 .end method
@@ -510,45 +505,44 @@
     .prologue
     const/4 v3, 0x0
 
-    iget-object v1, p0, Landroid/service/voice/VoiceInteractionSession;->mTmpLocation:[I
+    iget-object v1, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
 
-    .local v1, "loc":[I
+    iput v3, v1, Landroid/graphics/Rect;->left:I
+
+    iget-object v1, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
+
+    iput v3, v1, Landroid/graphics/Rect;->bottom:I
+
+    iget-object v1, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
+
+    iput v3, v1, Landroid/graphics/Rect;->right:I
+
     invoke-virtual {p0}, Landroid/service/voice/VoiceInteractionSession;->getWindow()Landroid/app/Dialog;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v1}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
-    move-result-object v2
+    move-result-object v1
 
-    invoke-virtual {v2}, Landroid/view/Window;->getDecorView()Landroid/view/View;
+    invoke-virtual {v1}, Landroid/view/Window;->getDecorView()Landroid/view/View;
 
     move-result-object v0
 
     .local v0, "decor":Landroid/view/View;
-    invoke-virtual {v0, v1}, Landroid/view/View;->getLocationInWindow([I)V
+    iget-object v1, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
 
-    iget-object v2, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
+    invoke-virtual {v0}, Landroid/view/View;->getHeight()I
 
-    iput v3, v2, Landroid/graphics/Rect;->top:I
+    move-result v2
 
-    iget-object v2, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
-
-    iput v3, v2, Landroid/graphics/Rect;->left:I
-
-    iget-object v2, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
-
-    iput v3, v2, Landroid/graphics/Rect;->right:I
-
-    iget-object v2, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->contentInsets:Landroid/graphics/Rect;
-
-    iput v3, v2, Landroid/graphics/Rect;->bottom:I
+    iput v2, v1, Landroid/graphics/Rect;->top:I
 
     iput v3, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->touchableInsets:I
 
-    iget-object v2, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->touchableRegion:Landroid/graphics/Region;
+    iget-object v1, p1, Landroid/service/voice/VoiceInteractionSession$Insets;->touchableRegion:Landroid/graphics/Region;
 
-    invoke-virtual {v2}, Landroid/graphics/Region;->setEmpty()V
+    invoke-virtual {v1}, Landroid/graphics/Region;->setEmpty()V
 
     return-void
 .end method
@@ -557,10 +551,12 @@
 .end method
 
 .method public onCreate(Landroid/os/Bundle;)V
-    .locals 10
+    .locals 11
     .param p1, "args"    # Landroid/os/Bundle;
 
     .prologue
+    const/4 v10, -0x1
+
     iget v0, p0, Landroid/service/voice/VoiceInteractionSession;->mTheme:I
 
     if-eqz v0, :cond_0
@@ -596,7 +592,7 @@
 
     const/16 v7, 0x7ef
 
-    const/16 v8, 0x30
+    const/16 v8, 0x50
 
     const/4 v9, 0x1
 
@@ -624,11 +620,7 @@
 
     move-result-object v0
 
-    const/4 v1, -0x1
-
-    const/4 v2, -0x2
-
-    invoke-virtual {v0, v1, v2}, Landroid/view/Window;->setLayout(II)V
+    invoke-virtual {v0, v10, v10}, Landroid/view/Window;->setLayout(II)V
 
     iget-object v0, p0, Landroid/service/voice/VoiceInteractionSession;->mWindow:Landroid/inputmethodservice/SoftInputWindow;
 
@@ -642,6 +634,17 @@
     const v0, 0x103048d
 
     goto :goto_0
+.end method
+
+.method public onCreate(Landroid/os/Bundle;I)V
+    .locals 0
+    .param p1, "args"    # Landroid/os/Bundle;
+    .param p2, "startFlags"    # I
+
+    .prologue
+    invoke-virtual {p0, p1}, Landroid/service/voice/VoiceInteractionSession;->onCreate(Landroid/os/Bundle;)V
+
+    return-void
 .end method
 
 .method public onCreateContentView()Landroid/view/View;
@@ -671,6 +674,14 @@
     new-array v0, v0, [Z
 
     return-object v0
+.end method
+
+.method public onHandleAssist(Landroid/os/Bundle;)V
+    .locals 0
+    .param p1, "assistBundle"    # Landroid/os/Bundle;
+
+    .prologue
+    return-void
 .end method
 
 .method public onKeyDown(ILandroid/view/KeyEvent;)Z
@@ -778,10 +789,12 @@
 .end method
 
 .method public setContentView(Landroid/view/View;)V
-    .locals 4
+    .locals 3
     .param p1, "view"    # Landroid/view/View;
 
     .prologue
+    const/4 v2, -0x1
+
     iget-object v0, p0, Landroid/service/voice/VoiceInteractionSession;->mContentFrame:Landroid/widget/FrameLayout;
 
     invoke-virtual {v0}, Landroid/widget/FrameLayout;->removeAllViews()V
@@ -790,11 +803,7 @@
 
     new-instance v1, Landroid/widget/FrameLayout$LayoutParams;
 
-    const/4 v2, -0x1
-
-    const/4 v3, -0x2
-
-    invoke-direct {v1, v2, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
+    invoke-direct {v1, v2, v2}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
     invoke-virtual {v0, p1, v1}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 

@@ -54,10 +54,11 @@
     return-object v0
 .end method
 
-.method public newSession(Landroid/os/IBinder;Landroid/os/Bundle;)V
+.method public newSession(Landroid/os/IBinder;Landroid/os/Bundle;I)V
     .locals 5
     .param p1, "token"    # Landroid/os/IBinder;
     .param p2, "args"    # Landroid/os/Bundle;
+    .param p3, "startFlags"    # I
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/os/RemoteException;
@@ -88,6 +89,8 @@
     invoke-virtual {p2, v0, v1}, Landroid/os/Bundle;->writeToParcel(Landroid/os/Parcel;I)V
 
     :goto_0
+    invoke-virtual {v0, p3}, Landroid/os/Parcel;->writeInt(I)V
+
     iget-object v1, p0, Landroid/service/voice/IVoiceInteractionSessionService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v2, 0x1

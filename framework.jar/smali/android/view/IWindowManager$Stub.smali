@@ -34,25 +34,25 @@
 
 .field static final TRANSACTION_clearForcedDisplaySize:I = 0x9
 
-.field static final TRANSACTION_clearWindowContentFrameStats:I = 0x4b
+.field static final TRANSACTION_clearWindowContentFrameStats:I = 0x4c
 
-.field static final TRANSACTION_closeSystemDialogs:I = 0x33
+.field static final TRANSACTION_closeSystemDialogs:I = 0x34
 
-.field static final TRANSACTION_disableKeyguard:I = 0x2b
+.field static final TRANSACTION_disableKeyguard:I = 0x2c
 
-.field static final TRANSACTION_dismissKeyguard:I = 0x31
+.field static final TRANSACTION_dismissKeyguard:I = 0x32
 
-.field static final TRANSACTION_enableScreenIfNeeded:I = 0x4a
+.field static final TRANSACTION_enableScreenIfNeeded:I = 0x4b
 
-.field static final TRANSACTION_executeAppTransition:I = 0x20
+.field static final TRANSACTION_executeAppTransition:I = 0x21
 
-.field static final TRANSACTION_exitKeyguardSecurely:I = 0x2d
+.field static final TRANSACTION_exitKeyguardSecurely:I = 0x2e
 
-.field static final TRANSACTION_freezeRotation:I = 0x42
+.field static final TRANSACTION_freezeRotation:I = 0x43
 
-.field static final TRANSACTION_getAnimationScale:I = 0x34
+.field static final TRANSACTION_getAnimationScale:I = 0x35
 
-.field static final TRANSACTION_getAnimationScales:I = 0x35
+.field static final TRANSACTION_getAnimationScales:I = 0x36
 
 .field static final TRANSACTION_getAppOrientation:I = 0x17
 
@@ -60,7 +60,7 @@
 
 .field static final TRANSACTION_getBaseDisplaySize:I = 0x7
 
-.field static final TRANSACTION_getCurrentAnimatorScale:I = 0x38
+.field static final TRANSACTION_getCurrentAnimatorScale:I = 0x39
 
 .field static final TRANSACTION_getInitialDisplayDensity:I = 0xa
 
@@ -68,79 +68,81 @@
 
 .field static final TRANSACTION_getPendingAppTransition:I = 0x1a
 
-.field static final TRANSACTION_getPreferredOptionsPanelGravity:I = 0x41
+.field static final TRANSACTION_getPreferredOptionsPanelGravity:I = 0x42
 
-.field static final TRANSACTION_getRotation:I = 0x3e
+.field static final TRANSACTION_getRotation:I = 0x3f
 
-.field static final TRANSACTION_getWindowContentFrameStats:I = 0x4c
+.field static final TRANSACTION_getWindowContentFrameStats:I = 0x4d
 
-.field static final TRANSACTION_hasMenuBarShown:I = 0x4d
+.field static final TRANSACTION_hasMenuBarShown:I = 0x4e
 
-.field static final TRANSACTION_hasNavigationBar:I = 0x47
+.field static final TRANSACTION_hasNavigationBar:I = 0x48
 
-.field static final TRANSACTION_inKeyguardRestrictedInputMode:I = 0x30
+.field static final TRANSACTION_inKeyguardRestrictedInputMode:I = 0x31
 
 .field static final TRANSACTION_inputMethodClientHasFocus:I = 0x5
 
-.field static final TRANSACTION_isKeyguardLocked:I = 0x2e
+.field static final TRANSACTION_isKeyguardLocked:I = 0x2f
 
-.field static final TRANSACTION_isKeyguardSecure:I = 0x2f
+.field static final TRANSACTION_isKeyguardSecure:I = 0x30
 
-.field static final TRANSACTION_isRotationFrozen:I = 0x44
+.field static final TRANSACTION_isRotationFrozen:I = 0x45
 
-.field static final TRANSACTION_isSafeModeEnabled:I = 0x49
+.field static final TRANSACTION_isSafeModeEnabled:I = 0x4a
 
 .field static final TRANSACTION_isViewServerRunning:I = 0x3
 
-.field static final TRANSACTION_keyguardGoingAway:I = 0x32
+.field static final TRANSACTION_keyguardGoingAway:I = 0x33
 
-.field static final TRANSACTION_lockNow:I = 0x48
+.field static final TRANSACTION_lockNow:I = 0x49
 
 .field static final TRANSACTION_openSession:I = 0x4
 
 .field static final TRANSACTION_overridePendingAppTransition:I = 0x1b
 
-.field static final TRANSACTION_overridePendingAppTransitionAspectScaledThumb:I = 0x1e
+.field static final TRANSACTION_overridePendingAppTransitionAspectScaledThumb:I = 0x1f
 
-.field static final TRANSACTION_overridePendingAppTransitionInPlace:I = 0x1f
+.field static final TRANSACTION_overridePendingAppTransitionClipReveal:I = 0x1d
+
+.field static final TRANSACTION_overridePendingAppTransitionInPlace:I = 0x20
 
 .field static final TRANSACTION_overridePendingAppTransitionScaleUp:I = 0x1c
 
-.field static final TRANSACTION_overridePendingAppTransitionThumb:I = 0x1d
+.field static final TRANSACTION_overridePendingAppTransitionThumb:I = 0x1e
 
 .field static final TRANSACTION_pauseKeyDispatching:I = 0xf
 
-.field static final TRANSACTION_pauseRotation:I = 0x4e
+.field static final TRANSACTION_pauseRotation:I = 0x4f
 
 .field static final TRANSACTION_prepareAppTransition:I = 0x19
 
-.field static final TRANSACTION_reenableKeyguard:I = 0x2c
+.field static final TRANSACTION_reenableKeyguard:I = 0x2d
 
-.field static final TRANSACTION_removeAppToken:I = 0x26
+.field static final TRANSACTION_removeAppToken:I = 0x27
 
-.field static final TRANSACTION_removeRotationWatcher:I = 0x40
+.field static final TRANSACTION_removeRotationWatcher:I = 0x41
 
 .field static final TRANSACTION_removeWindowToken:I = 0x13
 
 .field static final TRANSACTION_resumeKeyDispatching:I = 0x10
 
-.field static final TRANSACTION_resumeRotation:I = 0x4f
+.field static final TRANSACTION_resumeRotation:I = 0x50
 
-.field static final TRANSACTION_screenshotApplications:I = 0x45
+.field static final TRANSACTION_screenshotApplications:I = 0x46
 
-.field static final TRANSACTION_setAnimationScale:I = 0x36
+.field static final TRANSACTION_setAnimationScale:I = 0x37
 
-.field static final TRANSACTION_setAnimationScales:I = 0x37
+.field static final TRANSACTION_setAnimationScales:I = 0x38
 
 .field static final TRANSACTION_setAppGroupId:I = 0x15
 
 .field static final TRANSACTION_setAppOrientation:I = 0x16
 
-.field static final TRANSACTION_setAppStartingWindow:I = 0x21
+.field static final TRANSACTION_setAppStartingWindow:I = 0x22
 
-.field static final TRANSACTION_setAppVisibility:I = 0x23
+.field static final TRANSACTION_setAppVisibility:I = 0x24
 
-.field static final TRANSACTION_setAppWillBeHidden:I = 0x22
+.field static final TRANSACTION_setAppWillBeHidden:I = 0x23
 
 .field static final TRANSACTION_setEventDispatching:I = 0x11
 
@@ -150,39 +152,39 @@
 
 .field static final TRANSACTION_setForcedDisplaySize:I = 0x8
 
-.field static final TRANSACTION_setInTouchMode:I = 0x39
+.field static final TRANSACTION_setInTouchMode:I = 0x3a
 
-.field static final TRANSACTION_setNewConfiguration:I = 0x28
+.field static final TRANSACTION_setNewConfiguration:I = 0x29
 
 .field static final TRANSACTION_setOverscan:I = 0xe
 
-.field static final TRANSACTION_setScreenCaptureDisabled:I = 0x3c
+.field static final TRANSACTION_setScreenCaptureDisabled:I = 0x3d
 
-.field static final TRANSACTION_setStrictModeVisualIndicatorPreference:I = 0x3b
+.field static final TRANSACTION_setStrictModeVisualIndicatorPreference:I = 0x3c
 
-.field static final TRANSACTION_showStrictModeViolation:I = 0x3a
+.field static final TRANSACTION_showStrictModeViolation:I = 0x3b
 
-.field static final TRANSACTION_startAppFreezingScreen:I = 0x24
+.field static final TRANSACTION_startAppFreezingScreen:I = 0x25
 
-.field static final TRANSACTION_startFreezingScreen:I = 0x29
+.field static final TRANSACTION_startFreezingScreen:I = 0x2a
 
 .field static final TRANSACTION_startViewServer:I = 0x1
 
-.field static final TRANSACTION_statusBarVisibilityChanged:I = 0x46
+.field static final TRANSACTION_statusBarVisibilityChanged:I = 0x47
 
-.field static final TRANSACTION_stopAppFreezingScreen:I = 0x25
+.field static final TRANSACTION_stopAppFreezingScreen:I = 0x26
 
-.field static final TRANSACTION_stopFreezingScreen:I = 0x2a
+.field static final TRANSACTION_stopFreezingScreen:I = 0x2b
 
 .field static final TRANSACTION_stopViewServer:I = 0x2
 
-.field static final TRANSACTION_thawRotation:I = 0x43
+.field static final TRANSACTION_thawRotation:I = 0x44
 
-.field static final TRANSACTION_updateOrientationFromAppTokens:I = 0x27
+.field static final TRANSACTION_updateOrientationFromAppTokens:I = 0x28
 
-.field static final TRANSACTION_updateRotation:I = 0x3d
+.field static final TRANSACTION_updateRotation:I = 0x3e
 
-.field static final TRANSACTION_watchRotation:I = 0x3f
+.field static final TRANSACTION_watchRotation:I = 0x40
 
 
 # direct methods
@@ -1339,6 +1341,45 @@
 
     invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readInt()I
 
+    move-result v2
+
+    .restart local v2    # "_arg0":I
+    invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v3
+
+    .restart local v3    # "_arg1":I
+    invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v4
+
+    .restart local v4    # "_arg2":I
+    invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v5
+
+    .restart local v5    # "_arg3":I
+    invoke-virtual {p0, v2, v3, v4, v5}, Landroid/view/IWindowManager$Stub;->overridePendingAppTransitionClipReveal(IIII)V
+
+    invoke-virtual/range {p3 .. p3}, Landroid/os/Parcel;->writeNoException()V
+
+    const/4 v1, 0x1
+
+    goto/16 :goto_0
+
+    .end local v2    # "_arg0":I
+    .end local v3    # "_arg1":I
+    .end local v4    # "_arg2":I
+    .end local v5    # "_arg3":I
+    :sswitch_1e
+    const-string v1, "android.view.IWindowManager"
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v1}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
+    invoke-virtual/range {p2 .. p2}, Landroid/os/Parcel;->readInt()I
+
     move-result v1
 
     if-eqz v1, :cond_e
@@ -1417,7 +1458,7 @@
     .end local v3    # "_arg1":I
     .end local v4    # "_arg2":I
     .end local v5    # "_arg3":Landroid/os/IRemoteCallback;
-    :sswitch_1e
+    :sswitch_1f
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1520,7 +1561,7 @@
     .end local v5    # "_arg3":I
     .end local v6    # "_arg4":I
     .end local v7    # "_arg5":Landroid/os/IRemoteCallback;
-    :sswitch_1f
+    :sswitch_20
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1547,7 +1588,7 @@
 
     .end local v2    # "_arg0":Ljava/lang/String;
     .end local v3    # "_arg1":I
-    :sswitch_20
+    :sswitch_21
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1562,7 +1603,7 @@
 
     goto/16 :goto_0
 
-    :sswitch_21
+    :sswitch_22
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1705,7 +1746,7 @@
     .end local v9    # "_arg7":I
     .end local v10    # "_arg8":I
     .end local v11    # "_arg9":Landroid/os/IBinder;
-    :sswitch_22
+    :sswitch_23
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1726,7 +1767,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
-    :sswitch_23
+    :sswitch_24
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1763,7 +1804,7 @@
     goto :goto_16
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
-    :sswitch_24
+    :sswitch_25
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1790,7 +1831,7 @@
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
     .end local v3    # "_arg1":I
-    :sswitch_25
+    :sswitch_26
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1827,7 +1868,7 @@
     goto :goto_17
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
-    :sswitch_26
+    :sswitch_27
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1848,7 +1889,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
-    :sswitch_27
+    :sswitch_28
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1927,7 +1968,7 @@
     .end local v2    # "_arg0":Landroid/content/res/Configuration;
     .end local v3    # "_arg1":Landroid/os/IBinder;
     .end local v13    # "_result":Landroid/content/res/Configuration;
-    :sswitch_28
+    :sswitch_29
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1968,7 +2009,7 @@
     goto :goto_1a
 
     .end local v2    # "_arg0":Landroid/content/res/Configuration;
-    :sswitch_29
+    :sswitch_2a
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -1995,7 +2036,7 @@
 
     .end local v2    # "_arg0":I
     .end local v3    # "_arg1":I
-    :sswitch_2a
+    :sswitch_2b
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2010,7 +2051,7 @@
 
     goto/16 :goto_0
 
-    :sswitch_2b
+    :sswitch_2c
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2037,7 +2078,7 @@
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
     .end local v3    # "_arg1":Ljava/lang/String;
-    :sswitch_2c
+    :sswitch_2d
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2058,7 +2099,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
-    :sswitch_2d
+    :sswitch_2e
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2083,7 +2124,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":Landroid/view/IOnKeyguardExitResult;
-    :sswitch_2e
+    :sswitch_2f
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2116,7 +2157,7 @@
     goto :goto_1b
 
     .end local v13    # "_result":Z
-    :sswitch_2f
+    :sswitch_30
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2149,7 +2190,7 @@
     goto :goto_1c
 
     .end local v13    # "_result":Z
-    :sswitch_30
+    :sswitch_31
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2182,7 +2223,7 @@
     goto :goto_1d
 
     .end local v13    # "_result":Z
-    :sswitch_31
+    :sswitch_32
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2197,7 +2238,7 @@
 
     goto/16 :goto_0
 
-    :sswitch_32
+    :sswitch_33
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2246,7 +2287,7 @@
     goto :goto_1f
 
     .end local v2    # "_arg0":Z
-    :sswitch_33
+    :sswitch_34
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2267,7 +2308,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":Ljava/lang/String;
-    :sswitch_34
+    :sswitch_35
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2296,7 +2337,7 @@
 
     .end local v2    # "_arg0":I
     .end local v13    # "_result":F
-    :sswitch_35
+    :sswitch_36
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2319,7 +2360,7 @@
     goto/16 :goto_0
 
     .end local v13    # "_result":[F
-    :sswitch_36
+    :sswitch_37
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2346,7 +2387,7 @@
 
     .end local v2    # "_arg0":I
     .end local v3    # "_arg1":F
-    :sswitch_37
+    :sswitch_38
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2367,7 +2408,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":[F
-    :sswitch_38
+    :sswitch_39
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2390,7 +2431,7 @@
     goto/16 :goto_0
 
     .end local v13    # "_result":F
-    :sswitch_39
+    :sswitch_3a
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2421,7 +2462,7 @@
 
     goto :goto_20
 
-    :sswitch_3a
+    :sswitch_3b
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2452,7 +2493,7 @@
 
     goto :goto_21
 
-    :sswitch_3b
+    :sswitch_3c
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2473,7 +2514,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":Ljava/lang/String;
-    :sswitch_3c
+    :sswitch_3d
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2510,7 +2551,7 @@
     goto :goto_22
 
     .end local v2    # "_arg0":I
-    :sswitch_3d
+    :sswitch_3e
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2559,7 +2600,7 @@
     goto :goto_24
 
     .end local v2    # "_arg0":Z
-    :sswitch_3e
+    :sswitch_3f
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2582,7 +2623,7 @@
     goto/16 :goto_0
 
     .end local v13    # "_result":I
-    :sswitch_3f
+    :sswitch_40
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2615,7 +2656,7 @@
 
     .end local v2    # "_arg0":Landroid/view/IRotationWatcher;
     .end local v13    # "_result":I
-    :sswitch_40
+    :sswitch_41
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2640,7 +2681,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":Landroid/view/IRotationWatcher;
-    :sswitch_41
+    :sswitch_42
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2663,7 +2704,7 @@
     goto/16 :goto_0
 
     .end local v13    # "_result":I
-    :sswitch_42
+    :sswitch_43
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2684,7 +2725,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":I
-    :sswitch_43
+    :sswitch_44
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2699,7 +2740,7 @@
 
     goto/16 :goto_0
 
-    :sswitch_44
+    :sswitch_45
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2732,7 +2773,7 @@
     goto :goto_25
 
     .end local v13    # "_result":Z
-    :sswitch_45
+    :sswitch_46
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2821,7 +2862,7 @@
     .end local v5    # "_arg3":I
     .end local v6    # "_arg4":Z
     .end local v13    # "_result":Landroid/graphics/Bitmap;
-    :sswitch_46
+    :sswitch_47
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2840,7 +2881,7 @@
     goto/16 :goto_0
 
     .end local v2    # "_arg0":I
-    :sswitch_47
+    :sswitch_48
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2873,7 +2914,7 @@
     goto :goto_28
 
     .end local v13    # "_result":Z
-    :sswitch_48
+    :sswitch_49
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2914,7 +2955,7 @@
     goto :goto_29
 
     .end local v2    # "_arg0":Landroid/os/Bundle;
-    :sswitch_49
+    :sswitch_4a
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2947,7 +2988,7 @@
     goto :goto_2a
 
     .end local v13    # "_result":Z
-    :sswitch_4a
+    :sswitch_4b
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -2962,7 +3003,7 @@
 
     goto/16 :goto_0
 
-    :sswitch_4b
+    :sswitch_4c
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -3001,7 +3042,7 @@
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
     .end local v13    # "_result":Z
-    :sswitch_4c
+    :sswitch_4d
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -3050,7 +3091,7 @@
 
     .end local v2    # "_arg0":Landroid/os/IBinder;
     .end local v13    # "_result":Landroid/view/WindowContentFrameStats;
-    :sswitch_4d
+    :sswitch_4e
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -3083,7 +3124,7 @@
     goto :goto_2d
 
     .end local v13    # "_result":Z
-    :sswitch_4e
+    :sswitch_4f
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -3098,7 +3139,7 @@
 
     goto/16 :goto_0
 
-    :sswitch_4f
+    :sswitch_50
     const-string v1, "android.view.IWindowManager"
 
     move-object/from16 v0, p2
@@ -3196,6 +3237,7 @@
         0x4d -> :sswitch_4d
         0x4e -> :sswitch_4e
         0x4f -> :sswitch_4f
+        0x50 -> :sswitch_50
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method

@@ -43,10 +43,11 @@
 
 
 # virtual methods
-.method doNewSession(Landroid/os/IBinder;Landroid/os/Bundle;)V
+.method doNewSession(Landroid/os/IBinder;Landroid/os/Bundle;I)V
     .locals 3
     .param p1, "token"    # Landroid/os/IBinder;
     .param p2, "args"    # Landroid/os/Bundle;
+    .param p3, "startFlags"    # I
 
     .prologue
     iget-object v0, p0, Landroid/service/voice/VoiceInteractionSessionService;->mSession:Landroid/service/voice/VoiceInteractionSession;
@@ -85,7 +86,7 @@
 
     iget-object v1, p0, Landroid/service/voice/VoiceInteractionSessionService;->mSystemService:Lcom/android/internal/app/IVoiceInteractionManagerService;
 
-    invoke-virtual {v0, v1, p1, p2}, Landroid/service/voice/VoiceInteractionSession;->doCreate(Lcom/android/internal/app/IVoiceInteractionManagerService;Landroid/os/IBinder;Landroid/os/Bundle;)V
+    invoke-virtual {v0, v1, p1, p2, p3}, Landroid/service/voice/VoiceInteractionSession;->doCreate(Lcom/android/internal/app/IVoiceInteractionManagerService;Landroid/os/IBinder;Landroid/os/Bundle;I)V
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 

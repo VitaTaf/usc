@@ -673,7 +673,7 @@
 .end method
 
 .method private dumpInternal(Ljava/io/PrintWriter;)V
-    .locals 4
+    .locals 6
     .param p1, "pw"    # Ljava/io/PrintWriter;
 
     .prologue
@@ -917,9 +917,13 @@
 
     invoke-direct {v1, p0}, Lcom/android/server/dreams/DreamManagerService$2;-><init>(Lcom/android/server/dreams/DreamManagerService;)V
 
-    const-wide/16 v2, 0xc8
+    const-string v3, ""
 
-    invoke-static {v0, v1, p1, v2, v3}, Lcom/android/internal/util/DumpUtils;->dumpAsync(Landroid/os/Handler;Lcom/android/internal/util/DumpUtils$Dump;Ljava/io/PrintWriter;J)V
+    const-wide/16 v4, 0xc8
+
+    move-object v2, p1
+
+    invoke-static/range {v0 .. v5}, Lcom/android/internal/util/DumpUtils;->dumpAsync(Landroid/os/Handler;Lcom/android/internal/util/DumpUtils$Dump;Ljava/io/PrintWriter;Ljava/lang/String;J)V
 
     return-void
 .end method

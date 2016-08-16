@@ -21,12 +21,13 @@
     return-void
 .end method
 
-.method public static dumpAsync(Landroid/os/Handler;Lcom/android/internal/util/DumpUtils$Dump;Ljava/io/PrintWriter;J)V
-    .locals 3
+.method public static dumpAsync(Landroid/os/Handler;Lcom/android/internal/util/DumpUtils$Dump;Ljava/io/PrintWriter;Ljava/lang/String;J)V
+    .locals 2
     .param p0, "handler"    # Landroid/os/Handler;
     .param p1, "dump"    # Lcom/android/internal/util/DumpUtils$Dump;
     .param p2, "pw"    # Ljava/io/PrintWriter;
-    .param p3, "timeout"    # J
+    .param p3, "prefix"    # Ljava/lang/String;
+    .param p4, "timeout"    # J
 
     .prologue
     new-instance v0, Ljava/io/StringWriter;
@@ -36,9 +37,9 @@
     .local v0, "sw":Ljava/io/StringWriter;
     new-instance v1, Lcom/android/internal/util/DumpUtils$1;
 
-    invoke-direct {v1, v0, p1}, Lcom/android/internal/util/DumpUtils$1;-><init>(Ljava/io/StringWriter;Lcom/android/internal/util/DumpUtils$Dump;)V
+    invoke-direct {v1, v0, p1, p3}, Lcom/android/internal/util/DumpUtils$1;-><init>(Ljava/io/StringWriter;Lcom/android/internal/util/DumpUtils$Dump;Ljava/lang/String;)V
 
-    invoke-virtual {p0, v1, p3, p4}, Landroid/os/Handler;->runWithScissors(Ljava/lang/Runnable;J)Z
+    invoke-virtual {p0, v1, p4, p5}, Landroid/os/Handler;->runWithScissors(Ljava/lang/Runnable;J)Z
 
     move-result v1
 

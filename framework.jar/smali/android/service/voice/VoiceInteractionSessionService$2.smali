@@ -36,7 +36,7 @@
 
 # virtual methods
 .method public executeMessage(Landroid/os/Message;)V
-    .locals 4
+    .locals 5
     .param p1, "msg"    # Landroid/os/Message;
 
     .prologue
@@ -63,7 +63,9 @@
 
     check-cast v2, Landroid/os/Bundle;
 
-    invoke-virtual {v3, v1, v2}, Landroid/service/voice/VoiceInteractionSessionService;->doNewSession(Landroid/os/IBinder;Landroid/os/Bundle;)V
+    iget v4, v0, Lcom/android/internal/os/SomeArgs;->argi1:I
+
+    invoke-virtual {v3, v1, v2, v4}, Landroid/service/voice/VoiceInteractionSessionService;->doNewSession(Landroid/os/IBinder;Landroid/os/Bundle;I)V
 
     goto :goto_0
 

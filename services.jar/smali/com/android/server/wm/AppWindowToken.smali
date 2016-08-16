@@ -34,11 +34,11 @@
 
 .field final mAppAnimator:Lcom/android/server/wm/AppWindowAnimator;
 
-.field mDeferRemoval:Z
-
 .field mEnteringAnimation:Z
 
 .field final mInputApplicationHandle:Lcom/android/server/input/InputApplicationHandle;
+
+.field mIsExiting:Z
 
 .field mLaunchTaskBehind:Z
 
@@ -354,7 +354,7 @@
 
     if-nez v0, :cond_6
 
-    iget-boolean v0, p0, Lcom/android/server/wm/AppWindowToken;->mDeferRemoval:Z
+    iget-boolean v0, p0, Lcom/android/server/wm/AppWindowToken;->mIsExiting:Z
 
     if-eqz v0, :cond_7
 
@@ -385,11 +385,11 @@
 
     invoke-virtual {p1, v0}, Ljava/io/PrintWriter;->print(Z)V
 
-    const-string v0, " mDeferRemoval="
+    const-string v0, " mIsExiting="
 
     invoke-virtual {p1, v0}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 
-    iget-boolean v0, p0, Lcom/android/server/wm/AppWindowToken;->mDeferRemoval:Z
+    iget-boolean v0, p0, Lcom/android/server/wm/AppWindowToken;->mIsExiting:Z
 
     invoke-virtual {p1, v0}, Ljava/io/PrintWriter;->println(Z)V
 
@@ -608,7 +608,7 @@
     check-cast v0, Lcom/android/server/wm/WindowState;
 
     .local v0, "win":Lcom/android/server/wm/WindowState;
-    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+    iget-object v2, p0, Lcom/android/server/wm/AppWindowToken;->service:Lcom/android/server/wm/WindowManagerService;
 
     iget-object v3, v0, Lcom/android/server/wm/WindowState;->mSession:Lcom/android/server/wm/Session;
 
@@ -634,6 +634,84 @@
 
     .end local v0    # "win":Lcom/android/server/wm/WindowState;
     :cond_0
+    iget-object v2, p0, Lcom/android/server/wm/AppWindowToken;->allAppWindows:Lcom/android/server/wm/WindowList;
+
+    invoke-virtual {v2}, Lcom/android/server/wm/WindowList;->clear()V
+
+    iget-object v2, p0, Lcom/android/server/wm/AppWindowToken;->windows:Lcom/android/server/wm/WindowList;
+
+    invoke-virtual {v2}, Lcom/android/server/wm/WindowList;->clear()V
+
+    return-void
+.end method
+
+.method removeAppFromTaskLocked()V
+    .locals 4
+
+    .prologue
+    const/4 v1, 0x0
+
+    iput-boolean v1, p0, Lcom/android/server/wm/AppWindowToken;->mIsExiting:Z
+
+    invoke-virtual {p0}, Lcom/android/server/wm/AppWindowToken;->removeAllWindows()V
+
+    iget-object v1, p0, Lcom/android/server/wm/AppWindowToken;->service:Lcom/android/server/wm/WindowManagerService;
+
+    iget-object v1, v1, Lcom/android/server/wm/WindowManagerService;->mTaskIdToTask:Landroid/util/SparseArray;
+
+    iget v2, p0, Lcom/android/server/wm/AppWindowToken;->groupId:I
+
+    invoke-virtual {v1, v2}, Landroid/util/SparseArray;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/android/server/wm/Task;
+
+    .local v0, "task":Lcom/android/server/wm/Task;
+    if-eqz v0, :cond_1
+
+    invoke-virtual {v0, p0}, Lcom/android/server/wm/Task;->removeAppToken(Lcom/android/server/wm/AppWindowToken;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    const-string v1, "WindowManager"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "removeAppFromTaskLocked: token="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " not found."
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_0
+    iget-object v1, v0, Lcom/android/server/wm/Task;->mStack:Lcom/android/server/wm/TaskStack;
+
+    iget-object v1, v1, Lcom/android/server/wm/TaskStack;->mExitingAppTokens:Lcom/android/server/wm/AppTokenList;
+
+    invoke-virtual {v1, p0}, Lcom/android/server/wm/AppTokenList;->remove(Ljava/lang/Object;)Z
+
+    :cond_1
     return-void
 .end method
 

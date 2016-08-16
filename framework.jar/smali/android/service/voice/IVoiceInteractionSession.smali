@@ -31,6 +31,14 @@
     .end annotation
 .end method
 
+.method public abstract handleAssist(Landroid/os/Bundle;)V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
 .method public abstract taskFinished(Landroid/content/Intent;I)V
     .annotation system Ldalvik/annotation/Throws;
         value = {

@@ -921,9 +921,10 @@
     return-void
 .end method
 
-.method public dump(Ljava/io/PrintWriter;)V
+.method public dump(Ljava/io/PrintWriter;Ljava/lang/String;)V
     .locals 2
     .param p1, "pw"    # Ljava/io/PrintWriter;
+    .param p2, "prefix"    # Ljava/lang/String;
 
     .prologue
     new-instance v0, Ljava/lang/StringBuilder;

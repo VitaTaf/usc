@@ -2620,9 +2620,10 @@
 
 
 # virtual methods
-.method public dump(Ljava/io/PrintWriter;)V
+.method public dump(Ljava/io/PrintWriter;Ljava/lang/String;)V
     .locals 4
     .param p1, "pw"    # Ljava/io/PrintWriter;
+    .param p2, "prefix"    # Ljava/lang/String;
 
     .prologue
     new-instance v2, Ljava/lang/StringBuilder;

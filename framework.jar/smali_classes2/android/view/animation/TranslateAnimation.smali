@@ -4,29 +4,29 @@
 
 
 # instance fields
-.field private mFromXDelta:F
+.field protected mFromXDelta:F
 
 .field private mFromXType:I
 
-.field private mFromXValue:F
+.field protected mFromXValue:F
 
-.field private mFromYDelta:F
+.field protected mFromYDelta:F
 
 .field private mFromYType:I
 
-.field private mFromYValue:F
+.field protected mFromYValue:F
 
-.field private mToXDelta:F
+.field protected mToXDelta:F
 
 .field private mToXType:I
 
-.field private mToXValue:F
+.field protected mToXValue:F
 
-.field private mToYDelta:F
+.field protected mToYDelta:F
 
 .field private mToYType:I
 
-.field private mToYValue:F
+.field protected mToYValue:F
 
 
 # direct methods

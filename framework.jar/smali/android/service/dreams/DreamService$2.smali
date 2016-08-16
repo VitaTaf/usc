@@ -43,9 +43,10 @@
 
 
 # virtual methods
-.method public dump(Ljava/io/PrintWriter;)V
+.method public dump(Ljava/io/PrintWriter;Ljava/lang/String;)V
     .locals 3
     .param p1, "pw"    # Ljava/io/PrintWriter;
+    .param p2, "prefix"    # Ljava/lang/String;
 
     .prologue
     iget-object v0, p0, Landroid/service/dreams/DreamService$2;->this$0:Landroid/service/dreams/DreamService;

@@ -841,7 +841,7 @@
     goto/16 :goto_0
 
     :pswitch_19
-    const-string v0, "lowMemory"
+    const-string/jumbo v0, "lowMemory"
 
     invoke-static {v12, v13, v0}, Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V
 
@@ -1228,6 +1228,8 @@
     invoke-static {v1, v0}, Landroid/app/ActivityThread;->access$3100(Landroid/app/ActivityThread;Landroid/os/IBinder;)V
 
     goto/16 :goto_0
+
+    nop
 
     :pswitch_data_0
     .packed-switch 0x64

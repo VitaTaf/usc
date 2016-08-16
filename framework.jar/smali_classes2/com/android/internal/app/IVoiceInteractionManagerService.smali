@@ -71,7 +71,7 @@
     .end annotation
 .end method
 
-.method public abstract startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;)V
+.method public abstract startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;I)V
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/os/RemoteException;

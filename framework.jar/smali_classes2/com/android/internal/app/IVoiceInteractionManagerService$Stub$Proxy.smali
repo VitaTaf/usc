@@ -640,10 +640,11 @@
     throw v3
 .end method
 
-.method public startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;)V
+.method public startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;I)V
     .locals 5
     .param p1, "service"    # Landroid/service/voice/IVoiceInteractionService;
     .param p2, "sessionArgs"    # Landroid/os/Bundle;
+    .param p3, "flags"    # I
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/os/RemoteException;
@@ -686,6 +687,8 @@
     invoke-virtual {p2, v0, v2}, Landroid/os/Bundle;->writeToParcel(Landroid/os/Parcel;I)V
 
     :goto_1
+    invoke-virtual {v0, p3}, Landroid/os/Parcel;->writeInt(I)V
+
     iget-object v2, p0, Lcom/android/internal/app/IVoiceInteractionManagerService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v3, 0x1

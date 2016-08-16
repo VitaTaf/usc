@@ -35,6 +35,8 @@
 
 
 # instance fields
+.field final mActivityComponent:Landroid/content/ComponentName;
+
 .field final mRootViews:Ljava/util/ArrayList;
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -89,6 +91,12 @@
     invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
 
     iput-object v0, p0, Landroid/app/AssistData;->mTmpExtras:Landroid/os/Bundle;
+
+    invoke-virtual {p1}, Landroid/app/Activity;->getComponentName()Landroid/content/ComponentName;
+
+    move-result-object v0
+
+    iput-object v0, p0, Landroid/app/AssistData;->mActivityComponent:Landroid/content/ComponentName;
 
     invoke-static {}, Landroid/view/WindowManagerGlobal;->getInstance()Landroid/view/WindowManagerGlobal;
 
@@ -200,6 +208,12 @@
 
     iput-object v2, p0, Landroid/app/AssistData;->mTmpExtras:Landroid/os/Bundle;
 
+    invoke-static {p1}, Landroid/content/ComponentName;->readFromParcel(Landroid/os/Parcel;)Landroid/content/ComponentName;
+
+    move-result-object v2
+
+    iput-object v2, p0, Landroid/app/AssistData;->mActivityComponent:Landroid/content/ComponentName;
+
     invoke-virtual {p1}, Landroid/os/Parcel;->readInt()I
 
     move-result v0
@@ -254,10 +268,38 @@
     return v0
 .end method
 
-.method dump()V
+.method public dump()V
     .locals 6
 
     .prologue
+    const-string v3, "AssistData"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "Activity: "
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    iget-object v5, p0, Landroid/app/AssistData;->mActivityComponent:Landroid/content/ComponentName;
+
+    invoke-virtual {v5}, Landroid/content/ComponentName;->flattenToShortString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
     new-instance v2, Landroid/app/AssistData$ViewNode;
 
     invoke-direct {v2}, Landroid/app/AssistData$ViewNode;-><init>()V
@@ -517,7 +559,7 @@
 
     move-result-object v11
 
-    const-string v12, " Text (sel "
+    const-string v12, "  Text (sel "
 
     invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -704,6 +746,15 @@
     return-void
 .end method
 
+.method public getActivityComponent()Landroid/content/ComponentName;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/app/AssistData;->mActivityComponent:Landroid/content/ComponentName;
+
+    return-object v0
+.end method
+
 .method public getWindowAt(ILandroid/app/AssistData$ViewNode;)V
     .locals 1
     .param p1, "index"    # I
@@ -747,6 +798,10 @@
     move-result v2
 
     .local v2, "start":I
+    iget-object v3, p0, Landroid/app/AssistData;->mActivityComponent:Landroid/content/ComponentName;
+
+    invoke-static {v3, p1}, Landroid/content/ComponentName;->writeToParcel(Landroid/content/ComponentName;Landroid/os/Parcel;)V
+
     iget-object v3, p0, Landroid/app/AssistData;->mRootViews:Ljava/util/ArrayList;
 
     invoke-virtual {v3}, Ljava/util/ArrayList;->size()I

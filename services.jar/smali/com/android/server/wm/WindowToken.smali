@@ -189,6 +189,10 @@
 
     .end local v0    # "win":Lcom/android/server/wm/WindowState;
     :cond_0
+    iget-object v2, p0, Lcom/android/server/wm/WindowToken;->windows:Lcom/android/server/wm/WindowList;
+
+    invoke-virtual {v2}, Lcom/android/server/wm/WindowList;->clear()V
+
     return-void
 .end method
 

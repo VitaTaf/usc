@@ -1766,10 +1766,11 @@
     throw v4
 .end method
 
-.method public startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;)V
+.method public startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;I)V
     .locals 6
     .param p1, "service"    # Landroid/service/voice/IVoiceInteractionService;
     .param p2, "args"    # Landroid/os/Bundle;
+    .param p3, "flags"    # I
 
     .prologue
     monitor-enter p0
@@ -1839,7 +1840,7 @@
     :try_start_2
     iget-object v4, p0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerService$VoiceInteractionManagerServiceStub;->mImpl:Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;
 
-    invoke-virtual {v4, v2, v3, p2}, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;->startSessionLocked(IILandroid/os/Bundle;)V
+    invoke-virtual {v4, v2, v3, p2, p3}, Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;->startSessionLocked(IILandroid/os/Bundle;I)V
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_1
 
@@ -1899,44 +1900,12 @@
 
     .local v2, "callingUid":I
     invoke-static {}, Landroid/os/Binder;->clearCallingIdentity()J
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     move-result-wide v6
 
     .local v6, "caller":J
-    const-string v0, "persist.test.voice_interaction"
-
-    const/4 v3, 0x0
-
-    invoke-static {v0, v3}, Landroid/os/SystemProperties;->getBoolean(Ljava/lang/String;Z)Z
-
-    move-result v0
-
-    if-nez v0, :cond_1
-
-    new-instance v0, Ljava/lang/SecurityException;
-
-    const-string v3, "Voice interaction not supported"
-
-    invoke-direct {v0, v3}, Ljava/lang/SecurityException;-><init>(Ljava/lang/String;)V
-
-    throw v0
-
-    .end local v1    # "callingPid":I
-    .end local v2    # "callingUid":I
-    .end local v6    # "caller":J
-    :catchall_0
-    move-exception v0
-
-    monitor-exit p0
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
-
-    .restart local v1    # "callingPid":I
-    .restart local v2    # "callingUid":I
-    .restart local v6    # "caller":J
-    :cond_1
     :try_start_1
     iget-object v0, p0, Lcom/android/server/voiceinteraction/VoiceInteractionManagerService$VoiceInteractionManagerServiceStub;->mImpl:Lcom/android/server/voiceinteraction/VoiceInteractionManagerServiceImpl;
 
@@ -1959,14 +1928,30 @@
 
     goto :goto_0
 
+    .end local v1    # "callingPid":I
+    .end local v2    # "callingUid":I
+    .end local v6    # "caller":J
+    :catchall_0
+    move-exception v0
+
+    monitor-exit p0
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_0
+
+    throw v0
+
+    .restart local v1    # "callingPid":I
+    .restart local v2    # "callingUid":I
+    .restart local v6    # "caller":J
     :catchall_1
     move-exception v0
 
+    :try_start_3
     invoke-static {v6, v7}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
     throw v0
-    :try_end_2
-    .catchall {:try_start_2 .. :try_end_2} :catchall_0
+    :try_end_3
+    .catchall {:try_start_3 .. :try_end_3} :catchall_0
 .end method
 
 .method public stopRecognition(Landroid/service/voice/IVoiceInteractionService;ILandroid/hardware/soundtrigger/IRecognitionStatusCallback;)I

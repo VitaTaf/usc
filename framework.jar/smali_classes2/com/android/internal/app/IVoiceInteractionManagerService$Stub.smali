@@ -174,13 +174,19 @@
 
     .local v2, "_arg1":Landroid/os/Bundle;
     :goto_1
-    invoke-virtual {p0, v1, v2}, Lcom/android/internal/app/IVoiceInteractionManagerService$Stub;->startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;)V
+    invoke-virtual {p2}, Landroid/os/Parcel;->readInt()I
+
+    move-result v3
+
+    .local v3, "_arg2":I
+    invoke-virtual {p0, v1, v2, v3}, Lcom/android/internal/app/IVoiceInteractionManagerService$Stub;->startSession(Landroid/service/voice/IVoiceInteractionService;Landroid/os/Bundle;I)V
 
     invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
 
     goto :goto_0
 
     .end local v2    # "_arg1":Landroid/os/Bundle;
+    .end local v3    # "_arg2":I
     :cond_0
     const/4 v2, 0x0
 

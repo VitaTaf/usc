@@ -1097,40 +1097,81 @@
 .end method
 
 .method removeTask(Lcom/android/server/wm/Task;)V
-    .locals 2
+    .locals 6
     .param p1, "task"    # Lcom/android/server/wm/Task;
 
     .prologue
-    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mTasks:Ljava/util/ArrayList;
+    const/4 v5, 0x0
 
-    invoke-virtual {v0, p1}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mTasks:Ljava/util/ArrayList;
 
-    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
+    invoke-virtual {v3, p1}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
 
-    if-eqz v0, :cond_1
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
 
-    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mTasks:Ljava/util/ArrayList;
+    if-eqz v3, :cond_1
 
-    invoke-virtual {v0}, Ljava/util/ArrayList;->isEmpty()Z
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mTasks:Ljava/util/ArrayList;
 
-    move-result v0
+    invoke-virtual {v3}, Ljava/util/ArrayList;->isEmpty()Z
 
-    if-eqz v0, :cond_0
+    move-result v3
 
-    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
+    if-eqz v3, :cond_0
 
-    const/4 v1, 0x0
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
 
-    invoke-virtual {v0, p0, v1}, Lcom/android/server/wm/DisplayContent;->moveStack(Lcom/android/server/wm/TaskStack;Z)V
+    invoke-virtual {v3, p0, v5}, Lcom/android/server/wm/DisplayContent;->moveStack(Lcom/android/server/wm/TaskStack;Z)V
 
     :cond_0
-    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
 
-    const/4 v1, 0x1
+    const/4 v4, 0x1
 
-    iput-boolean v1, v0, Lcom/android/server/wm/DisplayContent;->layoutNeeded:Z
+    iput-boolean v4, v3, Lcom/android/server/wm/DisplayContent;->layoutNeeded:Z
 
     :cond_1
+    iget v1, p1, Lcom/android/server/wm/Task;->taskId:I
+
+    .local v1, "taskId":I
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mExitingAppTokens:Lcom/android/server/wm/AppTokenList;
+
+    invoke-virtual {v3}, Lcom/android/server/wm/AppTokenList;->size()I
+
+    move-result v3
+
+    add-int/lit8 v0, v3, -0x1
+
+    .local v0, "appNdx":I
+    :goto_0
+    if-ltz v0, :cond_3
+
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mExitingAppTokens:Lcom/android/server/wm/AppTokenList;
+
+    invoke-virtual {v3, v0}, Lcom/android/server/wm/AppTokenList;->get(I)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/android/server/wm/AppWindowToken;
+
+    .local v2, "wtoken":Lcom/android/server/wm/AppWindowToken;
+    iget v3, v2, Lcom/android/server/wm/AppWindowToken;->groupId:I
+
+    if-ne v3, v1, :cond_2
+
+    iput-boolean v5, v2, Lcom/android/server/wm/AppWindowToken;->mIsExiting:Z
+
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mExitingAppTokens:Lcom/android/server/wm/AppTokenList;
+
+    invoke-virtual {v3, v0}, Lcom/android/server/wm/AppTokenList;->remove(I)Ljava/lang/Object;
+
+    :cond_2
+    add-int/lit8 v0, v0, -0x1
+
+    goto :goto_0
+
+    .end local v2    # "wtoken":Lcom/android/server/wm/AppWindowToken;
+    :cond_3
     return-void
 .end method
 

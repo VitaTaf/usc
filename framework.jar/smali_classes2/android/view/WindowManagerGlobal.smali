@@ -890,6 +890,12 @@
     .end local v5    # "index":I
     .end local v6    # "panelParentView":Landroid/view/View;
     :cond_7
+    invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
+
+    move-result v9
+
+    if-eqz v9, :cond_3
+
     invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v1

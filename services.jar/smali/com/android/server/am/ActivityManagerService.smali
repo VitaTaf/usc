@@ -7790,6 +7790,37 @@
     .end packed-switch
 .end method
 
+.method private buildAssistBundleLocked(Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;Landroid/os/Bundle;)V
+    .locals 3
+    .param p1, "pae"    # Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+    .param p2, "result"    # Landroid/os/Bundle;
+
+    .prologue
+    if-eqz p2, :cond_0
+
+    iget-object v0, p1, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->extras:Landroid/os/Bundle;
+
+    const-string v1, "android.intent.extra.ASSIST_CONTEXT"
+
+    invoke-virtual {v0, v1, p2}, Landroid/os/Bundle;->putBundle(Ljava/lang/String;Landroid/os/Bundle;)V
+
+    :cond_0
+    iget-object v0, p1, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->hint:Ljava/lang/String;
+
+    if-eqz v0, :cond_1
+
+    iget-object v0, p1, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->extras:Landroid/os/Bundle;
+
+    iget-object v1, p1, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->hint:Ljava/lang/String;
+
+    const/4 v2, 0x1
+
+    invoke-virtual {v0, v1, v2}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
+
+    :cond_1
+    return-void
+.end method
+
 .method private canClearIdentity(III)Z
     .locals 6
     .param p1, "callingPid"    # I
@@ -16190,15 +16221,16 @@
     return-void
 .end method
 
-.method private enqueueAssistContext(ILandroid/content/Intent;Ljava/lang/String;I)Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
-    .locals 9
+.method private enqueueAssistContext(ILandroid/content/Intent;Ljava/lang/String;Lcom/android/internal/os/IResultReceiver;I)Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+    .locals 10
     .param p1, "requestType"    # I
     .param p2, "intent"    # Landroid/content/Intent;
     .param p3, "hint"    # Ljava/lang/String;
-    .param p4, "userHandle"    # I
+    .param p4, "receiver"    # Lcom/android/internal/os/IResultReceiver;
+    .param p5, "userHandle"    # I
 
     .prologue
-    const/4 v8, 0x0
+    const/4 v9, 0x0
 
     const-string v1, "android.permission.GET_TOP_ACTIVITY_INFO"
 
@@ -16231,7 +16263,7 @@
 
     monitor-exit p0
 
-    move-object v0, v8
+    move-object v0, v9
 
     :goto_0
     return-object v0
@@ -16278,7 +16310,7 @@
 
     monitor-exit p0
 
-    move-object v0, v8
+    move-object v0, v9
 
     goto :goto_0
 
@@ -16317,7 +16349,7 @@
 
     monitor-exit p0
 
-    move-object v0, v8
+    move-object v0, v9
 
     goto :goto_0
 
@@ -16330,9 +16362,11 @@
 
     move-object v5, p3
 
-    move v6, p4
+    move-object v6, p4
 
-    invoke-direct/range {v0 .. v6}, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;-><init>(Lcom/android/server/am/ActivityManagerService;Lcom/android/server/am/ActivityRecord;Landroid/os/Bundle;Landroid/content/Intent;Ljava/lang/String;I)V
+    move v7, p5
+
+    invoke-direct/range {v0 .. v7}, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;-><init>(Lcom/android/server/am/ActivityManagerService;Lcom/android/server/am/ActivityRecord;Landroid/os/Bundle;Landroid/content/Intent;Ljava/lang/String;Lcom/android/internal/os/IResultReceiver;I)V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
@@ -16378,9 +16412,9 @@
     .restart local v0    # "pae":Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
     .restart local v2    # "activity":Lcom/android/server/am/ActivityRecord;
     :catch_0
-    move-exception v7
+    move-exception v8
 
-    .local v7, "e":Landroid/os/RemoteException;
+    .local v8, "e":Landroid/os/RemoteException;
     :try_start_3
     const-string v1, "ActivityManager"
 
@@ -16408,7 +16442,7 @@
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_0
 
-    move-object v0, v8
+    move-object v0, v9
 
     goto/16 :goto_0
 .end method
@@ -53481,39 +53515,47 @@
 .end method
 
 .method public getAssistContextExtras(I)Landroid/os/Bundle;
-    .locals 4
+    .locals 7
     .param p1, "requestType"    # I
 
     .prologue
-    const/4 v1, 0x0
+    const/4 v2, 0x0
 
     invoke-static {}, Landroid/os/UserHandle;->getCallingUserId()I
 
-    move-result v2
+    move-result v5
 
-    invoke-direct {p0, p1, v1, v1, v2}, Lcom/android/server/am/ActivityManagerService;->enqueueAssistContext(ILandroid/content/Intent;Ljava/lang/String;I)Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+    move-object v0, p0
 
-    move-result-object v0
+    move v1, p1
 
-    .local v0, "pae":Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
-    if-nez v0, :cond_0
+    move-object v3, v2
+
+    move-object v4, v2
+
+    invoke-direct/range {v0 .. v5}, Lcom/android/server/am/ActivityManagerService;->enqueueAssistContext(ILandroid/content/Intent;Ljava/lang/String;Lcom/android/internal/os/IResultReceiver;I)Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+
+    move-result-object v6
+
+    .local v6, "pae":Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+    if-nez v6, :cond_0
 
     :goto_0
-    return-object v1
+    return-object v2
 
     :cond_0
-    monitor-enter v0
+    monitor-enter v6
 
     :goto_1
     :try_start_0
-    iget-boolean v1, v0, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->haveResult:Z
+    iget-boolean v0, v6, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->haveResult:Z
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    if-nez v1, :cond_1
+    if-nez v0, :cond_1
 
     :try_start_1
-    invoke-virtual {v0}, Ljava/lang/Object;->wait()V
+    invoke-virtual {v6}, Ljava/lang/Object;->wait()V
     :try_end_1
     .catch Ljava/lang/InterruptedException; {:try_start_1 .. :try_end_1} :catch_0
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
@@ -53521,67 +53563,58 @@
     goto :goto_1
 
     :catch_0
-    move-exception v1
+    move-exception v0
 
     goto :goto_1
 
     :cond_1
     :try_start_2
-    iget-object v1, v0, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->result:Landroid/os/Bundle;
-
-    if-eqz v1, :cond_2
-
-    iget-object v1, v0, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->extras:Landroid/os/Bundle;
-
-    const-string v2, "android.intent.extra.ASSIST_CONTEXT"
-
-    iget-object v3, v0, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->result:Landroid/os/Bundle;
-
-    invoke-virtual {v1, v2, v3}, Landroid/os/Bundle;->putBundle(Ljava/lang/String;Landroid/os/Bundle;)V
-
-    :cond_2
-    monitor-exit v0
+    monitor-exit v6
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
     monitor-enter p0
 
     :try_start_3
-    iget-object v1, p0, Lcom/android/server/am/ActivityManagerService;->mPendingAssistExtras:Ljava/util/ArrayList;
+    iget-object v0, v6, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->result:Landroid/os/Bundle;
 
-    invoke-virtual {v1, v0}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
+    invoke-direct {p0, v6, v0}, Lcom/android/server/am/ActivityManagerService;->buildAssistBundleLocked(Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;Landroid/os/Bundle;)V
 
-    iget-object v1, p0, Lcom/android/server/am/ActivityManagerService;->mHandler:Lcom/android/server/am/ActivityManagerService$MainHandler;
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mPendingAssistExtras:Ljava/util/ArrayList;
 
-    invoke-virtual {v1, v0}, Lcom/android/server/am/ActivityManagerService$MainHandler;->removeCallbacks(Ljava/lang/Runnable;)V
+    invoke-virtual {v0, v6}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
+
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mHandler:Lcom/android/server/am/ActivityManagerService$MainHandler;
+
+    invoke-virtual {v0, v6}, Lcom/android/server/am/ActivityManagerService$MainHandler;->removeCallbacks(Ljava/lang/Runnable;)V
 
     monitor-exit p0
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_1
 
-    iget-object v1, v0, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->extras:Landroid/os/Bundle;
+    iget-object v2, v6, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->extras:Landroid/os/Bundle;
 
     goto :goto_0
 
     :catchall_0
-    move-exception v1
+    move-exception v0
 
     :try_start_4
-    monitor-exit v0
+    monitor-exit v6
     :try_end_4
     .catchall {:try_start_4 .. :try_end_4} :catchall_0
 
-    throw v1
+    throw v0
 
     :catchall_1
-    move-exception v1
+    move-exception v0
 
     :try_start_5
     monitor-exit p0
     :try_end_5
     .catchall {:try_start_5 .. :try_end_5} :catchall_1
 
-    throw v1
+    throw v0
 .end method
 
 .method public getCallingActivity(Landroid/os/IBinder;)Landroid/content/ComponentName;
@@ -62641,14 +62674,26 @@
 .end method
 
 .method public launchAssistIntent(Landroid/content/Intent;ILjava/lang/String;I)Z
-    .locals 1
+    .locals 6
     .param p1, "intent"    # Landroid/content/Intent;
     .param p2, "requestType"    # I
     .param p3, "hint"    # Ljava/lang/String;
     .param p4, "userHandle"    # I
 
     .prologue
-    invoke-direct {p0, p2, p1, p3, p4}, Lcom/android/server/am/ActivityManagerService;->enqueueAssistContext(ILandroid/content/Intent;Ljava/lang/String;I)Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+    const/4 v4, 0x0
+
+    move-object v0, p0
+
+    move v1, p2
+
+    move-object v2, p1
+
+    move-object v3, p3
+
+    move v5, p4
+
+    invoke-direct/range {v0 .. v5}, Lcom/android/server/am/ActivityManagerService;->enqueueAssistContext(ILandroid/content/Intent;Ljava/lang/String;Lcom/android/internal/os/IResultReceiver;I)Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
 
     move-result-object v0
 
@@ -64505,6 +64550,40 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     throw v0
+.end method
+
+.method pendingAssistExtrasTimedOutLocked(Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;)V
+    .locals 3
+    .param p1, "pae"    # Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mPendingAssistExtras:Ljava/util/ArrayList;
+
+    invoke-virtual {v0, p1}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
+
+    iget-object v0, p1, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->receiver:Lcom/android/internal/os/IResultReceiver;
+
+    if-eqz v0, :cond_0
+
+    :try_start_0
+    iget-object v0, p1, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->receiver:Lcom/android/internal/os/IResultReceiver;
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x0
+
+    invoke-interface {v0, v1, v2}, Lcom/android/internal/os/IResultReceiver;->send(ILandroid/os/Bundle;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :catch_0
+    move-exception v0
+
+    goto :goto_0
 .end method
 
 .method final performAppGcLocked(Lcom/android/server/am/ProcessRecord;)V
@@ -67662,8 +67741,6 @@
     .param p2, "extras"    # Landroid/os/Bundle;
 
     .prologue
-    const/4 v5, 0x1
-
     move-object v2, p1
 
     check-cast v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
@@ -67684,6 +67761,10 @@
 
     if-nez v3, :cond_0
 
+    iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->receiver:Lcom/android/internal/os/IResultReceiver;
+
+    if-nez v3, :cond_0
+
     monitor-exit v2
 
     :goto_0
@@ -67697,6 +67778,8 @@
     monitor-enter p0
 
     :try_start_1
+    invoke-direct {p0, v2, p2}, Lcom/android/server/am/ActivityManagerService;->buildAssistBundleLocked(Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;Landroid/os/Bundle;)V
+
     iget-object v3, p0, Lcom/android/server/am/ActivityManagerService;->mPendingAssistExtras:Ljava/util/ArrayList;
 
     invoke-virtual {v3, v2}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
@@ -67737,25 +67820,41 @@
     .restart local v1    # "exists":Z
     :cond_1
     :try_start_3
-    monitor-exit p0
+    iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->receiver:Lcom/android/internal/os/IResultReceiver;
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_0
 
-    iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->intent:Landroid/content/Intent;
-
-    invoke-virtual {v3, p2}, Landroid/content/Intent;->replaceExtras(Landroid/os/Bundle;)Landroid/content/Intent;
-
-    iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->hint:Ljava/lang/String;
-
     if-eqz v3, :cond_2
 
-    iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->intent:Landroid/content/Intent;
+    :try_start_4
+    iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->receiver:Lcom/android/internal/os/IResultReceiver;
 
-    iget-object v4, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->hint:Ljava/lang/String;
+    const/4 v4, 0x0
 
-    invoke-virtual {v3, v4, v5}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
+    iget-object v5, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->extras:Landroid/os/Bundle;
+
+    invoke-interface {v3, v4, v5}, Lcom/android/internal/os/IResultReceiver;->send(ILandroid/os/Bundle;)V
+    :try_end_4
+    .catch Landroid/os/RemoteException; {:try_start_4 .. :try_end_4} :catch_1
+    .catchall {:try_start_4 .. :try_end_4} :catchall_0
+
+    :goto_1
+    :try_start_5
+    monitor-exit p0
+
+    goto :goto_0
 
     :cond_2
+    monitor-exit p0
+    :try_end_5
+    .catchall {:try_start_5 .. :try_end_5} :catchall_0
+
+    iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->intent:Landroid/content/Intent;
+
+    iget-object v4, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->extras:Landroid/os/Bundle;
+
+    invoke-virtual {v3, v4}, Landroid/content/Intent;->replaceExtras(Landroid/os/Bundle;)Landroid/content/Intent;
+
     iget-object v3, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->intent:Landroid/content/Intent;
 
     const/high16 v4, 0x34000000
@@ -67766,7 +67865,7 @@
 
     invoke-virtual {p0, v3}, Lcom/android/server/am/ActivityManagerService;->closeSystemDialogs(Ljava/lang/String;)V
 
-    :try_start_4
+    :try_start_6
     iget-object v3, p0, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
 
     iget-object v4, v2, Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;->intent:Landroid/content/Intent;
@@ -67778,8 +67877,8 @@
     invoke-direct {v5, v6}, Landroid/os/UserHandle;-><init>(I)V
 
     invoke-virtual {v3, v4, v5}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
-    :try_end_4
-    .catch Landroid/content/ActivityNotFoundException; {:try_start_4 .. :try_end_4} :catch_0
+    :try_end_6
+    .catch Landroid/content/ActivityNotFoundException; {:try_start_6 .. :try_end_6} :catch_0
 
     goto :goto_0
 
@@ -67794,6 +67893,12 @@
     invoke-static {v3, v4, v0}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
     goto :goto_0
+
+    .end local v0    # "e":Landroid/content/ActivityNotFoundException;
+    :catch_1
+    move-exception v3
+
+    goto :goto_1
 .end method
 
 .method reportMemUsage(Ljava/util/ArrayList;)V
@@ -69220,6 +69325,31 @@
     .catchall {:try_start_5 .. :try_end_5} :catchall_2
 
     throw v5
+.end method
+
+.method public requestAssistContextExtras(ILcom/android/internal/os/IResultReceiver;)V
+    .locals 6
+    .param p1, "requestType"    # I
+    .param p2, "receiver"    # Lcom/android/internal/os/IResultReceiver;
+
+    .prologue
+    const/4 v2, 0x0
+
+    invoke-static {}, Landroid/os/UserHandle;->getCallingUserId()I
+
+    move-result v5
+
+    move-object v0, p0
+
+    move v1, p1
+
+    move-object v3, v2
+
+    move-object v4, p2
+
+    invoke-direct/range {v0 .. v5}, Lcom/android/server/am/ActivityManagerService;->enqueueAssistContext(ILandroid/content/Intent;Ljava/lang/String;Lcom/android/internal/os/IResultReceiver;I)Lcom/android/server/am/ActivityManagerService$PendingAssistExtras;
+
+    return-void
 .end method
 
 .method public requestBugReport()V

@@ -12,7 +12,7 @@
 
 
 # static fields
-.field public static IDENTITY_MATRIX:Landroid/graphics/Matrix; = null
+.field public static final IDENTITY_MATRIX:Landroid/graphics/Matrix;
 
 .field public static final MPERSP_0:I = 0x6
 

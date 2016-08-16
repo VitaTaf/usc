@@ -4,12 +4,49 @@
 
 
 # instance fields
-.field private mFromRect:Landroid/graphics/Rect;
+.field protected mFromRect:Landroid/graphics/Rect;
 
-.field private mToRect:Landroid/graphics/Rect;
+.field protected mToRect:Landroid/graphics/Rect;
 
 
 # direct methods
+.method public constructor <init>(IIIIIIII)V
+    .locals 1
+    .param p1, "fromL"    # I
+    .param p2, "fromT"    # I
+    .param p3, "fromR"    # I
+    .param p4, "fromB"    # I
+    .param p5, "toL"    # I
+    .param p6, "toT"    # I
+    .param p7, "toR"    # I
+    .param p8, "toB"    # I
+
+    .prologue
+    invoke-direct {p0}, Landroid/view/animation/Animation;-><init>()V
+
+    new-instance v0, Landroid/graphics/Rect;
+
+    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
+
+    iput-object v0, p0, Landroid/view/animation/ClipRectAnimation;->mFromRect:Landroid/graphics/Rect;
+
+    new-instance v0, Landroid/graphics/Rect;
+
+    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
+
+    iput-object v0, p0, Landroid/view/animation/ClipRectAnimation;->mToRect:Landroid/graphics/Rect;
+
+    iget-object v0, p0, Landroid/view/animation/ClipRectAnimation;->mFromRect:Landroid/graphics/Rect;
+
+    invoke-virtual {v0, p1, p2, p3, p4}, Landroid/graphics/Rect;->set(IIII)V
+
+    iget-object v0, p0, Landroid/view/animation/ClipRectAnimation;->mToRect:Landroid/graphics/Rect;
+
+    invoke-virtual {v0, p5, p6, p7, p8}, Landroid/graphics/Rect;->set(IIII)V
+
+    return-void
+.end method
+
 .method public constructor <init>(Landroid/graphics/Rect;Landroid/graphics/Rect;)V
     .locals 2
     .param p1, "fromClip"    # Landroid/graphics/Rect;

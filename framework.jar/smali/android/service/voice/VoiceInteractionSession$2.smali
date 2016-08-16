@@ -78,6 +78,30 @@
     return-void
 .end method
 
+.method public handleAssist(Landroid/os/Bundle;)V
+    .locals 3
+    .param p1, "assistBundle"    # Landroid/os/Bundle;
+
+    .prologue
+    iget-object v0, p0, Landroid/service/voice/VoiceInteractionSession$2;->this$0:Landroid/service/voice/VoiceInteractionSession;
+
+    iget-object v0, v0, Landroid/service/voice/VoiceInteractionSession;->mHandlerCaller:Lcom/android/internal/os/HandlerCaller;
+
+    iget-object v1, p0, Landroid/service/voice/VoiceInteractionSession$2;->this$0:Landroid/service/voice/VoiceInteractionSession;
+
+    iget-object v1, v1, Landroid/service/voice/VoiceInteractionSession;->mHandlerCaller:Lcom/android/internal/os/HandlerCaller;
+
+    const/16 v2, 0x68
+
+    invoke-virtual {v1, v2, p1}, Lcom/android/internal/os/HandlerCaller;->obtainMessageO(ILjava/lang/Object;)Landroid/os/Message;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/android/internal/os/HandlerCaller;->sendMessage(Landroid/os/Message;)V
+
+    return-void
+.end method
+
 .method public taskFinished(Landroid/content/Intent;I)V
     .locals 3
     .param p1, "intent"    # Landroid/content/Intent;

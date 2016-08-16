@@ -87,40 +87,85 @@
 .end method
 
 .method public compose(Landroid/view/animation/Transformation;)V
-    .locals 2
+    .locals 6
     .param p1, "t"    # Landroid/view/animation/Transformation;
 
     .prologue
-    iget v0, p0, Landroid/view/animation/Transformation;->mAlpha:F
+    iget v1, p0, Landroid/view/animation/Transformation;->mAlpha:F
 
     invoke-virtual {p1}, Landroid/view/animation/Transformation;->getAlpha()F
 
-    move-result v1
+    move-result v2
 
-    mul-float/2addr v0, v1
+    mul-float/2addr v1, v2
 
-    iput v0, p0, Landroid/view/animation/Transformation;->mAlpha:F
+    iput v1, p0, Landroid/view/animation/Transformation;->mAlpha:F
 
-    iget-object v0, p0, Landroid/view/animation/Transformation;->mMatrix:Landroid/graphics/Matrix;
+    iget-object v1, p0, Landroid/view/animation/Transformation;->mMatrix:Landroid/graphics/Matrix;
 
     invoke-virtual {p1}, Landroid/view/animation/Transformation;->getMatrix()Landroid/graphics/Matrix;
 
-    move-result-object v1
+    move-result-object v2
 
-    invoke-virtual {v0, v1}, Landroid/graphics/Matrix;->preConcat(Landroid/graphics/Matrix;)Z
+    invoke-virtual {v1, v2}, Landroid/graphics/Matrix;->preConcat(Landroid/graphics/Matrix;)Z
 
-    iget-boolean v0, p1, Landroid/view/animation/Transformation;->mHasClipRect:Z
+    iget-boolean v1, p1, Landroid/view/animation/Transformation;->mHasClipRect:Z
 
-    if-eqz v0, :cond_0
+    if-eqz v1, :cond_0
 
     invoke-virtual {p1}, Landroid/view/animation/Transformation;->getClipRect()Landroid/graphics/Rect;
 
     move-result-object v0
 
+    .local v0, "bounds":Landroid/graphics/Rect;
+    iget-boolean v1, p0, Landroid/view/animation/Transformation;->mHasClipRect:Z
+
+    if-eqz v1, :cond_1
+
+    iget-object v1, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v1, v1, Landroid/graphics/Rect;->left:I
+
+    iget v2, v0, Landroid/graphics/Rect;->left:I
+
+    add-int/2addr v1, v2
+
+    iget-object v2, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v2, v2, Landroid/graphics/Rect;->top:I
+
+    iget v3, v0, Landroid/graphics/Rect;->top:I
+
+    add-int/2addr v2, v3
+
+    iget-object v3, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v3, v3, Landroid/graphics/Rect;->right:I
+
+    iget v4, v0, Landroid/graphics/Rect;->right:I
+
+    add-int/2addr v3, v4
+
+    iget-object v4, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v4, v4, Landroid/graphics/Rect;->bottom:I
+
+    iget v5, v0, Landroid/graphics/Rect;->bottom:I
+
+    add-int/2addr v4, v5
+
+    invoke-virtual {p0, v1, v2, v3, v4}, Landroid/view/animation/Transformation;->setClipRect(IIII)V
+
+    .end local v0    # "bounds":Landroid/graphics/Rect;
+    :cond_0
+    :goto_0
+    return-void
+
+    .restart local v0    # "bounds":Landroid/graphics/Rect;
+    :cond_1
     invoke-virtual {p0, v0}, Landroid/view/animation/Transformation;->setClipRect(Landroid/graphics/Rect;)V
 
-    :cond_0
-    return-void
+    goto :goto_0
 .end method
 
 .method public getAlpha()F
@@ -169,40 +214,85 @@
 .end method
 
 .method public postCompose(Landroid/view/animation/Transformation;)V
-    .locals 2
+    .locals 6
     .param p1, "t"    # Landroid/view/animation/Transformation;
 
     .prologue
-    iget v0, p0, Landroid/view/animation/Transformation;->mAlpha:F
+    iget v1, p0, Landroid/view/animation/Transformation;->mAlpha:F
 
     invoke-virtual {p1}, Landroid/view/animation/Transformation;->getAlpha()F
 
-    move-result v1
+    move-result v2
 
-    mul-float/2addr v0, v1
+    mul-float/2addr v1, v2
 
-    iput v0, p0, Landroid/view/animation/Transformation;->mAlpha:F
+    iput v1, p0, Landroid/view/animation/Transformation;->mAlpha:F
 
-    iget-object v0, p0, Landroid/view/animation/Transformation;->mMatrix:Landroid/graphics/Matrix;
+    iget-object v1, p0, Landroid/view/animation/Transformation;->mMatrix:Landroid/graphics/Matrix;
 
     invoke-virtual {p1}, Landroid/view/animation/Transformation;->getMatrix()Landroid/graphics/Matrix;
 
-    move-result-object v1
+    move-result-object v2
 
-    invoke-virtual {v0, v1}, Landroid/graphics/Matrix;->postConcat(Landroid/graphics/Matrix;)Z
+    invoke-virtual {v1, v2}, Landroid/graphics/Matrix;->postConcat(Landroid/graphics/Matrix;)Z
 
-    iget-boolean v0, p1, Landroid/view/animation/Transformation;->mHasClipRect:Z
+    iget-boolean v1, p1, Landroid/view/animation/Transformation;->mHasClipRect:Z
 
-    if-eqz v0, :cond_0
+    if-eqz v1, :cond_0
 
     invoke-virtual {p1}, Landroid/view/animation/Transformation;->getClipRect()Landroid/graphics/Rect;
 
     move-result-object v0
 
+    .local v0, "bounds":Landroid/graphics/Rect;
+    iget-boolean v1, p0, Landroid/view/animation/Transformation;->mHasClipRect:Z
+
+    if-eqz v1, :cond_1
+
+    iget-object v1, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v1, v1, Landroid/graphics/Rect;->left:I
+
+    iget v2, v0, Landroid/graphics/Rect;->left:I
+
+    add-int/2addr v1, v2
+
+    iget-object v2, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v2, v2, Landroid/graphics/Rect;->top:I
+
+    iget v3, v0, Landroid/graphics/Rect;->top:I
+
+    add-int/2addr v2, v3
+
+    iget-object v3, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v3, v3, Landroid/graphics/Rect;->right:I
+
+    iget v4, v0, Landroid/graphics/Rect;->right:I
+
+    add-int/2addr v3, v4
+
+    iget-object v4, p0, Landroid/view/animation/Transformation;->mClipRect:Landroid/graphics/Rect;
+
+    iget v4, v4, Landroid/graphics/Rect;->bottom:I
+
+    iget v5, v0, Landroid/graphics/Rect;->bottom:I
+
+    add-int/2addr v4, v5
+
+    invoke-virtual {p0, v1, v2, v3, v4}, Landroid/view/animation/Transformation;->setClipRect(IIII)V
+
+    .end local v0    # "bounds":Landroid/graphics/Rect;
+    :cond_0
+    :goto_0
+    return-void
+
+    .restart local v0    # "bounds":Landroid/graphics/Rect;
+    :cond_1
     invoke-virtual {p0, v0}, Landroid/view/animation/Transformation;->setClipRect(Landroid/graphics/Rect;)V
 
-    :cond_0
-    return-void
+    goto :goto_0
 .end method
 
 .method public printShortString(Ljava/io/PrintWriter;)V
