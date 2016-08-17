@@ -43,7 +43,7 @@
 
 .field private mConfigHasChanged:Z
 
-.field mConfiguration:Landroid/content/res/Configuration;
+.field private mConfiguration:Landroid/content/res/Configuration;
 
 .field final mContainingFrame:Landroid/graphics/Rect;
 
@@ -149,6 +149,8 @@
 .field mObscured:Z
 
 .field mOrientationChanging:Z
+
+.field private mOverrideConfig:Landroid/content/res/Configuration;
 
 .field final mOverscanFrame:Landroid/graphics/Rect;
 
@@ -296,9 +298,13 @@
 
     iput v10, p0, Lcom/android/server/wm/WindowState;->mLayoutSeq:I
 
-    const/4 v10, 0x0
+    sget-object v10, Landroid/content/res/Configuration;->EMPTY:Landroid/content/res/Configuration;
 
     iput-object v10, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
+
+    sget-object v10, Landroid/content/res/Configuration;->EMPTY:Landroid/content/res/Configuration;
+
+    iput-object v10, p0, Lcom/android/server/wm/WindowState;->mOverrideConfig:Landroid/content/res/Configuration;
 
     new-instance v10, Landroid/graphics/RectF;
 
@@ -1205,6 +1211,23 @@
     invoke-virtual {p2, v0}, Landroid/graphics/Rect;->set(Landroid/graphics/Rect;)V
 
     goto :goto_0
+.end method
+
+.method private setConfiguration(Landroid/content/res/Configuration;Landroid/content/res/Configuration;)V
+    .locals 1
+    .param p1, "newConfig"    # Landroid/content/res/Configuration;
+    .param p2, "newOverrideConfig"    # Landroid/content/res/Configuration;
+
+    .prologue
+    iput-object p1, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
+
+    iput-object p2, p0, Lcom/android/server/wm/WindowState;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lcom/android/server/wm/WindowState;->mConfigHasChanged:Z
+
+    return-void
 .end method
 
 
@@ -4516,62 +4539,88 @@
 .end method
 
 .method isConfigChanged()Z
-    .locals 3
+    .locals 5
 
     .prologue
-    iget-object v1, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
+    invoke-virtual {p0}, Lcom/android/server/wm/WindowState;->getStack()Lcom/android/server/wm/TaskStack;
 
-    iget-object v2, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+    move-result-object v3
 
-    iget-object v2, v2, Lcom/android/server/wm/WindowManagerService;->mCurConfiguration:Landroid/content/res/Configuration;
+    .local v3, "stack":Lcom/android/server/wm/TaskStack;
+    if-eqz v3, :cond_3
 
-    if-eq v1, v2, :cond_2
+    iget-object v1, v3, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
 
-    iget-object v1, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
+    .local v1, "overrideConfig":Landroid/content/res/Configuration;
+    :goto_0
+    iget-object v4, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
 
-    if-eqz v1, :cond_0
+    iget-object v2, v4, Lcom/android/server/wm/WindowManagerService;->mCurConfiguration:Landroid/content/res/Configuration;
 
-    iget-object v1, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
+    .local v2, "serviceConfig":Landroid/content/res/Configuration;
+    iget-object v4, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
 
-    iget-object v2, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+    if-eq v4, v2, :cond_0
 
-    iget-object v2, v2, Lcom/android/server/wm/WindowManagerService;->mCurConfiguration:Landroid/content/res/Configuration;
+    iget-object v4, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
 
-    invoke-virtual {v1, v2}, Landroid/content/res/Configuration;->diff(Landroid/content/res/Configuration;)I
+    invoke-virtual {v4, v2}, Landroid/content/res/Configuration;->diff(Landroid/content/res/Configuration;)I
 
-    move-result v1
+    move-result v4
 
-    if-eqz v1, :cond_2
+    if-nez v4, :cond_1
 
     :cond_0
+    iget-object v4, p0, Lcom/android/server/wm/WindowState;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    if-eq v4, v1, :cond_4
+
+    iget-object v4, p0, Lcom/android/server/wm/WindowState;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    invoke-virtual {v4, v1}, Landroid/content/res/Configuration;->equals(Landroid/content/res/Configuration;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_4
+
+    :cond_1
     const/4 v0, 0x1
 
     .local v0, "configChanged":Z
-    :goto_0
-    iget-object v1, p0, Lcom/android/server/wm/WindowState;->mAttrs:Landroid/view/WindowManager$LayoutParams;
+    :goto_1
+    iget-object v4, p0, Lcom/android/server/wm/WindowState;->mAttrs:Landroid/view/WindowManager$LayoutParams;
 
-    iget v1, v1, Landroid/view/WindowManager$LayoutParams;->privateFlags:I
+    iget v4, v4, Landroid/view/WindowManager$LayoutParams;->privateFlags:I
 
-    and-int/lit16 v1, v1, 0x400
+    and-int/lit16 v4, v4, 0x400
 
-    if-eqz v1, :cond_1
+    if-eqz v4, :cond_2
 
-    iget-boolean v1, p0, Lcom/android/server/wm/WindowState;->mConfigHasChanged:Z
+    iget-boolean v4, p0, Lcom/android/server/wm/WindowState;->mConfigHasChanged:Z
 
-    or-int/2addr v1, v0
+    or-int/2addr v4, v0
 
-    iput-boolean v1, p0, Lcom/android/server/wm/WindowState;->mConfigHasChanged:Z
+    iput-boolean v4, p0, Lcom/android/server/wm/WindowState;->mConfigHasChanged:Z
 
     iget-boolean v0, p0, Lcom/android/server/wm/WindowState;->mConfigHasChanged:Z
 
-    :cond_1
+    :cond_2
     return v0
 
     .end local v0    # "configChanged":Z
-    :cond_2
-    const/4 v0, 0x0
+    .end local v1    # "overrideConfig":Landroid/content/res/Configuration;
+    .end local v2    # "serviceConfig":Landroid/content/res/Configuration;
+    :cond_3
+    sget-object v1, Landroid/content/res/Configuration;->EMPTY:Landroid/content/res/Configuration;
 
     goto :goto_0
+
+    .restart local v1    # "overrideConfig":Landroid/content/res/Configuration;
+    .restart local v2    # "serviceConfig":Landroid/content/res/Configuration;
+    :cond_4
+    const/4 v0, 0x0
+
+    goto :goto_1
 .end method
 
 .method public isDefaultDisplay()Z
@@ -6010,189 +6059,261 @@
 .end method
 
 .method reportResized()V
-    .locals 14
+    .locals 18
 
     .prologue
-    const/4 v7, 0x1
-
-    const/4 v11, 0x0
-
     :try_start_0
-    invoke-virtual {p0}, Lcom/android/server/wm/WindowState;->isConfigChanged()Z
+    invoke-virtual/range {p0 .. p0}, Lcom/android/server/wm/WindowState;->isConfigChanged()Z
 
-    move-result v9
+    move-result v11
 
-    .local v9, "configChanged":Z
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+    .local v11, "configChanged":Z
+    invoke-virtual/range {p0 .. p0}, Lcom/android/server/wm/WindowState;->getStack()Lcom/android/server/wm/TaskStack;
 
-    iget-object v0, v0, Lcom/android/server/wm/WindowManagerService;->mCurConfiguration:Landroid/content/res/Configuration;
+    move-result-object v14
 
-    invoke-virtual {p0, v0}, Lcom/android/server/wm/WindowState;->setConfiguration(Landroid/content/res/Configuration;)V
+    .local v14, "stack":Lcom/android/server/wm/TaskStack;
+    if-eqz v14, :cond_1
 
-    iget-object v2, p0, Lcom/android/server/wm/WindowState;->mFrame:Landroid/graphics/Rect;
+    iget-object v13, v14, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
 
-    .local v2, "frame":Landroid/graphics/Rect;
-    iget-object v3, p0, Lcom/android/server/wm/WindowState;->mLastOverscanInsets:Landroid/graphics/Rect;
-
-    .local v3, "overscanInsets":Landroid/graphics/Rect;
-    iget-object v4, p0, Lcom/android/server/wm/WindowState;->mLastContentInsets:Landroid/graphics/Rect;
-
-    .local v4, "contentInsets":Landroid/graphics/Rect;
-    iget-object v5, p0, Lcom/android/server/wm/WindowState;->mLastVisibleInsets:Landroid/graphics/Rect;
-
-    .local v5, "visibleInsets":Landroid/graphics/Rect;
-    iget-object v6, p0, Lcom/android/server/wm/WindowState;->mLastStableInsets:Landroid/graphics/Rect;
-
-    .local v6, "stableInsets":Landroid/graphics/Rect;
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
-
-    iget v0, v0, Lcom/android/server/wm/WindowStateAnimator;->mDrawState:I
-
-    if-ne v0, v7, :cond_1
-
-    .local v7, "reportDraw":Z
+    .local v13, "overrideConfig":Landroid/content/res/Configuration;
     :goto_0
-    if-eqz v9, :cond_2
+    move-object/from16 v0, p0
 
-    iget-object v8, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
 
-    .local v8, "newConfig":Landroid/content/res/Configuration;
+    iget-object v2, v2, Lcom/android/server/wm/WindowManagerService;->mCurConfiguration:Landroid/content/res/Configuration;
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v0, v2, v13}, Lcom/android/server/wm/WindowState;->setConfiguration(Landroid/content/res/Configuration;Landroid/content/res/Configuration;)V
+
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/server/wm/WindowState;->mFrame:Landroid/graphics/Rect;
+
+    .local v4, "frame":Landroid/graphics/Rect;
+    move-object/from16 v0, p0
+
+    iget-object v5, v0, Lcom/android/server/wm/WindowState;->mLastOverscanInsets:Landroid/graphics/Rect;
+
+    .local v5, "overscanInsets":Landroid/graphics/Rect;
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/android/server/wm/WindowState;->mLastContentInsets:Landroid/graphics/Rect;
+
+    .local v6, "contentInsets":Landroid/graphics/Rect;
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Lcom/android/server/wm/WindowState;->mLastVisibleInsets:Landroid/graphics/Rect;
+
+    .local v7, "visibleInsets":Landroid/graphics/Rect;
+    move-object/from16 v0, p0
+
+    iget-object v8, v0, Lcom/android/server/wm/WindowState;->mLastStableInsets:Landroid/graphics/Rect;
+
+    .local v8, "stableInsets":Landroid/graphics/Rect;
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
+
+    iget v2, v2, Lcom/android/server/wm/WindowStateAnimator;->mDrawState:I
+
+    const/4 v3, 0x1
+
+    if-ne v2, v3, :cond_2
+
+    const/4 v9, 0x1
+
+    .local v9, "reportDraw":Z
     :goto_1
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mAttrs:Landroid/view/WindowManager$LayoutParams;
+    if-eqz v11, :cond_3
 
-    iget v0, v0, Landroid/view/WindowManager$LayoutParams;->type:I
+    move-object/from16 v0, p0
 
-    const/4 v1, 0x3
+    iget-object v10, v0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
 
-    if-eq v0, v1, :cond_3
-
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mClient:Landroid/view/IWindow;
-
-    instance-of v0, v0, Landroid/view/IWindow$Stub;
-
-    if-eqz v0, :cond_3
-
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
-
-    iget-object v12, v0, Lcom/android/server/wm/WindowManagerService;->mH:Lcom/android/server/wm/WindowManagerService$H;
-
-    new-instance v0, Lcom/android/server/wm/WindowState$2;
-
-    move-object v1, p0
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/server/wm/WindowState$2;-><init>(Lcom/android/server/wm/WindowState;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;ZLandroid/content/res/Configuration;)V
-
-    invoke-virtual {v12, v0}, Lcom/android/server/wm/WindowManagerService$H;->post(Ljava/lang/Runnable;)Z
-
+    .local v10, "newConfig":Landroid/content/res/Configuration;
     :goto_2
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+    move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/server/wm/WindowManagerService;->mAccessibilityController:Lcom/android/server/wm/AccessibilityController;
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mAttrs:Landroid/view/WindowManager$LayoutParams;
 
-    if-eqz v0, :cond_0
+    iget v2, v2, Landroid/view/WindowManager$LayoutParams;->type:I
 
-    invoke-virtual {p0}, Lcom/android/server/wm/WindowState;->getDisplayId()I
+    const/4 v3, 0x3
 
-    move-result v0
+    if-eq v2, v3, :cond_4
 
-    if-nez v0, :cond_0
+    move-object/from16 v0, p0
 
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mClient:Landroid/view/IWindow;
 
-    iget-object v0, v0, Lcom/android/server/wm/WindowManagerService;->mAccessibilityController:Lcom/android/server/wm/AccessibilityController;
+    instance-of v2, v2, Landroid/view/IWindow$Stub;
 
-    invoke-virtual {v0}, Lcom/android/server/wm/AccessibilityController;->onSomeWindowResizedOrMovedLocked()V
+    if-eqz v2, :cond_4
+
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+
+    iget-object v15, v2, Lcom/android/server/wm/WindowManagerService;->mH:Lcom/android/server/wm/WindowManagerService$H;
+
+    new-instance v2, Lcom/android/server/wm/WindowState$2;
+
+    move-object/from16 v3, p0
+
+    invoke-direct/range {v2 .. v10}, Lcom/android/server/wm/WindowState$2;-><init>(Lcom/android/server/wm/WindowState;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;ZLandroid/content/res/Configuration;)V
+
+    invoke-virtual {v15, v2}, Lcom/android/server/wm/WindowManagerService$H;->post(Ljava/lang/Runnable;)Z
+
+    :goto_3
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+
+    iget-object v2, v2, Lcom/android/server/wm/WindowManagerService;->mAccessibilityController:Lcom/android/server/wm/AccessibilityController;
+
+    if-eqz v2, :cond_0
+
+    invoke-virtual/range {p0 .. p0}, Lcom/android/server/wm/WindowState;->getDisplayId()I
+
+    move-result v2
+
+    if-nez v2, :cond_0
+
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+
+    iget-object v2, v2, Lcom/android/server/wm/WindowManagerService;->mAccessibilityController:Lcom/android/server/wm/AccessibilityController;
+
+    invoke-virtual {v2}, Lcom/android/server/wm/AccessibilityController;->onSomeWindowResizedOrMovedLocked()V
 
     :cond_0
-    const/4 v0, 0x0
+    const/4 v2, 0x0
 
-    iput-boolean v0, p0, Lcom/android/server/wm/WindowState;->mOverscanInsetsChanged:Z
+    move-object/from16 v0, p0
 
-    const/4 v0, 0x0
+    iput-boolean v2, v0, Lcom/android/server/wm/WindowState;->mOverscanInsetsChanged:Z
 
-    iput-boolean v0, p0, Lcom/android/server/wm/WindowState;->mContentInsetsChanged:Z
+    const/4 v2, 0x0
 
-    const/4 v0, 0x0
+    move-object/from16 v0, p0
 
-    iput-boolean v0, p0, Lcom/android/server/wm/WindowState;->mVisibleInsetsChanged:Z
+    iput-boolean v2, v0, Lcom/android/server/wm/WindowState;->mContentInsetsChanged:Z
 
-    const/4 v0, 0x0
+    const/4 v2, 0x0
 
-    iput-boolean v0, p0, Lcom/android/server/wm/WindowState;->mStableInsetsChanged:Z
+    move-object/from16 v0, p0
 
-    iget-object v0, p0, Lcom/android/server/wm/WindowState;->mWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
+    iput-boolean v2, v0, Lcom/android/server/wm/WindowState;->mVisibleInsetsChanged:Z
 
-    const/4 v1, 0x0
+    const/4 v2, 0x0
 
-    iput-boolean v1, v0, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceResized:Z
+    move-object/from16 v0, p0
 
-    .end local v2    # "frame":Landroid/graphics/Rect;
-    .end local v3    # "overscanInsets":Landroid/graphics/Rect;
-    .end local v4    # "contentInsets":Landroid/graphics/Rect;
-    .end local v5    # "visibleInsets":Landroid/graphics/Rect;
-    .end local v6    # "stableInsets":Landroid/graphics/Rect;
-    .end local v7    # "reportDraw":Z
-    .end local v8    # "newConfig":Landroid/content/res/Configuration;
-    .end local v9    # "configChanged":Z
-    :goto_3
+    iput-boolean v2, v0, Lcom/android/server/wm/WindowState;->mStableInsetsChanged:Z
+
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/server/wm/WindowState;->mWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
+
+    const/4 v3, 0x0
+
+    iput-boolean v3, v2, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceResized:Z
+
+    .end local v4    # "frame":Landroid/graphics/Rect;
+    .end local v5    # "overscanInsets":Landroid/graphics/Rect;
+    .end local v6    # "contentInsets":Landroid/graphics/Rect;
+    .end local v7    # "visibleInsets":Landroid/graphics/Rect;
+    .end local v8    # "stableInsets":Landroid/graphics/Rect;
+    .end local v9    # "reportDraw":Z
+    .end local v10    # "newConfig":Landroid/content/res/Configuration;
+    .end local v11    # "configChanged":Z
+    .end local v13    # "overrideConfig":Landroid/content/res/Configuration;
+    .end local v14    # "stack":Lcom/android/server/wm/TaskStack;
+    :goto_4
     return-void
 
-    .restart local v2    # "frame":Landroid/graphics/Rect;
-    .restart local v3    # "overscanInsets":Landroid/graphics/Rect;
-    .restart local v4    # "contentInsets":Landroid/graphics/Rect;
-    .restart local v5    # "visibleInsets":Landroid/graphics/Rect;
-    .restart local v6    # "stableInsets":Landroid/graphics/Rect;
-    .restart local v9    # "configChanged":Z
+    .restart local v11    # "configChanged":Z
+    .restart local v14    # "stack":Lcom/android/server/wm/TaskStack;
     :cond_1
-    move v7, v11
+    sget-object v13, Landroid/content/res/Configuration;->EMPTY:Landroid/content/res/Configuration;
 
-    goto :goto_0
+    goto/16 :goto_0
 
-    .restart local v7    # "reportDraw":Z
+    .restart local v4    # "frame":Landroid/graphics/Rect;
+    .restart local v5    # "overscanInsets":Landroid/graphics/Rect;
+    .restart local v6    # "contentInsets":Landroid/graphics/Rect;
+    .restart local v7    # "visibleInsets":Landroid/graphics/Rect;
+    .restart local v8    # "stableInsets":Landroid/graphics/Rect;
+    .restart local v13    # "overrideConfig":Landroid/content/res/Configuration;
     :cond_2
-    const/4 v8, 0x0
+    const/4 v9, 0x0
 
     goto :goto_1
 
-    .restart local v8    # "newConfig":Landroid/content/res/Configuration;
+    .restart local v9    # "reportDraw":Z
     :cond_3
-    iget-object v1, p0, Lcom/android/server/wm/WindowState;->mClient:Landroid/view/IWindow;
-
-    invoke-interface/range {v1 .. v8}, Landroid/view/IWindow;->resized(Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;ZLandroid/content/res/Configuration;)V
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+    const/4 v10, 0x0
 
     goto :goto_2
 
-    .end local v2    # "frame":Landroid/graphics/Rect;
-    .end local v3    # "overscanInsets":Landroid/graphics/Rect;
-    .end local v4    # "contentInsets":Landroid/graphics/Rect;
-    .end local v5    # "visibleInsets":Landroid/graphics/Rect;
-    .end local v6    # "stableInsets":Landroid/graphics/Rect;
-    .end local v7    # "reportDraw":Z
-    .end local v8    # "newConfig":Landroid/content/res/Configuration;
-    .end local v9    # "configChanged":Z
-    :catch_0
-    move-exception v10
+    .restart local v10    # "newConfig":Landroid/content/res/Configuration;
+    :cond_4
+    move-object/from16 v0, p0
 
-    .local v10, "e":Landroid/os/RemoteException;
-    iput-boolean v11, p0, Lcom/android/server/wm/WindowState;->mOrientationChanging:Z
+    iget-object v3, v0, Lcom/android/server/wm/WindowState;->mClient:Landroid/view/IWindow;
+
+    invoke-interface/range {v3 .. v10}, Landroid/view/IWindow;->resized(Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;ZLandroid/content/res/Configuration;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_3
+
+    .end local v4    # "frame":Landroid/graphics/Rect;
+    .end local v5    # "overscanInsets":Landroid/graphics/Rect;
+    .end local v6    # "contentInsets":Landroid/graphics/Rect;
+    .end local v7    # "visibleInsets":Landroid/graphics/Rect;
+    .end local v8    # "stableInsets":Landroid/graphics/Rect;
+    .end local v9    # "reportDraw":Z
+    .end local v10    # "newConfig":Landroid/content/res/Configuration;
+    .end local v11    # "configChanged":Z
+    .end local v13    # "overrideConfig":Landroid/content/res/Configuration;
+    .end local v14    # "stack":Lcom/android/server/wm/TaskStack;
+    :catch_0
+    move-exception v12
+
+    .local v12, "e":Landroid/os/RemoteException;
+    const/4 v2, 0x0
+
+    move-object/from16 v0, p0
+
+    iput-boolean v2, v0, Lcom/android/server/wm/WindowState;->mOrientationChanging:Z
 
     invoke-static {}, Landroid/os/SystemClock;->elapsedRealtime()J
 
-    move-result-wide v0
+    move-result-wide v2
 
-    iget-object v11, p0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
+    move-object/from16 v0, p0
 
-    iget-wide v12, v11, Lcom/android/server/wm/WindowManagerService;->mDisplayFreezeTime:J
+    iget-object v15, v0, Lcom/android/server/wm/WindowState;->mService:Lcom/android/server/wm/WindowManagerService;
 
-    sub-long/2addr v0, v12
+    iget-wide v0, v15, Lcom/android/server/wm/WindowManagerService;->mDisplayFreezeTime:J
 
-    long-to-int v0, v0
+    move-wide/from16 v16, v0
 
-    iput v0, p0, Lcom/android/server/wm/WindowState;->mLastFreezeDuration:I
+    sub-long v2, v2, v16
 
-    goto :goto_3
+    long-to-int v2, v2
+
+    move-object/from16 v0, p0
+
+    iput v2, v0, Lcom/android/server/wm/WindowState;->mLastFreezeDuration:I
+
+    goto :goto_4
 .end method
 
 .method public setAppOpVisibilityLw(Z)V
@@ -6220,20 +6341,6 @@
     invoke-virtual {p0, v1, v1}, Lcom/android/server/wm/WindowState;->hideLw(ZZ)Z
 
     goto :goto_0
-.end method
-
-.method setConfiguration(Landroid/content/res/Configuration;)V
-    .locals 1
-    .param p1, "newConfig"    # Landroid/content/res/Configuration;
-
-    .prologue
-    iput-object p1, p0, Lcom/android/server/wm/WindowState;->mConfiguration:Landroid/content/res/Configuration;
-
-    const/4 v0, 0x0
-
-    iput-boolean v0, p0, Lcom/android/server/wm/WindowState;->mConfigHasChanged:Z
-
-    return-void
 .end method
 
 .method setInputChannel(Landroid/view/InputChannel;)V

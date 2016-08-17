@@ -1,5 +1,5 @@
 .class Lcom/android/server/am/ActivityManagerService$7;
-.super Landroid/content/BroadcastReceiver;
+.super Landroid/content/IIntentReceiver$Stub;
 .source "ActivityManagerService.java"
 
 
@@ -25,111 +25,60 @@
     .prologue
     iput-object p1, p0, Lcom/android/server/am/ActivityManagerService$7;->this$0:Lcom/android/server/am/ActivityManagerService;
 
-    invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
+    invoke-direct {p0}, Landroid/content/IIntentReceiver$Stub;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
-    .locals 16
-    .param p1, "context"    # Landroid/content/Context;
-    .param p2, "intent"    # Landroid/content/Intent;
+.method public performReceive(Landroid/content/Intent;ILjava/lang/String;Landroid/os/Bundle;ZZI)V
+    .locals 6
+    .param p1, "intent"    # Landroid/content/Intent;
+    .param p2, "resultCode"    # I
+    .param p3, "data"    # Ljava/lang/String;
+    .param p4, "extras"    # Landroid/os/Bundle;
+    .param p5, "ordered"    # Z
+    .param p6, "sticky"    # Z
+    .param p7, "sendingUser"    # I
 
     .prologue
-    const-string v1, "android.intent.extra.PACKAGES"
+    iget-object v1, p0, Lcom/android/server/am/ActivityManagerService$7;->this$0:Lcom/android/server/am/ActivityManagerService;
 
-    move-object/from16 v0, p2
-
-    invoke-virtual {v0, v1}, Landroid/content/Intent;->getStringArrayExtra(Ljava/lang/String;)[Ljava/lang/String;
-
-    move-result-object v14
-
-    .local v14, "pkgs":[Ljava/lang/String;
-    if-eqz v14, :cond_0
-
-    move-object v11, v14
-
-    .local v11, "arr$":[Ljava/lang/String;
-    array-length v13, v11
-
-    .local v13, "len$":I
-    const/4 v12, 0x0
-
-    .local v12, "i$":I
-    :goto_0
-    if-ge v12, v13, :cond_0
-
-    aget-object v2, v11, v12
-
-    .local v2, "pkg":Ljava/lang/String;
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Lcom/android/server/am/ActivityManagerService$7;->this$0:Lcom/android/server/am/ActivityManagerService;
-
-    monitor-enter v15
+    monitor-enter v1
 
     :try_start_0
-    move-object/from16 v0, p0
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService$7;->this$0:Lcom/android/server/am/ActivityManagerService;
 
-    iget-object v1, v0, Lcom/android/server/am/ActivityManagerService$7;->this$0:Lcom/android/server/am/ActivityManagerService;
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
-    const/4 v3, -0x1
+    move-result-wide v2
 
-    const/4 v4, 0x0
+    const/4 v4, 0x1
 
     const/4 v5, 0x0
 
-    const/4 v6, 0x0
+    invoke-virtual {v0, v2, v3, v4, v5}, Lcom/android/server/am/ActivityManagerService;->requestPssAllProcsLocked(JZZ)V
 
-    const/4 v7, 0x0
-
-    const/4 v8, 0x0
-
-    const/4 v9, 0x0
-
-    const-string v10, "finished booting"
-
-    # invokes: Lcom/android/server/am/ActivityManagerService;->forceStopPackageLocked(Ljava/lang/String;IZZZZZILjava/lang/String;)Z
-    invoke-static/range {v1 .. v10}, Lcom/android/server/am/ActivityManagerService;->access$400(Lcom/android/server/am/ActivityManagerService;Ljava/lang/String;IZZZZZILjava/lang/String;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    const/4 v1, -0x1
-
-    move-object/from16 v0, p0
-
-    invoke-virtual {v0, v1}, Lcom/android/server/am/ActivityManagerService$7;->setResultCode(I)V
-
-    monitor-exit v15
-
-    .end local v2    # "pkg":Ljava/lang/String;
-    .end local v11    # "arr$":[Ljava/lang/String;
-    .end local v12    # "i$":I
-    .end local v13    # "len$":I
-    :cond_0
-    return-void
-
-    .restart local v2    # "pkg":Ljava/lang/String;
-    .restart local v11    # "arr$":[Ljava/lang/String;
-    .restart local v12    # "i$":I
-    .restart local v13    # "len$":I
-    :cond_1
-    monitor-exit v15
-
-    add-int/lit8 v12, v12, 0x1
-
-    goto :goto_0
-
-    :catchall_0
-    move-exception v1
-
-    monitor-exit v15
+    monitor-exit v1
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    throw v1
+    const-string v0, "sys.bootbroadcast_completed"
+
+    const-string v1, "1"
+
+    invoke-static {v0, v1}, Landroid/os/SystemProperties;->set(Ljava/lang/String;Ljava/lang/String;)V
+
+    return-void
+
+    :catchall_0
+    move-exception v0
+
+    :try_start_1
+    monitor-exit v1
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw v0
 .end method

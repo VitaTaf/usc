@@ -28,6 +28,8 @@
 
 .field private mFullscreen:Z
 
+.field mOverrideConfig:Landroid/content/res/Configuration;
+
 .field private final mService:Lcom/android/server/wm/WindowManagerService;
 
 .field final mStackId:I
@@ -86,6 +88,10 @@
     iput-object p1, p0, Lcom/android/server/wm/TaskStack;->mService:Lcom/android/server/wm/WindowManagerService;
 
     iput p2, p0, Lcom/android/server/wm/TaskStack;->mStackId:I
+
+    sget-object v0, Landroid/content/res/Configuration;->EMPTY:Landroid/content/res/Configuration;
+
+    iput-object v0, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
 
     const/16 v0, 0x791c
 
@@ -1439,6 +1445,8 @@
 
     invoke-virtual {v1, p1}, Landroid/graphics/Rect;->set(Landroid/graphics/Rect;)V
 
+    invoke-virtual {p0}, Lcom/android/server/wm/TaskStack;->updateOverrideConfiguration()V
+
     const/4 v1, 0x1
 
     goto :goto_0
@@ -1643,4 +1651,110 @@
 
     :cond_0
     return-void
+.end method
+
+.method updateOverrideConfiguration()V
+    .locals 5
+
+    .prologue
+    iget-object v2, p0, Lcom/android/server/wm/TaskStack;->mService:Lcom/android/server/wm/WindowManagerService;
+
+    iget-object v1, v2, Lcom/android/server/wm/WindowManagerService;->mCurConfiguration:Landroid/content/res/Configuration;
+
+    .local v1, "serviceConfig":Landroid/content/res/Configuration;
+    iget-boolean v2, p0, Lcom/android/server/wm/TaskStack;->mFullscreen:Z
+
+    if-eqz v2, :cond_0
+
+    sget-object v2, Landroid/content/res/Configuration;->EMPTY:Landroid/content/res/Configuration;
+
+    iput-object v2, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    :goto_0
+    return-void
+
+    :cond_0
+    iget-object v2, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    sget-object v3, Landroid/content/res/Configuration;->EMPTY:Landroid/content/res/Configuration;
+
+    if-ne v2, v3, :cond_1
+
+    new-instance v2, Landroid/content/res/Configuration;
+
+    invoke-direct {v2}, Landroid/content/res/Configuration;-><init>()V
+
+    iput-object v2, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    :cond_1
+    iget v2, v1, Landroid/content/res/Configuration;->densityDpi:I
+
+    int-to-float v2, v2
+
+    const v3, 0x3bcccccd    # 0.00625f
+
+    mul-float v0, v2, v3
+
+    .local v0, "density":F
+    iget-object v2, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mBounds:Landroid/graphics/Rect;
+
+    invoke-virtual {v3}, Landroid/graphics/Rect;->width()I
+
+    move-result v3
+
+    int-to-float v3, v3
+
+    div-float/2addr v3, v0
+
+    float-to-int v3, v3
+
+    iget v4, v1, Landroid/content/res/Configuration;->screenWidthDp:I
+
+    invoke-static {v3, v4}, Ljava/lang/Math;->min(II)I
+
+    move-result v3
+
+    iput v3, v2, Landroid/content/res/Configuration;->screenWidthDp:I
+
+    iget-object v2, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mBounds:Landroid/graphics/Rect;
+
+    invoke-virtual {v3}, Landroid/graphics/Rect;->height()I
+
+    move-result v3
+
+    int-to-float v3, v3
+
+    div-float/2addr v3, v0
+
+    float-to-int v3, v3
+
+    iget v4, v1, Landroid/content/res/Configuration;->screenHeightDp:I
+
+    invoke-static {v3, v4}, Ljava/lang/Math;->min(II)I
+
+    move-result v3
+
+    iput v3, v2, Landroid/content/res/Configuration;->screenHeightDp:I
+
+    iget-object v2, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    iget v3, v3, Landroid/content/res/Configuration;->screenWidthDp:I
+
+    iget-object v4, p0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    iget v4, v4, Landroid/content/res/Configuration;->screenHeightDp:I
+
+    invoke-static {v3, v4}, Ljava/lang/Math;->min(II)I
+
+    move-result v3
+
+    iput v3, v2, Landroid/content/res/Configuration;->smallestScreenWidthDp:I
+
+    goto :goto_0
 .end method

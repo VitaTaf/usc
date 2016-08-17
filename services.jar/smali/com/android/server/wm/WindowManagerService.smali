@@ -3618,6 +3618,734 @@
     goto :goto_0
 .end method
 
+.method private computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
+    .locals 28
+    .param p1, "config"    # Landroid/content/res/Configuration;
+
+    .prologue
+    move-object/from16 v0, p0
+
+    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayReady:Z
+
+    if-nez v3, :cond_0
+
+    const/4 v3, 0x0
+
+    :goto_0
+    return v3
+
+    :cond_0
+    invoke-virtual/range {p0 .. p0}, Lcom/android/server/wm/WindowManagerService;->getDefaultDisplayContentLocked()Lcom/android/server/wm/DisplayContent;
+
+    move-result-object v14
+
+    .local v14, "displayContent":Lcom/android/server/wm/DisplayContent;
+    move-object/from16 v0, p0
+
+    iget v3, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
+
+    const/4 v8, 0x1
+
+    if-eq v3, v8, :cond_1
+
+    move-object/from16 v0, p0
+
+    iget v3, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
+
+    const/4 v8, 0x3
+
+    if-ne v3, v8, :cond_7
+
+    :cond_1
+    const/4 v5, 0x1
+
+    .local v5, "rotated":Z
+    :goto_1
+    if-eqz v5, :cond_8
+
+    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayHeight:I
+
+    move/from16 v25, v0
+
+    .local v25, "realdw":I
+    :goto_2
+    if-eqz v5, :cond_9
+
+    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayWidth:I
+
+    move/from16 v24, v0
+
+    .local v24, "realdh":I
+    :goto_3
+    move/from16 v6, v25
+
+    .local v6, "dw":I
+    move/from16 v7, v24
+
+    .local v7, "dh":I
+    move-object/from16 v0, p0
+
+    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mAltOrientation:Z
+
+    if-eqz v3, :cond_2
+
+    move/from16 v0, v25
+
+    move/from16 v1, v24
+
+    if-le v0, v1, :cond_a
+
+    move/from16 v0, v24
+
+    int-to-float v3, v0
+
+    const v8, 0x3fa66666    # 1.3f
+
+    div-float/2addr v3, v8
+
+    float-to-int v0, v3
+
+    move/from16 v21, v0
+
+    .local v21, "maxw":I
+    move/from16 v0, v21
+
+    move/from16 v1, v25
+
+    if-ge v0, v1, :cond_2
+
+    move/from16 v6, v21
+
+    .end local v21    # "maxw":I
+    :cond_2
+    :goto_4
+    if-eqz p1, :cond_3
+
+    if-gt v6, v7, :cond_b
+
+    const/4 v3, 0x1
+
+    :goto_5
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->orientation:I
+
+    :cond_3
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
+
+    move-object/from16 v0, p0
+
+    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
+
+    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getNonDecorDisplayWidth(III)I
+
+    move-result v11
+
+    .local v11, "appWidth":I
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
+
+    move-object/from16 v0, p0
+
+    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
+
+    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getNonDecorDisplayHeight(III)I
+
+    move-result v10
+
+    .local v10, "appHeight":I
+    invoke-virtual {v14}, Lcom/android/server/wm/DisplayContent;->getDisplayInfo()Landroid/view/DisplayInfo;
+
+    move-result-object v4
+
+    .local v4, "displayInfo":Landroid/view/DisplayInfo;
+    iget-object v8, v14, Lcom/android/server/wm/DisplayContent;->mDisplaySizeLock:Ljava/lang/Object;
+
+    monitor-enter v8
+
+    :try_start_0
+    move-object/from16 v0, p0
+
+    iget v3, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
+
+    iput v3, v4, Landroid/view/DisplayInfo;->rotation:I
+
+    iput v6, v4, Landroid/view/DisplayInfo;->logicalWidth:I
+
+    iput v7, v4, Landroid/view/DisplayInfo;->logicalHeight:I
+
+    iget v3, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayDensity:I
+
+    iput v3, v4, Landroid/view/DisplayInfo;->logicalDensityDpi:I
+
+    iput v11, v4, Landroid/view/DisplayInfo;->appWidth:I
+
+    iput v10, v4, Landroid/view/DisplayInfo;->appHeight:I
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mRealDisplayMetrics:Landroid/util/DisplayMetrics;
+
+    sget-object v9, Landroid/content/res/CompatibilityInfo;->DEFAULT_COMPATIBILITY_INFO:Landroid/content/res/CompatibilityInfo;
+
+    const/16 v27, 0x0
+
+    move-object/from16 v0, v27
+
+    invoke-virtual {v4, v3, v9, v0}, Landroid/view/DisplayInfo;->getLogicalMetrics(Landroid/util/DisplayMetrics;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayMetrics:Landroid/util/DisplayMetrics;
+
+    invoke-virtual {v4, v3}, Landroid/view/DisplayInfo;->getAppMetrics(Landroid/util/DisplayMetrics;)V
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayManagerInternal:Landroid/hardware/display/DisplayManagerInternal;
+
+    invoke-virtual {v14}, Lcom/android/server/wm/DisplayContent;->getDisplayId()I
+
+    move-result v9
+
+    invoke-virtual {v3, v9, v4}, Landroid/hardware/display/DisplayManagerInternal;->setDisplayInfoOverrideFromWindowManager(ILandroid/view/DisplayInfo;)V
+
+    monitor-exit v8
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    move-object/from16 v0, p0
+
+    iget-object v15, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayMetrics:Landroid/util/DisplayMetrics;
+
+    .local v15, "dm":Landroid/util/DisplayMetrics;
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mCompatDisplayMetrics:Landroid/util/DisplayMetrics;
+
+    invoke-static {v15, v3}, Landroid/content/res/CompatibilityInfo;->computeCompatibleScaling(Landroid/util/DisplayMetrics;Landroid/util/DisplayMetrics;)F
+
+    move-result v3
+
+    move-object/from16 v0, p0
+
+    iput v3, v0, Lcom/android/server/wm/WindowManagerService;->mCompatibleScreenScale:F
+
+    if-eqz p1, :cond_13
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
+
+    move-object/from16 v0, p0
+
+    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
+
+    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getConfigDisplayWidth(III)I
+
+    move-result v3
+
+    int-to-float v3, v3
+
+    iget v8, v15, Landroid/util/DisplayMetrics;->density:F
+
+    div-float/2addr v3, v8
+
+    float-to-int v3, v3
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->screenWidthDp:I
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
+
+    move-object/from16 v0, p0
+
+    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
+
+    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getConfigDisplayHeight(III)I
+
+    move-result v3
+
+    int-to-float v3, v3
+
+    iget v8, v15, Landroid/util/DisplayMetrics;->density:F
+
+    div-float/2addr v3, v8
+
+    float-to-int v3, v3
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->screenHeightDp:I
+
+    iget v8, v15, Landroid/util/DisplayMetrics;->density:F
+
+    move-object/from16 v3, p0
+
+    move-object/from16 v9, p1
+
+    invoke-direct/range {v3 .. v9}, Lcom/android/server/wm/WindowManagerService;->computeSizeRangesAndScreenLayout(Landroid/view/DisplayInfo;ZIIFLandroid/content/res/Configuration;)V
+
+    move-object/from16 v0, p1
+
+    iget v3, v0, Landroid/content/res/Configuration;->screenWidthDp:I
+
+    int-to-float v3, v3
+
+    move-object/from16 v0, p0
+
+    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mCompatibleScreenScale:F
+
+    div-float/2addr v3, v8
+
+    float-to-int v3, v3
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->compatScreenWidthDp:I
+
+    move-object/from16 v0, p1
+
+    iget v3, v0, Landroid/content/res/Configuration;->screenHeightDp:I
+
+    int-to-float v3, v3
+
+    move-object/from16 v0, p0
+
+    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mCompatibleScreenScale:F
+
+    div-float/2addr v3, v8
+
+    float-to-int v3, v3
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->compatScreenHeightDp:I
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v0, v5, v15, v6, v7}, Lcom/android/server/wm/WindowManagerService;->computeCompatSmallestWidth(ZLandroid/util/DisplayMetrics;II)I
+
+    move-result v3
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->compatSmallestScreenWidthDp:I
+
+    iget v3, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayDensity:I
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->densityDpi:I
+
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->touchscreen:I
+
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->keyboard:I
+
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
+
+    const/16 v18, 0x0
+
+    .local v18, "keyboardPresence":I
+    const/16 v22, 0x0
+
+    .local v22, "navigationPresence":I
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mInputManager:Lcom/android/server/input/InputManagerService;
+
+    invoke-virtual {v3}, Lcom/android/server/input/InputManagerService;->getInputDevices()[Landroid/view/InputDevice;
+
+    move-result-object v13
+
+    .local v13, "devices":[Landroid/view/InputDevice;
+    array-length v0, v13
+
+    move/from16 v19, v0
+
+    .local v19, "len":I
+    const/16 v17, 0x0
+
+    .local v17, "i":I
+    :goto_6
+    move/from16 v0, v17
+
+    move/from16 v1, v19
+
+    if-ge v0, v1, :cond_f
+
+    aget-object v12, v13, v17
+
+    .local v12, "device":Landroid/view/InputDevice;
+    invoke-virtual {v12}, Landroid/view/InputDevice;->isVirtual()Z
+
+    move-result v3
+
+    if-nez v3, :cond_6
+
+    invoke-virtual {v12}, Landroid/view/InputDevice;->getSources()I
+
+    move-result v26
+
+    .local v26, "sources":I
+    invoke-virtual {v12}, Landroid/view/InputDevice;->isExternal()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_c
+
+    const/16 v23, 0x2
+
+    .local v23, "presenceFlag":I
+    :goto_7
+    move-object/from16 v0, p0
+
+    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mIsTouchDevice:Z
+
+    if-eqz v3, :cond_d
+
+    move/from16 v0, v26
+
+    and-int/lit16 v3, v0, 0x1002
+
+    const/16 v8, 0x1002
+
+    if-ne v3, v8, :cond_4
+
+    const/4 v3, 0x3
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->touchscreen:I
+
+    :cond_4
+    :goto_8
+    const v3, 0x10004
+
+    and-int v3, v3, v26
+
+    const v8, 0x10004
+
+    if-ne v3, v8, :cond_e
+
+    const/4 v3, 0x3
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
+
+    or-int v22, v22, v23
+
+    :cond_5
+    :goto_9
+    invoke-virtual {v12}, Landroid/view/InputDevice;->getKeyboardType()I
+
+    move-result v3
+
+    const/4 v8, 0x2
+
+    if-ne v3, v8, :cond_6
+
+    const/4 v3, 0x2
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->keyboard:I
+
+    or-int v18, v18, v23
+
+    .end local v23    # "presenceFlag":I
+    .end local v26    # "sources":I
+    :cond_6
+    add-int/lit8 v17, v17, 0x1
+
+    goto :goto_6
+
+    .end local v4    # "displayInfo":Landroid/view/DisplayInfo;
+    .end local v5    # "rotated":Z
+    .end local v6    # "dw":I
+    .end local v7    # "dh":I
+    .end local v10    # "appHeight":I
+    .end local v11    # "appWidth":I
+    .end local v12    # "device":Landroid/view/InputDevice;
+    .end local v13    # "devices":[Landroid/view/InputDevice;
+    .end local v15    # "dm":Landroid/util/DisplayMetrics;
+    .end local v17    # "i":I
+    .end local v18    # "keyboardPresence":I
+    .end local v19    # "len":I
+    .end local v22    # "navigationPresence":I
+    .end local v24    # "realdh":I
+    .end local v25    # "realdw":I
+    :cond_7
+    const/4 v5, 0x0
+
+    goto/16 :goto_1
+
+    .restart local v5    # "rotated":Z
+    :cond_8
+    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayWidth:I
+
+    move/from16 v25, v0
+
+    goto/16 :goto_2
+
+    .restart local v25    # "realdw":I
+    :cond_9
+    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayHeight:I
+
+    move/from16 v24, v0
+
+    goto/16 :goto_3
+
+    .restart local v6    # "dw":I
+    .restart local v7    # "dh":I
+    .restart local v24    # "realdh":I
+    :cond_a
+    move/from16 v0, v25
+
+    int-to-float v3, v0
+
+    const v8, 0x3fa66666    # 1.3f
+
+    div-float/2addr v3, v8
+
+    float-to-int v0, v3
+
+    move/from16 v20, v0
+
+    .local v20, "maxh":I
+    move/from16 v0, v20
+
+    move/from16 v1, v24
+
+    if-ge v0, v1, :cond_2
+
+    move/from16 v7, v20
+
+    goto/16 :goto_4
+
+    .end local v20    # "maxh":I
+    :cond_b
+    const/4 v3, 0x2
+
+    goto/16 :goto_5
+
+    .restart local v4    # "displayInfo":Landroid/view/DisplayInfo;
+    .restart local v10    # "appHeight":I
+    .restart local v11    # "appWidth":I
+    :catchall_0
+    move-exception v3
+
+    :try_start_1
+    monitor-exit v8
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw v3
+
+    .restart local v12    # "device":Landroid/view/InputDevice;
+    .restart local v13    # "devices":[Landroid/view/InputDevice;
+    .restart local v15    # "dm":Landroid/util/DisplayMetrics;
+    .restart local v17    # "i":I
+    .restart local v18    # "keyboardPresence":I
+    .restart local v19    # "len":I
+    .restart local v22    # "navigationPresence":I
+    .restart local v26    # "sources":I
+    :cond_c
+    const/16 v23, 0x1
+
+    goto :goto_7
+
+    .restart local v23    # "presenceFlag":I
+    :cond_d
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->touchscreen:I
+
+    goto :goto_8
+
+    :cond_e
+    move/from16 v0, v26
+
+    and-int/lit16 v3, v0, 0x201
+
+    const/16 v8, 0x201
+
+    if-ne v3, v8, :cond_5
+
+    move-object/from16 v0, p1
+
+    iget v3, v0, Landroid/content/res/Configuration;->navigation:I
+
+    const/4 v8, 0x1
+
+    if-ne v3, v8, :cond_5
+
+    const/4 v3, 0x2
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
+
+    or-int v22, v22, v23
+
+    goto :goto_9
+
+    .end local v12    # "device":Landroid/view/InputDevice;
+    .end local v23    # "presenceFlag":I
+    .end local v26    # "sources":I
+    :cond_f
+    move-object/from16 v0, p1
+
+    iget v3, v0, Landroid/content/res/Configuration;->navigation:I
+
+    const/4 v8, 0x1
+
+    if-ne v3, v8, :cond_10
+
+    move-object/from16 v0, p0
+
+    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mHasPermanentDpad:Z
+
+    if-eqz v3, :cond_10
+
+    const/4 v3, 0x2
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
+
+    or-int/lit8 v22, v22, 0x1
+
+    :cond_10
+    move-object/from16 v0, p1
+
+    iget v3, v0, Landroid/content/res/Configuration;->keyboard:I
+
+    const/4 v8, 0x1
+
+    if-eq v3, v8, :cond_14
+
+    const/16 v16, 0x1
+
+    .local v16, "hardKeyboardAvailable":Z
+    :goto_a
+    move-object/from16 v0, p0
+
+    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mHardKeyboardAvailable:Z
+
+    move/from16 v0, v16
+
+    if-eq v0, v3, :cond_11
+
+    move/from16 v0, v16
+
+    move-object/from16 v1, p0
+
+    iput-boolean v0, v1, Lcom/android/server/wm/WindowManagerService;->mHardKeyboardAvailable:Z
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mH:Lcom/android/server/wm/WindowManagerService$H;
+
+    const/16 v8, 0x16
+
+    invoke-virtual {v3, v8}, Lcom/android/server/wm/WindowManagerService$H;->removeMessages(I)V
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mH:Lcom/android/server/wm/WindowManagerService$H;
+
+    const/16 v8, 0x16
+
+    invoke-virtual {v3, v8}, Lcom/android/server/wm/WindowManagerService$H;->sendEmptyMessage(I)Z
+
+    :cond_11
+    move-object/from16 v0, p0
+
+    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mShowImeWithHardKeyboard:Z
+
+    if-eqz v3, :cond_12
+
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->keyboard:I
+
+    :cond_12
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->keyboardHidden:I
+
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->hardKeyboardHidden:I
+
+    const/4 v3, 0x1
+
+    move-object/from16 v0, p1
+
+    iput v3, v0, Landroid/content/res/Configuration;->navigationHidden:I
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
+
+    move-object/from16 v0, p1
+
+    move/from16 v1, v18
+
+    move/from16 v2, v22
+
+    invoke-interface {v3, v0, v1, v2}, Landroid/view/WindowManagerPolicy;->adjustConfigurationLw(Landroid/content/res/Configuration;II)V
+
+    .end local v13    # "devices":[Landroid/view/InputDevice;
+    .end local v16    # "hardKeyboardAvailable":Z
+    .end local v17    # "i":I
+    .end local v18    # "keyboardPresence":I
+    .end local v19    # "len":I
+    .end local v22    # "navigationPresence":I
+    :cond_13
+    const/4 v3, 0x1
+
+    goto/16 :goto_0
+
+    .restart local v13    # "devices":[Landroid/view/InputDevice;
+    .restart local v17    # "i":I
+    .restart local v18    # "keyboardPresence":I
+    .restart local v19    # "len":I
+    .restart local v22    # "navigationPresence":I
+    :cond_14
+    const/16 v16, 0x0
+
+    goto :goto_a
+.end method
+
 .method private computeSizeRangesAndScreenLayout(Landroid/view/DisplayInfo;ZIIFLandroid/content/res/Configuration;)V
     .locals 13
     .param p1, "displayInfo"    # Landroid/view/DisplayInfo;
@@ -11067,7 +11795,7 @@
 
     iget-object v1, p0, Lcom/android/server/wm/WindowManagerService;->mTempConfiguration:Landroid/content/res/Configuration;
 
-    invoke-virtual {p0, v1}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
+    invoke-direct {p0, v1}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
 
     move-result v1
 
@@ -12612,7 +13340,7 @@
 
     iget-object v4, p0, Lcom/android/server/wm/WindowManagerService;->mTempConfiguration:Landroid/content/res/Configuration;
 
-    invoke-virtual {p0, v4}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
+    invoke-direct {p0, v4}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
 
     move-result v4
 
@@ -17234,7 +17962,7 @@
 
     iput v1, v0, Landroid/content/res/Configuration;->fontScale:F
 
-    invoke-virtual {p0, v0}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
+    invoke-direct {p0, v0}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
 
     move-result v1
 
@@ -17245,734 +17973,6 @@
     .end local v0    # "config":Landroid/content/res/Configuration;
     :cond_0
     return-object v0
-.end method
-
-.method computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
-    .locals 28
-    .param p1, "config"    # Landroid/content/res/Configuration;
-
-    .prologue
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayReady:Z
-
-    if-nez v3, :cond_0
-
-    const/4 v3, 0x0
-
-    :goto_0
-    return v3
-
-    :cond_0
-    invoke-virtual/range {p0 .. p0}, Lcom/android/server/wm/WindowManagerService;->getDefaultDisplayContentLocked()Lcom/android/server/wm/DisplayContent;
-
-    move-result-object v14
-
-    .local v14, "displayContent":Lcom/android/server/wm/DisplayContent;
-    move-object/from16 v0, p0
-
-    iget v3, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
-
-    const/4 v8, 0x1
-
-    if-eq v3, v8, :cond_1
-
-    move-object/from16 v0, p0
-
-    iget v3, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
-
-    const/4 v8, 0x3
-
-    if-ne v3, v8, :cond_7
-
-    :cond_1
-    const/4 v5, 0x1
-
-    .local v5, "rotated":Z
-    :goto_1
-    if-eqz v5, :cond_8
-
-    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayHeight:I
-
-    move/from16 v25, v0
-
-    .local v25, "realdw":I
-    :goto_2
-    if-eqz v5, :cond_9
-
-    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayWidth:I
-
-    move/from16 v24, v0
-
-    .local v24, "realdh":I
-    :goto_3
-    move/from16 v6, v25
-
-    .local v6, "dw":I
-    move/from16 v7, v24
-
-    .local v7, "dh":I
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mAltOrientation:Z
-
-    if-eqz v3, :cond_2
-
-    move/from16 v0, v25
-
-    move/from16 v1, v24
-
-    if-le v0, v1, :cond_a
-
-    move/from16 v0, v24
-
-    int-to-float v3, v0
-
-    const v8, 0x3fa66666    # 1.3f
-
-    div-float/2addr v3, v8
-
-    float-to-int v0, v3
-
-    move/from16 v21, v0
-
-    .local v21, "maxw":I
-    move/from16 v0, v21
-
-    move/from16 v1, v25
-
-    if-ge v0, v1, :cond_2
-
-    move/from16 v6, v21
-
-    .end local v21    # "maxw":I
-    :cond_2
-    :goto_4
-    if-eqz p1, :cond_3
-
-    if-gt v6, v7, :cond_b
-
-    const/4 v3, 0x1
-
-    :goto_5
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->orientation:I
-
-    :cond_3
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
-
-    move-object/from16 v0, p0
-
-    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
-
-    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getNonDecorDisplayWidth(III)I
-
-    move-result v11
-
-    .local v11, "appWidth":I
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
-
-    move-object/from16 v0, p0
-
-    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
-
-    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getNonDecorDisplayHeight(III)I
-
-    move-result v10
-
-    .local v10, "appHeight":I
-    invoke-virtual {v14}, Lcom/android/server/wm/DisplayContent;->getDisplayInfo()Landroid/view/DisplayInfo;
-
-    move-result-object v4
-
-    .local v4, "displayInfo":Landroid/view/DisplayInfo;
-    iget-object v8, v14, Lcom/android/server/wm/DisplayContent;->mDisplaySizeLock:Ljava/lang/Object;
-
-    monitor-enter v8
-
-    :try_start_0
-    move-object/from16 v0, p0
-
-    iget v3, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
-
-    iput v3, v4, Landroid/view/DisplayInfo;->rotation:I
-
-    iput v6, v4, Landroid/view/DisplayInfo;->logicalWidth:I
-
-    iput v7, v4, Landroid/view/DisplayInfo;->logicalHeight:I
-
-    iget v3, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayDensity:I
-
-    iput v3, v4, Landroid/view/DisplayInfo;->logicalDensityDpi:I
-
-    iput v11, v4, Landroid/view/DisplayInfo;->appWidth:I
-
-    iput v10, v4, Landroid/view/DisplayInfo;->appHeight:I
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mRealDisplayMetrics:Landroid/util/DisplayMetrics;
-
-    sget-object v9, Landroid/content/res/CompatibilityInfo;->DEFAULT_COMPATIBILITY_INFO:Landroid/content/res/CompatibilityInfo;
-
-    const/16 v27, 0x0
-
-    move-object/from16 v0, v27
-
-    invoke-virtual {v4, v3, v9, v0}, Landroid/view/DisplayInfo;->getLogicalMetrics(Landroid/util/DisplayMetrics;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayMetrics:Landroid/util/DisplayMetrics;
-
-    invoke-virtual {v4, v3}, Landroid/view/DisplayInfo;->getAppMetrics(Landroid/util/DisplayMetrics;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayManagerInternal:Landroid/hardware/display/DisplayManagerInternal;
-
-    invoke-virtual {v14}, Lcom/android/server/wm/DisplayContent;->getDisplayId()I
-
-    move-result v9
-
-    invoke-virtual {v3, v9, v4}, Landroid/hardware/display/DisplayManagerInternal;->setDisplayInfoOverrideFromWindowManager(ILandroid/view/DisplayInfo;)V
-
-    monitor-exit v8
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Lcom/android/server/wm/WindowManagerService;->mDisplayMetrics:Landroid/util/DisplayMetrics;
-
-    .local v15, "dm":Landroid/util/DisplayMetrics;
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mCompatDisplayMetrics:Landroid/util/DisplayMetrics;
-
-    invoke-static {v15, v3}, Landroid/content/res/CompatibilityInfo;->computeCompatibleScaling(Landroid/util/DisplayMetrics;Landroid/util/DisplayMetrics;)F
-
-    move-result v3
-
-    move-object/from16 v0, p0
-
-    iput v3, v0, Lcom/android/server/wm/WindowManagerService;->mCompatibleScreenScale:F
-
-    if-eqz p1, :cond_13
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
-
-    move-object/from16 v0, p0
-
-    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
-
-    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getConfigDisplayWidth(III)I
-
-    move-result v3
-
-    int-to-float v3, v3
-
-    iget v8, v15, Landroid/util/DisplayMetrics;->density:F
-
-    div-float/2addr v3, v8
-
-    float-to-int v3, v3
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->screenWidthDp:I
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
-
-    move-object/from16 v0, p0
-
-    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mRotation:I
-
-    invoke-interface {v3, v6, v7, v8}, Landroid/view/WindowManagerPolicy;->getConfigDisplayHeight(III)I
-
-    move-result v3
-
-    int-to-float v3, v3
-
-    iget v8, v15, Landroid/util/DisplayMetrics;->density:F
-
-    div-float/2addr v3, v8
-
-    float-to-int v3, v3
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->screenHeightDp:I
-
-    iget v8, v15, Landroid/util/DisplayMetrics;->density:F
-
-    move-object/from16 v3, p0
-
-    move-object/from16 v9, p1
-
-    invoke-direct/range {v3 .. v9}, Lcom/android/server/wm/WindowManagerService;->computeSizeRangesAndScreenLayout(Landroid/view/DisplayInfo;ZIIFLandroid/content/res/Configuration;)V
-
-    move-object/from16 v0, p1
-
-    iget v3, v0, Landroid/content/res/Configuration;->screenWidthDp:I
-
-    int-to-float v3, v3
-
-    move-object/from16 v0, p0
-
-    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mCompatibleScreenScale:F
-
-    div-float/2addr v3, v8
-
-    float-to-int v3, v3
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->compatScreenWidthDp:I
-
-    move-object/from16 v0, p1
-
-    iget v3, v0, Landroid/content/res/Configuration;->screenHeightDp:I
-
-    int-to-float v3, v3
-
-    move-object/from16 v0, p0
-
-    iget v8, v0, Lcom/android/server/wm/WindowManagerService;->mCompatibleScreenScale:F
-
-    div-float/2addr v3, v8
-
-    float-to-int v3, v3
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->compatScreenHeightDp:I
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0, v5, v15, v6, v7}, Lcom/android/server/wm/WindowManagerService;->computeCompatSmallestWidth(ZLandroid/util/DisplayMetrics;II)I
-
-    move-result v3
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->compatSmallestScreenWidthDp:I
-
-    iget v3, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayDensity:I
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->densityDpi:I
-
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->touchscreen:I
-
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->keyboard:I
-
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
-
-    const/16 v18, 0x0
-
-    .local v18, "keyboardPresence":I
-    const/16 v22, 0x0
-
-    .local v22, "navigationPresence":I
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mInputManager:Lcom/android/server/input/InputManagerService;
-
-    invoke-virtual {v3}, Lcom/android/server/input/InputManagerService;->getInputDevices()[Landroid/view/InputDevice;
-
-    move-result-object v13
-
-    .local v13, "devices":[Landroid/view/InputDevice;
-    array-length v0, v13
-
-    move/from16 v19, v0
-
-    .local v19, "len":I
-    const/16 v17, 0x0
-
-    .local v17, "i":I
-    :goto_6
-    move/from16 v0, v17
-
-    move/from16 v1, v19
-
-    if-ge v0, v1, :cond_f
-
-    aget-object v12, v13, v17
-
-    .local v12, "device":Landroid/view/InputDevice;
-    invoke-virtual {v12}, Landroid/view/InputDevice;->isVirtual()Z
-
-    move-result v3
-
-    if-nez v3, :cond_6
-
-    invoke-virtual {v12}, Landroid/view/InputDevice;->getSources()I
-
-    move-result v26
-
-    .local v26, "sources":I
-    invoke-virtual {v12}, Landroid/view/InputDevice;->isExternal()Z
-
-    move-result v3
-
-    if-eqz v3, :cond_c
-
-    const/16 v23, 0x2
-
-    .local v23, "presenceFlag":I
-    :goto_7
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mIsTouchDevice:Z
-
-    if-eqz v3, :cond_d
-
-    move/from16 v0, v26
-
-    and-int/lit16 v3, v0, 0x1002
-
-    const/16 v8, 0x1002
-
-    if-ne v3, v8, :cond_4
-
-    const/4 v3, 0x3
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->touchscreen:I
-
-    :cond_4
-    :goto_8
-    const v3, 0x10004
-
-    and-int v3, v3, v26
-
-    const v8, 0x10004
-
-    if-ne v3, v8, :cond_e
-
-    const/4 v3, 0x3
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
-
-    or-int v22, v22, v23
-
-    :cond_5
-    :goto_9
-    invoke-virtual {v12}, Landroid/view/InputDevice;->getKeyboardType()I
-
-    move-result v3
-
-    const/4 v8, 0x2
-
-    if-ne v3, v8, :cond_6
-
-    const/4 v3, 0x2
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->keyboard:I
-
-    or-int v18, v18, v23
-
-    .end local v23    # "presenceFlag":I
-    .end local v26    # "sources":I
-    :cond_6
-    add-int/lit8 v17, v17, 0x1
-
-    goto :goto_6
-
-    .end local v4    # "displayInfo":Landroid/view/DisplayInfo;
-    .end local v5    # "rotated":Z
-    .end local v6    # "dw":I
-    .end local v7    # "dh":I
-    .end local v10    # "appHeight":I
-    .end local v11    # "appWidth":I
-    .end local v12    # "device":Landroid/view/InputDevice;
-    .end local v13    # "devices":[Landroid/view/InputDevice;
-    .end local v15    # "dm":Landroid/util/DisplayMetrics;
-    .end local v17    # "i":I
-    .end local v18    # "keyboardPresence":I
-    .end local v19    # "len":I
-    .end local v22    # "navigationPresence":I
-    .end local v24    # "realdh":I
-    .end local v25    # "realdw":I
-    :cond_7
-    const/4 v5, 0x0
-
-    goto/16 :goto_1
-
-    .restart local v5    # "rotated":Z
-    :cond_8
-    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayWidth:I
-
-    move/from16 v25, v0
-
-    goto/16 :goto_2
-
-    .restart local v25    # "realdw":I
-    :cond_9
-    iget v0, v14, Lcom/android/server/wm/DisplayContent;->mBaseDisplayHeight:I
-
-    move/from16 v24, v0
-
-    goto/16 :goto_3
-
-    .restart local v6    # "dw":I
-    .restart local v7    # "dh":I
-    .restart local v24    # "realdh":I
-    :cond_a
-    move/from16 v0, v25
-
-    int-to-float v3, v0
-
-    const v8, 0x3fa66666    # 1.3f
-
-    div-float/2addr v3, v8
-
-    float-to-int v0, v3
-
-    move/from16 v20, v0
-
-    .local v20, "maxh":I
-    move/from16 v0, v20
-
-    move/from16 v1, v24
-
-    if-ge v0, v1, :cond_2
-
-    move/from16 v7, v20
-
-    goto/16 :goto_4
-
-    .end local v20    # "maxh":I
-    :cond_b
-    const/4 v3, 0x2
-
-    goto/16 :goto_5
-
-    .restart local v4    # "displayInfo":Landroid/view/DisplayInfo;
-    .restart local v10    # "appHeight":I
-    .restart local v11    # "appWidth":I
-    :catchall_0
-    move-exception v3
-
-    :try_start_1
-    monitor-exit v8
-    :try_end_1
-    .catchall {:try_start_1 .. :try_end_1} :catchall_0
-
-    throw v3
-
-    .restart local v12    # "device":Landroid/view/InputDevice;
-    .restart local v13    # "devices":[Landroid/view/InputDevice;
-    .restart local v15    # "dm":Landroid/util/DisplayMetrics;
-    .restart local v17    # "i":I
-    .restart local v18    # "keyboardPresence":I
-    .restart local v19    # "len":I
-    .restart local v22    # "navigationPresence":I
-    .restart local v26    # "sources":I
-    :cond_c
-    const/16 v23, 0x1
-
-    goto :goto_7
-
-    .restart local v23    # "presenceFlag":I
-    :cond_d
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->touchscreen:I
-
-    goto :goto_8
-
-    :cond_e
-    move/from16 v0, v26
-
-    and-int/lit16 v3, v0, 0x201
-
-    const/16 v8, 0x201
-
-    if-ne v3, v8, :cond_5
-
-    move-object/from16 v0, p1
-
-    iget v3, v0, Landroid/content/res/Configuration;->navigation:I
-
-    const/4 v8, 0x1
-
-    if-ne v3, v8, :cond_5
-
-    const/4 v3, 0x2
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
-
-    or-int v22, v22, v23
-
-    goto :goto_9
-
-    .end local v12    # "device":Landroid/view/InputDevice;
-    .end local v23    # "presenceFlag":I
-    .end local v26    # "sources":I
-    :cond_f
-    move-object/from16 v0, p1
-
-    iget v3, v0, Landroid/content/res/Configuration;->navigation:I
-
-    const/4 v8, 0x1
-
-    if-ne v3, v8, :cond_10
-
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mHasPermanentDpad:Z
-
-    if-eqz v3, :cond_10
-
-    const/4 v3, 0x2
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->navigation:I
-
-    or-int/lit8 v22, v22, 0x1
-
-    :cond_10
-    move-object/from16 v0, p1
-
-    iget v3, v0, Landroid/content/res/Configuration;->keyboard:I
-
-    const/4 v8, 0x1
-
-    if-eq v3, v8, :cond_14
-
-    const/16 v16, 0x1
-
-    .local v16, "hardKeyboardAvailable":Z
-    :goto_a
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mHardKeyboardAvailable:Z
-
-    move/from16 v0, v16
-
-    if-eq v0, v3, :cond_11
-
-    move/from16 v0, v16
-
-    move-object/from16 v1, p0
-
-    iput-boolean v0, v1, Lcom/android/server/wm/WindowManagerService;->mHardKeyboardAvailable:Z
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mH:Lcom/android/server/wm/WindowManagerService$H;
-
-    const/16 v8, 0x16
-
-    invoke-virtual {v3, v8}, Lcom/android/server/wm/WindowManagerService$H;->removeMessages(I)V
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mH:Lcom/android/server/wm/WindowManagerService$H;
-
-    const/16 v8, 0x16
-
-    invoke-virtual {v3, v8}, Lcom/android/server/wm/WindowManagerService$H;->sendEmptyMessage(I)Z
-
-    :cond_11
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/server/wm/WindowManagerService;->mShowImeWithHardKeyboard:Z
-
-    if-eqz v3, :cond_12
-
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->keyboard:I
-
-    :cond_12
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->keyboardHidden:I
-
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->hardKeyboardHidden:I
-
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p1
-
-    iput v3, v0, Landroid/content/res/Configuration;->navigationHidden:I
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/server/wm/WindowManagerService;->mPolicy:Landroid/view/WindowManagerPolicy;
-
-    move-object/from16 v0, p1
-
-    move/from16 v1, v18
-
-    move/from16 v2, v22
-
-    invoke-interface {v3, v0, v1, v2}, Landroid/view/WindowManagerPolicy;->adjustConfigurationLw(Landroid/content/res/Configuration;II)V
-
-    .end local v13    # "devices":[Landroid/view/InputDevice;
-    .end local v16    # "hardKeyboardAvailable":Z
-    .end local v17    # "i":I
-    .end local v18    # "keyboardPresence":I
-    .end local v19    # "len":I
-    .end local v22    # "navigationPresence":I
-    :cond_13
-    const/4 v3, 0x1
-
-    goto/16 :goto_0
-
-    .restart local v13    # "devices":[Landroid/view/InputDevice;
-    .restart local v17    # "i":I
-    .restart local v18    # "keyboardPresence":I
-    .restart local v19    # "len":I
-    .restart local v22    # "navigationPresence":I
-    :cond_14
-    const/16 v16, 0x0
-
-    goto :goto_a
 .end method
 
 .method copyAnimToLayoutParamsLocked()Z
@@ -32899,7 +32899,7 @@
     return-void
 .end method
 
-.method public resizeStack(ILandroid/graphics/Rect;)V
+.method public resizeStack(ILandroid/graphics/Rect;)Landroid/content/res/Configuration;
     .locals 5
     .param p1, "stackId"    # I
     .param p2, "bounds"    # Landroid/graphics/Rect;
@@ -32983,11 +32983,17 @@
     invoke-direct {p0}, Lcom/android/server/wm/WindowManagerService;->performLayoutAndPlaceSurfacesLocked()V
 
     :cond_1
+    new-instance v1, Landroid/content/res/Configuration;
+
+    iget-object v3, v0, Lcom/android/server/wm/TaskStack;->mOverrideConfig:Landroid/content/res/Configuration;
+
+    invoke-direct {v1, v3}, Landroid/content/res/Configuration;-><init>(Landroid/content/res/Configuration;)V
+
     monitor-exit v2
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
-    return-void
+    return-object v1
 .end method
 
 .method public resumeKeyDispatching(Landroid/os/IBinder;)V
@@ -39897,7 +39903,7 @@
 
     move-object/from16 v0, p0
 
-    invoke-virtual {v0, v5}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
+    invoke-direct {v0, v5}, Lcom/android/server/wm/WindowManagerService;->computeScreenConfigurationLocked(Landroid/content/res/Configuration;)Z
 
     sget-boolean v5, Lcom/android/server/wm/WindowManagerService;->DEBUG_KPI:Z
 

@@ -1326,22 +1326,23 @@
     return-void
 .end method
 
-.method public final scheduleLaunchActivity(Landroid/content/Intent;Landroid/os/IBinder;ILandroid/content/pm/ActivityInfo;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Ljava/lang/String;Lcom/android/internal/app/IVoiceInteractor;ILandroid/os/Bundle;Landroid/os/PersistableBundle;Ljava/util/List;Ljava/util/List;ZZLandroid/app/ProfilerInfo;)V
+.method public final scheduleLaunchActivity(Landroid/content/Intent;Landroid/os/IBinder;ILandroid/content/pm/ActivityInfo;Landroid/content/res/Configuration;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Ljava/lang/String;Lcom/android/internal/app/IVoiceInteractor;ILandroid/os/Bundle;Landroid/os/PersistableBundle;Ljava/util/List;Ljava/util/List;ZZLandroid/app/ProfilerInfo;)V
     .locals 6
     .param p1, "intent"    # Landroid/content/Intent;
     .param p2, "token"    # Landroid/os/IBinder;
     .param p3, "ident"    # I
     .param p4, "info"    # Landroid/content/pm/ActivityInfo;
     .param p5, "curConfig"    # Landroid/content/res/Configuration;
-    .param p6, "compatInfo"    # Landroid/content/res/CompatibilityInfo;
-    .param p7, "referrer"    # Ljava/lang/String;
-    .param p8, "voiceInteractor"    # Lcom/android/internal/app/IVoiceInteractor;
-    .param p9, "procState"    # I
-    .param p10, "state"    # Landroid/os/Bundle;
-    .param p11, "persistentState"    # Landroid/os/PersistableBundle;
-    .param p14, "notResumed"    # Z
-    .param p15, "isForward"    # Z
-    .param p16, "profilerInfo"    # Landroid/app/ProfilerInfo;
+    .param p6, "overrideConfig"    # Landroid/content/res/Configuration;
+    .param p7, "compatInfo"    # Landroid/content/res/CompatibilityInfo;
+    .param p8, "referrer"    # Ljava/lang/String;
+    .param p9, "voiceInteractor"    # Lcom/android/internal/app/IVoiceInteractor;
+    .param p10, "procState"    # I
+    .param p11, "state"    # Landroid/os/Bundle;
+    .param p12, "persistentState"    # Landroid/os/PersistableBundle;
+    .param p15, "notResumed"    # Z
+    .param p16, "isForward"    # Z
+    .param p17, "profilerInfo"    # Landroid/app/ProfilerInfo;
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -1349,6 +1350,7 @@
             "Landroid/os/IBinder;",
             "I",
             "Landroid/content/pm/ActivityInfo;",
+            "Landroid/content/res/Configuration;",
             "Landroid/content/res/Configuration;",
             "Landroid/content/res/CompatibilityInfo;",
             "Ljava/lang/String;",
@@ -1376,8 +1378,8 @@
     .end annotation
 
     .prologue
-    .local p12, "pendingResults":Ljava/util/List;, "Ljava/util/List<Landroid/app/ResultInfo;>;"
-    .local p13, "pendingNewIntents":Ljava/util/List;, "Ljava/util/List<Lcom/android/internal/content/ReferrerIntent;>;"
+    .local p13, "pendingResults":Ljava/util/List;, "Ljava/util/List<Landroid/app/ResultInfo;>;"
+    .local p14, "pendingNewIntents":Ljava/util/List;, "Ljava/util/List<Lcom/android/internal/content/ReferrerIntent;>;"
     sget-object v2, Lcom/motorola/kpi/Kpi6paTop$Tag;->AMS5:Lcom/motorola/kpi/Kpi6paTop$Tag;
 
     const/4 v3, 0x1
@@ -1415,45 +1417,51 @@
 
     invoke-virtual {p5, v1, v2}, Landroid/content/res/Configuration;->writeToParcel(Landroid/os/Parcel;I)V
 
+    if-eqz p6, :cond_0
+
+    const/4 v2, 0x1
+
+    invoke-virtual {v1, v2}, Landroid/os/Parcel;->writeInt(I)V
+
     const/4 v2, 0x0
 
-    invoke-virtual {p6, v1, v2}, Landroid/content/res/CompatibilityInfo;->writeToParcel(Landroid/os/Parcel;I)V
+    invoke-virtual {p6, v1, v2}, Landroid/content/res/Configuration;->writeToParcel(Landroid/os/Parcel;I)V
 
-    invoke-virtual {v1, p7}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    :goto_0
+    const/4 v2, 0x0
 
-    if-eqz p8, :cond_0
+    invoke-virtual {p7, v1, v2}, Landroid/content/res/CompatibilityInfo;->writeToParcel(Landroid/os/Parcel;I)V
 
-    invoke-interface {p8}, Lcom/android/internal/app/IVoiceInteractor;->asBinder()Landroid/os/IBinder;
+    invoke-virtual {v1, p8}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    if-eqz p9, :cond_1
+
+    invoke-interface {p9}, Lcom/android/internal/app/IVoiceInteractor;->asBinder()Landroid/os/IBinder;
 
     move-result-object v2
 
-    :goto_0
+    :goto_1
     invoke-virtual {v1, v2}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    invoke-virtual {v1, p9}, Landroid/os/Parcel;->writeInt(I)V
+    move/from16 v0, p10
 
-    move-object/from16 v0, p10
-
-    invoke-virtual {v1, v0}, Landroid/os/Parcel;->writeBundle(Landroid/os/Bundle;)V
+    invoke-virtual {v1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
     move-object/from16 v0, p11
 
-    invoke-virtual {v1, v0}, Landroid/os/Parcel;->writePersistableBundle(Landroid/os/PersistableBundle;)V
+    invoke-virtual {v1, v0}, Landroid/os/Parcel;->writeBundle(Landroid/os/Bundle;)V
 
     move-object/from16 v0, p12
 
-    invoke-virtual {v1, v0}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
+    invoke-virtual {v1, v0}, Landroid/os/Parcel;->writePersistableBundle(Landroid/os/PersistableBundle;)V
 
     move-object/from16 v0, p13
 
     invoke-virtual {v1, v0}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
 
-    if-eqz p14, :cond_1
+    move-object/from16 v0, p14
 
-    const/4 v2, 0x1
-
-    :goto_1
-    invoke-virtual {v1, v2}, Landroid/os/Parcel;->writeInt(I)V
+    invoke-virtual {v1, v0}, Landroid/os/Parcel;->writeTypedList(Ljava/util/List;)V
 
     if-eqz p15, :cond_2
 
@@ -1466,15 +1474,22 @@
 
     const/4 v2, 0x1
 
+    :goto_3
+    invoke-virtual {v1, v2}, Landroid/os/Parcel;->writeInt(I)V
+
+    if-eqz p17, :cond_4
+
+    const/4 v2, 0x1
+
     invoke-virtual {v1, v2}, Landroid/os/Parcel;->writeInt(I)V
 
     const/4 v2, 0x1
 
-    move-object/from16 v0, p16
+    move-object/from16 v0, p17
 
     invoke-virtual {v0, v1, v2}, Landroid/app/ProfilerInfo;->writeToParcel(Landroid/os/Parcel;I)V
 
-    :goto_3
+    :goto_4
     iget-object v2, p0, Landroid/app/ApplicationThreadProxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v3, 0x7
@@ -1492,6 +1507,8 @@
     :cond_0
     const/4 v2, 0x0
 
+    invoke-virtual {v1, v2}, Landroid/os/Parcel;->writeInt(I)V
+
     goto :goto_0
 
     :cond_1
@@ -1507,9 +1524,14 @@
     :cond_3
     const/4 v2, 0x0
 
+    goto :goto_3
+
+    :cond_4
+    const/4 v2, 0x0
+
     invoke-virtual {v1, v2}, Landroid/os/Parcel;->writeInt(I)V
 
-    goto :goto_3
+    goto :goto_4
 .end method
 
 .method public final scheduleLowMemory()V
@@ -1876,12 +1898,13 @@
     goto :goto_0
 .end method
 
-.method public final scheduleRelaunchActivity(Landroid/os/IBinder;Ljava/util/List;Ljava/util/List;IZLandroid/content/res/Configuration;)V
+.method public final scheduleRelaunchActivity(Landroid/os/IBinder;Ljava/util/List;Ljava/util/List;IZLandroid/content/res/Configuration;Landroid/content/res/Configuration;)V
     .locals 5
     .param p1, "token"    # Landroid/os/IBinder;
     .param p4, "configChanges"    # I
     .param p5, "notResumed"    # Z
     .param p6, "config"    # Landroid/content/res/Configuration;
+    .param p7, "overrideConfig"    # Landroid/content/res/Configuration;
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -1894,6 +1917,7 @@
             "<",
             "Lcom/android/internal/content/ReferrerIntent;",
             ">;IZ",
+            "Landroid/content/res/Configuration;",
             "Landroid/content/res/Configuration;",
             ")V"
         }
@@ -1936,11 +1960,13 @@
     :goto_0
     invoke-virtual {v0, v1}, Landroid/os/Parcel;->writeInt(I)V
 
-    if-eqz p6, :cond_1
+    invoke-virtual {p6, v0, v3}, Landroid/content/res/Configuration;->writeToParcel(Landroid/os/Parcel;I)V
+
+    if-eqz p7, :cond_1
 
     invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeInt(I)V
 
-    invoke-virtual {p6, v0, v3}, Landroid/content/res/Configuration;->writeToParcel(Landroid/os/Parcel;I)V
+    invoke-virtual {p7, v0, v3}, Landroid/content/res/Configuration;->writeToParcel(Landroid/os/Parcel;I)V
 
     :goto_1
     iget-object v1, p0, Landroid/app/ApplicationThreadProxy;->mRemote:Landroid/os/IBinder;

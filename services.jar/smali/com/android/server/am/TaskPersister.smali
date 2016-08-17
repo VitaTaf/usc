@@ -88,6 +88,8 @@
     .end annotation
 .end field
 
+.field private final mRecentTasks:Lcom/android/server/am/RecentTasks;
+
 .field private final mService:Lcom/android/server/am/ActivityManagerService;
 
 .field private final mStackSupervisor:Lcom/android/server/am/ActivityStackSupervisor;
@@ -105,10 +107,11 @@
 
 
 # direct methods
-.method constructor <init>(Ljava/io/File;Lcom/android/server/am/ActivityStackSupervisor;)V
+.method constructor <init>(Ljava/io/File;Lcom/android/server/am/ActivityStackSupervisor;Lcom/android/server/am/RecentTasks;)V
     .locals 3
     .param p1, "systemDir"    # Ljava/io/File;
     .param p2, "stackSupervisor"    # Lcom/android/server/am/ActivityStackSupervisor;
+    .param p3, "recentTasks"    # Lcom/android/server/am/RecentTasks;
 
     .prologue
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -247,6 +250,8 @@
 
     iput-object v0, p0, Lcom/android/server/am/TaskPersister;->mService:Lcom/android/server/am/ActivityManagerService;
 
+    iput-object p3, p0, Lcom/android/server/am/TaskPersister;->mRecentTasks:Lcom/android/server/am/RecentTasks;
+
     new-instance v0, Lcom/android/server/am/TaskPersister$LazyTaskWriterThread;
 
     const-string v1, "LazyTaskWriterThread"
@@ -268,7 +273,17 @@
     return-object v0
 .end method
 
-.method static synthetic access$200(Lcom/android/server/am/TaskPersister;Landroid/util/ArraySet;)V
+.method static synthetic access$200(Lcom/android/server/am/TaskPersister;)Lcom/android/server/am/RecentTasks;
+    .locals 1
+    .param p0, "x0"    # Lcom/android/server/am/TaskPersister;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/am/TaskPersister;->mRecentTasks:Lcom/android/server/am/RecentTasks;
+
+    return-object v0
+.end method
+
+.method static synthetic access$300(Lcom/android/server/am/TaskPersister;Landroid/util/ArraySet;)V
     .locals 0
     .param p0, "x0"    # Lcom/android/server/am/TaskPersister;
     .param p1, "x1"    # Landroid/util/ArraySet;
@@ -279,7 +294,7 @@
     return-void
 .end method
 
-.method static synthetic access$300(Lcom/android/server/am/TaskPersister;)J
+.method static synthetic access$400(Lcom/android/server/am/TaskPersister;)J
     .locals 2
     .param p0, "x0"    # Lcom/android/server/am/TaskPersister;
 
@@ -289,7 +304,7 @@
     return-wide v0
 .end method
 
-.method static synthetic access$302(Lcom/android/server/am/TaskPersister;J)J
+.method static synthetic access$402(Lcom/android/server/am/TaskPersister;J)J
     .locals 1
     .param p0, "x0"    # Lcom/android/server/am/TaskPersister;
     .param p1, "x1"    # J
@@ -300,7 +315,7 @@
     return-wide p1
 .end method
 
-.method static synthetic access$400(Lcom/android/server/am/TaskPersister;)V
+.method static synthetic access$500(Lcom/android/server/am/TaskPersister;)V
     .locals 0
     .param p0, "x0"    # Lcom/android/server/am/TaskPersister;
 
@@ -310,7 +325,7 @@
     return-void
 .end method
 
-.method static synthetic access$500(Lcom/android/server/am/TaskPersister;Lcom/android/server/am/TaskRecord;)Ljava/io/StringWriter;
+.method static synthetic access$600(Lcom/android/server/am/TaskPersister;Lcom/android/server/am/TaskRecord;)Ljava/io/StringWriter;
     .locals 1
     .param p0, "x0"    # Lcom/android/server/am/TaskPersister;
     .param p1, "x1"    # Lcom/android/server/am/TaskRecord;
@@ -2407,11 +2422,9 @@
 
     move-result v9
 
-    iget-object v11, p0, Lcom/android/server/am/TaskPersister;->mService:Lcom/android/server/am/ActivityManagerService;
+    iget-object v11, p0, Lcom/android/server/am/TaskPersister;->mRecentTasks:Lcom/android/server/am/RecentTasks;
 
-    iget-object v11, v11, Lcom/android/server/am/ActivityManagerService;->mRecentTasks:Ljava/util/ArrayList;
-
-    invoke-virtual {v11}, Ljava/util/ArrayList;->size()I
+    invoke-virtual {v11}, Lcom/android/server/am/RecentTasks;->size()I
 
     move-result v11
 
@@ -2424,19 +2437,15 @@
 
     if-lt v6, v9, :cond_6
 
-    iget-object v9, p0, Lcom/android/server/am/TaskPersister;->mService:Lcom/android/server/am/ActivityManagerService;
+    iget-object v9, p0, Lcom/android/server/am/TaskPersister;->mRecentTasks:Lcom/android/server/am/RecentTasks;
 
-    iget-object v9, v9, Lcom/android/server/am/ActivityManagerService;->mRecentTasks:Ljava/util/ArrayList;
+    iget-object v11, p0, Lcom/android/server/am/TaskPersister;->mRecentTasks:Lcom/android/server/am/RecentTasks;
 
-    iget-object v11, p0, Lcom/android/server/am/TaskPersister;->mService:Lcom/android/server/am/ActivityManagerService;
-
-    iget-object v11, v11, Lcom/android/server/am/ActivityManagerService;->mRecentTasks:Ljava/util/ArrayList;
-
-    invoke-virtual {v11}, Ljava/util/ArrayList;->size()I
+    invoke-virtual {v11}, Lcom/android/server/am/RecentTasks;->size()I
 
     move-result v11
 
-    invoke-virtual {v9, v11, v8}, Ljava/util/ArrayList;->addAll(ILjava/util/Collection;)Z
+    invoke-virtual {v9, v11, v8}, Lcom/android/server/am/RecentTasks;->addAll(ILjava/util/Collection;)Z
 
     invoke-interface {v8}, Ljava/util/List;->size()I
 
@@ -3559,8 +3568,17 @@
     .prologue
     iget-object v0, p0, Lcom/android/server/am/TaskPersister;->mLazyTaskWriterThread:Lcom/android/server/am/TaskPersister$LazyTaskWriterThread;
 
+    invoke-virtual {v0}, Lcom/android/server/am/TaskPersister$LazyTaskWriterThread;->isAlive()Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/server/am/TaskPersister;->mLazyTaskWriterThread:Lcom/android/server/am/TaskPersister$LazyTaskWriterThread;
+
     invoke-virtual {v0}, Lcom/android/server/am/TaskPersister$LazyTaskWriterThread;->start()V
 
+    :cond_0
     return-void
 .end method
 

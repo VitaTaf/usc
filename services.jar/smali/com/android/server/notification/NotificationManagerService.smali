@@ -7302,7 +7302,7 @@
 
     iput-object v1, v0, Lcom/android/server/notification/NotificationManagerService;->mAttentionLight:Lcom/android/server/lights/Light;
 
-    const v1, 0x106010c
+    const v1, 0x10600ab
 
     invoke-virtual {v15, v1}, Landroid/content/res/Resources;->getColor(I)I
 

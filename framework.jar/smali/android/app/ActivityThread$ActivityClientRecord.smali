@@ -45,6 +45,8 @@
 
 .field onlyLocalRequest:Z
 
+.field overrideConfig:Landroid/content/res/Configuration;
+
 .field packageInfo:Landroid/app/LoadedApk;
 
 .field parent:Landroid/app/Activity;

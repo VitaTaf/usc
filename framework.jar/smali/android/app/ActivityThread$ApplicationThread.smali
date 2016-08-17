@@ -2061,22 +2061,23 @@
     return-void
 .end method
 
-.method public final scheduleLaunchActivity(Landroid/content/Intent;Landroid/os/IBinder;ILandroid/content/pm/ActivityInfo;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Ljava/lang/String;Lcom/android/internal/app/IVoiceInteractor;ILandroid/os/Bundle;Landroid/os/PersistableBundle;Ljava/util/List;Ljava/util/List;ZZLandroid/app/ProfilerInfo;)V
-    .locals 5
+.method public final scheduleLaunchActivity(Landroid/content/Intent;Landroid/os/IBinder;ILandroid/content/pm/ActivityInfo;Landroid/content/res/Configuration;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Ljava/lang/String;Lcom/android/internal/app/IVoiceInteractor;ILandroid/os/Bundle;Landroid/os/PersistableBundle;Ljava/util/List;Ljava/util/List;ZZLandroid/app/ProfilerInfo;)V
+    .locals 4
     .param p1, "intent"    # Landroid/content/Intent;
     .param p2, "token"    # Landroid/os/IBinder;
     .param p3, "ident"    # I
     .param p4, "info"    # Landroid/content/pm/ActivityInfo;
     .param p5, "curConfig"    # Landroid/content/res/Configuration;
-    .param p6, "compatInfo"    # Landroid/content/res/CompatibilityInfo;
-    .param p7, "referrer"    # Ljava/lang/String;
-    .param p8, "voiceInteractor"    # Lcom/android/internal/app/IVoiceInteractor;
-    .param p9, "procState"    # I
-    .param p10, "state"    # Landroid/os/Bundle;
-    .param p11, "persistentState"    # Landroid/os/PersistableBundle;
-    .param p14, "notResumed"    # Z
-    .param p15, "isForward"    # Z
-    .param p16, "profilerInfo"    # Landroid/app/ProfilerInfo;
+    .param p6, "overrideConfig"    # Landroid/content/res/Configuration;
+    .param p7, "compatInfo"    # Landroid/content/res/CompatibilityInfo;
+    .param p8, "referrer"    # Ljava/lang/String;
+    .param p9, "voiceInteractor"    # Lcom/android/internal/app/IVoiceInteractor;
+    .param p10, "procState"    # I
+    .param p11, "state"    # Landroid/os/Bundle;
+    .param p12, "persistentState"    # Landroid/os/PersistableBundle;
+    .param p15, "notResumed"    # Z
+    .param p16, "isForward"    # Z
+    .param p17, "profilerInfo"    # Landroid/app/ProfilerInfo;
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -2084,6 +2085,7 @@
             "Landroid/os/IBinder;",
             "I",
             "Landroid/content/pm/ActivityInfo;",
+            "Landroid/content/res/Configuration;",
             "Landroid/content/res/Configuration;",
             "Landroid/content/res/CompatibilityInfo;",
             "Ljava/lang/String;",
@@ -2105,23 +2107,11 @@
     .end annotation
 
     .prologue
-    .local p12, "pendingResults":Ljava/util/List;, "Ljava/util/List<Landroid/app/ResultInfo;>;"
-    .local p13, "pendingNewIntents":Ljava/util/List;, "Ljava/util/List<Lcom/android/internal/content/ReferrerIntent;>;"
-    sget-object v2, Lcom/motorola/kpi/Kpi6paTop$Tag;->AMS6:Lcom/motorola/kpi/Kpi6paTop$Tag;
-
-    const/4 v3, 0x1
-
-    new-array v3, v3, [Ljava/lang/Object;
-
-    const/4 v4, 0x0
-
-    aput-object p4, v3, v4
-
-    invoke-static {v2, v3}, Lcom/motorola/kpi/Kpi6paTop;->log(Lcom/motorola/kpi/Kpi6paTop$Tag;[Ljava/lang/Object;)V
-
+    .local p13, "pendingResults":Ljava/util/List;, "Ljava/util/List<Landroid/app/ResultInfo;>;"
+    .local p14, "pendingNewIntents":Ljava/util/List;, "Ljava/util/List<Lcom/android/internal/content/ReferrerIntent;>;"
     const/4 v2, 0x0
 
-    invoke-virtual {p0, p9, v2}, Landroid/app/ActivityThread$ApplicationThread;->updateProcessState(IZ)V
+    invoke-virtual {p0, p10, v2}, Landroid/app/ActivityThread$ApplicationThread;->updateProcessState(IZ)V
 
     new-instance v1, Landroid/app/ActivityThread$ActivityClientRecord;
 
@@ -2134,39 +2124,41 @@
 
     iput-object p1, v1, Landroid/app/ActivityThread$ActivityClientRecord;->intent:Landroid/content/Intent;
 
-    iput-object p7, v1, Landroid/app/ActivityThread$ActivityClientRecord;->referrer:Ljava/lang/String;
+    iput-object p8, v1, Landroid/app/ActivityThread$ActivityClientRecord;->referrer:Ljava/lang/String;
 
-    iput-object p8, v1, Landroid/app/ActivityThread$ActivityClientRecord;->voiceInteractor:Lcom/android/internal/app/IVoiceInteractor;
+    iput-object p9, v1, Landroid/app/ActivityThread$ActivityClientRecord;->voiceInteractor:Lcom/android/internal/app/IVoiceInteractor;
 
     iput-object p4, v1, Landroid/app/ActivityThread$ActivityClientRecord;->activityInfo:Landroid/content/pm/ActivityInfo;
 
-    iput-object p6, v1, Landroid/app/ActivityThread$ActivityClientRecord;->compatInfo:Landroid/content/res/CompatibilityInfo;
+    iput-object p7, v1, Landroid/app/ActivityThread$ActivityClientRecord;->compatInfo:Landroid/content/res/CompatibilityInfo;
 
-    iput-object p10, v1, Landroid/app/ActivityThread$ActivityClientRecord;->state:Landroid/os/Bundle;
-
-    move-object/from16 v0, p11
-
-    iput-object v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->persistentState:Landroid/os/PersistableBundle;
+    iput-object p11, v1, Landroid/app/ActivityThread$ActivityClientRecord;->state:Landroid/os/Bundle;
 
     move-object/from16 v0, p12
 
-    iput-object v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->pendingResults:Ljava/util/List;
+    iput-object v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->persistentState:Landroid/os/PersistableBundle;
 
     move-object/from16 v0, p13
 
+    iput-object v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->pendingResults:Ljava/util/List;
+
+    move-object/from16 v0, p14
+
     iput-object v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->pendingIntents:Ljava/util/List;
-
-    move/from16 v0, p14
-
-    iput-boolean v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->startsNotResumed:Z
 
     move/from16 v0, p15
 
+    iput-boolean v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->startsNotResumed:Z
+
+    move/from16 v0, p16
+
     iput-boolean v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->isForward:Z
 
-    move-object/from16 v0, p16
+    move-object/from16 v0, p17
 
     iput-object v0, v1, Landroid/app/ActivityThread$ActivityClientRecord;->profilerInfo:Landroid/app/ProfilerInfo;
+
+    iput-object p6, v1, Landroid/app/ActivityThread$ActivityClientRecord;->overrideConfig:Landroid/content/res/Configuration;
 
     invoke-direct {p0, p5}, Landroid/app/ActivityThread$ApplicationThread;->updatePendingConfiguration(Landroid/content/res/Configuration;)V
 
@@ -2393,12 +2385,13 @@
     return-void
 .end method
 
-.method public final scheduleRelaunchActivity(Landroid/os/IBinder;Ljava/util/List;Ljava/util/List;IZLandroid/content/res/Configuration;)V
-    .locals 8
+.method public final scheduleRelaunchActivity(Landroid/os/IBinder;Ljava/util/List;Ljava/util/List;IZLandroid/content/res/Configuration;Landroid/content/res/Configuration;)V
+    .locals 9
     .param p1, "token"    # Landroid/os/IBinder;
     .param p4, "configChanges"    # I
     .param p5, "notResumed"    # Z
     .param p6, "config"    # Landroid/content/res/Configuration;
+    .param p7, "overrideConfig"    # Landroid/content/res/Configuration;
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -2412,6 +2405,7 @@
             "Lcom/android/internal/content/ReferrerIntent;",
             ">;IZ",
             "Landroid/content/res/Configuration;",
+            "Landroid/content/res/Configuration;",
             ")V"
         }
     .end annotation
@@ -2421,7 +2415,7 @@
     .local p3, "pendingNewIntents":Ljava/util/List;, "Ljava/util/List<Lcom/android/internal/content/ReferrerIntent;>;"
     iget-object v0, p0, Landroid/app/ActivityThread$ApplicationThread;->this$0:Landroid/app/ActivityThread;
 
-    const/4 v7, 0x1
+    const/4 v8, 0x1
 
     move-object v1, p1
 
@@ -2435,7 +2429,9 @@
 
     move-object v6, p6
 
-    invoke-virtual/range {v0 .. v7}, Landroid/app/ActivityThread;->requestRelaunchActivity(Landroid/os/IBinder;Ljava/util/List;Ljava/util/List;IZLandroid/content/res/Configuration;Z)V
+    move-object/from16 v7, p7
+
+    invoke-virtual/range {v0 .. v8}, Landroid/app/ActivityThread;->requestRelaunchActivity(Landroid/os/IBinder;Ljava/util/List;Ljava/util/List;IZLandroid/content/res/Configuration;Landroid/content/res/Configuration;Z)V
 
     return-void
 .end method
