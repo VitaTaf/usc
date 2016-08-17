@@ -229,28 +229,21 @@
     move-result-object v5
 
     .local v5, "minDate":Ljava/lang/String;
-    invoke-static {v5}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMinDate:Ljava/util/Calendar;
+
+    invoke-static {v5, v6}, Landroid/widget/CalendarView;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
 
     move-result v6
 
     if-nez v6, :cond_0
 
-    iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMinDate:Ljava/util/Calendar;
-
-    invoke-virtual {p0, v5, v6}, Landroid/widget/CalendarViewLegacyDelegate;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
-
-    move-result v6
-
-    if-nez v6, :cond_1
-
-    :cond_0
     const-string v6, "01/01/1900"
 
     iget-object v7, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMinDate:Ljava/util/Calendar;
 
-    invoke-virtual {p0, v6, v7}, Landroid/widget/CalendarViewLegacyDelegate;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
+    invoke-static {v6, v7}, Landroid/widget/CalendarView;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
 
-    :cond_1
+    :cond_0
     const/4 v6, 0x3
 
     invoke-virtual {v0, v6}, Landroid/content/res/TypedArray;->getString(I)Ljava/lang/String;
@@ -258,28 +251,21 @@
     move-result-object v4
 
     .local v4, "maxDate":Ljava/lang/String;
-    invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-
-    move-result v6
-
-    if-nez v6, :cond_2
-
     iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMaxDate:Ljava/util/Calendar;
 
-    invoke-virtual {p0, v4, v6}, Landroid/widget/CalendarViewLegacyDelegate;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
+    invoke-static {v4, v6}, Landroid/widget/CalendarView;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
 
     move-result v6
 
-    if-nez v6, :cond_3
+    if-nez v6, :cond_1
 
-    :cond_2
     const-string v6, "01/01/2100"
 
     iget-object v7, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMaxDate:Ljava/util/Calendar;
 
-    invoke-virtual {p0, v6, v7}, Landroid/widget/CalendarViewLegacyDelegate;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
+    invoke-static {v6, v7}, Landroid/widget/CalendarView;->parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
 
-    :cond_3
+    :cond_1
     iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMaxDate:Ljava/util/Calendar;
 
     iget-object v7, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMinDate:Ljava/util/Calendar;
@@ -288,7 +274,7 @@
 
     move-result v6
 
-    if-eqz v6, :cond_4
+    if-eqz v6, :cond_2
 
     new-instance v6, Ljava/lang/IllegalArgumentException;
 
@@ -298,7 +284,7 @@
 
     throw v6
 
-    :cond_4
+    :cond_2
     const/4 v6, 0x4
 
     const/4 v7, 0x6
@@ -542,7 +528,7 @@
 
     move-result v6
 
-    if-eqz v6, :cond_5
+    if-eqz v6, :cond_3
 
     iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMinDate:Ljava/util/Calendar;
 
@@ -561,7 +547,7 @@
 
     return-void
 
-    :cond_5
+    :cond_3
     iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMaxDate:Ljava/util/Calendar;
 
     iget-object v7, p0, Landroid/widget/CalendarViewLegacyDelegate;->mTempDate:Ljava/util/Calendar;
@@ -570,7 +556,7 @@
 
     move-result v6
 
-    if-eqz v6, :cond_6
+    if-eqz v6, :cond_4
 
     iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mMaxDate:Ljava/util/Calendar;
 
@@ -584,7 +570,7 @@
 
     goto :goto_0
 
-    :cond_6
+    :cond_4
     iget-object v6, p0, Landroid/widget/CalendarViewLegacyDelegate;->mTempDate:Ljava/util/Calendar;
 
     const/4 v7, 0x0

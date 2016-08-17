@@ -93,7 +93,7 @@
     <attr name="popupPromptView" format="reference" />
     <attr name="disableChildrenWhenDisabled" format="boolean" />
     <attr name="internalLayout" format="reference" />
-    <attr name="controlBackground" format="color" />
+    <attr name="headerTextColor" format="color" />
     <attr name="quickContactWindowSize">
         <enum name="modeLarge" value="3" />
         <enum name="modeMedium" value="2" />
@@ -117,7 +117,8 @@
     <attr name="virtualButtonPressedDrawable" format="reference" />
     <attr name="hideWheelUntilFocused" format="boolean" />
     <attr name="legacyLayout" format="reference" />
-    <attr name="calendarDayBackgroundColor" format="color" />
+    <attr name="yearListItemActivatedTextAppearance" format="reference" />
+    <attr name="monthTextAppearance" format="reference" />
     <attr name="frameDuration" format="integer" />
     <attr name="framesCount" format="integer" />
     <attr name="state_accessibility_focused" format="boolean" />
@@ -210,5 +211,7 @@
     <attr name="interpolatorX" format="reference" />
     <attr name="interpolatorY" format="reference" />
     <attr name="interpolatorZ" format="reference" />
-    <item type="^attr-private" name="APKTOOL_DUMMY_66">false</item>
+    <attr name="daySelectorColor" format="color" />
+    <attr name="dayHighlightColor" format="color" />
+    <attr name="defaultQueryHint" format="string" />
 </resources>

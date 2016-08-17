@@ -35,6 +35,14 @@
     <dimen name="timepicker_text_inset_normal">22.0dip</dimen>
     <dimen name="timepicker_text_size_normal">14.0sp</dimen>
     <dimen name="timepicker_text_size_inner">12.0sp</dimen>
+    <dimen name="date_picker_month_height">40.0dip</dimen>
+    <dimen name="date_picker_day_of_week_height">14.0dip</dimen>
+    <dimen name="date_picker_day_height">32.0dip</dimen>
+    <dimen name="date_picker_day_width">46.0dip</dimen>
+    <dimen name="date_picker_day_selector_radius">16.0dip</dimen>
+    <dimen name="day_picker_padding_horizontal">18.0dip</dimen>
+    <dimen name="day_picker_padding_top">0.0dip</dimen>
+    <dimen name="day_picker_button_margin_top">-8.0dip</dimen>
     <dimen name="kg_emergency_button_shift">30.0dip</dimen>
     <dimen name="timepicker_left_side_width">250.0dip</dimen>
 </resources>

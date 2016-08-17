@@ -219,8 +219,6 @@
     <color name="timepicker_default_numbers_background_color_material">@color/transparent</color>
     <color name="datepicker_default_header_selector_background_material_light">@color/white</color>
     <color name="datepicker_default_header_selector_background_material_dark">#ff303030</color>
-    <item type="color" name="APKTOOL_DUMMY_e4">false</item>
-    <item type="color" name="APKTOOL_DUMMY_e5">false</item>
     <item type="color" name="APKTOOL_DUMMY_e6">false</item>
     <item type="color" name="APKTOOL_DUMMY_e9">false</item>
     <item type="color" name="APKTOOL_DUMMY_ea">false</item>

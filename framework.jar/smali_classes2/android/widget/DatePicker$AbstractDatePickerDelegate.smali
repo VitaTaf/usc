@@ -53,6 +53,14 @@
 
 
 # virtual methods
+.method protected onLocaleChanged(Ljava/util/Locale;)V
+    .locals 0
+    .param p1, "locale"    # Ljava/util/Locale;
+
+    .prologue
+    return-void
+.end method
+
 .method protected onValidationChanged(Z)V
     .locals 1
     .param p1, "valid"    # Z
@@ -81,15 +89,14 @@
 
     move-result v0
 
-    if-eqz v0, :cond_0
+    if-nez v0, :cond_0
 
-    :goto_0
-    return-void
-
-    :cond_0
     iput-object p1, p0, Landroid/widget/DatePicker$AbstractDatePickerDelegate;->mCurrentLocale:Ljava/util/Locale;
 
-    goto :goto_0
+    invoke-virtual {p0, p1}, Landroid/widget/DatePicker$AbstractDatePickerDelegate;->onLocaleChanged(Ljava/util/Locale;)V
+
+    :cond_0
+    return-void
 .end method
 
 .method public setValidationCallback(Landroid/widget/DatePicker$ValidationCallback;)V

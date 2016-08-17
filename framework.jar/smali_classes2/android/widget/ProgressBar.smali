@@ -196,9 +196,16 @@
     .local v2, "progressDrawable":Landroid/graphics/drawable/Drawable;
     if-eqz v2, :cond_0
 
+    invoke-static {v2}, Landroid/widget/ProgressBar;->needsTileify(Landroid/graphics/drawable/Drawable;)Z
+
+    move-result v6
+
+    if-eqz v6, :cond_16
+
     invoke-virtual {p0, v2}, Landroid/widget/ProgressBar;->setProgressDrawableTiled(Landroid/graphics/drawable/Drawable;)V
 
     :cond_0
+    :goto_0
     const/16 v6, 0x9
 
     iget v7, p0, Landroid/widget/ProgressBar;->mDuration:I
@@ -308,9 +315,16 @@
     .local v1, "indeterminateDrawable":Landroid/graphics/drawable/Drawable;
     if-eqz v1, :cond_2
 
+    invoke-static {v1}, Landroid/widget/ProgressBar;->needsTileify(Landroid/graphics/drawable/Drawable;)Z
+
+    move-result v6
+
+    if-eqz v6, :cond_17
+
     invoke-virtual {p0, v1}, Landroid/widget/ProgressBar;->setIndeterminateDrawableTiled(Landroid/graphics/drawable/Drawable;)V
 
     :cond_2
+    :goto_1
     const/4 v6, 0x6
 
     iget-boolean v7, p0, Landroid/widget/ProgressBar;->mOnlyIndeterminate:Z
@@ -663,6 +677,20 @@
 
     :cond_15
     return-void
+
+    .end local v1    # "indeterminateDrawable":Landroid/graphics/drawable/Drawable;
+    .end local v3    # "resID":I
+    :cond_16
+    invoke-virtual {p0, v2}, Landroid/widget/ProgressBar;->setProgressDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    goto/16 :goto_0
+
+    .restart local v1    # "indeterminateDrawable":Landroid/graphics/drawable/Drawable;
+    .restart local v3    # "resID":I
+    :cond_17
+    invoke-virtual {p0, v1}, Landroid/widget/ProgressBar;->setIndeterminateDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    goto/16 :goto_1
 .end method
 
 .method static synthetic access$100(Landroid/widget/ProgressBar;)Ljava/util/ArrayList;
@@ -1222,6 +1250,121 @@
     return-void
 .end method
 
+.method private static needsTileify(Landroid/graphics/drawable/Drawable;)Z
+    .locals 7
+    .param p0, "dr"    # Landroid/graphics/drawable/Drawable;
+
+    .prologue
+    const/4 v4, 0x1
+
+    const/4 v5, 0x0
+
+    instance-of v6, p0, Landroid/graphics/drawable/LayerDrawable;
+
+    if-eqz v6, :cond_3
+
+    move-object v3, p0
+
+    check-cast v3, Landroid/graphics/drawable/LayerDrawable;
+
+    .local v3, "orig":Landroid/graphics/drawable/LayerDrawable;
+    invoke-virtual {v3}, Landroid/graphics/drawable/LayerDrawable;->getNumberOfLayers()I
+
+    move-result v0
+
+    .local v0, "N":I
+    const/4 v1, 0x0
+
+    .local v1, "i":I
+    :goto_0
+    if-ge v1, v0, :cond_2
+
+    invoke-virtual {v3, v1}, Landroid/graphics/drawable/LayerDrawable;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v6
+
+    invoke-static {v6}, Landroid/widget/ProgressBar;->needsTileify(Landroid/graphics/drawable/Drawable;)Z
+
+    move-result v6
+
+    if-eqz v6, :cond_1
+
+    .end local v0    # "N":I
+    .end local v1    # "i":I
+    .end local v3    # "orig":Landroid/graphics/drawable/LayerDrawable;
+    :cond_0
+    :goto_1
+    return v4
+
+    .restart local v0    # "N":I
+    .restart local v1    # "i":I
+    .restart local v3    # "orig":Landroid/graphics/drawable/LayerDrawable;
+    :cond_1
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_0
+
+    :cond_2
+    move v4, v5
+
+    goto :goto_1
+
+    .end local v0    # "N":I
+    .end local v1    # "i":I
+    .end local v3    # "orig":Landroid/graphics/drawable/LayerDrawable;
+    :cond_3
+    instance-of v6, p0, Landroid/graphics/drawable/StateListDrawable;
+
+    if-eqz v6, :cond_5
+
+    move-object v2, p0
+
+    check-cast v2, Landroid/graphics/drawable/StateListDrawable;
+
+    .local v2, "in":Landroid/graphics/drawable/StateListDrawable;
+    invoke-virtual {v2}, Landroid/graphics/drawable/StateListDrawable;->getStateCount()I
+
+    move-result v0
+
+    .restart local v0    # "N":I
+    const/4 v1, 0x0
+
+    .restart local v1    # "i":I
+    :goto_2
+    if-ge v1, v0, :cond_4
+
+    invoke-virtual {v2, v1}, Landroid/graphics/drawable/StateListDrawable;->getStateDrawable(I)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v6
+
+    invoke-static {v6}, Landroid/widget/ProgressBar;->needsTileify(Landroid/graphics/drawable/Drawable;)Z
+
+    move-result v6
+
+    if-nez v6, :cond_0
+
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_2
+
+    :cond_4
+    move v4, v5
+
+    goto :goto_1
+
+    .end local v0    # "N":I
+    .end local v1    # "i":I
+    .end local v2    # "in":Landroid/graphics/drawable/StateListDrawable;
+    :cond_5
+    instance-of v6, p0, Landroid/graphics/drawable/BitmapDrawable;
+
+    if-nez v6, :cond_0
+
+    move v4, v5
+
+    goto :goto_1
+.end method
+
 .method private declared-synchronized refreshProgress(IIZ)V
     .locals 6
     .param p1, "id"    # I
@@ -1435,311 +1578,264 @@
 .end method
 
 .method private tileify(Landroid/graphics/drawable/Drawable;Z)Landroid/graphics/drawable/Drawable;
-    .locals 17
+    .locals 13
     .param p1, "drawable"    # Landroid/graphics/drawable/Drawable;
     .param p2, "clip"    # Z
 
     .prologue
-    move-object/from16 v0, p1
+    const/4 v11, 0x1
 
-    instance-of v14, v0, Landroid/graphics/drawable/LayerDrawable;
+    instance-of v10, p1, Landroid/graphics/drawable/LayerDrawable;
 
-    if-eqz v14, :cond_3
+    if-eqz v10, :cond_3
 
-    move-object/from16 v9, p1
+    move-object v6, p1
 
-    check-cast v9, Landroid/graphics/drawable/LayerDrawable;
+    check-cast v6, Landroid/graphics/drawable/LayerDrawable;
 
-    .local v9, "orig":Landroid/graphics/drawable/LayerDrawable;
-    invoke-virtual {v9}, Landroid/graphics/drawable/LayerDrawable;->getNumberOfLayers()I
+    .local v6, "orig":Landroid/graphics/drawable/LayerDrawable;
+    invoke-virtual {v6}, Landroid/graphics/drawable/LayerDrawable;->getNumberOfLayers()I
 
-    move-result v2
+    move-result v0
 
-    .local v2, "N":I
-    new-array v11, v2, [Landroid/graphics/drawable/Drawable;
+    .local v0, "N":I
+    new-array v8, v0, [Landroid/graphics/drawable/Drawable;
 
-    .local v11, "outDrawables":[Landroid/graphics/drawable/Drawable;
-    const/4 v6, 0x0
+    .local v8, "outDrawables":[Landroid/graphics/drawable/Drawable;
+    const/4 v3, 0x0
 
-    .local v6, "i":I
+    .local v3, "i":I
     :goto_0
-    if-ge v6, v2, :cond_2
+    if-ge v3, v0, :cond_2
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getId(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getId(I)I
 
-    move-result v7
+    move-result v4
 
-    .local v7, "id":I
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+    .local v4, "id":I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
-    move-result-object v15
+    move-result-object v12
 
-    const v14, 0x102000d
+    const v10, 0x102000d
 
-    if-eq v7, v14, :cond_0
+    if-eq v4, v10, :cond_0
 
-    const v14, 0x102000f
+    const v10, 0x102000f
 
-    if-ne v7, v14, :cond_1
+    if-ne v4, v10, :cond_1
 
     :cond_0
-    const/4 v14, 0x1
+    move v10, v11
 
     :goto_1
-    move-object/from16 v0, p0
+    invoke-direct {p0, v12, v10}, Landroid/widget/ProgressBar;->tileify(Landroid/graphics/drawable/Drawable;Z)Landroid/graphics/drawable/Drawable;
 
-    invoke-direct {v0, v15, v14}, Landroid/widget/ProgressBar;->tileify(Landroid/graphics/drawable/Drawable;Z)Landroid/graphics/drawable/Drawable;
+    move-result-object v10
 
-    move-result-object v14
+    aput-object v10, v8, v3
 
-    aput-object v14, v11, v6
-
-    add-int/lit8 v6, v6, 0x1
+    add-int/lit8 v3, v3, 0x1
 
     goto :goto_0
 
     :cond_1
-    const/4 v14, 0x0
+    const/4 v10, 0x0
 
     goto :goto_1
 
-    .end local v7    # "id":I
+    .end local v4    # "id":I
     :cond_2
-    new-instance v5, Landroid/graphics/drawable/LayerDrawable;
+    new-instance v2, Landroid/graphics/drawable/LayerDrawable;
 
-    invoke-direct {v5, v11}, Landroid/graphics/drawable/LayerDrawable;-><init>([Landroid/graphics/drawable/Drawable;)V
+    invoke-direct {v2, v8}, Landroid/graphics/drawable/LayerDrawable;-><init>([Landroid/graphics/drawable/Drawable;)V
 
-    .local v5, "clone":Landroid/graphics/drawable/LayerDrawable;
-    const/4 v6, 0x0
+    .local v2, "clone":Landroid/graphics/drawable/LayerDrawable;
+    const/4 v3, 0x0
 
     :goto_2
-    if-ge v6, v2, :cond_5
+    if-ge v3, v0, :cond_5
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getId(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getId(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setId(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setId(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerGravity(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerGravity(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerGravity(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerGravity(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerWidth(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerWidth(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerWidth(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerWidth(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerHeight(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerHeight(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerHeight(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerHeight(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetLeft(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetLeft(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetLeft(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetLeft(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetRight(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetRight(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetRight(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetRight(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetTop(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetTop(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetTop(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetTop(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetBottom(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetBottom(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetBottom(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetBottom(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetStart(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetStart(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetStart(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetStart(II)V
 
-    invoke-virtual {v9, v6}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetEnd(I)I
+    invoke-virtual {v6, v3}, Landroid/graphics/drawable/LayerDrawable;->getLayerInsetEnd(I)I
 
-    move-result v14
+    move-result v10
 
-    invoke-virtual {v5, v6, v14}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetEnd(II)V
+    invoke-virtual {v2, v3, v10}, Landroid/graphics/drawable/LayerDrawable;->setLayerInsetEnd(II)V
 
-    add-int/lit8 v6, v6, 0x1
+    add-int/lit8 v3, v3, 0x1
 
     goto :goto_2
 
-    .end local v2    # "N":I
-    .end local v5    # "clone":Landroid/graphics/drawable/LayerDrawable;
-    .end local v6    # "i":I
-    .end local v9    # "orig":Landroid/graphics/drawable/LayerDrawable;
-    .end local v11    # "outDrawables":[Landroid/graphics/drawable/Drawable;
+    .end local v0    # "N":I
+    .end local v2    # "clone":Landroid/graphics/drawable/LayerDrawable;
+    .end local v3    # "i":I
+    .end local v6    # "orig":Landroid/graphics/drawable/LayerDrawable;
+    .end local v8    # "outDrawables":[Landroid/graphics/drawable/Drawable;
     :cond_3
-    move-object/from16 v0, p1
+    instance-of v10, p1, Landroid/graphics/drawable/StateListDrawable;
 
-    instance-of v14, v0, Landroid/graphics/drawable/StateListDrawable;
+    if-eqz v10, :cond_6
 
-    if-eqz v14, :cond_6
+    move-object v5, p1
 
-    move-object/from16 v8, p1
+    check-cast v5, Landroid/graphics/drawable/StateListDrawable;
 
-    check-cast v8, Landroid/graphics/drawable/StateListDrawable;
+    .local v5, "in":Landroid/graphics/drawable/StateListDrawable;
+    new-instance v7, Landroid/graphics/drawable/StateListDrawable;
 
-    .local v8, "in":Landroid/graphics/drawable/StateListDrawable;
-    new-instance v10, Landroid/graphics/drawable/StateListDrawable;
+    invoke-direct {v7}, Landroid/graphics/drawable/StateListDrawable;-><init>()V
 
-    invoke-direct {v10}, Landroid/graphics/drawable/StateListDrawable;-><init>()V
+    .local v7, "out":Landroid/graphics/drawable/StateListDrawable;
+    invoke-virtual {v5}, Landroid/graphics/drawable/StateListDrawable;->getStateCount()I
 
-    .local v10, "out":Landroid/graphics/drawable/StateListDrawable;
-    invoke-virtual {v8}, Landroid/graphics/drawable/StateListDrawable;->getStateCount()I
+    move-result v0
 
-    move-result v2
+    .restart local v0    # "N":I
+    const/4 v3, 0x0
 
-    .restart local v2    # "N":I
-    const/4 v6, 0x0
-
-    .restart local v6    # "i":I
+    .restart local v3    # "i":I
     :goto_3
-    if-ge v6, v2, :cond_4
+    if-ge v3, v0, :cond_4
 
-    invoke-virtual {v8, v6}, Landroid/graphics/drawable/StateListDrawable;->getStateSet(I)[I
+    invoke-virtual {v5, v3}, Landroid/graphics/drawable/StateListDrawable;->getStateSet(I)[I
 
-    move-result-object v14
+    move-result-object v10
 
-    invoke-virtual {v8, v6}, Landroid/graphics/drawable/StateListDrawable;->getStateDrawable(I)Landroid/graphics/drawable/Drawable;
+    invoke-virtual {v5, v3}, Landroid/graphics/drawable/StateListDrawable;->getStateDrawable(I)Landroid/graphics/drawable/Drawable;
 
-    move-result-object v15
+    move-result-object v11
 
-    move-object/from16 v0, p0
+    invoke-direct {p0, v11, p2}, Landroid/widget/ProgressBar;->tileify(Landroid/graphics/drawable/Drawable;Z)Landroid/graphics/drawable/Drawable;
 
-    move/from16 v1, p2
+    move-result-object v11
 
-    invoke-direct {v0, v15, v1}, Landroid/widget/ProgressBar;->tileify(Landroid/graphics/drawable/Drawable;Z)Landroid/graphics/drawable/Drawable;
+    invoke-virtual {v7, v10, v11}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
 
-    move-result-object v15
-
-    invoke-virtual {v10, v14, v15}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
-
-    add-int/lit8 v6, v6, 0x1
+    add-int/lit8 v3, v3, 0x1
 
     goto :goto_3
 
     :cond_4
-    move-object v5, v10
+    move-object v2, v7
 
-    .end local v2    # "N":I
-    .end local v6    # "i":I
-    .end local v8    # "in":Landroid/graphics/drawable/StateListDrawable;
-    .end local v10    # "out":Landroid/graphics/drawable/StateListDrawable;
+    .end local v0    # "N":I
+    .end local v3    # "i":I
+    .end local v5    # "in":Landroid/graphics/drawable/StateListDrawable;
+    .end local v7    # "out":Landroid/graphics/drawable/StateListDrawable;
     :cond_5
     :goto_4
-    return-object v5
+    return-object v2
 
     :cond_6
-    move-object/from16 v0, p1
+    instance-of v10, p1, Landroid/graphics/drawable/BitmapDrawable;
 
-    instance-of v14, v0, Landroid/graphics/drawable/BitmapDrawable;
+    if-eqz v10, :cond_8
 
-    if-eqz v14, :cond_9
+    move-object v1, p1
 
-    move-object/from16 v3, p1
+    check-cast v1, Landroid/graphics/drawable/BitmapDrawable;
 
-    check-cast v3, Landroid/graphics/drawable/BitmapDrawable;
+    .local v1, "bitmap":Landroid/graphics/drawable/BitmapDrawable;
+    invoke-virtual {v1}, Landroid/graphics/drawable/BitmapDrawable;->getBitmap()Landroid/graphics/Bitmap;
 
-    .local v3, "bitmap":Landroid/graphics/drawable/BitmapDrawable;
-    invoke-virtual {v3}, Landroid/graphics/drawable/BitmapDrawable;->getBitmap()Landroid/graphics/Bitmap;
+    move-result-object v9
 
-    move-result-object v13
+    .local v9, "tileBitmap":Landroid/graphics/Bitmap;
+    iget-object v10, p0, Landroid/widget/ProgressBar;->mSampleTile:Landroid/graphics/Bitmap;
 
-    .local v13, "tileBitmap":Landroid/graphics/Bitmap;
-    move-object/from16 v0, p0
+    if-nez v10, :cond_7
 
-    iget-object v14, v0, Landroid/widget/ProgressBar;->mSampleTile:Landroid/graphics/Bitmap;
-
-    if-nez v14, :cond_7
-
-    move-object/from16 v0, p0
-
-    iput-object v13, v0, Landroid/widget/ProgressBar;->mSampleTile:Landroid/graphics/Bitmap;
+    iput-object v9, p0, Landroid/widget/ProgressBar;->mSampleTile:Landroid/graphics/Bitmap;
 
     :cond_7
-    new-instance v12, Landroid/graphics/drawable/ShapeDrawable;
+    invoke-virtual {v1}, Landroid/graphics/drawable/BitmapDrawable;->getConstantState()Landroid/graphics/drawable/Drawable$ConstantState;
 
-    invoke-virtual/range {p0 .. p0}, Landroid/widget/ProgressBar;->getDrawableShape()Landroid/graphics/drawable/shapes/Shape;
+    move-result-object v10
 
-    move-result-object v14
+    invoke-virtual {v10}, Landroid/graphics/drawable/Drawable$ConstantState;->newDrawable()Landroid/graphics/drawable/Drawable;
 
-    invoke-direct {v12, v14}, Landroid/graphics/drawable/ShapeDrawable;-><init>(Landroid/graphics/drawable/shapes/Shape;)V
+    move-result-object v2
 
-    .local v12, "shapeDrawable":Landroid/graphics/drawable/ShapeDrawable;
-    new-instance v4, Landroid/graphics/BitmapShader;
+    check-cast v2, Landroid/graphics/drawable/BitmapDrawable;
 
-    sget-object v14, Landroid/graphics/Shader$TileMode;->REPEAT:Landroid/graphics/Shader$TileMode;
+    .local v2, "clone":Landroid/graphics/drawable/BitmapDrawable;
+    sget-object v10, Landroid/graphics/Shader$TileMode;->REPEAT:Landroid/graphics/Shader$TileMode;
 
-    sget-object v15, Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
+    sget-object v12, Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
 
-    invoke-direct {v4, v13, v14, v15}, Landroid/graphics/BitmapShader;-><init>(Landroid/graphics/Bitmap;Landroid/graphics/Shader$TileMode;Landroid/graphics/Shader$TileMode;)V
+    invoke-virtual {v2, v10, v12}, Landroid/graphics/drawable/BitmapDrawable;->setTileModeXY(Landroid/graphics/Shader$TileMode;Landroid/graphics/Shader$TileMode;)V
 
-    .local v4, "bitmapShader":Landroid/graphics/BitmapShader;
-    invoke-virtual {v12}, Landroid/graphics/drawable/ShapeDrawable;->getPaint()Landroid/graphics/Paint;
+    if-eqz p2, :cond_5
 
-    move-result-object v14
+    new-instance v7, Landroid/graphics/drawable/ClipDrawable;
 
-    invoke-virtual {v14, v4}, Landroid/graphics/Paint;->setShader(Landroid/graphics/Shader;)Landroid/graphics/Shader;
+    const/4 v10, 0x3
 
-    invoke-virtual {v3}, Landroid/graphics/drawable/BitmapDrawable;->getTint()Landroid/content/res/ColorStateList;
+    invoke-direct {v7, v2, v10, v11}, Landroid/graphics/drawable/ClipDrawable;-><init>(Landroid/graphics/drawable/Drawable;II)V
 
-    move-result-object v14
-
-    invoke-virtual {v12, v14}, Landroid/graphics/drawable/ShapeDrawable;->setTintList(Landroid/content/res/ColorStateList;)V
-
-    invoke-virtual {v3}, Landroid/graphics/drawable/BitmapDrawable;->getTintMode()Landroid/graphics/PorterDuff$Mode;
-
-    move-result-object v14
-
-    invoke-virtual {v12, v14}, Landroid/graphics/drawable/ShapeDrawable;->setTintMode(Landroid/graphics/PorterDuff$Mode;)V
-
-    invoke-virtual {v3}, Landroid/graphics/drawable/BitmapDrawable;->getColorFilter()Landroid/graphics/ColorFilter;
-
-    move-result-object v14
-
-    invoke-virtual {v12, v14}, Landroid/graphics/drawable/ShapeDrawable;->setColorFilter(Landroid/graphics/ColorFilter;)V
-
-    if-eqz p2, :cond_8
-
-    new-instance v14, Landroid/graphics/drawable/ClipDrawable;
-
-    const/4 v15, 0x3
-
-    const/16 v16, 0x1
-
-    move/from16 v0, v16
-
-    invoke-direct {v14, v12, v15, v0}, Landroid/graphics/drawable/ClipDrawable;-><init>(Landroid/graphics/drawable/Drawable;II)V
-
-    move-object v12, v14
-
-    .end local v12    # "shapeDrawable":Landroid/graphics/drawable/ShapeDrawable;
-    :cond_8
-    move-object v5, v12
+    move-object v2, v7
 
     goto :goto_4
 
-    .end local v3    # "bitmap":Landroid/graphics/drawable/BitmapDrawable;
-    .end local v4    # "bitmapShader":Landroid/graphics/BitmapShader;
-    .end local v13    # "tileBitmap":Landroid/graphics/Bitmap;
-    :cond_9
-    move-object/from16 v5, p1
+    .end local v1    # "bitmap":Landroid/graphics/drawable/BitmapDrawable;
+    .end local v2    # "clone":Landroid/graphics/drawable/BitmapDrawable;
+    .end local v9    # "tileBitmap":Landroid/graphics/Bitmap;
+    :cond_8
+    move-object v2, p1
 
     goto :goto_4
 .end method

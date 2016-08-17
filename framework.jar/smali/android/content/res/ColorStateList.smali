@@ -1293,6 +1293,76 @@
     return-object v0
 .end method
 
+.method public hasState(I)Z
+    .locals 8
+    .param p1, "state"    # I
+
+    .prologue
+    iget-object v4, p0, Landroid/content/res/ColorStateList;->mStateSpecs:[[I
+
+    .local v4, "stateSpecs":[[I
+    array-length v0, v4
+
+    .local v0, "specCount":I
+    const/4 v1, 0x0
+
+    .local v1, "specIndex":I
+    :goto_0
+    if-ge v1, v0, :cond_3
+
+    aget-object v5, v4, v1
+
+    .local v5, "states":[I
+    array-length v2, v5
+
+    .local v2, "stateCount":I
+    const/4 v3, 0x0
+
+    .local v3, "stateIndex":I
+    :goto_1
+    if-ge v3, v2, :cond_2
+
+    aget v6, v5, v3
+
+    if-eq v6, p1, :cond_0
+
+    aget v6, v5, v3
+
+    xor-int/lit8 v7, p1, -0x1
+
+    if-ne v6, v7, :cond_1
+
+    :cond_0
+    const/4 v6, 0x1
+
+    .end local v2    # "stateCount":I
+    .end local v3    # "stateIndex":I
+    .end local v5    # "states":[I
+    :goto_2
+    return v6
+
+    .restart local v2    # "stateCount":I
+    .restart local v3    # "stateIndex":I
+    .restart local v5    # "states":[I
+    :cond_1
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_1
+
+    :cond_2
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_0
+
+    .end local v2    # "stateCount":I
+    .end local v3    # "stateIndex":I
+    .end local v5    # "states":[I
+    :cond_3
+    const/4 v6, 0x0
+
+    goto :goto_2
+.end method
+
 .method public isOpaque()Z
     .locals 1
 

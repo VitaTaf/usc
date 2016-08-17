@@ -25491,247 +25491,311 @@
     goto :goto_1
 .end method
 
-.method public setTextAppearance(Landroid/content/Context;I)V
-    .locals 13
-    .param p1, "context"    # Landroid/content/Context;
-    .param p2, "resid"    # I
+.method public setTextAppearance(I)V
+    .locals 1
+    .param p1, "resId"    # I
 
     .prologue
-    sget-object v11, Lcom/android/internal/R$styleable;->TextAppearance:[I
+    iget-object v0, p0, Landroid/widget/TextView;->mContext:Landroid/content/Context;
 
-    invoke-virtual {p1, p2, v11}, Landroid/content/Context;->obtainStyledAttributes(I[I)Landroid/content/res/TypedArray;
+    invoke-virtual {p0, v0, p1}, Landroid/widget/TextView;->setTextAppearance(Landroid/content/Context;I)V
 
-    move-result-object v0
+    return-void
+.end method
 
-    .local v0, "appearance":Landroid/content/res/TypedArray;
-    const/4 v11, 0x4
+.method public setTextAppearance(Landroid/content/Context;I)V
+    .locals 17
+    .param p1, "context"    # Landroid/content/Context;
+    .param p2, "resId"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
-    const/4 v12, 0x0
+    .prologue
+    sget-object v15, Landroid/R$styleable;->TextAppearance:[I
 
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getColor(II)I
+    move-object/from16 v0, p1
 
-    move-result v1
+    move/from16 v1, p2
 
-    .local v1, "color":I
-    if-eqz v1, :cond_0
+    invoke-virtual {v0, v1, v15}, Landroid/content/Context;->obtainStyledAttributes(I[I)Landroid/content/res/TypedArray;
 
-    invoke-virtual {p0, v1}, Landroid/widget/TextView;->setHighlightColor(I)V
+    move-result-object v8
 
-    :cond_0
-    const/4 v11, 0x3
+    .local v8, "ta":Landroid/content/res/TypedArray;
+    const/4 v15, 0x4
 
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
+    const/16 v16, 0x0
 
-    move-result-object v2
+    move/from16 v0, v16
 
-    .local v2, "colors":Landroid/content/res/ColorStateList;
-    if-eqz v2, :cond_1
-
-    invoke-virtual {p0, v2}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
-
-    :cond_1
-    const/4 v11, 0x0
-
-    const/4 v12, 0x0
-
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getDimensionPixelSize(II)I
-
-    move-result v9
-
-    .local v9, "ts":I
-    if-eqz v9, :cond_2
-
-    int-to-float v11, v9
-
-    invoke-direct {p0, v11}, Landroid/widget/TextView;->setRawTextSize(F)V
-
-    :cond_2
-    const/4 v11, 0x5
-
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
-
-    move-result-object v2
-
-    if-eqz v2, :cond_3
-
-    invoke-virtual {p0, v2}, Landroid/widget/TextView;->setHintTextColor(Landroid/content/res/ColorStateList;)V
-
-    :cond_3
-    const/4 v11, 0x6
-
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
-
-    move-result-object v2
-
-    if-eqz v2, :cond_4
-
-    invoke-virtual {p0, v2}, Landroid/widget/TextView;->setLinkTextColor(Landroid/content/res/ColorStateList;)V
-
-    :cond_4
-    const/16 v11, 0xc
-
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->getString(I)Ljava/lang/String;
-
-    move-result-object v5
-
-    .local v5, "familyName":Ljava/lang/String;
-    const/4 v11, 0x1
-
-    const/4 v12, -0x1
-
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getInt(II)I
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getColor(II)I
 
     move-result v10
 
-    .local v10, "typefaceIndex":I
-    const/4 v11, 0x2
+    .local v10, "textColorHighlight":I
+    if-eqz v10, :cond_0
 
-    const/4 v12, -0x1
+    move-object/from16 v0, p0
 
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getInt(II)I
+    invoke-virtual {v0, v10}, Landroid/widget/TextView;->setHighlightColor(I)V
 
-    move-result v8
+    :cond_0
+    const/4 v15, 0x3
 
-    .local v8, "styleIndex":I
-    invoke-direct {p0, v5, v10, v8}, Landroid/widget/TextView;->setTypefaceFromAttrs(Ljava/lang/String;II)V
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
 
-    const/4 v11, 0x7
+    move-result-object v9
 
-    const/4 v12, 0x0
+    .local v9, "textColor":Landroid/content/res/ColorStateList;
+    if-eqz v9, :cond_1
 
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getInt(II)I
+    move-object/from16 v0, p0
 
-    move-result v7
+    invoke-virtual {v0, v9}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
 
-    .local v7, "shadowcolor":I
-    if-eqz v7, :cond_5
+    :cond_1
+    const/4 v15, 0x0
 
-    const/16 v11, 0x8
+    const/16 v16, 0x0
 
-    const/4 v12, 0x0
+    move/from16 v0, v16
 
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getFloat(IF)F
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getDimensionPixelSize(II)I
 
-    move-result v3
+    move-result v13
 
-    .local v3, "dx":F
-    const/16 v11, 0x9
+    .local v13, "textSize":I
+    if-eqz v13, :cond_2
 
-    const/4 v12, 0x0
+    int-to-float v15, v13
 
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getFloat(IF)F
+    move-object/from16 v0, p0
 
-    move-result v4
+    invoke-direct {v0, v15}, Landroid/widget/TextView;->setRawTextSize(F)V
 
-    .local v4, "dy":F
-    const/16 v11, 0xa
+    :cond_2
+    const/4 v15, 0x5
 
-    const/4 v12, 0x0
-
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getFloat(IF)F
-
-    move-result v6
-
-    .local v6, "r":F
-    invoke-virtual {p0, v6, v3, v4, v7}, Landroid/widget/TextView;->setShadowLayer(FFFI)V
-
-    .end local v3    # "dx":F
-    .end local v4    # "dy":F
-    .end local v6    # "r":F
-    :cond_5
-    const/16 v11, 0xb
-
-    const/4 v12, 0x0
-
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
-
-    move-result v11
-
-    if-eqz v11, :cond_6
-
-    invoke-static {}, Ljava/util/Locale;->getDefault()Ljava/util/Locale;
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
 
     move-result-object v11
 
-    invoke-virtual {v11}, Ljava/util/Locale;->getLanguage()Ljava/lang/String;
+    .local v11, "textColorHint":Landroid/content/res/ColorStateList;
+    if-eqz v11, :cond_3
 
-    move-result-object v11
+    move-object/from16 v0, p0
 
-    const-string v12, "el"
+    invoke-virtual {v0, v11}, Landroid/widget/TextView;->setHintTextColor(Landroid/content/res/ColorStateList;)V
 
-    invoke-virtual {v11, v12}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    :cond_3
+    const/4 v15, 0x6
 
-    move-result v11
-
-    if-nez v11, :cond_6
-
-    new-instance v11, Landroid/text/method/AllCapsTransformationMethod;
-
-    invoke-virtual {p0}, Landroid/widget/TextView;->getContext()Landroid/content/Context;
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
 
     move-result-object v12
 
-    invoke-direct {v11, v12}, Landroid/text/method/AllCapsTransformationMethod;-><init>(Landroid/content/Context;)V
+    .local v12, "textColorLink":Landroid/content/res/ColorStateList;
+    if-eqz v12, :cond_4
 
-    invoke-virtual {p0, v11}, Landroid/widget/TextView;->setTransformationMethod(Landroid/text/method/TransformationMethod;)V
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v12}, Landroid/widget/TextView;->setLinkTextColor(Landroid/content/res/ColorStateList;)V
+
+    :cond_4
+    const/16 v15, 0xc
+
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->getString(I)Ljava/lang/String;
+
+    move-result-object v4
+
+    .local v4, "fontFamily":Ljava/lang/String;
+    const/4 v15, 0x1
+
+    const/16 v16, -0x1
+
+    move/from16 v0, v16
+
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getInt(II)I
+
+    move-result v14
+
+    .local v14, "typefaceIndex":I
+    const/4 v15, 0x2
+
+    const/16 v16, -0x1
+
+    move/from16 v0, v16
+
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getInt(II)I
+
+    move-result v7
+
+    .local v7, "styleIndex":I
+    move-object/from16 v0, p0
+
+    invoke-direct {v0, v4, v14, v7}, Landroid/widget/TextView;->setTypefaceFromAttrs(Ljava/lang/String;II)V
+
+    const/4 v15, 0x7
+
+    const/16 v16, 0x0
+
+    move/from16 v0, v16
+
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getInt(II)I
+
+    move-result v6
+
+    .local v6, "shadowColor":I
+    if-eqz v6, :cond_5
+
+    const/16 v15, 0x8
+
+    const/16 v16, 0x0
+
+    move/from16 v0, v16
+
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getFloat(IF)F
+
+    move-result v2
+
+    .local v2, "dx":F
+    const/16 v15, 0x9
+
+    const/16 v16, 0x0
+
+    move/from16 v0, v16
+
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getFloat(IF)F
+
+    move-result v3
+
+    .local v3, "dy":F
+    const/16 v15, 0xa
+
+    const/16 v16, 0x0
+
+    move/from16 v0, v16
+
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getFloat(IF)F
+
+    move-result v5
+
+    .local v5, "r":F
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v5, v2, v3, v6}, Landroid/widget/TextView;->setShadowLayer(FFFI)V
+
+    .end local v2    # "dx":F
+    .end local v3    # "dy":F
+    .end local v5    # "r":F
+    :cond_5
+    const/16 v15, 0xb
+
+    const/16 v16, 0x0
+
+    move/from16 v0, v16
+
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
+
+    move-result v15
+
+    if-eqz v15, :cond_6
+
+    invoke-static {}, Ljava/util/Locale;->getDefault()Ljava/util/Locale;
+
+    move-result-object v15
+
+    invoke-virtual {v15}, Ljava/util/Locale;->getLanguage()Ljava/lang/String;
+
+    move-result-object v15
+
+    const-string v14, "el"
+
+    invoke-virtual {v15, v14}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v15
+
+    if-nez v15, :cond_6
+
+    new-instance v15, Landroid/text/method/AllCapsTransformationMethod;
+
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/TextView;->getContext()Landroid/content/Context;
+
+    move-result-object v16
+
+    invoke-direct/range {v15 .. v16}, Landroid/text/method/AllCapsTransformationMethod;-><init>(Landroid/content/Context;)V
+
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v15}, Landroid/widget/TextView;->setTransformationMethod(Landroid/text/method/TransformationMethod;)V
 
     :cond_6
-    const/16 v11, 0xd
+    const/16 v15, 0xd
 
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->hasValue(I)Z
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->hasValue(I)Z
 
-    move-result v11
+    move-result v15
 
-    if-eqz v11, :cond_7
+    if-eqz v15, :cond_7
 
-    const/16 v11, 0xd
+    const/16 v15, 0xd
 
-    const/4 v12, 0x0
+    const/16 v16, 0x0
 
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
+    move/from16 v0, v16
 
-    move-result v11
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
 
-    invoke-virtual {p0, v11}, Landroid/widget/TextView;->setElegantTextHeight(Z)V
+    move-result v15
+
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v15}, Landroid/widget/TextView;->setElegantTextHeight(Z)V
 
     :cond_7
-    const/16 v11, 0xe
+    const/16 v15, 0xe
 
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->hasValue(I)Z
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->hasValue(I)Z
 
-    move-result v11
+    move-result v15
 
-    if-eqz v11, :cond_8
+    if-eqz v15, :cond_8
 
-    const/16 v11, 0xe
+    const/16 v15, 0xe
 
-    const/4 v12, 0x0
+    const/16 v16, 0x0
 
-    invoke-virtual {v0, v11, v12}, Landroid/content/res/TypedArray;->getFloat(IF)F
+    move/from16 v0, v16
 
-    move-result v11
+    invoke-virtual {v8, v15, v0}, Landroid/content/res/TypedArray;->getFloat(IF)F
 
-    invoke-virtual {p0, v11}, Landroid/widget/TextView;->setLetterSpacing(F)V
+    move-result v15
+
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v15}, Landroid/widget/TextView;->setLetterSpacing(F)V
 
     :cond_8
-    const/16 v11, 0xf
+    const/16 v15, 0xf
 
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->hasValue(I)Z
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->hasValue(I)Z
 
-    move-result v11
+    move-result v15
 
-    if-eqz v11, :cond_9
+    if-eqz v15, :cond_9
 
-    const/16 v11, 0xf
+    const/16 v15, 0xf
 
-    invoke-virtual {v0, v11}, Landroid/content/res/TypedArray;->getString(I)Ljava/lang/String;
+    invoke-virtual {v8, v15}, Landroid/content/res/TypedArray;->getString(I)Ljava/lang/String;
 
-    move-result-object v11
+    move-result-object v15
 
-    invoke-virtual {p0, v11}, Landroid/widget/TextView;->setFontFeatureSettings(Ljava/lang/String;)V
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v15}, Landroid/widget/TextView;->setFontFeatureSettings(Ljava/lang/String;)V
 
     :cond_9
-    invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
+    invoke-virtual {v8}, Landroid/content/res/TypedArray;->recycle()V
 
     return-void
 .end method

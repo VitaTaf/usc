@@ -1029,29 +1029,59 @@
 
 .field public static final CalendarView_dateTextAppearance:I = 0xc
 
+.field public static final CalendarView_dayHighlightColor:I = 0x10
+
+.field public static final CalendarView_daySelectorColor:I = 0xf
+
 .field public static final CalendarView_firstDayOfWeek:I = 0x0
 
 .field public static final CalendarView_focusedMonthDateColor:I = 0x6
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final CalendarView_maxDate:I = 0x3
 
 .field public static final CalendarView_minDate:I = 0x2
 
+.field public static final CalendarView_monthTextAppearance:I = 0xe
+
 .field public static final CalendarView_selectedDateVerticalBar:I = 0xa
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final CalendarView_selectedWeekBackgroundColor:I = 0x5
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final CalendarView_showWeekNumber:I = 0x1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final CalendarView_shownWeekCount:I = 0x4
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final CalendarView_unfocusedMonthDateColor:I = 0x7
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final CalendarView_weekDayTextAppearance:I = 0xb
 
 .field public static final CalendarView_weekNumberColor:I = 0x8
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final CalendarView_weekSeparatorLineColor:I = 0x9
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final ChangeBounds:[I
 
@@ -1135,8 +1165,6 @@
 
 .field public static final DatePicker:[I
 
-.field public static final DatePicker_calendarDayBackgroundColor:I = 0x13
-
 .field public static final DatePicker_calendarTextColor:I = 0xf
 
 .field public static final DatePicker_calendarViewShown:I = 0x7
@@ -1144,8 +1172,14 @@
 .field public static final DatePicker_datePickerMode:I = 0x10
 
 .field public static final DatePicker_dayOfWeekBackground:I = 0x8
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final DatePicker_dayOfWeekTextAppearance:I = 0x9
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final DatePicker_endYear:I = 0x2
     .annotation runtime Ljava/lang/Deprecated;
@@ -1157,14 +1191,25 @@
 .field public static final DatePicker_headerBackground:I = 0x0
 
 .field public static final DatePicker_headerDayOfMonthTextAppearance:I = 0xb
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final DatePicker_headerMonthTextAppearance:I = 0xa
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
+
+.field public static final DatePicker_headerTextColor:I = 0x12
 
 .field public static final DatePicker_headerYearTextAppearance:I = 0xc
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final DatePicker_internalLayout:I = 0x11
 
-.field public static final DatePicker_legacyLayout:I = 0x12
+.field public static final DatePicker_legacyLayout:I = 0x13
 
 .field public static final DatePicker_maxDate:I = 0x5
 
@@ -1177,9 +1222,17 @@
     .end annotation
 .end field
 
+.field public static final DatePicker_yearListItemActivatedTextAppearance:I = 0x14
+
 .field public static final DatePicker_yearListItemTextAppearance:I = 0xd
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final DatePicker_yearListSelectorColor:I = 0xe
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final DecelerateInterpolator:[I
 
@@ -1323,9 +1376,9 @@
 
 .field public static final FastScroll:[I
 
-.field public static final FastScroll_backgroundLeft:I = 0xb
+.field public static final FastScroll_backgroundLeft:I = 0xc
 
-.field public static final FastScroll_backgroundRight:I = 0xa
+.field public static final FastScroll_backgroundRight:I = 0xb
 
 .field public static final FastScroll_minHeight:I = 0x5
 
@@ -1333,7 +1386,7 @@
 
 .field public static final FastScroll_padding:I = 0x3
 
-.field public static final FastScroll_position:I = 0xc
+.field public static final FastScroll_position:I = 0xd
 
 .field public static final FastScroll_textAppearance:I = 0x0
 
@@ -1341,13 +1394,15 @@
 
 .field public static final FastScroll_textSize:I = 0x1
 
-.field public static final FastScroll_thumbDrawable:I = 0x6
+.field public static final FastScroll_thumbDrawable:I = 0x7
 
-.field public static final FastScroll_thumbMinHeight:I = 0x8
+.field public static final FastScroll_thumbMinHeight:I = 0x9
 
-.field public static final FastScroll_thumbMinWidth:I = 0x7
+.field public static final FastScroll_thumbMinWidth:I = 0x8
 
-.field public static final FastScroll_trackDrawable:I = 0x9
+.field public static final FastScroll_thumbPosition:I = 0x6
+
+.field public static final FastScroll_trackDrawable:I = 0xa
 
 .field public static final Fragment:[I
 
@@ -2594,6 +2649,8 @@
 
 .field public static final SearchView_commitIcon:I = 0xb
 
+.field public static final SearchView_defaultQueryHint:I = 0x10
+
 .field public static final SearchView_focusable:I = 0x0
 
 .field public static final SearchView_goIcon:I = 0x8
@@ -3347,8 +3404,6 @@
 
 .field public static final Theme_colorSwitchThumbNormal:I = 0x133
 
-.field public static final Theme_controlBackground:I = 0x137
-
 .field public static final Theme_datePickerDialogTheme:I = 0xfc
 
 .field public static final Theme_datePickerStyle:I = 0xb7
@@ -3822,18 +3877,32 @@
 .field public static final TimePicker:[I
 
 .field public static final TimePicker_amPmBackgroundColor:I = 0x7
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final TimePicker_amPmTextColor:I = 0x6
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final TimePicker_headerAmPmTextAppearance:I = 0x2
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final TimePicker_headerBackground:I = 0x0
 
+.field public static final TimePicker_headerTextColor:I = 0xb
+
 .field public static final TimePicker_headerTimeTextAppearance:I = 0x1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final TimePicker_internalLayout:I = 0xa
 
-.field public static final TimePicker_legacyLayout:I = 0xb
+.field public static final TimePicker_legacyLayout:I = 0xc
 
 .field public static final TimePicker_numbersBackgroundColor:I = 0x4
 
@@ -5073,7 +5142,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->Button:[I
 
-    const/16 v0, 0xe
+    const/16 v0, 0x11
 
     new-array v0, v0, [I
 
@@ -5159,7 +5228,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->CycleInterpolator:[I
 
-    const/16 v0, 0x14
+    const/16 v0, 0x15
 
     new-array v0, v0, [I
 
@@ -5275,7 +5344,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->Fade:[I
 
-    const/16 v0, 0xd
+    const/16 v0, 0xe
 
     new-array v0, v0, [I
 
@@ -6029,7 +6098,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->ScrollView:[I
 
-    const/16 v0, 0x10
+    const/16 v0, 0x11
 
     new-array v0, v0, [I
 
@@ -6295,7 +6364,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->TextViewMultiLineBackgroundState:[I
 
-    const/16 v0, 0x138
+    const/16 v0, 0x137
 
     new-array v0, v0, [I
 
@@ -6303,7 +6372,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->Theme:[I
 
-    const/16 v0, 0xc
+    const/16 v0, 0xd
 
     new-array v0, v0, [I
 
@@ -7203,6 +7272,9 @@
         0x1010348
         0x1010349
         0x116005a
+        0x1160066
+        0x11600b5
+        0x11600b6
     .end array-data
 
     :array_37
@@ -7278,8 +7350,9 @@
         0x101049b
         0x10104b3
         0x1160053
+        0x1160054
         0x1160064
-        0x11600b5
+        0x1160065
     .end array-data
 
     :array_3f
@@ -7371,6 +7444,7 @@
         0x10100d5
         0x101013f
         0x1010140
+        0x10104db
         0x116003e
         0x116003f
         0x1160040
@@ -8227,6 +8301,7 @@
         0x1010487
         0x1010488
         0x10104d4
+        0x11600b7
     .end array-data
 
     :array_9d
@@ -8873,7 +8948,6 @@
         0x116002d
         0x116002e
         0x116002f
-        0x1160054
     .end array-data
 
     :array_b8
@@ -8889,6 +8963,7 @@
         0x10104b4
         0x10104da
         0x1160053
+        0x1160054
         0x1160064
     .end array-data
 

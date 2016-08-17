@@ -14,6 +14,10 @@
 
 
 # static fields
+.field private static final DATE_FORMAT:Ljava/lang/String; = "MM/dd/yyyy"
+
+.field private static final DATE_FORMATTER:Ljava/text/DateFormat;
+
 .field private static final LOG_TAG:Ljava/lang/String; = "CalendarView"
 
 .field private static final MODE_HOLO:I = 0x0
@@ -26,6 +30,21 @@
 
 
 # direct methods
+.method static constructor <clinit>()V
+    .locals 2
+
+    .prologue
+    new-instance v0, Ljava/text/SimpleDateFormat;
+
+    const-string v1, "MM/dd/yyyy"
+
+    invoke-direct {v0, v1}, Ljava/text/SimpleDateFormat;-><init>(Ljava/lang/String;)V
+
+    sput-object v0, Landroid/widget/CalendarView;->DATE_FORMATTER:Ljava/text/DateFormat;
+
+    return-void
+.end method
+
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 1
     .param p1, "context"    # Landroid/content/Context;
@@ -149,6 +168,85 @@
     .end packed-switch
 .end method
 
+.method public static parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
+    .locals 6
+    .param p0, "date"    # Ljava/lang/String;
+    .param p1, "outDate"    # Ljava/util/Calendar;
+
+    .prologue
+    const/4 v2, 0x0
+
+    if-eqz p0, :cond_0
+
+    invoke-virtual {p0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_1
+
+    :cond_0
+    :goto_0
+    return v2
+
+    :cond_1
+    :try_start_0
+    sget-object v3, Landroid/widget/CalendarView;->DATE_FORMATTER:Ljava/text/DateFormat;
+
+    invoke-virtual {v3, p0}, Ljava/text/DateFormat;->parse(Ljava/lang/String;)Ljava/util/Date;
+
+    move-result-object v1
+
+    .local v1, "parsedDate":Ljava/util/Date;
+    invoke-virtual {p1, v1}, Ljava/util/Calendar;->setTime(Ljava/util/Date;)V
+    :try_end_0
+    .catch Ljava/text/ParseException; {:try_start_0 .. :try_end_0} :catch_0
+
+    const/4 v2, 0x1
+
+    goto :goto_0
+
+    .end local v1    # "parsedDate":Ljava/util/Date;
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Ljava/text/ParseException;
+    const-string v3, "CalendarView"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "Date: "
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    const-string v5, " not in format: "
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    const-string v5, "MM/dd/yyyy"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v3, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_0
+.end method
+
 
 # virtual methods
 .method public getAccessibilityClassName()Ljava/lang/CharSequence;
@@ -205,6 +303,8 @@
 
 .method public getFocusedMonthDateColor()I
     .locals 1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -244,6 +344,8 @@
 
 .method public getSelectedDateVerticalBar()Landroid/graphics/drawable/Drawable;
     .locals 1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -257,6 +359,8 @@
 
 .method public getSelectedWeekBackgroundColor()I
     .locals 1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -283,6 +387,8 @@
 
 .method public getShownWeekCount()I
     .locals 1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -296,6 +402,8 @@
 
 .method public getUnfocusedMonthDateColor()I
     .locals 1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -322,6 +430,8 @@
 
 .method public getWeekNumberColor()I
     .locals 1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -335,6 +445,8 @@
 
 .method public getWeekSeparatorLineColor()I
     .locals 1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -413,6 +525,8 @@
 .method public setFocusedMonthDateColor(I)V
     .locals 1
     .param p1, "color"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -461,6 +575,8 @@
 .method public setSelectedDateVerticalBar(I)V
     .locals 1
     .param p1, "resourceId"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -473,6 +589,8 @@
 .method public setSelectedDateVerticalBar(Landroid/graphics/drawable/Drawable;)V
     .locals 1
     .param p1, "drawable"    # Landroid/graphics/drawable/Drawable;
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -485,6 +603,8 @@
 .method public setSelectedWeekBackgroundColor(I)V
     .locals 1
     .param p1, "color"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -509,6 +629,8 @@
 .method public setShownWeekCount(I)V
     .locals 1
     .param p1, "count"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -521,6 +643,8 @@
 .method public setUnfocusedMonthDateColor(I)V
     .locals 1
     .param p1, "color"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -545,6 +669,8 @@
 .method public setWeekNumberColor(I)V
     .locals 1
     .param p1, "color"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;
@@ -557,6 +683,8 @@
 .method public setWeekSeparatorLineColor(I)V
     .locals 1
     .param p1, "color"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/widget/CalendarView;->mDelegate:Landroid/widget/CalendarView$CalendarViewDelegate;

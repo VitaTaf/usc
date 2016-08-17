@@ -18,10 +18,6 @@
 
 
 # static fields
-.field private static final DATE_FORMAT:Ljava/lang/String; = "MM/dd/yyyy"
-
-.field protected static final DATE_FORMATTER:Ljava/text/DateFormat;
-
 .field protected static final DEFAULT_MAX_DATE:Ljava/lang/String; = "01/01/2100"
 
 .field protected static final DEFAULT_MIN_DATE:Ljava/lang/String; = "01/01/1900"
@@ -36,21 +32,6 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 2
-
-    .prologue
-    new-instance v0, Ljava/text/SimpleDateFormat;
-
-    const-string v1, "MM/dd/yyyy"
-
-    invoke-direct {v0, v1}, Ljava/text/SimpleDateFormat;-><init>(Ljava/lang/String;)V
-
-    sput-object v0, Landroid/widget/CalendarView$AbstractCalendarViewDelegate;->DATE_FORMATTER:Ljava/text/DateFormat;
-
-    return-void
-.end method
-
 .method constructor <init>(Landroid/widget/CalendarView;Landroid/content/Context;)V
     .locals 1
     .param p1, "delegator"    # Landroid/widget/CalendarView;
@@ -74,69 +55,84 @@
 
 
 # virtual methods
-.method protected parseDate(Ljava/lang/String;Ljava/util/Calendar;)Z
-    .locals 4
-    .param p1, "date"    # Ljava/lang/String;
-    .param p2, "outDate"    # Ljava/util/Calendar;
+.method public getFocusedMonthDateColor()I
+    .locals 1
 
     .prologue
-    :try_start_0
-    sget-object v1, Landroid/widget/CalendarView$AbstractCalendarViewDelegate;->DATE_FORMATTER:Ljava/text/DateFormat;
+    const/4 v0, 0x0
 
-    invoke-virtual {v1, p1}, Ljava/text/DateFormat;->parse(Ljava/lang/String;)Ljava/util/Date;
+    return v0
+.end method
 
-    move-result-object v1
+.method public getSelectedDateVerticalBar()Landroid/graphics/drawable/Drawable;
+    .locals 1
 
-    invoke-virtual {p2, v1}, Ljava/util/Calendar;->setTime(Ljava/util/Date;)V
-    :try_end_0
-    .catch Ljava/text/ParseException; {:try_start_0 .. :try_end_0} :catch_0
+    .prologue
+    const/4 v0, 0x0
 
-    const/4 v1, 0x1
+    return-object v0
+.end method
 
-    :goto_0
-    return v1
+.method public getSelectedWeekBackgroundColor()I
+    .locals 1
 
-    :catch_0
-    move-exception v0
+    .prologue
+    const/4 v0, 0x0
 
-    .local v0, "e":Ljava/text/ParseException;
-    const-string v1, "CalendarView"
+    return v0
+.end method
 
-    new-instance v2, Ljava/lang/StringBuilder;
+.method public getShowWeekNumber()Z
+    .locals 1
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    .prologue
+    const/4 v0, 0x0
 
-    const-string v3, "Date: "
+    return v0
+.end method
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+.method public getShownWeekCount()I
+    .locals 1
 
-    move-result-object v2
+    .prologue
+    const/4 v0, 0x0
 
-    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    return v0
+.end method
 
-    move-result-object v2
+.method public getUnfocusedMonthDateColor()I
+    .locals 1
 
-    const-string v3, " not in format: "
+    .prologue
+    const/4 v0, 0x0
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    return v0
+.end method
 
-    move-result-object v2
+.method public getWeekNumberColor()I
+    .locals 1
 
-    const-string v3, "MM/dd/yyyy"
+    .prologue
+    const/4 v0, 0x0
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    return v0
+.end method
 
-    move-result-object v2
+.method public getWeekSeparatorLineColor()I
+    .locals 1
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .prologue
+    const/4 v0, 0x0
 
-    move-result-object v2
+    return v0
+.end method
 
-    invoke-static {v1, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+.method public onConfigurationChanged(Landroid/content/res/Configuration;)V
+    .locals 0
+    .param p1, "newConfig"    # Landroid/content/res/Configuration;
 
-    const/4 v1, 0x0
-
-    goto :goto_0
+    .prologue
+    return-void
 .end method
 
 .method protected setCurrentLocale(Ljava/util/Locale;)V
@@ -159,4 +155,76 @@
     iput-object p1, p0, Landroid/widget/CalendarView$AbstractCalendarViewDelegate;->mCurrentLocale:Ljava/util/Locale;
 
     goto :goto_0
+.end method
+
+.method public setFocusedMonthDateColor(I)V
+    .locals 0
+    .param p1, "color"    # I
+
+    .prologue
+    return-void
+.end method
+
+.method public setSelectedDateVerticalBar(I)V
+    .locals 0
+    .param p1, "resId"    # I
+
+    .prologue
+    return-void
+.end method
+
+.method public setSelectedDateVerticalBar(Landroid/graphics/drawable/Drawable;)V
+    .locals 0
+    .param p1, "drawable"    # Landroid/graphics/drawable/Drawable;
+
+    .prologue
+    return-void
+.end method
+
+.method public setSelectedWeekBackgroundColor(I)V
+    .locals 0
+    .param p1, "color"    # I
+
+    .prologue
+    return-void
+.end method
+
+.method public setShowWeekNumber(Z)V
+    .locals 0
+    .param p1, "showWeekNumber"    # Z
+
+    .prologue
+    return-void
+.end method
+
+.method public setShownWeekCount(I)V
+    .locals 0
+    .param p1, "count"    # I
+
+    .prologue
+    return-void
+.end method
+
+.method public setUnfocusedMonthDateColor(I)V
+    .locals 0
+    .param p1, "color"    # I
+
+    .prologue
+    return-void
+.end method
+
+.method public setWeekNumberColor(I)V
+    .locals 0
+    .param p1, "color"    # I
+
+    .prologue
+    return-void
+.end method
+
+.method public setWeekSeparatorLineColor(I)V
+    .locals 0
+    .param p1, "color"    # I
+
+    .prologue
+    return-void
 .end method

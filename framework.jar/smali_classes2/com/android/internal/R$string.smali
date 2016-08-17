@@ -537,6 +537,10 @@
 
 .field public static final date_and_time:I = 0x1040059
 
+.field public static final date_picker_day_of_week_typeface:I = 0x104004d
+
+.field public static final date_picker_day_typeface:I = 0x104004e
+
 .field public static final date_picker_decrement_day_button:I = 0x104058e
 
 .field public static final date_picker_decrement_month_button:I = 0x104058c
@@ -551,6 +555,12 @@
 
 .field public static final date_picker_increment_year_button:I = 0x104058f
 
+.field public static final date_picker_month_typeface:I = 0x104004c
+
+.field public static final date_picker_next_month_button:I = 0x104004b
+
+.field public static final date_picker_prev_month_button:I = 0x104004a
+
 .field public static final date_time:I = 0x104005a
 
 .field public static final date_time_done:I = 0x10404e6
@@ -558,8 +568,6 @@
 .field public static final date_time_set:I = 0x10404e5
 
 .field public static final day:I = 0x1040453
-
-.field public static final day_of_week_label_typeface:I = 0x1040687
 
 .field public static final day_picker_description:I = 0x104067d
 

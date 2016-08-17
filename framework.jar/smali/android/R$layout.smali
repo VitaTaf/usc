@@ -17,6 +17,8 @@
 # static fields
 .field public static final activity_list_item:I = 0x1090000
 
+.field public static final alert_dialog_button_bar_material:I = 0x10900df
+
 .field public static final alert_dialog_holo:I = 0x1090027
 
 .field public static final alert_dialog_leanback:I = 0x1090028
@@ -32,6 +34,8 @@
 .field public static final alert_dialog_progress_holo:I = 0x109002d
 
 .field public static final alert_dialog_progress_material:I = 0x109002e
+
+.field public static final alert_dialog_title_material:I = 0x10900e1
 
 .field public static final always_use_checkbox:I = 0x109002f
 
@@ -71,15 +75,9 @@
 
 .field public static final date_picker_dialog:I = 0x1090040
 
-.field public static final date_picker_holo:I = 0x1090041
-
 .field public static final date_picker_legacy:I = 0x1090042
 
 .field public static final date_picker_legacy_holo:I = 0x1090043
-
-.field public static final date_picker_selected_date:I = 0x1090044
-
-.field public static final date_picker_view_animator:I = 0x1090045
 
 .field public static final default_navigation:I = 0x1090046
 
@@ -431,7 +429,13 @@
 
 .field public static final time_picker_dialog:I = 0x10900e0
 
+.field public static final time_picker_header_material:I = 0x10900e3
+
 .field public static final time_picker_legacy:I = 0x10900e2
+
+.field public static final time_picker_legacy_material:I = 0x10900f5
+
+.field public static final time_picker_material:I = 0x10900f6
 
 .field public static final transient_notification:I = 0x10900e4
 

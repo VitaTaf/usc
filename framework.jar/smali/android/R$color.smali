@@ -53,6 +53,8 @@
 
 .field public static final datepicker_default_header_selector_background_material_light:I = 0x10600fc
 
+.field public static final highlighted_text_material:I = 0x10600df
+
 .field public static final hint_foreground_material_dark:I = 0x10600e7
 
 .field public static final hint_foreground_material_light:I = 0x10600e8
@@ -114,6 +116,8 @@
 .field public static final link_text_material_dark:I = 0x10600eb
 
 .field public static final link_text_material_light:I = 0x10600ec
+
+.field public static final list_highlight_material:I = 0x10600e0
 
 .field public static final material_blue_grey_800:I = 0x10600f3
 
@@ -245,9 +249,13 @@
 
 .field public static final switch_track_material:I = 0x1060140
 
+.field public static final tab_highlight_material:I = 0x10600e1
+
 .field public static final tab_indicator_material:I = 0x1060141
 
 .field public static final tab_indicator_text:I = 0x1060009
+
+.field public static final tab_indicator_text_material:I = 0x10600e2
 
 .field public static final tab_indicator_text_v4:I = 0x1060139
 

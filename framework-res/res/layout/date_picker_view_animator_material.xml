@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator android:gravity="center" android:id="@id/animator" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.widget.DayPickerView android:id="@id/date_picker_day_picker" android:layout_width="fill_parent" android:layout_height="fill_parent" android:inAnimation="@anim/fade_in" android:outAnimation="@anim/fade_out" />
+    <android.widget.YearPickerView android:id="@id/date_picker_year_picker" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</ViewAnimator>

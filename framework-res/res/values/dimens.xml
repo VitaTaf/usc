@@ -139,15 +139,14 @@
     <item type="dimen" name="highlight_alpha_material_light">0.12</item>
     <item type="dimen" name="highlight_alpha_material_dark">0.2</item>
     <dimen name="timepicker_radial_picker_dimen">296.0dip</dimen>
-    <dimen name="datepicker_day_number_size">12.0sp</dimen>
-    <dimen name="datepicker_month_label_size">14.0sp</dimen>
-    <dimen name="datepicker_month_day_label_text_size">12.0sp</dimen>
-    <dimen name="datepicker_month_list_item_header_height">48.0dip</dimen>
+    <dimen name="seekbar_track_background_height_material">2.0dip</dimen>
+    <dimen name="seekbar_track_progress_height_material">2.0dip</dimen>
+    <dimen name="datepicker_list_year_label_size">16.0sp</dimen>
     <item type="dimen" name="highlight_alpha_material_colored">0.26</item>
     <dimen name="datepicker_view_animator_height">226.0dip</dimen>
-    <dimen name="datepicker_year_picker_padding_top">8.0dip</dimen>
+    <dimen name="datepicker_list_year_activated_label_size">26.0sp</dimen>
     <dimen name="datepicker_year_label_height">64.0dip</dimen>
-    <dimen name="datepicker_year_label_text_size">22.0dip</dimen>
+    <dimen name="date_picker_year_label_size">16.0sp</dimen>
     <dimen name="datepicker_component_width">260.0dip</dimen>
     <dimen name="datepicker_dialog_width">520.0dip</dimen>
     <dimen name="datepicker_selected_date_day_size">88.0dip</dimen>
@@ -168,6 +167,7 @@
     <dimen name="light_radius">600.0dip</dimen>
     <item type="dimen" name="ambient_shadow_alpha">0.075</item>
     <item type="dimen" name="spot_shadow_alpha">0.15</item>
+    <dimen name="date_picker_date_label_size">34.0dip</dimen>
     <item type="dimen" name="disabled_alpha_leanback_formwizard">0.2</item>
     <item type="dimen" name="leanback_setup_alpha_animiation_max_opacity">1.0</item>
     <item type="dimen" name="leanback_setup_alpha_animiation_min_opacity">0.0</item>
@@ -259,10 +259,20 @@
     <dimen name="timepicker_selector_stroke">2.0dip</dimen>
     <dimen name="timepicker_center_dot_radius">3.0dip</dimen>
     <dimen name="timepicker_selector_dot_radius">3.0dip</dimen>
-    <dimen name="scrubber_track_height_material">2.0dip</dimen>
+    <dimen name="date_picker_month_text_size">14.0sp</dimen>
     <dimen name="progress_bar_height_material">4.0dip</dimen>
     <dimen name="timepicker_text_inset_normal">22.0dip</dimen>
     <dimen name="timepicker_text_size_normal">16.0sp</dimen>
     <dimen name="timepicker_text_size_inner">12.0sp</dimen>
-    <item type="dimen" name="APKTOOL_DUMMY_a8">false</item>
+    <dimen name="date_picker_day_of_week_text_size">12.0sp</dimen>
+    <dimen name="date_picker_day_text_size">12.0sp</dimen>
+    <dimen name="date_picker_month_height">56.0dip</dimen>
+    <dimen name="date_picker_day_of_week_height">36.0dip</dimen>
+    <dimen name="date_picker_day_height">40.0dip</dimen>
+    <dimen name="date_picker_day_width">44.0dip</dimen>
+    <dimen name="date_picker_day_selector_radius">20.0dip</dimen>
+    <dimen name="day_picker_padding_horizontal">20.0dip</dimen>
+    <dimen name="day_picker_padding_top">6.0dip</dimen>
+    <dimen name="day_picker_button_margin_top">0.0dip</dimen>
+    <item type="dimen" name="APKTOOL_DUMMY_8b">false</item>
 </resources>

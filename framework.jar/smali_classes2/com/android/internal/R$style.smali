@@ -309,14 +309,6 @@
 
 .field public static final TextAppearance_DeviceDefault:I = 0x10301ad
 
-.field public static final TextAppearance_DeviceDefault_DatePicker_DayOfMonthLabel:I = 0x1030371
-
-.field public static final TextAppearance_DeviceDefault_DatePicker_DayOfWeekLabel:I = 0x103036f
-
-.field public static final TextAppearance_DeviceDefault_DatePicker_MonthLabel:I = 0x1030370
-
-.field public static final TextAppearance_DeviceDefault_DatePicker_YearLabel:I = 0x1030372
-
 .field public static final TextAppearance_DeviceDefault_DialogWindowTitle:I = 0x10301b8
 
 .field public static final TextAppearance_DeviceDefault_Inverse:I = 0x10301ae
@@ -549,17 +541,11 @@
 
 .field public static final TextAppearance_Material_Button:I = 0x10301ee
 
-.field public static final TextAppearance_Material_CalendarViewWeekDayView:I = 0x1030421
-
 .field public static final TextAppearance_Material_Caption:I = 0x10301f1
-
-.field public static final TextAppearance_Material_DatePicker_DayOfMonthLabel:I = 0x1030426
-
-.field public static final TextAppearance_Material_DatePicker_DayOfWeekLabel:I = 0x1030424
 
 .field public static final TextAppearance_Material_DatePicker_List_YearLabel:I = 0x1030428
 
-.field public static final TextAppearance_Material_DatePicker_MonthLabel:I = 0x1030425
+.field public static final TextAppearance_Material_DatePicker_List_YearLabel_Activated:I = 0x10303eb
 
 .field public static final TextAppearance_Material_DatePicker_YearLabel:I = 0x1030427
 
@@ -648,6 +634,14 @@
 .field public static final TextAppearance_Material_Widget_ActionMode_Title_Inverse:I = 0x1030214
 
 .field public static final TextAppearance_Material_Widget_Button:I = 0x1030215
+
+.field public static final TextAppearance_Material_Widget_Button_Inverse:I = 0x10304c3
+
+.field public static final TextAppearance_Material_Widget_Calendar_Day:I = 0x103036f
+
+.field public static final TextAppearance_Material_Widget_Calendar_DayOfWeek:I = 0x1030370
+
+.field public static final TextAppearance_Material_Widget_Calendar_Month:I = 0x1030371
 
 .field public static final TextAppearance_Material_Widget_DropDownHint:I = 0x1030216
 

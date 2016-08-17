@@ -376,4 +376,9 @@
     <item type="id" name="find_next">false</item>
     <item type="id" name="spacer">false</item>
     <item type="id" name="time_layout">false</item>
+    <item type="id" name="date_picker_header_year">false</item>
+    <item type="id" name="date_picker_header_date">false</item>
+    <item type="id" name="month_view">false</item>
+    <item type="id" name="date_picker_day_picker">false</item>
+    <item type="id" name="date_picker_year_picker">false</item>
 </resources>

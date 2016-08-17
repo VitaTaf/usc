@@ -46,7 +46,7 @@
     iget-object v0, p0, Landroid/widget/DatePickerCalendarDelegate$1;->this$0:Landroid/widget/DatePickerCalendarDelegate;
 
     # getter for: Landroid/widget/DatePickerCalendarDelegate;->mCurrentDate:Ljava/util/Calendar;
-    invoke-static {v0}, Landroid/widget/DatePickerCalendarDelegate;->access$100(Landroid/widget/DatePickerCalendarDelegate;)Ljava/util/Calendar;
+    invoke-static {v0}, Landroid/widget/DatePickerCalendarDelegate;->access$000(Landroid/widget/DatePickerCalendarDelegate;)Ljava/util/Calendar;
 
     move-result-object v0
 
@@ -59,7 +59,7 @@
     iget-object v0, p0, Landroid/widget/DatePickerCalendarDelegate$1;->this$0:Landroid/widget/DatePickerCalendarDelegate;
 
     # invokes: Landroid/widget/DatePickerCalendarDelegate;->onDateChanged(ZZ)V
-    invoke-static {v0, v1, v1}, Landroid/widget/DatePickerCalendarDelegate;->access$200(Landroid/widget/DatePickerCalendarDelegate;ZZ)V
+    invoke-static {v0, v1, v1}, Landroid/widget/DatePickerCalendarDelegate;->access$100(Landroid/widget/DatePickerCalendarDelegate;ZZ)V
 
     return-void
 .end method

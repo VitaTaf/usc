@@ -3074,13 +3074,13 @@
         <item name="actionModeCloseDrawable">@drawable/ic_ab_back_material</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="actionBarSize">@dimen/action_bar_default_height_material</item>
-        <item name="listChoiceBackgroundIndicator">@drawable/list_highlight_material</item>
+        <item name="listChoiceBackgroundIndicator">@drawable/list_choice_background_material</item>
         <item name="actionBarTabStyle">@style/Widget.Material.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Material.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Material.ActionBar.TabText</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Material.ActionButton.Overflow</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Material.ActionButton.CloseMode</item>
-        <item name="activatedBackgroundIndicator">@null</item>
+        <item name="activatedBackgroundIndicator">@drawable/activated_background_material</item>
         <item name="listPopupWindowStyle">@style/Widget.Material.ListPopupWindow</item>
         <item name="popupMenuStyle">@style/Widget.Material.PopupMenu</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Material.Widget.PopupMenu.Large</item>
@@ -3206,7 +3206,6 @@
         <item name="findOnPageNextDrawable">@drawable/ic_find_next_material</item>
         <item name="findOnPagePreviousDrawable">@drawable/ic_find_previous_material</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_dark</item>
-        <item name="controlBackground">@drawable/control_background_material</item>
         <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
     </style>
     <style name="Theme.Material.Dialog" parent="@style/Theme.Material.BaseDialog" />
@@ -3423,7 +3422,7 @@
         <item name="actionModeCloseDrawable">@drawable/ic_ab_back_material</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="actionBarSize">@dimen/action_bar_default_height_material</item>
-        <item name="listChoiceBackgroundIndicator">?selectableItemBackground</item>
+        <item name="listChoiceBackgroundIndicator">@drawable/list_choice_background_material</item>
         <item name="actionBarTabStyle">@style/Widget.Material.Light.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Material.Light.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Material.Light.ActionBar.TabText</item>
@@ -3550,7 +3549,6 @@
         <item name="findOnPageNextDrawable">@drawable/ic_find_next_material</item>
         <item name="findOnPagePreviousDrawable">@drawable/ic_find_previous_material</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
-        <item name="controlBackground">@drawable/control_background_material</item>
         <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
     </style>
     <style name="Theme.Material.Light.DarkActionBar" parent="@style/Theme.Material.Light">
@@ -3736,7 +3734,7 @@
         <item name="paddingEnd">12.0dip</item>
     </style>
     <style name="Widget.Material.ActionButton.CloseMode" parent="@style/Widget.Material.ActionButton">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
     </style>
     <style name="Widget.Material.ActionButton.Overflow" parent="@style/Widget.Material.ActionButton">
         <item name="background">?actionBarItemBackground</item>
@@ -3798,41 +3796,31 @@
     </style>
     <style name="Widget.Material.ButtonBar.AlertDialog" parent="@style/Widget.Material.ButtonBar" />
     <style name="Widget.Material.CalendarView" parent="@style/Widget.CalendarView">
-        <item name="selectedWeekBackgroundColor">#330099ff</item>
-        <item name="focusedMonthDateColor">#ffffffff</item>
-        <item name="unfocusedMonthDateColor">#66ffffff</item>
-        <item name="weekNumberColor">#33ffffff</item>
-        <item name="weekSeparatorLineColor">#19ffffff</item>
-        <item name="selectedDateVerticalBar">@drawable/day_picker_week_view_dayline_holo</item>
-        <item name="weekDayTextAppearance">@style/TextAppearance.Material.CalendarViewWeekDayView</item>
+        <item name="weekDayTextAppearance">@style/TextAppearance.Material.Widget.Calendar.DayOfWeek</item>
+        <item name="dateTextAppearance">@style/TextAppearance.Material.Widget.Calendar.Day</item>
         <item name="calendarViewMode">material</item>
+        <item name="monthTextAppearance">@style/TextAppearance.Material.Widget.Calendar.Month</item>
+        <item name="daySelectorColor">?colorControlActivated</item>
+        <item name="dayHighlightColor">?colorControlHighlight</item>
     </style>
     <style name="Widget.Material.CheckedTextView" parent="@style/Widget.CheckedTextView" />
     <style name="Widget.Material.CompoundButton.CheckBox" parent="@style/Widget.CompoundButton.CheckBox">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
     </style>
     <style name="Widget.Material.CompoundButton.RadioButton" parent="@style/Widget.CompoundButton.RadioButton">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
     </style>
     <style name="Widget.Material.CompoundButton.Star" parent="@style/Widget.CompoundButton.Star">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
         <item name="button">@drawable/btn_star_material</item>
     </style>
     <style name="Widget.Material.DatePicker" parent="@style/Widget.Material">
-        <item name="headerBackground">?colorAccent</item>
+        <item name="headerBackground">#ff555555</item>
         <item name="calendarViewShown">true</item>
-        <item name="dayOfWeekBackground">#10000000</item>
-        <item name="dayOfWeekTextAppearance">@style/TextAppearance.Material.DatePicker.DayOfWeekLabel</item>
-        <item name="headerMonthTextAppearance">@style/TextAppearance.Material.DatePicker.MonthLabel</item>
-        <item name="headerDayOfMonthTextAppearance">@style/TextAppearance.Material.DatePicker.DayOfMonthLabel</item>
-        <item name="headerYearTextAppearance">@style/TextAppearance.Material.DatePicker.YearLabel</item>
-        <item name="yearListItemTextAppearance">@style/TextAppearance.Material.DatePicker.List.YearLabel</item>
-        <item name="yearListSelectorColor">?colorControlActivated</item>
-        <item name="calendarTextColor">?^attr-private/textColorSecondaryActivated</item>
         <item name="datePickerMode">calendar</item>
-        <item name="internalLayout">@layout/date_picker_holo</item>
+        <item name="internalLayout">@layout/date_picker_material</item>
+        <item name="headerTextColor">@color/primary_text_secondary_when_activated_material</item>
         <item name="legacyLayout">@layout/date_picker_legacy_holo</item>
-        <item name="calendarDayBackgroundColor">?colorControlActivated</item>
     </style>
     <style name="Widget.Material.DropDownItem" parent="@style/Widget.Material">
         <item name="textAppearance">@style/TextAppearance.Material.Widget.DropDownItem</item>
@@ -3852,8 +3840,9 @@
         <item name="textSize">45.0sp</item>
         <item name="textColor">?fastScrollTextColor</item>
         <item name="padding">0.0dip</item>
-        <item name="minWidth">88.0dip</item>
+        <item name="minWidth">104.0dip</item>
         <item name="minHeight">88.0dip</item>
+        <item name="thumbPosition">inside</item>
         <item name="thumbDrawable">?fastScrollThumbDrawable</item>
         <item name="thumbMinWidth">0.0dip</item>
         <item name="thumbMinHeight">0.0dip</item>
@@ -3863,7 +3852,7 @@
         <item name="position">?fastScrollOverlayPosition</item>
     </style>
     <style name="Widget.Material.GridView" parent="@style/Widget.GridView">
-        <item name="listSelector">?selectableItemBackground</item>
+        <item name="listSelector">?listChoiceBackgroundIndicator</item>
     </style>
     <style name="Widget.Material.HorizontalScrollView" parent="@style/Widget.HorizontalScrollView" />
     <style name="Widget.Material.ImageButton" parent="@style/Widget.ImageButton">
@@ -3888,7 +3877,7 @@
         <item name="divider">@null</item>
     </style>
     <style name="Widget.Material.MediaRouteButton" parent="@style/Widget.Material">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
         <item name="focusable">true</item>
         <item name="minWidth">56.0dip</item>
         <item name="minHeight">48.0dip</item>
@@ -3918,19 +3907,19 @@
     </style>
     <style name="Widget.Material.ProgressBar.Small.Title" parent="@style/Widget.Material.ProgressBar.Small" />
     <style name="Widget.Material.RatingBar" parent="@style/Widget.RatingBar">
-        <item name="indeterminateDrawable">@drawable/ratingbar_full_material</item>
-        <item name="progressDrawable">@drawable/ratingbar_full_material</item>
+        <item name="indeterminateDrawable">@drawable/ratingbar_material</item>
+        <item name="progressDrawable">@drawable/ratingbar_material</item>
     </style>
     <style name="Widget.Material.RatingBar.Indicator" parent="@style/Widget.RatingBar.Indicator">
-        <item name="maxHeight">35.0dip</item>
-        <item name="indeterminateDrawable">@drawable/ratingbar_holo_dark</item>
-        <item name="progressDrawable">@drawable/ratingbar_holo_dark</item>
-        <item name="minHeight">35.0dip</item>
+        <item name="maxHeight">36.0dip</item>
+        <item name="indeterminateDrawable">@drawable/ratingbar_indicator_material</item>
+        <item name="progressDrawable">@drawable/ratingbar_indicator_material</item>
+        <item name="minHeight">36.0dip</item>
     </style>
     <style name="Widget.Material.RatingBar.Small" parent="@style/Widget.RatingBar.Small">
         <item name="maxHeight">16.0dip</item>
-        <item name="indeterminateDrawable">@drawable/ratingbar_small_holo_dark</item>
-        <item name="progressDrawable">@drawable/ratingbar_small_holo_dark</item>
+        <item name="indeterminateDrawable">@drawable/ratingbar_small_material</item>
+        <item name="progressDrawable">@drawable/ratingbar_small_material</item>
         <item name="minHeight">16.0dip</item>
     </style>
     <style name="Widget.Material.ScrollView" parent="@style/Widget.ScrollView" />
@@ -3947,12 +3936,12 @@
         <item name="searchHintIcon">@drawable/ic_search_api_material</item>
     </style>
     <style name="Widget.Material.SeekBar" parent="@style/Widget.Material">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
         <item name="focusable">true</item>
         <item name="indeterminateOnly">false</item>
-        <item name="indeterminateDrawable">@drawable/scrubber_progress_horizontal_material</item>
-        <item name="progressDrawable">@drawable/scrubber_progress_horizontal_material</item>
-        <item name="thumb">@drawable/scrubber_control_material_anim</item>
+        <item name="indeterminateDrawable">@drawable/seekbar_track_material</item>
+        <item name="progressDrawable">@drawable/seekbar_track_material</item>
+        <item name="thumb">@drawable/seekbar_thumb_material_anim</item>
         <item name="paddingStart">16.0dip</item>
         <item name="paddingEnd">16.0dip</item>
         <item name="mirrorForRtl">true</item>
@@ -3962,8 +3951,8 @@
         <item name="background">@drawable/btn_group_holo_dark</item>
     </style>
     <style name="Widget.Material.StackView" parent="@style/Widget.Material">
-        <item name="resOutColor">@color/holo_blue_light</item>
-        <item name="clickColor">@color/holo_blue_light</item>
+        <item name="resOutColor">?colorPrimary</item>
+        <item name="clickColor">?colorPrimary</item>
     </style>
     <style name="Widget.Material.Spinner" parent="@style/Widget.Spinner.DropDown">
         <item name="gravity">start|center</item>
@@ -4011,16 +4000,15 @@
         <item name="paddingEnd">8.0dip</item>
     </style>
     <style name="Widget.Material.TimePicker" parent="@style/Widget.Material">
-        <item name="headerBackground">@drawable/time_picker_header_material</item>
-        <item name="headerTimeTextAppearance">@style/TextAppearance.Material.TimePicker.TimeLabel</item>
-        <item name="headerAmPmTextAppearance">@style/TextAppearance.Material.TimePicker.AmPmLabel</item>
+        <item name="headerBackground">#ff555555</item>
         <item name="numbersTextColor">?^attr-private/textColorPrimaryActivated</item>
-        <item name="numbersBackgroundColor">#10ffffff</item>
+        <item name="numbersBackgroundColor">#ff555555</item>
         <item name="numbersSelectorColor">?colorControlActivated</item>
         <item name="amPmTextColor">?textColorSecondary</item>
         <item name="timePickerMode">clock</item>
         <item name="numbersInnerTextColor">?^attr-private/textColorSecondaryActivated</item>
         <item name="internalLayout">@layout/time_picker_material</item>
+        <item name="headerTextColor">@color/primary_text_secondary_when_activated_material</item>
         <item name="legacyLayout">@layout/time_picker_legacy_material</item>
     </style>
     <style name="Widget.Material.Toolbar" parent="@style/Widget.Toolbar">
@@ -4029,7 +4017,7 @@
         <item name="navigationButtonStyle">@style/Widget.Material.Toolbar.Button.Navigation</item>
     </style>
     <style name="Widget.Material.Toolbar.Button.Navigation" parent="@style/Widget.Material">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
         <item name="scaleType">center</item>
         <item name="minWidth">56.0dip</item>
         <item name="paddingStart">@dimen/action_bar_navigation_padding_start_material</item>
@@ -4056,20 +4044,15 @@
     <style name="Widget.Material.Light.Button.Toggle" parent="@style/Widget.Material.Button.Toggle" />
     <style name="Widget.Material.Light.ButtonBar" parent="@style/Widget.Material.ButtonBar" />
     <style name="Widget.Material.Light.ButtonBar.AlertDialog" parent="@style/Widget.Material.ButtonBar.AlertDialog" />
-    <style name="Widget.Material.Light.CalendarView" parent="@style/Widget.CalendarView">
-        <item name="selectedWeekBackgroundColor">#330066ff</item>
-        <item name="focusedMonthDateColor">#ff000000</item>
-        <item name="unfocusedMonthDateColor">#7f08002b</item>
-        <item name="weekNumberColor">#7f080021</item>
-        <item name="weekSeparatorLineColor">#7f08002a</item>
-        <item name="weekDayTextAppearance">@style/TextAppearance.Material.CalendarViewWeekDayView</item>
-        <item name="calendarViewMode">material</item>
-    </style>
+    <style name="Widget.Material.Light.CalendarView" parent="@style/Widget.Material.CalendarView" />
     <style name="Widget.Material.Light.CheckedTextView" parent="@style/Widget.Material.CheckedTextView" />
     <style name="Widget.Material.Light.CompoundButton.CheckBox" parent="@style/Widget.Material.CompoundButton.CheckBox" />
     <style name="Widget.Material.Light.CompoundButton.RadioButton" parent="@style/Widget.Material.CompoundButton.RadioButton" />
     <style name="Widget.Material.Light.CompoundButton.Star" parent="@style/Widget.Material.CompoundButton.Star" />
-    <style name="Widget.Material.Light.DatePicker" parent="@style/Widget.Material.DatePicker" />
+    <style name="Widget.Material.Light.DatePicker" parent="@style/Widget.Material.DatePicker">
+        <item name="headerBackground">?colorAccent</item>
+        <item name="headerTextColor">@color/primary_text_secondary_when_activated_material_inverse</item>
+    </style>
     <style name="Widget.Material.Light.DropDownItem" parent="@style/Widget.Material.DropDownItem" />
     <style name="Widget.Material.Light.DropDownItem.Spinner" parent="@style/Widget.Material.DropDownItem.Spinner" />
     <style name="Widget.Material.Light.EditText" parent="@style/Widget.Material.EditText" />
@@ -4094,18 +4077,8 @@
     <style name="Widget.Material.Light.ProgressBar.Small.Inverse" parent="@style/Widget.Material.ProgressBar.Small.Inverse" />
     <style name="Widget.Material.Light.ProgressBar.Small.Title" parent="@style/Widget.Material.ProgressBar.Small.Title" />
     <style name="Widget.Material.Light.RatingBar" parent="@style/Widget.Material.RatingBar" />
-    <style name="Widget.Material.Light.RatingBar.Indicator" parent="@style/Widget.RatingBar.Indicator">
-        <item name="maxHeight">35.0dip</item>
-        <item name="indeterminateDrawable">@drawable/ratingbar_holo_light</item>
-        <item name="progressDrawable">@drawable/ratingbar_holo_light</item>
-        <item name="minHeight">35.0dip</item>
-    </style>
-    <style name="Widget.Material.Light.RatingBar.Small" parent="@style/Widget.RatingBar.Small">
-        <item name="maxHeight">16.0dip</item>
-        <item name="indeterminateDrawable">@drawable/ratingbar_small_holo_light</item>
-        <item name="progressDrawable">@drawable/ratingbar_small_holo_light</item>
-        <item name="minHeight">16.0dip</item>
-    </style>
+    <style name="Widget.Material.Light.RatingBar.Indicator" parent="@style/Widget.Material.RatingBar.Indicator" />
+    <style name="Widget.Material.Light.RatingBar.Small" parent="@style/Widget.Material.RatingBar.Small" />
     <style name="Widget.Material.Light.ScrollView" parent="@style/Widget.Material.ScrollView" />
     <style name="Widget.Material.Light.SearchView" parent="@style/Widget.Material.SearchView" />
     <style name="Widget.Material.Light.SeekBar" parent="@style/Widget.Material.SeekBar" />
@@ -4120,7 +4093,9 @@
     <style name="Widget.Material.Light.TextView" parent="@style/Widget.Material.TextView" />
     <style name="Widget.Material.Light.TextView.SpinnerItem" parent="@style/Widget.Material.TextView.SpinnerItem" />
     <style name="Widget.Material.Light.TimePicker" parent="@style/Widget.Material.TimePicker">
-        <item name="numbersBackgroundColor">#10000000</item>
+        <item name="headerBackground">?colorAccent</item>
+        <item name="numbersBackgroundColor">#ffeeeeee</item>
+        <item name="headerTextColor">@color/primary_text_secondary_when_activated_material_inverse</item>
     </style>
     <style name="Widget.Material.Light.WebTextView" parent="@style/Widget.Material.WebTextView" />
     <style name="Widget.Material.Light.WebView" parent="@style/Widget.Material.WebView" />
@@ -4672,10 +4647,16 @@
     <style name="Widget.DeviceDefault.Light.TextView.ListSeparator" parent="@style/Widget.Material.Light.TextView.ListSeparator" />
     <style name="Widget.DeviceDefault.Light.TimePicker" parent="@style/Widget.Material.Light.TimePicker" />
     <style name="Widget.DeviceDefault.Light.TextSuggestionsPopupWindow" parent="@style/Widget.Material.Light.TextSuggestionsPopupWindow" />
-    <style name="TextAppearance.DeviceDefault.DatePicker.DayOfWeekLabel" parent="@style/TextAppearance.Material.DatePicker.DayOfWeekLabel" />
-    <style name="TextAppearance.DeviceDefault.DatePicker.MonthLabel" parent="@style/TextAppearance.Material.DatePicker.MonthLabel" />
-    <style name="TextAppearance.DeviceDefault.DatePicker.DayOfMonthLabel" parent="@style/TextAppearance.Material.DatePicker.DayOfMonthLabel" />
-    <style name="TextAppearance.DeviceDefault.DatePicker.YearLabel" parent="@style/TextAppearance.Material.DatePicker.YearLabel" />
+    <style name="TextAppearance.Material.Widget.Calendar.Day" parent="@style/TextAppearance.Material.Caption">
+        <item name="textColor">?^attr-private/textColorPrimaryActivated</item>
+    </style>
+    <style name="TextAppearance.Material.Widget.Calendar.DayOfWeek" parent="@style/TextAppearance.Material.Caption" />
+    <style name="TextAppearance.Material.Widget.Calendar.Month" parent="@style/TextAppearance.Material.Body2" />
+    <style name="TextAppearance.Material.DatePicker.DateLabel" parent="@style/TextAppearance.Material">
+        <item name="textSize">@dimen/date_picker_date_label_size</item>
+        <item name="textColor">@color/primary_text_secondary_when_activated_material_inverse</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
     <style name="Preference.DeviceDefault" parent="@style/Preference.Material" />
     <style name="Preference.DeviceDefault.Category" parent="@style/Preference.Material.Category" />
     <style name="Preference.DeviceDefault.CheckBoxPreference" parent="@style/Preference.Material.CheckBoxPreference" />
@@ -4979,6 +4960,11 @@
         <item name="borderLeft">?^attr-private/preferenceFragmentPaddingSide</item>
         <item name="borderRight">?^attr-private/preferenceFragmentPaddingSide</item>
     </style>
+    <style name="TextAppearance.Material.DatePicker.List.YearLabel.Activated" parent="@style/TextAppearance.Material.DatePicker.List.YearLabel">
+        <item name="textSize">@dimen/datepicker_list_year_activated_label_size</item>
+        <item name="textColor">?colorControlActivated</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
     <style name="Widget.Holo.FastScroll" parent="@style/Widget.FastScroll">
         <item name="thumbMinWidth">0.0dip</item>
         <item name="thumbMinHeight">0.0dip</item>
@@ -5133,55 +5119,38 @@
         <item name="textAllCaps">@bool/config_actionMenuItemAllCaps</item>
     </style>
     <style name="TextAppearance.Material.Widget.ActionMode" parent="@style/TextAppearance.Material.Widget" />
-    <style name="TextAppearance.Material.CalendarViewWeekDayView" parent="@style/TextAppearance.Material.Small">
-        <item name="textStyle">bold</item>
-        <item name="textColor">#ff505050</item>
-    </style>
     <style name="TextAppearance.Material.TimePicker.TimeLabel" parent="@style/TextAppearance.Material">
         <item name="textSize">@dimen/timepicker_time_label_size</item>
-        <item name="textColor">@color/time_picker_header_text_material</item>
+        <item name="textColor">@color/primary_text_secondary_when_activated_material_inverse</item>
     </style>
     <style name="TextAppearance.Material.TimePicker.AmPmLabel" parent="@style/TextAppearance.Material.Button">
         <item name="textSize">@dimen/timepicker_ampm_label_size</item>
-        <item name="textColor">@color/time_picker_header_text_material</item>
-    </style>
-    <style name="TextAppearance.Material.DatePicker.DayOfWeekLabel" parent="@style/TextAppearance.Material">
-        <item name="textSize">@dimen/datepicker_header_text_size</item>
-        <item name="textColor">?textColorPrimaryInverse</item>
-        <item name="includeFontPadding">false</item>
-    </style>
-    <style name="TextAppearance.Material.DatePicker.MonthLabel" parent="@style/TextAppearance.Material">
-        <item name="textSize">@dimen/datepicker_selected_date_month_size</item>
-        <item name="textColor">@color/date_picker_header_text_material</item>
-        <item name="includeFontPadding">false</item>
-    </style>
-    <style name="TextAppearance.Material.DatePicker.DayOfMonthLabel" parent="@style/TextAppearance.Material">
-        <item name="textSize">@dimen/datepicker_selected_date_day_size</item>
-        <item name="textColor">@color/date_picker_header_text_material</item>
-        <item name="includeFontPadding">false</item>
+        <item name="textColor">@color/primary_text_secondary_when_activated_material_inverse</item>
     </style>
     <style name="TextAppearance.Material.DatePicker.YearLabel" parent="@style/TextAppearance.Material">
-        <item name="textSize">@dimen/datepicker_selected_date_year_size</item>
-        <item name="textColor">@color/date_picker_header_text_material</item>
-        <item name="includeFontPadding">false</item>
+        <item name="textSize">@dimen/date_picker_year_label_size</item>
+        <item name="textColor">@color/primary_text_secondary_when_activated_material_inverse</item>
+        <item name="fontFamily">sans-serif-medium</item>
     </style>
     <style name="TextAppearance.Material.DatePicker.List.YearLabel" parent="@style/TextAppearance.Material">
-        <item name="textSize">@dimen/datepicker_year_label_text_size</item>
-        <item name="textColor">?^attr-private/textColorSecondaryActivated</item>
+        <item name="textSize">@dimen/datepicker_list_year_label_size</item>
+        <item name="textColor">?textColorPrimary</item>
+        <item name="fontFamily">sans-serif</item>
     </style>
     <style name="Widget.Material.Notification.ProgressBar" parent="@style/Widget.Material.Light.ProgressBar.Horizontal" />
     <style name="Material" />
     <style name="Material.Light" parent="@style/Material" />
     <style name="Widget.Material.Button.ButtonBar.AlertDialog" parent="@style/Widget.Material.Button.Borderless.Colored">
+        <item name="ellipsize">none</item>
         <item name="minWidth">64.0dip</item>
         <item name="minHeight">@dimen/alert_dialog_button_bar_height</item>
-        <item name="maxLines">2</item>
+        <item name="singleLine">true</item>
     </style>
     <style name="Widget.Material.SearchView.ActionBar" parent="@style/Widget.Material.SearchView">
-        <item name="queryHint">@string/search_hint</item>
         <item name="queryBackground">@empty</item>
         <item name="submitBackground">@empty</item>
         <item name="searchHintIcon">@empty</item>
+        <item name="defaultQueryHint">@string/search_hint</item>
     </style>
     <style name="Widget.Material.TextView.ListSeparator" parent="@style/Widget.TextView.ListSeparator">
         <item name="background">@drawable/list_section_divider_material</item>
@@ -5192,7 +5161,7 @@
     <style name="Widget.Material.AbsListView" parent="@style/Widget.AbsListView" />
     <style name="Widget.Material.CompoundButton" parent="@style/Widget.CompoundButton" />
     <style name="Widget.Material.CompoundButton.Switch" parent="@style/Widget.Material.CompoundButton">
-        <item name="background">?^attr-private/controlBackground</item>
+        <item name="background">@drawable/control_background_material</item>
         <item name="textOn">@string/capital_on</item>
         <item name="textOff">@string/capital_off</item>
         <item name="thumb">@drawable/switch_thumb_material_anim</item>
@@ -5833,7 +5802,8 @@
         <item name="windowOverscan">true</item>
     </style>
     <style name="Widget.Material.Button.Colored" parent="@style/Widget.Material.Button">
-        <item name="backgroundTint">@color/btn_colored_material</item>
+        <item name="textAppearance">@style/TextAppearance.Material.Widget.Button.Inverse</item>
+        <item name="background">@drawable/btn_colored_material</item>
     </style>
     <style name="ThemeOverlay.Material.Dialog" parent="@style/ThemeOverlay.Material">
         <item name="colorBackground">@color/background_floating_material_light</item>
@@ -5857,7 +5827,9 @@
         <item name="windowElevation">@dimen/floating_window_z</item>
         <item name="preferencePanelStyle">@style/PreferencePanel.Dialog</item>
     </style>
-    <item type="style" name="APKTOOL_DUMMY_3eb">false</item>
+    <style name="TextAppearance.Material.Widget.Button.Inverse" parent="@style/TextAppearance.Material.Widget.Button">
+        <item name="textColor">?textColorPrimaryInverse</item>
+    </style>
     <item type="style" name="APKTOOL_DUMMY_3ec">false</item>
     <item type="style" name="APKTOOL_DUMMY_3ed">false</item>
     <item type="style" name="APKTOOL_DUMMY_3ee">false</item>
@@ -5873,4 +5845,8 @@
     <item type="style" name="APKTOOL_DUMMY_3f8">false</item>
     <item type="style" name="APKTOOL_DUMMY_3f9">false</item>
     <item type="style" name="APKTOOL_DUMMY_3fa">false</item>
+    <item type="style" name="APKTOOL_DUMMY_421">false</item>
+    <item type="style" name="APKTOOL_DUMMY_424">false</item>
+    <item type="style" name="APKTOOL_DUMMY_425">false</item>
+    <item type="style" name="APKTOOL_DUMMY_426">false</item>
 </resources>

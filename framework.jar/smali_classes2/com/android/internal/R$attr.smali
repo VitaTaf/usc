@@ -154,8 +154,14 @@
 .field public static final alwaysRetainTaskState:I = 0x1010203
 
 .field public static final amPmBackgroundColor:I = 0x10104a5
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final amPmTextColor:I = 0x10104a4
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final ambientShadowAlpha:I = 0x10104be
 
@@ -487,8 +493,14 @@
 .field public static final dateTextAppearance:I = 0x1010349
 
 .field public static final dayOfWeekBackground:I = 0x1010494
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final dayOfWeekTextAppearance:I = 0x1010495
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final debuggable:I = 0x101000f
 
@@ -743,6 +755,9 @@
 .field public static final focusableInTouchMode:I = 0x10100db
 
 .field public static final focusedMonthDateColor:I = 0x1010343
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final fontFamily:I = 0x10103ac
 
@@ -869,18 +884,33 @@
 .field public static final hasCode:I = 0x101000c
 
 .field public static final headerAmPmTextAppearance:I = 0x10104a0
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final headerBackground:I = 0x101012f
 
 .field public static final headerDayOfMonthTextAppearance:I = 0x1010497
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final headerDividersEnabled:I = 0x101022e
 
 .field public static final headerMonthTextAppearance:I = 0x1010496
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final headerTimeTextAppearance:I = 0x101049f
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final headerYearTextAppearance:I = 0x1010498
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final height:I = 0x1010155
 
@@ -1793,8 +1823,14 @@
 .field public static final selectableItemBackgroundBorderless:I = 0x101045c
 
 .field public static final selectedDateVerticalBar:I = 0x1010347
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final selectedWeekBackgroundColor:I = 0x1010342
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final sessionService:I = 0x101043d
 
@@ -1833,8 +1869,14 @@
 .field public static final showText:I = 0x10104ad
 
 .field public static final showWeekNumber:I = 0x101033e
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final shownWeekCount:I = 0x1010341
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final shrinkColumns:I = 0x101014a
 
@@ -2212,6 +2254,8 @@
 
 .field public static final thumbOffset:I = 0x1010143
 
+.field public static final thumbPosition:I = 0x10104db
+
 .field public static final thumbTextPadding:I = 0x1010372
 
 .field public static final thumbTint:I = 0x1010471
@@ -2325,6 +2369,9 @@
 .field public static final uncertainGestureColor:I = 0x1010276
 
 .field public static final unfocusedMonthDateColor:I = 0x1010344
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final unselectedAlpha:I = 0x101020e
 
@@ -2409,8 +2456,14 @@
 .field public static final weekDayTextAppearance:I = 0x1010348
 
 .field public static final weekNumberColor:I = 0x1010345
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final weekSeparatorLineColor:I = 0x1010346
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final weightSum:I = 0x1010128
 
@@ -2537,8 +2590,14 @@
 .field public static final y:I = 0x10100ad
 
 .field public static final yearListItemTextAppearance:I = 0x1010499
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final yearListSelectorColor:I = 0x101049a
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final yesNoPreferenceStyle:I = 0x1010090
 

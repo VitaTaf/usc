@@ -491,8 +491,6 @@
 
 .field public static final day:I = 0x1040453
 
-.field public static final day_of_week_label_typeface:I = 0x1040687
-
 .field public static final day_picker_description:I = 0x104067d
 
 .field public static final days:I = 0x1040454

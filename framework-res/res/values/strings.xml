@@ -74,6 +74,11 @@
     <string name="config_persistentDataPackageName">com.google.android.gms</string>
     <string name="config_webViewPackageName">com.google.android.webview</string>
     <string name="prohibit_manual_network_selection_in_gobal_mode">false</string>
+    <string name="date_picker_prev_month_button">Previous month</string>
+    <string name="date_picker_next_month_button">Next month</string>
+    <string name="date_picker_month_typeface">sans-serif-medium</string>
+    <string name="date_picker_day_of_week_typeface">sans-serif-medium</string>
+    <string name="date_picker_day_typeface">sans-serif-medium</string>
     <string name="numeric_date_template" formatted="false">%s/%s/%s</string>
     <string name="month_day_year" formatted="false">%B %-e, %Y</string>
     <string name="time_of_day" formatted="false">%-l:%M:%S %p</string>
@@ -1681,17 +1686,13 @@ Try again in %d seconds."</string>
     <string name="minute_picker_description">Minutes circular slider</string>
     <string name="select_hours">Select hours</string>
     <string name="select_minutes">Select minutes</string>
-    <string name="day_picker_description">Month grid of days</string>
-    <string name="year_picker_description">Year list</string>
     <string name="select_day">Select month and day</string>
     <string name="select_year">Select year</string>
-    <string name="item_is_selected">%1$s selected</string>
     <string name="deleted_key">%1$s deleted</string>
     <string name="managed_profile_label_badge">Work %1$s</string>
     <string name="time_placeholder">--</string>
     <string name="radial_numbers_typeface">sans-serif</string>
     <string name="sans_serif">sans-serif</string>
-    <string name="day_of_week_label_typeface">sans-serif</string>
     <string name="lock_to_app_toast">To unpin this screen, touch and hold Back and Overview at the same time.</string>
     <string name="lock_to_app_toast_accessible">To unpin this screen, touch and hold Overview.</string>
     <string name="lock_to_app_toast_locked">"Screen is pinned. Unpinning isn't allowed by your organization."</string>

@@ -107,21 +107,29 @@
 
 .field public static final control_padding_material:I = 0x10500fa
 
-.field public static final datepicker_component_width:I = 0x1050094
+.field public static final date_picker_day_height:I = 0x1050113
 
-.field public static final datepicker_day_number_size:I = 0x105008b
+.field public static final date_picker_day_of_week_height:I = 0x1050112
+
+.field public static final date_picker_day_of_week_text_size:I = 0x105010f
+
+.field public static final date_picker_day_selector_radius:I = 0x1050115
+
+.field public static final date_picker_day_text_size:I = 0x1050110
+
+.field public static final date_picker_day_width:I = 0x1050114
+
+.field public static final date_picker_month_height:I = 0x1050111
+
+.field public static final date_picker_month_text_size:I = 0x105010a
+
+.field public static final datepicker_component_width:I = 0x1050094
 
 .field public static final datepicker_dialog_width:I = 0x1050095
 
 .field public static final datepicker_header_height:I = 0x1050099
 
 .field public static final datepicker_header_text_size:I = 0x105009a
-
-.field public static final datepicker_month_day_label_text_size:I = 0x105008d
-
-.field public static final datepicker_month_label_size:I = 0x105008c
-
-.field public static final datepicker_month_list_item_header_height:I = 0x105008e
 
 .field public static final datepicker_selected_date_day_size:I = 0x1050096
 
@@ -133,9 +141,7 @@
 
 .field public static final datepicker_year_label_height:I = 0x1050092
 
-.field public static final datepicker_year_label_text_size:I = 0x1050093
-
-.field public static final datepicker_year_picker_padding_top:I = 0x1050091
+.field public static final day_picker_padding_top:I = 0x1050117
 
 .field public static final default_app_widget_padding_bottom:I = 0x1050050
 
@@ -200,6 +206,8 @@
 .field public static final floating_window_z:I = 0x10500ee
 
 .field public static final glowpadview_target_placement_radius:I = 0x10500ac
+
+.field public static final highlight_alpha_material_colored:I = 0x105008f
 
 .field public static final immersive_mode_cling_width:I = 0x105009c
 
@@ -439,8 +447,6 @@
 
 .field public static final resolver_max_width:I = 0x105009d
 
-.field public static final scrubber_track_height_material:I = 0x105010a
-
 .field public static final search_view_preferred_width:I = 0x1050034
 
 .field public static final search_view_text_min_width:I = 0x1050033
@@ -505,6 +511,8 @@
 
 .field public static final thumbnail_width:I = 0x1050002
 
+.field public static final timepicker_am_top_padding:I = 0x1050103
+
 .field public static final timepicker_ampm_horizontal_padding:I = 0x1050083
 
 .field public static final timepicker_ampm_label_size:I = 0x1050082
@@ -518,6 +526,10 @@
 .field public static final timepicker_pm_top_padding:I = 0x1050085
 
 .field public static final timepicker_radial_picker_dimen:I = 0x105008a
+
+.field public static final timepicker_radial_picker_horizontal_margin:I = 0x1050105
+
+.field public static final timepicker_radial_picker_top_margin:I = 0x1050104
 
 .field public static final timepicker_selector_dot_radius:I = 0x1050109
 
