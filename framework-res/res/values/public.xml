@@ -2252,6 +2252,7 @@
     <public type="id" name="month_view" id="0x010203f0" />
     <public type="id" name="date_picker_day_picker" id="0x010203f1" />
     <public type="id" name="date_picker_year_picker" id="0x010203f2" />
+    <public type="id" name="day_picker_view_pager" id="0x010203f3" />
     <public type="style" name="Animation" id="0x01030000" />
     <public type="style" name="Animation.Activity" id="0x01030001" />
     <public type="style" name="Animation.Dialog" id="0x01030002" />
@@ -5806,8 +5807,10 @@
     <public type="color" name="primary_text_secondary_when_activated_material_inverse" id="0x010600e3" />
     <public type="color" name="ratingbar_background_material" id="0x010600e4" />
     <public type="color" name="seekbar_track_progress_material" id="0x010600e5" />
+    <public type="color" name="primary_text_inverse_when_activated_material" id="0x010600e6" />
     <public type="color" name="hint_foreground_material_dark" id="0x010600e7" />
     <public type="color" name="hint_foreground_material_light" id="0x010600e8" />
+    <public type="color" name="secondary_text_inverse_when_activated_material" id="0x010600e9" />
     <public type="color" name="link_text_material_dark" id="0x010600eb" />
     <public type="color" name="link_text_material_light" id="0x010600ec" />
     <public type="color" name="primary_text_default_material_light" id="0x010600ed" />
@@ -5827,8 +5830,6 @@
     <public type="color" name="timepicker_default_numbers_background_color_material" id="0x010600fb" />
     <public type="color" name="datepicker_default_header_selector_background_material_light" id="0x010600fc" />
     <public type="color" name="datepicker_default_header_selector_background_material_dark" id="0x010600fd" />
-    <public type="color" name="primary_text_activated_material_dark" id="0x01060119" />
-    <public type="color" name="primary_text_activated_material_light" id="0x0106011a" />
     <public type="color" name="primary_text_dark_disable_only" id="0x0106011b" />
     <public type="color" name="primary_text_dark_focused" id="0x0106011c" />
     <public type="color" name="primary_text_disable_only_holo_dark" id="0x0106011d" />
@@ -5848,8 +5849,6 @@
     <public type="color" name="search_url_text_holo" id="0x0106012b" />
     <public type="color" name="search_url_text_material_dark" id="0x0106012c" />
     <public type="color" name="search_url_text_material_light" id="0x0106012d" />
-    <public type="color" name="secondary_text_activated_material_dark" id="0x0106012e" />
-    <public type="color" name="secondary_text_activated_material_light" id="0x0106012f" />
     <public type="color" name="secondary_text_holo_dark" id="0x01060130" />
     <public type="color" name="secondary_text_holo_light" id="0x01060131" />
     <public type="color" name="secondary_text_material_dark" id="0x01060132" />
@@ -6221,7 +6220,7 @@
     <public type="drawable" name="progress_medium_holo" id="0x0108056e" />
     <public type="drawable" name="progress_medium_material" id="0x0108056f" />
     <public type="drawable" name="progress_medium_white" id="0x01080570" />
-    <public type="drawable" name="ic_chevron_left" id="0x01080571" />
+    <public type="drawable" name="ic_chevron_end" id="0x01080571" />
     <public type="drawable" name="progress_small" id="0x01080576" />
     <public type="drawable" name="progress_small_holo" id="0x01080577" />
     <public type="drawable" name="progress_small_material" id="0x01080578" />
@@ -6247,7 +6246,7 @@
     <public type="drawable" name="ratingbar_full_filled_material" id="0x010805c0" />
     <public type="drawable" name="ratingbar_full_holo_dark" id="0x010805c1" />
     <public type="drawable" name="ratingbar_full_holo_light" id="0x010805c2" />
-    <public type="drawable" name="ic_chevron_right" id="0x010805c3" />
+    <public type="drawable" name="ic_chevron_start" id="0x010805c3" />
     <public type="drawable" name="ratingbar_holo_dark" id="0x010805c4" />
     <public type="drawable" name="ratingbar_holo_light" id="0x010805c5" />
     <public type="drawable" name="ratingbar_small" id="0x010805c6" />
@@ -8100,6 +8099,7 @@
     <public type="layout" name="time_picker_legacy_material" id="0x010900f5" />
     <public type="layout" name="time_picker_material" id="0x010900f6" />
     <public type="layout" name="date_picker_view_animator_material" id="0x010900f7" />
+    <public type="layout" name="day_picker_content_material" id="0x010900f8" />
     <public type="layout" name="icon_menu_layout" id="0x01090059" />
     <public type="anim" name="fade_in" id="0x010a0000" />
     <public type="anim" name="fade_out" id="0x010a0001" />
@@ -8122,6 +8122,7 @@
     <public type="anim" name="button_state_list_anim_material" id="0x010a0012" />
     <public type="anim" name="dialog_enter" id="0x010a0013" />
     <public type="anim" name="dialog_exit" id="0x010a0014" />
+    <public type="anim" name="date_picker_fade_in_material" id="0x010a0015" />
     <public type="anim" name="dock_bottom_enter" id="0x010a0016" />
     <public type="anim" name="dock_bottom_exit" id="0x010a0017" />
     <public type="anim" name="dock_left_enter" id="0x010a0018" />
@@ -8232,6 +8233,7 @@
     <public type="anim" name="wallpaper_open_enter" id="0x010a0081" />
     <public type="anim" name="wallpaper_open_exit" id="0x010a0082" />
     <public type="anim" name="window_move_from_decor" id="0x010a0083" />
+    <public type="anim" name="date_picker_fade_out_material" id="0x010a0084" />
     <public type="animator" name="fade_in" id="0x010b0000" />
     <public type="animator" name="fade_out" id="0x010b0001" />
     <public type="animator" name="fragment_close_enter" id="0x010b0002" />

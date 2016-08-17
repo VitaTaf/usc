@@ -31,6 +31,10 @@
 
 .field public static final decelerate_interpolator:I = 0x10a0006
 
+.field public static final dialog_enter:I = 0x10a0013
+
+.field public static final dialog_exit:I = 0x10a0014
+
 .field public static final dock_bottom_enter:I = 0x10a0016
 
 .field public static final dock_bottom_exit:I = 0x10a0017

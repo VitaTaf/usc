@@ -4380,6 +4380,129 @@
     goto :goto_0
 .end method
 
+.method private handleWindowContentChangedEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+    .locals 12
+    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
+
+    .prologue
+    iget-object v11, p0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedHost:Landroid/view/View;
+
+    if-eqz v11, :cond_0
+
+    iget-object v11, p0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedVirtualView:Landroid/view/accessibility/AccessibilityNodeInfo;
+
+    if-nez v11, :cond_1
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :cond_1
+    iget-object v11, p0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedHost:Landroid/view/View;
+
+    invoke-virtual {v11}, Landroid/view/View;->getAccessibilityNodeProvider()Landroid/view/accessibility/AccessibilityNodeProvider;
+
+    move-result-object v9
+
+    .local v9, "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
+    if-eqz v9, :cond_0
+
+    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityEvent;->getContentChangeTypes()I
+
+    move-result v1
+
+    .local v1, "changes":I
+    and-int/lit8 v11, v1, 0x1
+
+    if-nez v11, :cond_2
+
+    if-nez v1, :cond_0
+
+    :cond_2
+    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityEvent;->getSourceNodeId()J
+
+    move-result-wide v2
+
+    .local v2, "eventSourceNodeId":J
+    invoke-static {v2, v3}, Landroid/view/accessibility/AccessibilityNodeInfo;->getAccessibilityViewId(J)I
+
+    move-result v0
+
+    .local v0, "changedViewId":I
+    const/4 v5, 0x0
+
+    .local v5, "hostInSubtree":Z
+    iget-object v10, p0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedHost:Landroid/view/View;
+
+    .local v10, "root":Landroid/view/View;
+    :goto_1
+    if-eqz v10, :cond_5
+
+    if-nez v5, :cond_5
+
+    invoke-virtual {v10}, Landroid/view/View;->getAccessibilityViewId()I
+
+    move-result v11
+
+    if-ne v0, v11, :cond_3
+
+    const/4 v5, 0x1
+
+    goto :goto_1
+
+    :cond_3
+    invoke-virtual {v10}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+
+    move-result-object v8
+
+    .local v8, "parent":Landroid/view/ViewParent;
+    instance-of v11, v8, Landroid/view/View;
+
+    if-eqz v11, :cond_4
+
+    move-object v10, v8
+
+    check-cast v10, Landroid/view/View;
+
+    goto :goto_1
+
+    :cond_4
+    const/4 v10, 0x0
+
+    goto :goto_1
+
+    .end local v8    # "parent":Landroid/view/ViewParent;
+    :cond_5
+    if-eqz v5, :cond_0
+
+    iget-object v11, p0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedVirtualView:Landroid/view/accessibility/AccessibilityNodeInfo;
+
+    invoke-virtual {v11}, Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J
+
+    move-result-wide v6
+
+    .local v6, "focusedSourceNodeId":J
+    invoke-static {v6, v7}, Landroid/view/accessibility/AccessibilityNodeInfo;->getVirtualDescendantId(J)I
+
+    move-result v4
+
+    .local v4, "focusedChildId":I
+    const v11, 0x7fffffff
+
+    if-ne v4, v11, :cond_6
+
+    const/4 v4, -0x1
+
+    :cond_6
+    invoke-virtual {v9, v4}, Landroid/view/accessibility/AccessibilityNodeProvider;->createAccessibilityNodeInfo(I)Landroid/view/accessibility/AccessibilityNodeInfo;
+
+    move-result-object v11
+
+    iput-object v11, p0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedVirtualView:Landroid/view/accessibility/AccessibilityNodeInfo;
+
+    goto :goto_0
+.end method
+
 .method private isInLocalFocusMode()Z
     .locals 2
 
@@ -12530,251 +12653,142 @@
 .end method
 
 .method public requestSendAccessibilityEvent(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)Z
-    .locals 18
+    .locals 10
     .param p1, "child"    # Landroid/view/View;
     .param p2, "event"    # Landroid/view/accessibility/AccessibilityEvent;
 
     .prologue
-    move-object/from16 v0, p0
+    const/4 v9, 0x0
 
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
+    iget-object v8, p0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
 
-    if-nez v15, :cond_0
+    if-nez v8, :cond_0
 
-    const/4 v15, 0x0
+    const/4 v8, 0x0
 
     :goto_0
-    return v15
+    return v8
 
     :cond_0
-    invoke-virtual/range {p2 .. p2}, Landroid/view/accessibility/AccessibilityEvent;->getEventType()I
+    invoke-virtual {p2}, Landroid/view/accessibility/AccessibilityEvent;->getEventType()I
 
-    move-result v6
+    move-result v1
 
-    .local v6, "eventType":I
-    sparse-switch v6, :sswitch_data_0
+    .local v1, "eventType":I
+    sparse-switch v1, :sswitch_data_0
 
     :cond_1
     :goto_1
-    move-object/from16 v0, p0
+    iget-object v8, p0, Landroid/view/ViewRootImpl;->mAccessibilityManager:Landroid/view/accessibility/AccessibilityManager;
 
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityManager:Landroid/view/accessibility/AccessibilityManager;
+    invoke-virtual {v8, p2}, Landroid/view/accessibility/AccessibilityManager;->sendAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
 
-    move-object/from16 v0, p2
-
-    invoke-virtual {v15, v0}, Landroid/view/accessibility/AccessibilityManager;->sendAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
-
-    const/4 v15, 0x1
+    const/4 v8, 0x1
 
     goto :goto_0
 
     :sswitch_0
-    invoke-virtual/range {p2 .. p2}, Landroid/view/accessibility/AccessibilityEvent;->getSourceNodeId()J
+    invoke-virtual {p2}, Landroid/view/accessibility/AccessibilityEvent;->getSourceNodeId()J
 
-    move-result-wide v12
+    move-result-wide v6
 
-    .local v12, "sourceNodeId":J
-    invoke-static {v12, v13}, Landroid/view/accessibility/AccessibilityNodeInfo;->getAccessibilityViewId(J)I
+    .local v6, "sourceNodeId":J
+    invoke-static {v6, v7}, Landroid/view/accessibility/AccessibilityNodeInfo;->getAccessibilityViewId(J)I
 
-    move-result v2
+    move-result v0
 
-    .local v2, "accessibilityViewId":I
-    move-object/from16 v0, p0
+    .local v0, "accessibilityViewId":I
+    iget-object v8, p0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
 
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
+    invoke-virtual {v8, v0}, Landroid/view/View;->findViewByAccessibilityId(I)Landroid/view/View;
 
-    invoke-virtual {v15, v2}, Landroid/view/View;->findViewByAccessibilityId(I)Landroid/view/View;
+    move-result-object v4
 
-    move-result-object v10
+    .local v4, "source":Landroid/view/View;
+    if-eqz v4, :cond_1
 
-    .local v10, "source":Landroid/view/View;
-    if-eqz v10, :cond_1
+    invoke-virtual {v4}, Landroid/view/View;->getAccessibilityNodeProvider()Landroid/view/accessibility/AccessibilityNodeProvider;
 
-    invoke-virtual {v10}, Landroid/view/View;->getAccessibilityNodeProvider()Landroid/view/accessibility/AccessibilityNodeProvider;
+    move-result-object v3
 
-    move-result-object v9
+    .local v3, "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
+    if-eqz v3, :cond_1
 
-    .local v9, "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
-    if-eqz v9, :cond_1
+    invoke-static {v6, v7}, Landroid/view/accessibility/AccessibilityNodeInfo;->getVirtualDescendantId(J)I
 
-    invoke-static {v12, v13}, Landroid/view/accessibility/AccessibilityNodeInfo;->getVirtualDescendantId(J)I
+    move-result v5
 
-    move-result v14
+    .local v5, "virtualNodeId":I
+    const v8, 0x7fffffff
 
-    .local v14, "virtualNodeId":I
-    const v15, 0x7fffffff
+    if-ne v5, v8, :cond_2
 
-    if-ne v14, v15, :cond_2
+    const/4 v8, -0x1
 
-    const/4 v15, -0x1
+    invoke-virtual {v3, v8}, Landroid/view/accessibility/AccessibilityNodeProvider;->createAccessibilityNodeInfo(I)Landroid/view/accessibility/AccessibilityNodeInfo;
 
-    invoke-virtual {v9, v15}, Landroid/view/accessibility/AccessibilityNodeProvider;->createAccessibilityNodeInfo(I)Landroid/view/accessibility/AccessibilityNodeInfo;
+    move-result-object v2
 
-    move-result-object v8
-
-    .local v8, "node":Landroid/view/accessibility/AccessibilityNodeInfo;
+    .local v2, "node":Landroid/view/accessibility/AccessibilityNodeInfo;
     :goto_2
-    move-object/from16 v0, p0
-
-    invoke-virtual {v0, v10, v8}, Landroid/view/ViewRootImpl;->setAccessibilityFocus(Landroid/view/View;Landroid/view/accessibility/AccessibilityNodeInfo;)V
+    invoke-virtual {p0, v4, v2}, Landroid/view/ViewRootImpl;->setAccessibilityFocus(Landroid/view/View;Landroid/view/accessibility/AccessibilityNodeInfo;)V
 
     goto :goto_1
 
-    .end local v8    # "node":Landroid/view/accessibility/AccessibilityNodeInfo;
+    .end local v2    # "node":Landroid/view/accessibility/AccessibilityNodeInfo;
     :cond_2
-    invoke-virtual {v9, v14}, Landroid/view/accessibility/AccessibilityNodeProvider;->createAccessibilityNodeInfo(I)Landroid/view/accessibility/AccessibilityNodeInfo;
+    invoke-virtual {v3, v5}, Landroid/view/accessibility/AccessibilityNodeProvider;->createAccessibilityNodeInfo(I)Landroid/view/accessibility/AccessibilityNodeInfo;
 
-    move-result-object v8
+    move-result-object v2
 
-    .restart local v8    # "node":Landroid/view/accessibility/AccessibilityNodeInfo;
+    .restart local v2    # "node":Landroid/view/accessibility/AccessibilityNodeInfo;
     goto :goto_2
 
-    .end local v2    # "accessibilityViewId":I
-    .end local v8    # "node":Landroid/view/accessibility/AccessibilityNodeInfo;
-    .end local v9    # "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
-    .end local v10    # "source":Landroid/view/View;
-    .end local v12    # "sourceNodeId":J
-    .end local v14    # "virtualNodeId":I
+    .end local v0    # "accessibilityViewId":I
+    .end local v2    # "node":Landroid/view/accessibility/AccessibilityNodeInfo;
+    .end local v3    # "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
+    .end local v4    # "source":Landroid/view/View;
+    .end local v5    # "virtualNodeId":I
+    .end local v6    # "sourceNodeId":J
     :sswitch_1
-    invoke-virtual/range {p2 .. p2}, Landroid/view/accessibility/AccessibilityEvent;->getSourceNodeId()J
+    invoke-virtual {p2}, Landroid/view/accessibility/AccessibilityEvent;->getSourceNodeId()J
 
-    move-result-wide v12
+    move-result-wide v6
 
-    .restart local v12    # "sourceNodeId":J
-    invoke-static {v12, v13}, Landroid/view/accessibility/AccessibilityNodeInfo;->getAccessibilityViewId(J)I
+    .restart local v6    # "sourceNodeId":J
+    invoke-static {v6, v7}, Landroid/view/accessibility/AccessibilityNodeInfo;->getAccessibilityViewId(J)I
 
-    move-result v2
+    move-result v0
 
-    .restart local v2    # "accessibilityViewId":I
-    move-object/from16 v0, p0
+    .restart local v0    # "accessibilityViewId":I
+    iget-object v8, p0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
 
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
+    invoke-virtual {v8, v0}, Landroid/view/View;->findViewByAccessibilityId(I)Landroid/view/View;
 
-    invoke-virtual {v15, v2}, Landroid/view/View;->findViewByAccessibilityId(I)Landroid/view/View;
+    move-result-object v4
 
-    move-result-object v10
+    .restart local v4    # "source":Landroid/view/View;
+    if-eqz v4, :cond_1
 
-    .restart local v10    # "source":Landroid/view/View;
-    if-eqz v10, :cond_1
+    invoke-virtual {v4}, Landroid/view/View;->getAccessibilityNodeProvider()Landroid/view/accessibility/AccessibilityNodeProvider;
 
-    invoke-virtual {v10}, Landroid/view/View;->getAccessibilityNodeProvider()Landroid/view/accessibility/AccessibilityNodeProvider;
+    move-result-object v3
 
-    move-result-object v9
+    .restart local v3    # "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
+    if-eqz v3, :cond_1
 
-    .restart local v9    # "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
-    if-eqz v9, :cond_1
-
-    const/4 v15, 0x0
-
-    const/16 v16, 0x0
-
-    move-object/from16 v0, p0
-
-    move-object/from16 v1, v16
-
-    invoke-virtual {v0, v15, v1}, Landroid/view/ViewRootImpl;->setAccessibilityFocus(Landroid/view/View;Landroid/view/accessibility/AccessibilityNodeInfo;)V
+    invoke-virtual {p0, v9, v9}, Landroid/view/ViewRootImpl;->setAccessibilityFocus(Landroid/view/View;Landroid/view/accessibility/AccessibilityNodeInfo;)V
 
     goto :goto_1
 
-    .end local v2    # "accessibilityViewId":I
-    .end local v9    # "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
-    .end local v10    # "source":Landroid/view/View;
-    .end local v12    # "sourceNodeId":J
+    .end local v0    # "accessibilityViewId":I
+    .end local v3    # "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
+    .end local v4    # "source":Landroid/view/View;
+    .end local v6    # "sourceNodeId":J
     :sswitch_2
-    move-object/from16 v0, p0
+    invoke-direct {p0, p2}, Landroid/view/ViewRootImpl;->handleWindowContentChangedEvent(Landroid/view/accessibility/AccessibilityEvent;)V
 
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedHost:Landroid/view/View;
-
-    if-eqz v15, :cond_1
-
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedVirtualView:Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    if-eqz v15, :cond_1
-
-    invoke-virtual/range {p2 .. p2}, Landroid/view/accessibility/AccessibilityEvent;->getSourceNodeId()J
-
-    move-result-wide v4
-
-    .local v4, "eventSourceId":J
-    invoke-static {v4, v5}, Landroid/view/accessibility/AccessibilityNodeInfo;->getAccessibilityViewId(J)I
-
-    move-result v7
-
-    .local v7, "hostViewId":I
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedHost:Landroid/view/View;
-
-    invoke-virtual {v15}, Landroid/view/View;->getAccessibilityViewId()I
-
-    move-result v15
-
-    if-ne v7, v15, :cond_1
-
-    invoke-virtual/range {p2 .. p2}, Landroid/view/accessibility/AccessibilityEvent;->getContentChangeTypes()I
-
-    move-result v3
-
-    .local v3, "changes":I
-    and-int/lit8 v15, v3, 0x1
-
-    if-nez v15, :cond_3
-
-    if-nez v3, :cond_1
-
-    :cond_3
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedHost:Landroid/view/View;
-
-    invoke-virtual {v15}, Landroid/view/View;->getAccessibilityNodeProvider()Landroid/view/accessibility/AccessibilityNodeProvider;
-
-    move-result-object v9
-
-    .restart local v9    # "provider":Landroid/view/accessibility/AccessibilityNodeProvider;
-    if-eqz v9, :cond_1
-
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedVirtualView:Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    invoke-virtual {v15}, Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J
-
-    move-result-wide v16
-
-    invoke-static/range {v16 .. v17}, Landroid/view/accessibility/AccessibilityNodeInfo;->getVirtualDescendantId(J)I
-
-    move-result v11
-
-    .local v11, "virtualChildId":I
-    const v15, 0x7fffffff
-
-    if-ne v11, v15, :cond_4
-
-    const/4 v15, -0x1
-
-    invoke-virtual {v9, v15}, Landroid/view/accessibility/AccessibilityNodeProvider;->createAccessibilityNodeInfo(I)Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    move-result-object v15
-
-    move-object/from16 v0, p0
-
-    iput-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedVirtualView:Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    goto/16 :goto_1
-
-    :cond_4
-    invoke-virtual {v9, v11}, Landroid/view/accessibility/AccessibilityNodeProvider;->createAccessibilityNodeInfo(I)Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    move-result-object v15
-
-    move-object/from16 v0, p0
-
-    iput-object v15, v0, Landroid/view/ViewRootImpl;->mAccessibilityFocusedVirtualView:Landroid/view/accessibility/AccessibilityNodeInfo;
-
-    goto/16 :goto_1
+    goto :goto_1
 
     :sswitch_data_0
     .sparse-switch

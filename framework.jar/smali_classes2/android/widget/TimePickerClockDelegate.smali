@@ -142,7 +142,7 @@
 .end method
 
 .method public constructor <init>(Landroid/widget/TimePicker;Landroid/content/Context;Landroid/util/AttributeSet;II)V
-    .locals 22
+    .locals 23
     .param p1, "delegator"    # Landroid/widget/TimePicker;
     .param p2, "context"    # Landroid/content/Context;
     .param p3, "attrs"    # Landroid/util/AttributeSet;
@@ -152,61 +152,61 @@
     .prologue
     invoke-direct/range {p0 .. p2}, Landroid/widget/TimePicker$AbstractTimePickerDelegate;-><init>(Landroid/widget/TimePicker;Landroid/content/Context;)V
 
-    const/16 v18, 0x1
+    const/16 v19, 0x1
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Landroid/widget/TimePickerClockDelegate;->mIsEnabled:Z
 
-    new-instance v18, Ljava/util/ArrayList;
+    new-instance v19, Ljava/util/ArrayList;
 
-    invoke-direct/range {v18 .. v18}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct/range {v19 .. v19}, Ljava/util/ArrayList;-><init>()V
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mTypedTimes:Ljava/util/ArrayList;
 
-    new-instance v18, Landroid/widget/TimePickerClockDelegate$1;
+    new-instance v19, Landroid/widget/TimePickerClockDelegate$1;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     invoke-direct {v0, v1}, Landroid/widget/TimePickerClockDelegate$1;-><init>(Landroid/widget/TimePickerClockDelegate;)V
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mClickListener:Landroid/view/View$OnClickListener;
 
-    new-instance v18, Landroid/widget/TimePickerClockDelegate$2;
+    new-instance v19, Landroid/widget/TimePickerClockDelegate$2;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     invoke-direct {v0, v1}, Landroid/widget/TimePickerClockDelegate$2;-><init>(Landroid/widget/TimePickerClockDelegate;)V
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mKeyListener:Landroid/view/View$OnKeyListener;
 
-    new-instance v18, Landroid/widget/TimePickerClockDelegate$3;
+    new-instance v19, Landroid/widget/TimePickerClockDelegate$3;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     invoke-direct {v0, v1}, Landroid/widget/TimePickerClockDelegate$3;-><init>(Landroid/widget/TimePickerClockDelegate;)V
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -216,15 +216,15 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mContext:Landroid/content/Context;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    sget-object v19, Lcom/android/internal/R$styleable;->TimePicker:[I
+    sget-object v20, Lcom/android/internal/R$styleable;->TimePicker:[I
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p3
 
-    move-object/from16 v2, v19
+    move-object/from16 v2, v20
 
     move/from16 v3, p4
 
@@ -239,51 +239,55 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mContext:Landroid/content/Context;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const-string v19, "layout_inflater"
+    const-string v20, "layout_inflater"
 
-    invoke-virtual/range {v18 .. v19}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    invoke-virtual/range {v19 .. v20}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
-    move-result-object v11
+    move-result-object v12
 
-    check-cast v11, Landroid/view/LayoutInflater;
+    check-cast v12, Landroid/view/LayoutInflater;
 
-    .local v11, "inflater":Landroid/view/LayoutInflater;
+    .local v12, "inflater":Landroid/view/LayoutInflater;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mContext:Landroid/content/Context;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    invoke-virtual/range {v18 .. v18}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+    invoke-virtual/range {v19 .. v19}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
-    move-result-object v15
+    move-result-object v16
 
-    .local v15, "res":Landroid/content/res/Resources;
-    const v18, 0x104067b
+    .local v16, "res":Landroid/content/res/Resources;
+    const v19, 0x104067b
 
-    move/from16 v0, v18
+    move-object/from16 v0, v16
 
-    invoke-virtual {v15, v0}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+    move/from16 v1, v19
 
-    move-result-object v18
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
-    move-object/from16 v0, v18
+    move-result-object v19
+
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mSelectHours:Ljava/lang/String;
 
-    const v18, 0x104067c
+    const v19, 0x104067c
 
-    move/from16 v0, v18
+    move-object/from16 v0, v16
 
-    invoke-virtual {v15, v0}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+    move/from16 v1, v19
 
-    move-result-object v18
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
-    move-object/from16 v0, v18
+    move-result-object v19
+
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -291,74 +295,74 @@
 
     invoke-static/range {p2 .. p2}, Landroid/widget/TimePickerSpinnerDelegate;->getAmPmStrings(Landroid/content/Context;)[Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v7
 
-    .local v6, "amPmStrings":[Ljava/lang/String;
-    const/16 v18, 0x0
+    .local v7, "amPmStrings":[Ljava/lang/String;
+    const/16 v19, 0x0
 
-    aget-object v18, v6, v18
+    aget-object v19, v7, v19
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mAmText:Ljava/lang/String;
 
-    const/16 v18, 0x1
+    const/16 v19, 0x1
 
-    aget-object v18, v6, v18
+    aget-object v19, v7, v19
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mPmText:Ljava/lang/String;
 
-    const/16 v18, 0xa
+    const/16 v19, 0xa
 
-    const v19, 0x10900f6
+    const v20, 0x10900f6
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    move/from16 v1, v19
+    move/from16 v1, v20
 
     invoke-virtual {v5, v0, v1}, Landroid/content/res/TypedArray;->getResourceId(II)I
 
-    move-result v12
+    move-result v13
 
-    .local v12, "layoutResourceId":I
+    .local v13, "layoutResourceId":I
     move-object/from16 v0, p1
 
-    invoke-virtual {v11, v12, v0}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
+    invoke-virtual {v12, v13, v0}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
 
-    move-result-object v14
+    move-result-object v15
 
-    .local v14, "mainView":Landroid/view/View;
-    const v18, 0x10203b4
+    .local v15, "mainView":Landroid/view/View;
+    const v19, 0x10203b4
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    invoke-virtual {v14, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v15, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v18
+    move-result-object v19
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mHeaderView:Landroid/view/View;
 
-    const v18, 0x10203b5
+    const v19, 0x10203b5
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    invoke-virtual {v14, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v15, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v18
+    move-result-object v19
 
-    check-cast v18, Landroid/widget/TextView;
+    check-cast v19, Landroid/widget/TextView;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -368,63 +372,63 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mHourView:Landroid/widget/TextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mClickListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v19, v0
+    move-object/from16 v20, v0
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mHourView:Landroid/widget/TextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    new-instance v19, Landroid/widget/TimePickerClockDelegate$ClickActionDelegate;
+    new-instance v20, Landroid/widget/TimePickerClockDelegate$ClickActionDelegate;
 
-    const v20, 0x104067b
+    const v21, 0x104067b
 
-    move-object/from16 v0, v19
+    move-object/from16 v0, v20
 
     move-object/from16 v1, p2
 
-    move/from16 v2, v20
+    move/from16 v2, v21
 
     invoke-direct {v0, v1, v2}, Landroid/widget/TimePickerClockDelegate$ClickActionDelegate;-><init>(Landroid/content/Context;I)V
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/TextView;->setAccessibilityDelegate(Landroid/view/View$AccessibilityDelegate;)V
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/TextView;->setAccessibilityDelegate(Landroid/view/View$AccessibilityDelegate;)V
 
-    const v18, 0x10203b6
+    const v19, 0x10203b6
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    invoke-virtual {v14, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v15, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v18
+    move-result-object v19
 
-    check-cast v18, Landroid/widget/TextView;
+    check-cast v19, Landroid/widget/TextView;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mSeparatorView:Landroid/widget/TextView;
 
-    const v18, 0x10203b7
+    const v19, 0x10203b7
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    invoke-virtual {v14, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v15, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v18
+    move-result-object v19
 
-    check-cast v18, Landroid/widget/TextView;
+    check-cast v19, Landroid/widget/TextView;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -434,41 +438,35 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mMinuteView:Landroid/widget/TextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mClickListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v19, v0
+    move-object/from16 v20, v0
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mMinuteView:Landroid/widget/TextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    new-instance v19, Landroid/widget/TimePickerClockDelegate$ClickActionDelegate;
+    new-instance v20, Landroid/widget/TimePickerClockDelegate$ClickActionDelegate;
 
-    const v20, 0x104067c
+    const v21, 0x104067c
 
-    move-object/from16 v0, v19
+    move-object/from16 v0, v20
 
     move-object/from16 v1, p2
 
-    move/from16 v2, v20
+    move/from16 v2, v21
 
     invoke-direct {v0, v1, v2}, Landroid/widget/TimePickerClockDelegate$ClickActionDelegate;-><init>(Landroid/content/Context;I)V
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/TextView;->setAccessibilityDelegate(Landroid/view/View$AccessibilityDelegate;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mHourView:Landroid/widget/TextView;
-
-    move-object/from16 v18, v0
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/TextView;->setAccessibilityDelegate(Landroid/view/View$AccessibilityDelegate;)V
 
     move-object/from16 v0, p0
 
@@ -476,25 +474,25 @@
 
     move-object/from16 v19, v0
 
-    const/16 v20, 0x18
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mHourView:Landroid/widget/TextView;
+
+    move-object/from16 v20, v0
+
+    const/16 v21, 0x18
 
     move-object/from16 v0, p0
 
-    move-object/from16 v1, v19
+    move-object/from16 v1, v20
 
-    move/from16 v2, v20
+    move/from16 v2, v21
 
     invoke-direct {v0, v1, v2}, Landroid/widget/TimePickerClockDelegate;->computeStableWidth(Landroid/widget/TextView;I)I
 
-    move-result v19
+    move-result v20
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/TextView;->setMinWidth(I)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mMinuteView:Landroid/widget/TextView;
-
-    move-object/from16 v18, v0
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/TextView;->setMinWidth(I)V
 
     move-object/from16 v0, p0
 
@@ -502,29 +500,62 @@
 
     move-object/from16 v19, v0
 
-    const/16 v20, 0x3c
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mMinuteView:Landroid/widget/TextView;
+
+    move-object/from16 v20, v0
+
+    const/16 v21, 0x3c
 
     move-object/from16 v0, p0
 
-    move-object/from16 v1, v19
+    move-object/from16 v1, v20
 
-    move/from16 v2, v20
+    move/from16 v2, v21
 
     invoke-direct {v0, v1, v2}, Landroid/widget/TimePickerClockDelegate;->computeStableWidth(Landroid/widget/TextView;I)I
 
-    move-result v19
+    move-result v20
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/TextView;->setMinWidth(I)V
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/TextView;->setMinWidth(I)V
 
-    const v18, 0x10203b8
+    new-instance v19, Landroid/text/SpannableStringBuilder;
 
-    move/from16 v0, v18
+    invoke-direct/range {v19 .. v19}, Landroid/text/SpannableStringBuilder;-><init>()V
 
-    invoke-virtual {v14, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    const/16 v20, 0x0
 
-    move-result-object v18
+    aget-object v20, v7, v20
 
-    move-object/from16 v0, v18
+    new-instance v21, Landroid/text/style/TtsSpan$VerbatimBuilder;
+
+    const/16 v22, 0x0
+
+    aget-object v22, v7, v22
+
+    invoke-direct/range {v21 .. v22}, Landroid/text/style/TtsSpan$VerbatimBuilder;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual/range {v21 .. v21}, Landroid/text/style/TtsSpan$VerbatimBuilder;->build()Landroid/text/style/TtsSpan;
+
+    move-result-object v21
+
+    const/16 v22, 0x0
+
+    invoke-virtual/range {v19 .. v22}, Landroid/text/SpannableStringBuilder;->append(Ljava/lang/CharSequence;Ljava/lang/Object;I)Landroid/text/SpannableStringBuilder;
+
+    move-result-object v6
+
+    .local v6, "amLabel":Landroid/text/SpannableStringBuilder;
+    const v19, 0x10203b8
+
+    move/from16 v0, v19
+
+    invoke-virtual {v15, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v19
+
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -534,17 +565,17 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mAmPmLayout:Landroid/view/View;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const v19, 0x10203b9
+    const v20, 0x10203b9
 
-    invoke-virtual/range {v18 .. v19}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v19 .. v20}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v18
+    move-result-object v19
 
-    check-cast v18, Landroid/widget/CheckedTextView;
+    check-cast v19, Landroid/widget/CheckedTextView;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -554,43 +585,47 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mAmLabel:Landroid/widget/CheckedTextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const/16 v19, 0x0
+    const/16 v20, 0x0
 
-    aget-object v19, v6, v19
+    aget-object v20, v7, v20
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/CheckedTextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-static/range {v20 .. v20}, Landroid/widget/TimePickerClockDelegate;->obtainVerbatim(Ljava/lang/String;)Ljava/lang/CharSequence;
+
+    move-result-object v20
+
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/CheckedTextView;->setText(Ljava/lang/CharSequence;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mAmLabel:Landroid/widget/CheckedTextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mClickListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v19, v0
+    move-object/from16 v20, v0
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/CheckedTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/CheckedTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mAmPmLayout:Landroid/view/View;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const v19, 0x10203ba
+    const v20, 0x10203ba
 
-    invoke-virtual/range {v18 .. v19}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v19 .. v20}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v18
+    move-result-object v19
 
-    check-cast v18, Landroid/widget/CheckedTextView;
+    check-cast v19, Landroid/widget/CheckedTextView;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -600,199 +635,203 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mPmLabel:Landroid/widget/CheckedTextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const/16 v19, 0x1
+    const/16 v20, 0x1
 
-    aget-object v19, v6, v19
+    aget-object v20, v7, v20
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/CheckedTextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-static/range {v20 .. v20}, Landroid/widget/TimePickerClockDelegate;->obtainVerbatim(Ljava/lang/String;)Ljava/lang/CharSequence;
+
+    move-result-object v20
+
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/CheckedTextView;->setText(Ljava/lang/CharSequence;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mPmLabel:Landroid/widget/CheckedTextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mClickListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v19, v0
+    move-object/from16 v20, v0
 
-    invoke-virtual/range {v18 .. v19}, Landroid/widget/CheckedTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v19 .. v20}, Landroid/widget/CheckedTextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    const/4 v10, 0x0
+    const/4 v11, 0x0
 
-    .local v10, "headerTextColor":Landroid/content/res/ColorStateList;
-    const/16 v18, 0x1
+    .local v11, "headerTextColor":Landroid/content/res/ColorStateList;
+    const/16 v19, 0x1
 
-    const/16 v19, 0x0
+    const/16 v20, 0x0
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    move/from16 v1, v19
+    move/from16 v1, v20
 
     invoke-virtual {v5, v0, v1}, Landroid/content/res/TypedArray;->getResourceId(II)I
 
-    move-result v17
+    move-result v18
 
-    .local v17, "timeHeaderTextAppearance":I
-    if-eqz v17, :cond_0
+    .local v18, "timeHeaderTextAppearance":I
+    if-eqz v18, :cond_0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mContext:Landroid/content/Context;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const/16 v19, 0x0
+    const/16 v20, 0x0
 
-    sget-object v20, Landroid/widget/TimePickerClockDelegate;->ATTRS_TEXT_COLOR:[I
+    sget-object v21, Landroid/widget/TimePickerClockDelegate;->ATTRS_TEXT_COLOR:[I
 
-    const/16 v21, 0x0
+    const/16 v22, 0x0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
-    move-object/from16 v1, v19
+    move-object/from16 v1, v20
 
-    move-object/from16 v2, v20
+    move-object/from16 v2, v21
 
-    move/from16 v3, v21
+    move/from16 v3, v22
 
-    move/from16 v4, v17
+    move/from16 v4, v18
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[III)Landroid/content/res/TypedArray;
 
-    move-result-object v16
+    move-result-object v17
 
-    .local v16, "textAppearance":Landroid/content/res/TypedArray;
-    const/16 v18, 0x0
+    .local v17, "textAppearance":Landroid/content/res/TypedArray;
+    const/16 v19, 0x0
 
-    move-object/from16 v0, v16
+    move-object/from16 v0, v17
 
-    move/from16 v1, v18
+    move/from16 v1, v19
 
     invoke-virtual {v0, v1}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
 
-    move-result-object v13
+    move-result-object v14
 
-    .local v13, "legacyHeaderTextColor":Landroid/content/res/ColorStateList;
+    .local v14, "legacyHeaderTextColor":Landroid/content/res/ColorStateList;
     move-object/from16 v0, p0
 
-    invoke-direct {v0, v13}, Landroid/widget/TimePickerClockDelegate;->applyLegacyColorFixes(Landroid/content/res/ColorStateList;)Landroid/content/res/ColorStateList;
+    invoke-direct {v0, v14}, Landroid/widget/TimePickerClockDelegate;->applyLegacyColorFixes(Landroid/content/res/ColorStateList;)Landroid/content/res/ColorStateList;
 
-    move-result-object v10
+    move-result-object v11
 
-    invoke-virtual/range {v16 .. v16}, Landroid/content/res/TypedArray;->recycle()V
+    invoke-virtual/range {v17 .. v17}, Landroid/content/res/TypedArray;->recycle()V
 
-    .end local v13    # "legacyHeaderTextColor":Landroid/content/res/ColorStateList;
-    .end local v16    # "textAppearance":Landroid/content/res/TypedArray;
+    .end local v14    # "legacyHeaderTextColor":Landroid/content/res/ColorStateList;
+    .end local v17    # "textAppearance":Landroid/content/res/TypedArray;
     :cond_0
-    if-nez v10, :cond_1
+    if-nez v11, :cond_1
 
-    const/16 v18, 0xb
+    const/16 v19, 0xb
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
     invoke-virtual {v5, v0}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
 
-    move-result-object v10
+    move-result-object v11
 
     :cond_1
-    if-eqz v10, :cond_2
+    if-eqz v11, :cond_2
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mHourView:Landroid/widget/TextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
-    invoke-virtual {v0, v10}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
+    invoke-virtual {v0, v11}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mSeparatorView:Landroid/widget/TextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
-    invoke-virtual {v0, v10}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
+    invoke-virtual {v0, v11}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mMinuteView:Landroid/widget/TextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
-    invoke-virtual {v0, v10}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
+    invoke-virtual {v0, v11}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mAmLabel:Landroid/widget/CheckedTextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
-    invoke-virtual {v0, v10}, Landroid/widget/CheckedTextView;->setTextColor(Landroid/content/res/ColorStateList;)V
+    invoke-virtual {v0, v11}, Landroid/widget/CheckedTextView;->setTextColor(Landroid/content/res/ColorStateList;)V
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mPmLabel:Landroid/widget/CheckedTextView;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
-    invoke-virtual {v0, v10}, Landroid/widget/CheckedTextView;->setTextColor(Landroid/content/res/ColorStateList;)V
+    invoke-virtual {v0, v11}, Landroid/widget/CheckedTextView;->setTextColor(Landroid/content/res/ColorStateList;)V
 
     :cond_2
-    const/16 v18, 0x0
+    const/16 v19, 0x0
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
     invoke-virtual {v5, v0}, Landroid/content/res/TypedArray;->hasValueOrEmpty(I)Z
 
-    move-result v18
+    move-result v19
 
-    if-eqz v18, :cond_3
+    if-eqz v19, :cond_3
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mHeaderView:Landroid/view/View;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const/16 v19, 0x0
+    const/16 v20, 0x0
 
-    move/from16 v0, v19
+    move/from16 v0, v20
 
     invoke-virtual {v5, v0}, Landroid/content/res/TypedArray;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
-    move-result-object v19
+    move-result-object v20
 
-    invoke-virtual/range {v18 .. v19}, Landroid/view/View;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual/range {v19 .. v20}, Landroid/view/View;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
     :cond_3
     invoke-virtual {v5}, Landroid/content/res/TypedArray;->recycle()V
 
-    const v18, 0x10203bc
+    const v19, 0x10203bc
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    invoke-virtual {v14, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v15, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v18
+    move-result-object v19
 
-    check-cast v18, Landroid/widget/RadialTimePickerView;
+    check-cast v19, Landroid/widget/RadialTimePickerView;
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -800,37 +839,41 @@
 
     invoke-direct/range {p0 .. p0}, Landroid/widget/TimePickerClockDelegate;->setupListeners()V
 
-    const/16 v18, 0x1
+    const/16 v19, 0x1
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Landroid/widget/TimePickerClockDelegate;->mAllowAutoAdvance:Z
 
-    const v18, 0x1040684
+    const v19, 0x1040684
 
-    move/from16 v0, v18
+    move-object/from16 v0, v16
 
-    invoke-virtual {v15, v0}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+    move/from16 v1, v19
 
-    move-result-object v18
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
-    move-object/from16 v0, v18
+    move-result-object v19
+
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/widget/TimePickerClockDelegate;->mDoublePlaceholderText:Ljava/lang/String;
 
-    const v18, 0x1040682
+    const v19, 0x1040682
 
-    move/from16 v0, v18
+    move-object/from16 v0, v16
 
-    invoke-virtual {v15, v0}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+    move/from16 v1, v19
 
-    move-result-object v18
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
-    move-object/from16 v0, v18
+    move-result-object v19
+
+    move-object/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -840,29 +883,29 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mDoublePlaceholderText:Ljava/lang/String;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    const/16 v19, 0x0
+    const/16 v20, 0x0
 
-    invoke-virtual/range {v18 .. v19}, Ljava/lang/String;->charAt(I)C
+    invoke-virtual/range {v19 .. v20}, Ljava/lang/String;->charAt(I)C
 
-    move-result v18
+    move-result v19
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput-char v0, v1, Landroid/widget/TimePickerClockDelegate;->mPlaceholderText:C
 
-    const/16 v18, -0x1
+    const/16 v19, -0x1
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
     move-object/from16 v1, p0
 
     iput v0, v1, Landroid/widget/TimePickerClockDelegate;->mPmKeyCode:I
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
     move-object/from16 v1, p0
 
@@ -874,42 +917,42 @@
 
     iget-object v0, v0, Landroid/widget/TimePickerClockDelegate;->mCurrentLocale:Ljava/util/Locale;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    invoke-static/range {v18 .. v18}, Ljava/util/Calendar;->getInstance(Ljava/util/Locale;)Ljava/util/Calendar;
+    invoke-static/range {v19 .. v19}, Ljava/util/Calendar;->getInstance(Ljava/util/Locale;)Ljava/util/Calendar;
 
-    move-result-object v7
+    move-result-object v8
 
-    .local v7, "calendar":Ljava/util/Calendar;
-    const/16 v18, 0xb
+    .local v8, "calendar":Ljava/util/Calendar;
+    const/16 v19, 0xb
 
-    move/from16 v0, v18
+    move/from16 v0, v19
 
-    invoke-virtual {v7, v0}, Ljava/util/Calendar;->get(I)I
-
-    move-result v8
-
-    .local v8, "currentHour":I
-    const/16 v18, 0xc
-
-    move/from16 v0, v18
-
-    invoke-virtual {v7, v0}, Ljava/util/Calendar;->get(I)I
+    invoke-virtual {v8, v0}, Ljava/util/Calendar;->get(I)I
 
     move-result v9
 
-    .local v9, "currentMinute":I
-    const/16 v18, 0x0
+    .local v9, "currentHour":I
+    const/16 v19, 0xc
 
+    move/from16 v0, v19
+
+    invoke-virtual {v8, v0}, Ljava/util/Calendar;->get(I)I
+
+    move-result v10
+
+    .local v10, "currentMinute":I
     const/16 v19, 0x0
+
+    const/16 v20, 0x0
 
     move-object/from16 v0, p0
 
-    move/from16 v1, v18
+    move/from16 v1, v19
 
-    move/from16 v2, v19
+    move/from16 v2, v20
 
-    invoke-direct {v0, v8, v9, v1, v2}, Landroid/widget/TimePickerClockDelegate;->initialize(IIZI)V
+    invoke-direct {v0, v9, v10, v1, v2}, Landroid/widget/TimePickerClockDelegate;->initialize(IIZI)V
 
     return-void
 .end method
@@ -3068,6 +3111,32 @@
     or-int/2addr v3, v2
 
     return v3
+.end method
+
+.method private static final obtainVerbatim(Ljava/lang/String;)Ljava/lang/CharSequence;
+    .locals 3
+    .param p0, "text"    # Ljava/lang/String;
+
+    .prologue
+    new-instance v0, Landroid/text/SpannableStringBuilder;
+
+    invoke-direct {v0}, Landroid/text/SpannableStringBuilder;-><init>()V
+
+    new-instance v1, Landroid/text/style/TtsSpan$VerbatimBuilder;
+
+    invoke-direct {v1, p0}, Landroid/text/style/TtsSpan$VerbatimBuilder;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual {v1}, Landroid/text/style/TtsSpan$VerbatimBuilder;->build()Landroid/text/style/TtsSpan;
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    invoke-virtual {v0, p0, v1, v2}, Landroid/text/SpannableStringBuilder;->append(Ljava/lang/CharSequence;Ljava/lang/Object;I)Landroid/text/SpannableStringBuilder;
+
+    move-result-object v0
+
+    return-object v0
 .end method
 
 .method private onTimeChanged()V

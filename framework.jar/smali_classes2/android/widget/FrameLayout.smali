@@ -19,26 +19,6 @@
 
 
 # instance fields
-.field private mForeground:Landroid/graphics/drawable/Drawable;
-    .annotation runtime Landroid/view/ViewDebug$ExportedProperty;
-        category = "drawing"
-    .end annotation
-.end field
-
-.field mForegroundBoundsChanged:Z
-
-.field private mForegroundGravity:I
-    .annotation runtime Landroid/view/ViewDebug$ExportedProperty;
-        category = "drawing"
-    .end annotation
-.end field
-
-.field protected mForegroundInPadding:Z
-    .annotation runtime Landroid/view/ViewDebug$ExportedProperty;
-        category = "drawing"
-    .end annotation
-.end field
-
 .field private mForegroundPaddingBottom:I
     .annotation runtime Landroid/view/ViewDebug$ExportedProperty;
         category = "padding"
@@ -62,14 +42,6 @@
         category = "padding"
     .end annotation
 .end field
-
-.field private mForegroundTintList:Landroid/content/res/ColorStateList;
-
-.field private mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
-
-.field private mHasForegroundTint:Z
-
-.field private mHasForegroundTintMode:Z
 
 .field private final mMatchParentChildren:Ljava/util/ArrayList;
     .annotation system Ldalvik/annotation/Signature;
@@ -95,35 +67,23 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 3
+    .locals 2
     .param p1, "context"    # Landroid/content/Context;
 
     .prologue
     const/4 v0, 0x0
 
-    const/4 v2, 0x1
-
-    const/4 v1, 0x0
-
     invoke-direct {p0, p1}, Landroid/view/ViewGroup;-><init>(Landroid/content/Context;)V
 
-    iput-boolean v1, p0, Landroid/widget/FrameLayout;->mMeasureAllChildren:Z
+    iput-boolean v0, p0, Landroid/widget/FrameLayout;->mMeasureAllChildren:Z
 
-    iput-object v0, p0, Landroid/widget/FrameLayout;->mForegroundTintList:Landroid/content/res/ColorStateList;
+    iput v0, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
 
-    iput-object v0, p0, Landroid/widget/FrameLayout;->mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
+    iput v0, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
 
-    iput-boolean v1, p0, Landroid/widget/FrameLayout;->mHasForegroundTint:Z
+    iput v0, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
 
-    iput-boolean v1, p0, Landroid/widget/FrameLayout;->mHasForegroundTintMode:Z
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
+    iput v0, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
 
     new-instance v0, Landroid/graphics/Rect;
 
@@ -137,17 +97,11 @@
 
     iput-object v0, p0, Landroid/widget/FrameLayout;->mOverlayBounds:Landroid/graphics/Rect;
 
-    const/16 v0, 0x77
-
-    iput v0, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    iput-boolean v2, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
-
-    iput-boolean v1, p0, Landroid/widget/FrameLayout;->mForegroundBoundsChanged:Z
-
     new-instance v0, Ljava/util/ArrayList;
 
-    invoke-direct {v0, v2}, Ljava/util/ArrayList;-><init>(I)V
+    const/4 v1, 0x1
+
+    invoke-direct {v0, v1}, Ljava/util/ArrayList;-><init>(I)V
 
     iput-object v0, p0, Landroid/widget/FrameLayout;->mMatchParentChildren:Ljava/util/ArrayList;
 
@@ -182,222 +136,65 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
-    .locals 8
+    .locals 4
     .param p1, "context"    # Landroid/content/Context;
     .param p2, "attrs"    # Landroid/util/AttributeSet;
     .param p3, "defStyleAttr"    # I
     .param p4, "defStyleRes"    # I
 
     .prologue
+    const/4 v3, 0x1
+
     const/4 v2, 0x0
-
-    const/4 v7, 0x4
-
-    const/4 v6, 0x3
-
-    const/4 v5, 0x1
-
-    const/4 v4, 0x0
 
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/view/ViewGroup;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
 
-    iput-boolean v4, p0, Landroid/widget/FrameLayout;->mMeasureAllChildren:Z
+    iput-boolean v2, p0, Landroid/widget/FrameLayout;->mMeasureAllChildren:Z
 
-    iput-object v2, p0, Landroid/widget/FrameLayout;->mForegroundTintList:Landroid/content/res/ColorStateList;
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
 
-    iput-object v2, p0, Landroid/widget/FrameLayout;->mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
 
-    iput-boolean v4, p0, Landroid/widget/FrameLayout;->mHasForegroundTint:Z
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
 
-    iput-boolean v4, p0, Landroid/widget/FrameLayout;->mHasForegroundTintMode:Z
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
 
-    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
+    new-instance v1, Landroid/graphics/Rect;
 
-    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
+    invoke-direct {v1}, Landroid/graphics/Rect;-><init>()V
 
-    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
+    iput-object v1, p0, Landroid/widget/FrameLayout;->mSelfBounds:Landroid/graphics/Rect;
 
-    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
+    new-instance v1, Landroid/graphics/Rect;
 
-    new-instance v2, Landroid/graphics/Rect;
+    invoke-direct {v1}, Landroid/graphics/Rect;-><init>()V
 
-    invoke-direct {v2}, Landroid/graphics/Rect;-><init>()V
+    iput-object v1, p0, Landroid/widget/FrameLayout;->mOverlayBounds:Landroid/graphics/Rect;
 
-    iput-object v2, p0, Landroid/widget/FrameLayout;->mSelfBounds:Landroid/graphics/Rect;
+    new-instance v1, Ljava/util/ArrayList;
 
-    new-instance v2, Landroid/graphics/Rect;
+    invoke-direct {v1, v3}, Ljava/util/ArrayList;-><init>(I)V
 
-    invoke-direct {v2}, Landroid/graphics/Rect;-><init>()V
+    iput-object v1, p0, Landroid/widget/FrameLayout;->mMatchParentChildren:Ljava/util/ArrayList;
 
-    iput-object v2, p0, Landroid/widget/FrameLayout;->mOverlayBounds:Landroid/graphics/Rect;
+    sget-object v1, Lcom/android/internal/R$styleable;->FrameLayout:[I
 
-    const/16 v2, 0x77
-
-    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    iput-boolean v5, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
-
-    iput-boolean v4, p0, Landroid/widget/FrameLayout;->mForegroundBoundsChanged:Z
-
-    new-instance v2, Ljava/util/ArrayList;
-
-    invoke-direct {v2, v5}, Ljava/util/ArrayList;-><init>(I)V
-
-    iput-object v2, p0, Landroid/widget/FrameLayout;->mMatchParentChildren:Ljava/util/ArrayList;
-
-    sget-object v2, Lcom/android/internal/R$styleable;->FrameLayout:[I
-
-    invoke-virtual {p1, p2, v2, p3, p4}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[III)Landroid/content/res/TypedArray;
+    invoke-virtual {p1, p2, v1, p3, p4}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[III)Landroid/content/res/TypedArray;
 
     move-result-object v0
 
     .local v0, "a":Landroid/content/res/TypedArray;
-    const/4 v2, 0x2
+    invoke-virtual {v0, v2, v2}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
 
-    iget v3, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
+    move-result v1
 
-    invoke-virtual {v0, v2, v3}, Landroid/content/res/TypedArray;->getInt(II)I
-
-    move-result v2
-
-    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    invoke-virtual {v0, v4}, Landroid/content/res/TypedArray;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v1
-
-    .local v1, "d":Landroid/graphics/drawable/Drawable;
     if-eqz v1, :cond_0
 
-    invoke-virtual {p0, v1}, Landroid/widget/FrameLayout;->setForeground(Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {p0, v3}, Landroid/widget/FrameLayout;->setMeasureAllChildren(Z)V
 
     :cond_0
-    invoke-virtual {v0, v5, v4}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
-
-    move-result v2
-
-    if-eqz v2, :cond_1
-
-    invoke-virtual {p0, v5}, Landroid/widget/FrameLayout;->setMeasureAllChildren(Z)V
-
-    :cond_1
-    invoke-virtual {v0, v7}, Landroid/content/res/TypedArray;->hasValue(I)Z
-
-    move-result v2
-
-    if-eqz v2, :cond_2
-
-    const/4 v2, -0x1
-
-    invoke-virtual {v0, v7, v2}, Landroid/content/res/TypedArray;->getInt(II)I
-
-    move-result v2
-
-    iget-object v3, p0, Landroid/widget/FrameLayout;->mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-static {v2, v3}, Landroid/graphics/drawable/Drawable;->parseTintMode(ILandroid/graphics/PorterDuff$Mode;)Landroid/graphics/PorterDuff$Mode;
-
-    move-result-object v2
-
-    iput-object v2, p0, Landroid/widget/FrameLayout;->mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
-
-    iput-boolean v5, p0, Landroid/widget/FrameLayout;->mHasForegroundTintMode:Z
-
-    :cond_2
-    invoke-virtual {v0, v6}, Landroid/content/res/TypedArray;->hasValue(I)Z
-
-    move-result v2
-
-    if-eqz v2, :cond_3
-
-    invoke-virtual {v0, v6}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
-
-    move-result-object v2
-
-    iput-object v2, p0, Landroid/widget/FrameLayout;->mForegroundTintList:Landroid/content/res/ColorStateList;
-
-    iput-boolean v5, p0, Landroid/widget/FrameLayout;->mHasForegroundTint:Z
-
-    :cond_3
-    const/4 v2, 0x5
-
-    invoke-virtual {v0, v2, v5}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
-
-    move-result v2
-
-    iput-boolean v2, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
-
     invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
 
-    invoke-direct {p0}, Landroid/widget/FrameLayout;->applyForegroundTint()V
-
-    return-void
-.end method
-
-.method private applyForegroundTint()V
-    .locals 2
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_3
-
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mHasForegroundTint:Z
-
-    if-nez v0, :cond_0
-
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mHasForegroundTintMode:Z
-
-    if-eqz v0, :cond_3
-
-    :cond_0
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->mutate()Landroid/graphics/drawable/Drawable;
-
-    move-result-object v0
-
-    iput-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mHasForegroundTint:Z
-
-    if-eqz v0, :cond_1
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForegroundTintList:Landroid/content/res/ColorStateList;
-
-    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setTintList(Landroid/content/res/ColorStateList;)V
-
-    :cond_1
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mHasForegroundTintMode:Z
-
-    if-eqz v0, :cond_2
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setTintMode(Landroid/graphics/PorterDuff$Mode;)V
-
-    :cond_2
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->isStateful()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_3
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getDrawableState()[I
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setState([I)Z
-
-    :cond_3
     return-void
 .end method
 
@@ -405,7 +202,9 @@
     .locals 2
 
     .prologue
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->isForegroundInsidePadding()Z
+
+    move-result v0
 
     if-eqz v0, :cond_0
 
@@ -434,7 +233,9 @@
     .locals 2
 
     .prologue
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->isForegroundInsidePadding()Z
+
+    move-result v0
 
     if-eqz v0, :cond_0
 
@@ -468,183 +269,6 @@
     .prologue
     instance-of v0, p1, Landroid/widget/FrameLayout$LayoutParams;
 
-    return v0
-.end method
-
-.method public draw(Landroid/graphics/Canvas;)V
-    .locals 10
-    .param p1, "canvas"    # Landroid/graphics/Canvas;
-
-    .prologue
-    const/4 v2, 0x0
-
-    invoke-super {p0, p1}, Landroid/view/ViewGroup;->draw(Landroid/graphics/Canvas;)V
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_1
-
-    iget-object v6, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    .local v6, "foreground":Landroid/graphics/drawable/Drawable;
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mForegroundBoundsChanged:Z
-
-    if-eqz v0, :cond_0
-
-    iput-boolean v2, p0, Landroid/widget/FrameLayout;->mForegroundBoundsChanged:Z
-
-    iget-object v3, p0, Landroid/widget/FrameLayout;->mSelfBounds:Landroid/graphics/Rect;
-
-    .local v3, "selfBounds":Landroid/graphics/Rect;
-    iget-object v4, p0, Landroid/widget/FrameLayout;->mOverlayBounds:Landroid/graphics/Rect;
-
-    .local v4, "overlayBounds":Landroid/graphics/Rect;
-    iget v0, p0, Landroid/widget/FrameLayout;->mRight:I
-
-    iget v1, p0, Landroid/widget/FrameLayout;->mLeft:I
-
-    sub-int v8, v0, v1
-
-    .local v8, "w":I
-    iget v0, p0, Landroid/widget/FrameLayout;->mBottom:I
-
-    iget v1, p0, Landroid/widget/FrameLayout;->mTop:I
-
-    sub-int v7, v0, v1
-
-    .local v7, "h":I
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
-
-    if-eqz v0, :cond_2
-
-    invoke-virtual {v3, v2, v2, v8, v7}, Landroid/graphics/Rect;->set(IIII)V
-
-    :goto_0
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getLayoutDirection()I
-
-    move-result v5
-
-    .local v5, "layoutDirection":I
-    iget v0, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    invoke-virtual {v6}, Landroid/graphics/drawable/Drawable;->getIntrinsicWidth()I
-
-    move-result v1
-
-    invoke-virtual {v6}, Landroid/graphics/drawable/Drawable;->getIntrinsicHeight()I
-
-    move-result v2
-
-    invoke-static/range {v0 .. v5}, Landroid/view/Gravity;->apply(IIILandroid/graphics/Rect;Landroid/graphics/Rect;I)V
-
-    invoke-virtual {v6, v4}, Landroid/graphics/drawable/Drawable;->setBounds(Landroid/graphics/Rect;)V
-
-    .end local v3    # "selfBounds":Landroid/graphics/Rect;
-    .end local v4    # "overlayBounds":Landroid/graphics/Rect;
-    .end local v5    # "layoutDirection":I
-    .end local v7    # "h":I
-    .end local v8    # "w":I
-    :cond_0
-    invoke-virtual {v6, p1}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
-
-    .end local v6    # "foreground":Landroid/graphics/drawable/Drawable;
-    :cond_1
-    return-void
-
-    .restart local v3    # "selfBounds":Landroid/graphics/Rect;
-    .restart local v4    # "overlayBounds":Landroid/graphics/Rect;
-    .restart local v6    # "foreground":Landroid/graphics/drawable/Drawable;
-    .restart local v7    # "h":I
-    .restart local v8    # "w":I
-    :cond_2
-    iget v0, p0, Landroid/widget/FrameLayout;->mPaddingLeft:I
-
-    iget v1, p0, Landroid/widget/FrameLayout;->mPaddingTop:I
-
-    iget v2, p0, Landroid/widget/FrameLayout;->mPaddingRight:I
-
-    sub-int v2, v8, v2
-
-    iget v9, p0, Landroid/widget/FrameLayout;->mPaddingBottom:I
-
-    sub-int v9, v7, v9
-
-    invoke-virtual {v3, v0, v1, v2, v9}, Landroid/graphics/Rect;->set(IIII)V
-
-    goto :goto_0
-.end method
-
-.method public drawableHotspotChanged(FF)V
-    .locals 1
-    .param p1, "x"    # F
-    .param p2, "y"    # F
-
-    .prologue
-    invoke-super {p0, p1, p2}, Landroid/view/ViewGroup;->drawableHotspotChanged(FF)V
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v0, p1, p2}, Landroid/graphics/drawable/Drawable;->setHotspot(FF)V
-
-    :cond_0
-    return-void
-.end method
-
-.method protected drawableStateChanged()V
-    .locals 2
-
-    .prologue
-    invoke-super {p0}, Landroid/view/ViewGroup;->drawableStateChanged()V
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->isStateful()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getDrawableState()[I
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setState([I)Z
-
-    :cond_0
-    return-void
-.end method
-
-.method public gatherTransparentRegion(Landroid/graphics/Region;)Z
-    .locals 2
-    .param p1, "region"    # Landroid/graphics/Region;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/view/ViewGroup;->gatherTransparentRegion(Landroid/graphics/Region;)Z
-
-    move-result v0
-
-    .local v0, "opaque":Z
-    if-eqz p1, :cond_0
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v1, :cond_0
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {p0, v1, p1}, Landroid/widget/FrameLayout;->applyDrawableToTransparentRegion(Landroid/graphics/drawable/Drawable;Landroid/graphics/Region;)V
-
-    :cond_0
     return v0
 .end method
 
@@ -738,42 +362,6 @@
     return v0
 .end method
 
-.method public getForeground()Landroid/graphics/drawable/Drawable;
-    .locals 1
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    return-object v0
-.end method
-
-.method public getForegroundGravity()I
-    .locals 1
-
-    .prologue
-    iget v0, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    return v0
-.end method
-
-.method public getForegroundTintList()Landroid/content/res/ColorStateList;
-    .locals 1
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForegroundTintList:Landroid/content/res/ColorStateList;
-
-    return-object v0
-.end method
-
-.method public getForegroundTintMode()Landroid/graphics/PorterDuff$Mode;
-    .locals 1
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
-
-    return-object v0
-.end method
-
 .method public getMeasureAllChildren()Z
     .locals 1
 
@@ -787,7 +375,9 @@
     .locals 2
 
     .prologue
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->isForegroundInsidePadding()Z
+
+    move-result v0
 
     if-eqz v0, :cond_0
 
@@ -816,7 +406,9 @@
     .locals 2
 
     .prologue
-    iget-boolean v0, p0, Landroid/widget/FrameLayout;->mForegroundInPadding:Z
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->isForegroundInsidePadding()Z
+
+    move-result v0
 
     if-eqz v0, :cond_0
 
@@ -839,24 +431,6 @@
     add-int/2addr v0, v1
 
     goto :goto_0
-.end method
-
-.method public jumpDrawablesToCurrentState()V
-    .locals 1
-
-    .prologue
-    invoke-super {p0}, Landroid/view/ViewGroup;->jumpDrawablesToCurrentState()V
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->jumpToCurrentState()V
-
-    :cond_0
-    return-void
 .end method
 
 .method layoutChildren(IIIIZ)V
@@ -901,14 +475,6 @@
     sub-int v12, v18, v19
 
     .local v12, "parentBottom":I
-    const/16 v18, 0x1
-
-    move/from16 v0, v18
-
-    move-object/from16 v1, p0
-
-    iput-boolean v0, v1, Landroid/widget/FrameLayout;->mForegroundBoundsChanged:Z
-
     const/4 v9, 0x0
 
     .local v9, "i":I
@@ -1617,304 +1183,85 @@
     return-void
 .end method
 
-.method protected onSizeChanged(IIII)V
-    .locals 1
-    .param p1, "w"    # I
-    .param p2, "h"    # I
-    .param p3, "oldw"    # I
-    .param p4, "oldh"    # I
-
-    .prologue
-    invoke-super {p0, p1, p2, p3, p4}, Landroid/view/ViewGroup;->onSizeChanged(IIII)V
-
-    const/4 v0, 0x1
-
-    iput-boolean v0, p0, Landroid/widget/FrameLayout;->mForegroundBoundsChanged:Z
-
-    return-void
-.end method
-
-.method protected onVisibilityChanged(Landroid/view/View;I)V
-    .locals 4
-    .param p1, "changedView"    # Landroid/view/View;
-    .param p2, "visibility"    # I
-
-    .prologue
-    const/4 v2, 0x0
-
-    invoke-super {p0, p1, p2}, Landroid/view/ViewGroup;->onVisibilityChanged(Landroid/view/View;I)V
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    .local v0, "dr":Landroid/graphics/drawable/Drawable;
-    if-eqz v0, :cond_0
-
-    if-nez p2, :cond_1
-
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getVisibility()I
-
-    move-result v3
-
-    if-nez v3, :cond_1
-
-    const/4 v1, 0x1
-
-    .local v1, "visible":Z
-    :goto_0
-    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->isVisible()Z
-
-    move-result v3
-
-    if-eq v1, v3, :cond_0
-
-    invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/Drawable;->setVisible(ZZ)Z
-
-    .end local v1    # "visible":Z
-    :cond_0
-    return-void
-
-    :cond_1
-    move v1, v2
-
-    goto :goto_0
-.end method
-
-.method public setForeground(Landroid/graphics/drawable/Drawable;)V
-    .locals 4
-    .param p1, "d"    # Landroid/graphics/drawable/Drawable;
-
-    .prologue
-    const/4 v3, 0x0
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eq v1, p1, :cond_3
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v1, :cond_0
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    const/4 v2, 0x0
-
-    invoke-virtual {v1, v2}, Landroid/graphics/drawable/Drawable;->setCallback(Landroid/graphics/drawable/Drawable$Callback;)V
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {p0, v1}, Landroid/widget/FrameLayout;->unscheduleDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    :cond_0
-    iput-object p1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
-
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
-
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
-
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
-
-    if-eqz p1, :cond_4
-
-    invoke-virtual {p0, v3}, Landroid/widget/FrameLayout;->setWillNotDraw(Z)V
-
-    invoke-virtual {p1, p0}, Landroid/graphics/drawable/Drawable;->setCallback(Landroid/graphics/drawable/Drawable$Callback;)V
-
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getLayoutDirection()I
-
-    move-result v1
-
-    invoke-virtual {p1, v1}, Landroid/graphics/drawable/Drawable;->setLayoutDirection(I)Z
-
-    invoke-virtual {p1}, Landroid/graphics/drawable/Drawable;->isStateful()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getDrawableState()[I
-
-    move-result-object v1
-
-    invoke-virtual {p1, v1}, Landroid/graphics/drawable/Drawable;->setState([I)Z
-
-    :cond_1
-    invoke-direct {p0}, Landroid/widget/FrameLayout;->applyForegroundTint()V
-
-    iget v1, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    const/16 v2, 0x77
-
-    if-ne v1, v2, :cond_2
-
-    new-instance v0, Landroid/graphics/Rect;
-
-    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
-
-    .local v0, "padding":Landroid/graphics/Rect;
-    invoke-virtual {p1, v0}, Landroid/graphics/drawable/Drawable;->getPadding(Landroid/graphics/Rect;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_2
-
-    iget v1, v0, Landroid/graphics/Rect;->left:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
-
-    iget v1, v0, Landroid/graphics/Rect;->top:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
-
-    iget v1, v0, Landroid/graphics/Rect;->right:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
-
-    iget v1, v0, Landroid/graphics/Rect;->bottom:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
-
-    .end local v0    # "padding":Landroid/graphics/Rect;
-    :cond_2
-    :goto_0
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->requestLayout()V
-
-    invoke-virtual {p0}, Landroid/widget/FrameLayout;->invalidate()V
-
-    :cond_3
-    return-void
-
-    :cond_4
-    const/4 v1, 0x1
-
-    invoke-virtual {p0, v1}, Landroid/widget/FrameLayout;->setWillNotDraw(Z)V
-
-    goto :goto_0
-.end method
-
 .method public setForegroundGravity(I)V
-    .locals 4
+    .locals 5
     .param p1, "foregroundGravity"    # I
     .annotation runtime Landroid/view/RemotableViewMethod;
     .end annotation
 
     .prologue
-    const/4 v3, 0x0
+    const/4 v4, 0x0
 
-    iget v1, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getForegroundGravity()I
 
-    if-eq v1, p1, :cond_3
+    move-result v2
 
-    const v1, 0x800007
+    if-eq v2, p1, :cond_1
 
-    and-int/2addr v1, p1
+    invoke-super {p0, p1}, Landroid/view/ViewGroup;->setForegroundGravity(I)V
 
-    if-nez v1, :cond_0
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getForeground()Landroid/graphics/drawable/Drawable;
 
-    const v1, 0x800003
+    move-result-object v0
 
-    or-int/2addr p1, v1
+    .local v0, "foreground":Landroid/graphics/drawable/Drawable;
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getForegroundGravity()I
 
+    move-result v2
+
+    const/16 v3, 0x77
+
+    if-ne v2, v3, :cond_2
+
+    if-eqz v0, :cond_2
+
+    new-instance v1, Landroid/graphics/Rect;
+
+    invoke-direct {v1}, Landroid/graphics/Rect;-><init>()V
+
+    .local v1, "padding":Landroid/graphics/Rect;
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->getPadding(Landroid/graphics/Rect;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_0
+
+    iget v2, v1, Landroid/graphics/Rect;->left:I
+
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
+
+    iget v2, v1, Landroid/graphics/Rect;->top:I
+
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
+
+    iget v2, v1, Landroid/graphics/Rect;->right:I
+
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
+
+    iget v2, v1, Landroid/graphics/Rect;->bottom:I
+
+    iput v2, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
+
+    .end local v1    # "padding":Landroid/graphics/Rect;
     :cond_0
-    and-int/lit8 v1, p1, 0x70
-
-    if-nez v1, :cond_1
-
-    or-int/lit8 p1, p1, 0x30
-
-    :cond_1
-    iput p1, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    iget v1, p0, Landroid/widget/FrameLayout;->mForegroundGravity:I
-
-    const/16 v2, 0x77
-
-    if-ne v1, v2, :cond_4
-
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v1, :cond_4
-
-    new-instance v0, Landroid/graphics/Rect;
-
-    invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
-
-    .local v0, "padding":Landroid/graphics/Rect;
-    iget-object v1, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v1, v0}, Landroid/graphics/drawable/Drawable;->getPadding(Landroid/graphics/Rect;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_2
-
-    iget v1, v0, Landroid/graphics/Rect;->left:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
-
-    iget v1, v0, Landroid/graphics/Rect;->top:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
-
-    iget v1, v0, Landroid/graphics/Rect;->right:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
-
-    iget v1, v0, Landroid/graphics/Rect;->bottom:I
-
-    iput v1, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
-
-    .end local v0    # "padding":Landroid/graphics/Rect;
-    :cond_2
     :goto_0
     invoke-virtual {p0}, Landroid/widget/FrameLayout;->requestLayout()V
 
-    :cond_3
+    .end local v0    # "foreground":Landroid/graphics/drawable/Drawable;
+    :cond_1
     return-void
 
-    :cond_4
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
+    .restart local v0    # "foreground":Landroid/graphics/drawable/Drawable;
+    :cond_2
+    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingLeft:I
 
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
+    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingTop:I
 
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
+    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingRight:I
 
-    iput v3, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
+    iput v4, p0, Landroid/widget/FrameLayout;->mForegroundPaddingBottom:I
 
     goto :goto_0
-.end method
-
-.method public setForegroundTintList(Landroid/content/res/ColorStateList;)V
-    .locals 1
-    .param p1, "tint"    # Landroid/content/res/ColorStateList;
-
-    .prologue
-    iput-object p1, p0, Landroid/widget/FrameLayout;->mForegroundTintList:Landroid/content/res/ColorStateList;
-
-    const/4 v0, 0x1
-
-    iput-boolean v0, p0, Landroid/widget/FrameLayout;->mHasForegroundTint:Z
-
-    invoke-direct {p0}, Landroid/widget/FrameLayout;->applyForegroundTint()V
-
-    return-void
-.end method
-
-.method public setForegroundTintMode(Landroid/graphics/PorterDuff$Mode;)V
-    .locals 1
-    .param p1, "tintMode"    # Landroid/graphics/PorterDuff$Mode;
-
-    .prologue
-    iput-object p1, p0, Landroid/widget/FrameLayout;->mForegroundTintMode:Landroid/graphics/PorterDuff$Mode;
-
-    const/4 v0, 0x1
-
-    iput-boolean v0, p0, Landroid/widget/FrameLayout;->mHasForegroundTintMode:Z
-
-    invoke-direct {p0}, Landroid/widget/FrameLayout;->applyForegroundTint()V
-
-    return-void
 .end method
 
 .method public setMeasureAllChildren(Z)V
@@ -1936,31 +1283,4 @@
     const/4 v0, 0x0
 
     return v0
-.end method
-
-.method protected verifyDrawable(Landroid/graphics/drawable/Drawable;)Z
-    .locals 1
-    .param p1, "who"    # Landroid/graphics/drawable/Drawable;
-
-    .prologue
-    invoke-super {p0, p1}, Landroid/view/ViewGroup;->verifyDrawable(Landroid/graphics/drawable/Drawable;)Z
-
-    move-result v0
-
-    if-nez v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/FrameLayout;->mForeground:Landroid/graphics/drawable/Drawable;
-
-    if-ne p1, v0, :cond_1
-
-    :cond_0
-    const/4 v0, 0x1
-
-    :goto_0
-    return v0
-
-    :cond_1
-    const/4 v0, 0x0
-
-    goto :goto_0
 .end method

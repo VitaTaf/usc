@@ -105,6 +105,8 @@
 
 .field public static final date_picker_month_item_material:I = 0x1090045
 
+.field public static final day_picker_content_material:I = 0x10900f8
+
 .field public static final default_navigation:I = 0x1090046
 
 .field public static final dialog_custom_title:I = 0x1090047

@@ -123,7 +123,9 @@
     move-result-object v0
 
     .local v0, "a":Landroid/content/res/TypedArray;
-    invoke-virtual {v0, v3, v3}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
+    const/4 v2, 0x0
+
+    invoke-virtual {v0, v2, v3}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
 
     move-result v1
 

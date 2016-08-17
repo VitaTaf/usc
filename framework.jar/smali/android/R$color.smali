@@ -137,10 +137,6 @@
 
 .field public static final primary_material_light:I = 0x10600d0
 
-.field public static final primary_text_activated_material_dark:I = 0x1060119
-
-.field public static final primary_text_activated_material_light:I = 0x106011a
-
 .field public static final primary_text_dark:I = 0x1060001
 
 .field public static final primary_text_dark_disable_only:I = 0x106011b
@@ -189,6 +185,12 @@
 
 .field public static final primary_text_nodisable_holo_light:I = 0x1060129
 
+.field public static final primary_text_secondary_when_activated_material:I = 0x10600de
+
+.field public static final primary_text_secondary_when_activated_material_inverse:I = 0x10600e3
+
+.field public static final ratingbar_background_material:I = 0x10600e4
+
 .field public static final ripple_material_dark:I = 0x10600d3
 
 .field public static final ripple_material_light:I = 0x10600d4
@@ -200,10 +202,6 @@
 .field public static final search_url_text_material_dark:I = 0x106012c
 
 .field public static final search_url_text_material_light:I = 0x106012d
-
-.field public static final secondary_text_activated_material_dark:I = 0x106012e
-
-.field public static final secondary_text_activated_material_light:I = 0x106012f
 
 .field public static final secondary_text_dark:I = 0x1060005
 
@@ -234,6 +232,8 @@
 .field public static final secondary_text_nodisable_holo_light:I = 0x1060135
 
 .field public static final secondary_text_nofocus:I = 0x1060136
+
+.field public static final seekbar_track_progress_material:I = 0x10600e5
 
 .field public static final switch_thumb_disabled_material_dark:I = 0x10600db
 

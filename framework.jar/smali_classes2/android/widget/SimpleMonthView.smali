@@ -23,10 +23,6 @@
 
 .field private static final DEFAULT_WEEK_START:I = 0x1
 
-.field private static final ITEM_ID_NEXT:I = 0x100
-
-.field private static final ITEM_ID_PREV:I = 0x101
-
 .field private static final MAX_WEEKS_IN_MONTH:I = 0x6
 
 
@@ -35,15 +31,15 @@
 
 .field private final mCalendar:Ljava/util/Calendar;
 
-.field private final mCellWidth:I
+.field private mCellWidth:I
 
-.field private final mDayHeight:I
+.field private mDayHeight:I
 
 .field private final mDayHighlightPaint:Landroid/graphics/Paint;
 
 .field private final mDayOfWeekFormatter:Ljava/text/SimpleDateFormat;
 
-.field private final mDayOfWeekHeight:I
+.field private mDayOfWeekHeight:I
 
 .field private final mDayOfWeekLabelCalendar:Ljava/util/Calendar;
 
@@ -55,11 +51,21 @@
 
 .field private final mDaySelectorPaint:Landroid/graphics/Paint;
 
-.field private final mDaySelectorRadius:I
+.field private mDaySelectorRadius:I
 
 .field private mDayTextColor:Landroid/content/res/ColorStateList;
 
 .field private mDaysInMonth:I
+
+.field private final mDesiredCellWidth:I
+
+.field private final mDesiredDayHeight:I
+
+.field private final mDesiredDayOfWeekHeight:I
+
+.field private final mDesiredDaySelectorRadius:I
+
+.field private final mDesiredMonthHeight:I
 
 .field private mEnabledDayEnd:I
 
@@ -67,33 +73,15 @@
 
 .field private mMonth:I
 
-.field private final mMonthHeight:I
+.field private mMonthHeight:I
 
 .field private final mMonthPaint:Landroid/text/TextPaint;
-
-.field private final mNextContentDesc:Ljava/lang/CharSequence;
-
-.field private final mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-.field private mNextEnabled:Z
-
-.field private final mNextHitArea:Landroid/graphics/Rect;
-
-.field private mNumWeeks:I
 
 .field private mOnDayClickListener:Landroid/widget/SimpleMonthView$OnDayClickListener;
 
 .field private mPaddedHeight:I
 
 .field private mPaddedWidth:I
-
-.field private final mPrevContentDesc:Ljava/lang/CharSequence;
-
-.field private final mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-.field private mPrevEnabled:Z
-
-.field private final mPrevHitArea:Landroid/graphics/Rect;
 
 .field private mTitle:Ljava/lang/CharSequence;
 
@@ -151,18 +139,16 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
-    .locals 7
+    .locals 6
     .param p1, "context"    # Landroid/content/Context;
     .param p2, "attrs"    # Landroid/util/AttributeSet;
     .param p3, "defStyleAttr"    # I
     .param p4, "defStyleRes"    # I
 
     .prologue
-    const/4 v4, 0x0
-
-    const/4 v6, -0x1
-
     const/4 v5, 0x1
+
+    const/4 v4, -0x1
 
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/view/View;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
 
@@ -208,9 +194,9 @@
 
     iput-object v3, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekLabelCalendar:Ljava/util/Calendar;
 
-    iput v6, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
+    iput v4, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
 
-    iput v6, p0, Landroid/widget/SimpleMonthView;->mToday:I
+    iput v4, p0, Landroid/widget/SimpleMonthView;->mToday:I
 
     iput v5, p0, Landroid/widget/SimpleMonthView;->mWeekStart:I
 
@@ -220,11 +206,7 @@
 
     iput v3, p0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
 
-    const/4 v3, 0x6
-
-    iput v3, p0, Landroid/widget/SimpleMonthView;->mNumWeeks:I
-
-    iput v6, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
+    iput v4, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
 
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
@@ -237,7 +219,7 @@
 
     move-result v3
 
-    iput v3, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
+    iput v3, p0, Landroid/widget/SimpleMonthView;->mDesiredMonthHeight:I
 
     const v3, 0x1050112
 
@@ -245,7 +227,7 @@
 
     move-result v3
 
-    iput v3, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
+    iput v3, p0, Landroid/widget/SimpleMonthView;->mDesiredDayOfWeekHeight:I
 
     const v3, 0x1050113
 
@@ -253,7 +235,7 @@
 
     move-result v3
 
-    iput v3, p0, Landroid/widget/SimpleMonthView;->mDayHeight:I
+    iput v3, p0, Landroid/widget/SimpleMonthView;->mDesiredDayHeight:I
 
     const v3, 0x1050114
 
@@ -261,7 +243,7 @@
 
     move-result v3
 
-    iput v3, p0, Landroid/widget/SimpleMonthView;->mCellWidth:I
+    iput v3, p0, Landroid/widget/SimpleMonthView;->mDesiredCellWidth:I
 
     const v3, 0x1050115
 
@@ -269,61 +251,7 @@
 
     move-result v3
 
-    iput v3, p0, Landroid/widget/SimpleMonthView;->mDaySelectorRadius:I
-
-    const v3, 0x1080571
-
-    invoke-virtual {p1, v3}, Landroid/content/Context;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v3
-
-    iput-object v3, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    const v3, 0x10805c3
-
-    invoke-virtual {p1, v3}, Landroid/content/Context;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v3
-
-    iput-object v3, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    iget-object v3, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v3, :cond_1
-
-    new-instance v3, Landroid/graphics/Rect;
-
-    invoke-direct {v3}, Landroid/graphics/Rect;-><init>()V
-
-    :goto_0
-    iput-object v3, p0, Landroid/widget/SimpleMonthView;->mPrevHitArea:Landroid/graphics/Rect;
-
-    iget-object v3, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v3, :cond_0
-
-    new-instance v4, Landroid/graphics/Rect;
-
-    invoke-direct {v4}, Landroid/graphics/Rect;-><init>()V
-
-    :cond_0
-    iput-object v4, p0, Landroid/widget/SimpleMonthView;->mNextHitArea:Landroid/graphics/Rect;
-
-    const v3, 0x104004a
-
-    invoke-virtual {v1, v3}, Landroid/content/res/Resources;->getText(I)Ljava/lang/CharSequence;
-
-    move-result-object v3
-
-    iput-object v3, p0, Landroid/widget/SimpleMonthView;->mPrevContentDesc:Ljava/lang/CharSequence;
-
-    const v3, 0x104004b
-
-    invoke-virtual {v1, v3}, Landroid/content/res/Resources;->getText(I)Ljava/lang/CharSequence;
-
-    move-result-object v3
-
-    iput-object v3, p0, Landroid/widget/SimpleMonthView;->mNextContentDesc:Ljava/lang/CharSequence;
+    iput v3, p0, Landroid/widget/SimpleMonthView;->mDesiredDaySelectorRadius:I
 
     new-instance v3, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;
 
@@ -365,18 +293,9 @@
 
     iput-object v3, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekFormatter:Ljava/text/SimpleDateFormat;
 
-    invoke-virtual {p0, v5}, Landroid/widget/SimpleMonthView;->setClickable(Z)V
-
     invoke-direct {p0, v1}, Landroid/widget/SimpleMonthView;->initPaints(Landroid/content/res/Resources;)V
 
     return-void
-
-    .end local v0    # "locale":Ljava/util/Locale;
-    .end local v2    # "titleFormat":Ljava/lang/String;
-    :cond_1
-    move-object v3, v4
-
-    goto :goto_0
 .end method
 
 .method static synthetic access$000(Landroid/widget/SimpleMonthView;II)I
@@ -386,84 +305,14 @@
     .param p2, "x2"    # I
 
     .prologue
-    invoke-direct {p0, p1, p2}, Landroid/widget/SimpleMonthView;->getItemAtLocation(II)I
+    invoke-direct {p0, p1, p2}, Landroid/widget/SimpleMonthView;->getDayAtLocation(II)I
 
     move-result v0
 
     return v0
 .end method
 
-.method static synthetic access$100(Landroid/widget/SimpleMonthView;)Z
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget-boolean v0, p0, Landroid/widget/SimpleMonthView;->mNextEnabled:Z
-
-    return v0
-.end method
-
-.method static synthetic access$1000(Landroid/widget/SimpleMonthView;)Ljava/lang/CharSequence;
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mPrevContentDesc:Ljava/lang/CharSequence;
-
-    return-object v0
-.end method
-
-.method static synthetic access$1100(Landroid/widget/SimpleMonthView;)I
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget v0, p0, Landroid/widget/SimpleMonthView;->mYear:I
-
-    return v0
-.end method
-
-.method static synthetic access$1200(Landroid/widget/SimpleMonthView;)I
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget v0, p0, Landroid/widget/SimpleMonthView;->mMonth:I
-
-    return v0
-.end method
-
-.method static synthetic access$200(Landroid/widget/SimpleMonthView;)Landroid/graphics/drawable/Drawable;
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    return-object v0
-.end method
-
-.method static synthetic access$300(Landroid/widget/SimpleMonthView;)Z
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget-boolean v0, p0, Landroid/widget/SimpleMonthView;->mPrevEnabled:Z
-
-    return v0
-.end method
-
-.method static synthetic access$400(Landroid/widget/SimpleMonthView;)Landroid/graphics/drawable/Drawable;
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    return-object v0
-.end method
-
-.method static synthetic access$500(Landroid/widget/SimpleMonthView;)I
+.method static synthetic access$100(Landroid/widget/SimpleMonthView;)I
     .locals 1
     .param p0, "x0"    # Landroid/widget/SimpleMonthView;
 
@@ -473,14 +322,63 @@
     return v0
 .end method
 
-.method static synthetic access$600(Landroid/widget/SimpleMonthView;ILandroid/graphics/Rect;)Z
+.method static synthetic access$200(Landroid/widget/SimpleMonthView;ILandroid/graphics/Rect;)Z
     .locals 1
     .param p0, "x0"    # Landroid/widget/SimpleMonthView;
     .param p1, "x1"    # I
     .param p2, "x2"    # Landroid/graphics/Rect;
 
     .prologue
-    invoke-direct {p0, p1, p2}, Landroid/widget/SimpleMonthView;->getBoundsForItem(ILandroid/graphics/Rect;)Z
+    invoke-direct {p0, p1, p2}, Landroid/widget/SimpleMonthView;->getBoundsForDay(ILandroid/graphics/Rect;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method static synthetic access$300(Landroid/widget/SimpleMonthView;I)Z
+    .locals 1
+    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
+    .param p1, "x1"    # I
+
+    .prologue
+    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->isDayEnabled(I)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method static synthetic access$400(Landroid/widget/SimpleMonthView;)I
+    .locals 1
+    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
+
+    .prologue
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
+
+    return v0
+.end method
+
+.method static synthetic access$500(Landroid/widget/SimpleMonthView;I)Z
+    .locals 1
+    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
+    .param p1, "x1"    # I
+
+    .prologue
+    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->onDayClicked(I)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method static synthetic access$600(Landroid/widget/SimpleMonthView;I)Z
+    .locals 1
+    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
+    .param p1, "x1"    # I
+
+    .prologue
+    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->isValidDayOfMonth(I)Z
 
     move-result v0
 
@@ -492,33 +390,19 @@
     .param p0, "x0"    # Landroid/widget/SimpleMonthView;
 
     .prologue
-    iget v0, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mYear:I
 
     return v0
 .end method
 
-.method static synthetic access$800(Landroid/widget/SimpleMonthView;IZ)Z
+.method static synthetic access$800(Landroid/widget/SimpleMonthView;)I
     .locals 1
     .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-    .param p1, "x1"    # I
-    .param p2, "x2"    # Z
 
     .prologue
-    invoke-direct {p0, p1, p2}, Landroid/widget/SimpleMonthView;->onItemClicked(IZ)Z
-
-    move-result v0
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mMonth:I
 
     return v0
-.end method
-
-.method static synthetic access$900(Landroid/widget/SimpleMonthView;)Ljava/lang/CharSequence;
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/SimpleMonthView;
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mNextContentDesc:Ljava/lang/CharSequence;
-
-    return-object v0
 .end method
 
 .method private applyTextAppearance(Landroid/graphics/Paint;I)Landroid/content/res/ColorStateList;
@@ -595,142 +479,68 @@
     return-object v3
 .end method
 
-.method private calculateNumRows()I
-    .locals 4
-
-    .prologue
-    invoke-direct {p0}, Landroid/widget/SimpleMonthView;->findDayOffset()I
-
-    move-result v1
-
-    .local v1, "offset":I
-    iget v3, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
-
-    add-int/2addr v3, v1
-
-    div-int/lit8 v0, v3, 0x7
-
-    .local v0, "dividend":I
-    iget v3, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
-
-    add-int/2addr v3, v1
-
-    rem-int/lit8 v2, v3, 0x7
-
-    .local v2, "remainder":I
-    if-lez v2, :cond_0
-
-    const/4 v3, 0x1
-
-    :goto_0
-    add-int/2addr v3, v0
-
-    return v3
-
-    :cond_0
-    const/4 v3, 0x0
-
-    goto :goto_0
-.end method
-
-.method private drawButtons(Landroid/graphics/Canvas;)V
-    .locals 1
-    .param p1, "canvas"    # Landroid/graphics/Canvas;
-
-    .prologue
-    iget-boolean v0, p0, Landroid/widget/SimpleMonthView;->mPrevEnabled:Z
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v0, p1}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
-
-    :cond_0
-    iget-boolean v0, p0, Landroid/widget/SimpleMonthView;->mNextEnabled:Z
-
-    if-eqz v0, :cond_1
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v0, :cond_1
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v0, p1}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
-
-    :cond_1
-    return-void
-.end method
-
 .method private drawDays(Landroid/graphics/Canvas;)V
-    .locals 23
+    .locals 25
     .param p1, "canvas"    # Landroid/graphics/Canvas;
 
     .prologue
     move-object/from16 v0, p0
 
-    iget-object v14, v0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/text/TextPaint;
+    iget-object v0, v0, Landroid/widget/SimpleMonthView;->mDayPaint:Landroid/text/TextPaint;
 
-    .local v14, "p":Landroid/text/TextPaint;
+    move-object/from16 v16, v0
+
+    .local v16, "p":Landroid/text/TextPaint;
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
 
-    move/from16 v19, v0
+    move/from16 v21, v0
 
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
 
-    move/from16 v20, v0
+    move/from16 v22, v0
 
-    add-int v11, v19, v20
+    add-int v12, v21, v22
 
-    .local v11, "headerHeight":I
+    .local v12, "headerHeight":I
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mDayHeight:I
 
-    move/from16 v16, v0
+    move/from16 v18, v0
 
-    .local v16, "rowHeight":I
+    .local v18, "rowHeight":I
     move-object/from16 v0, p0
 
-    iget v0, v0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+    iget v8, v0, Landroid/widget/SimpleMonthView;->mCellWidth:I
 
-    move/from16 v19, v0
+    .local v8, "colWidth":I
+    invoke-virtual/range {v16 .. v16}, Landroid/text/TextPaint;->ascent()F
 
-    div-int/lit8 v7, v19, 0x7
+    move-result v21
 
-    .local v7, "colWidth":I
-    invoke-virtual {v14}, Landroid/text/TextPaint;->ascent()F
+    invoke-virtual/range {v16 .. v16}, Landroid/text/TextPaint;->descent()F
 
-    move-result v19
+    move-result v22
 
-    invoke-virtual {v14}, Landroid/text/TextPaint;->descent()F
+    add-float v21, v21, v22
 
-    move-result v20
+    const/high16 v22, 0x40000000    # 2.0f
 
-    add-float v19, v19, v20
+    div-float v11, v21, v22
 
-    const/high16 v20, 0x40000000    # 2.0f
+    .local v11, "halfLineHeight":F
+    div-int/lit8 v21, v18, 0x2
 
-    div-float v10, v19, v20
+    add-int v17, v12, v21
 
-    .local v10, "halfLineHeight":F
-    div-int/lit8 v19, v16, 0x2
+    .local v17, "rowCenter":I
+    const/4 v9, 0x1
 
-    add-int v15, v11, v19
-
-    .local v15, "rowCenter":I
-    const/4 v8, 0x1
-
-    .local v8, "day":I
+    .local v9, "day":I
     invoke-direct/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->findDayOffset()I
 
     move-result v5
@@ -741,363 +551,411 @@
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
 
-    move/from16 v19, v0
+    move/from16 v21, v0
 
-    move/from16 v0, v19
+    move/from16 v0, v21
 
-    if-gt v8, v0, :cond_7
+    if-gt v9, v0, :cond_8
 
-    mul-int v19, v7, v5
+    mul-int v21, v8, v5
 
-    div-int/lit8 v20, v7, 0x2
+    div-int/lit8 v22, v8, 0x2
 
-    add-int v6, v19, v20
+    add-int v6, v21, v22
 
     .local v6, "colCenter":I
-    const/16 v17, 0x0
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->isLayoutRtl()Z
 
-    .local v17, "stateMask":I
-    move-object/from16 v0, p0
+    move-result v21
 
-    iget v0, v0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
-
-    move/from16 v19, v0
-
-    move/from16 v0, v19
-
-    if-lt v8, v0, :cond_0
+    if-eqz v21, :cond_3
 
     move-object/from16 v0, p0
 
-    iget v0, v0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
 
-    move/from16 v19, v0
+    move/from16 v21, v0
 
-    move/from16 v0, v19
+    sub-int v7, v21, v6
 
-    if-gt v8, v0, :cond_0
+    .local v7, "colCenterRtl":I
+    :goto_1
+    const/16 v19, 0x0
 
-    or-int/lit8 v17, v17, 0x8
+    .local v19, "stateMask":I
+    move-object/from16 v0, p0
+
+    invoke-direct {v0, v9}, Landroid/widget/SimpleMonthView;->isDayEnabled(I)Z
+
+    move-result v14
+
+    .local v14, "isDayEnabled":Z
+    if-eqz v14, :cond_0
+
+    or-int/lit8 v19, v19, 0x8
 
     :cond_0
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
 
-    move/from16 v19, v0
+    move/from16 v21, v0
 
-    move/from16 v0, v19
+    move/from16 v0, v21
 
-    if-ne v0, v8, :cond_3
+    if-ne v0, v9, :cond_4
 
-    const/4 v12, 0x1
+    const/4 v13, 0x1
 
-    .local v12, "isDayActivated":Z
-    :goto_1
-    if-eqz v12, :cond_4
+    .local v13, "isDayActivated":Z
+    :goto_2
+    if-eqz v13, :cond_5
 
-    or-int/lit8 v17, v17, 0x20
+    or-int/lit8 v19, v19, 0x20
 
-    int-to-float v0, v6
+    int-to-float v0, v7
 
-    move/from16 v19, v0
+    move/from16 v21, v0
 
-    int-to-float v0, v15
+    move/from16 v0, v17
 
-    move/from16 v20, v0
+    int-to-float v0, v0
+
+    move/from16 v22, v0
 
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mDaySelectorRadius:I
 
-    move/from16 v21, v0
+    move/from16 v23, v0
 
-    move/from16 v0, v21
+    move/from16 v0, v23
 
     int-to-float v0, v0
 
-    move/from16 v21, v0
+    move/from16 v23, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/SimpleMonthView;->mDaySelectorPaint:Landroid/graphics/Paint;
 
-    move-object/from16 v22, v0
+    move-object/from16 v24, v0
 
     move-object/from16 v0, p1
 
-    move/from16 v1, v19
+    move/from16 v1, v21
 
-    move/from16 v2, v20
+    move/from16 v2, v22
 
-    move/from16 v3, v21
+    move/from16 v3, v23
 
-    move-object/from16 v4, v22
+    move-object/from16 v4, v24
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/graphics/Canvas;->drawCircle(FFFLandroid/graphics/Paint;)V
 
     :cond_1
-    :goto_2
+    :goto_3
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mToday:I
 
-    move/from16 v19, v0
+    move/from16 v21, v0
 
-    move/from16 v0, v19
+    move/from16 v0, v21
 
-    if-ne v0, v8, :cond_5
+    if-ne v0, v9, :cond_6
 
-    const/4 v13, 0x1
+    const/4 v15, 0x1
 
-    .local v13, "isDayToday":Z
-    :goto_3
-    if-eqz v13, :cond_6
+    .local v15, "isDayToday":Z
+    :goto_4
+    if-eqz v15, :cond_7
 
-    if-nez v12, :cond_6
+    if-nez v13, :cond_7
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/SimpleMonthView;->mDaySelectorPaint:Landroid/graphics/Paint;
 
-    move-object/from16 v19, v0
+    move-object/from16 v21, v0
 
-    invoke-virtual/range {v19 .. v19}, Landroid/graphics/Paint;->getColor()I
+    invoke-virtual/range {v21 .. v21}, Landroid/graphics/Paint;->getColor()I
 
-    move-result v9
+    move-result v10
 
-    .local v9, "dayTextColor":I
-    :goto_4
-    invoke-virtual {v14, v9}, Landroid/text/TextPaint;->setColor(I)V
+    .local v10, "dayTextColor":I
+    :goto_5
+    move-object/from16 v0, v16
 
-    invoke-static {v8}, Ljava/lang/Integer;->toString(I)Ljava/lang/String;
+    invoke-virtual {v0, v10}, Landroid/text/TextPaint;->setColor(I)V
 
-    move-result-object v19
+    invoke-static {v9}, Ljava/lang/Integer;->toString(I)Ljava/lang/String;
 
-    int-to-float v0, v6
+    move-result-object v21
 
-    move/from16 v20, v0
+    int-to-float v0, v7
 
-    int-to-float v0, v15
+    move/from16 v22, v0
 
-    move/from16 v21, v0
+    move/from16 v0, v17
 
-    sub-float v21, v21, v10
+    int-to-float v0, v0
+
+    move/from16 v23, v0
+
+    sub-float v23, v23, v11
 
     move-object/from16 v0, p1
 
-    move-object/from16 v1, v19
+    move-object/from16 v1, v21
 
-    move/from16 v2, v20
+    move/from16 v2, v22
 
-    move/from16 v3, v21
+    move/from16 v3, v23
 
-    invoke-virtual {v0, v1, v2, v3, v14}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
+    move-object/from16 v4, v16
+
+    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
 
     add-int/lit8 v5, v5, 0x1
 
-    const/16 v19, 0x7
+    const/16 v21, 0x7
 
-    move/from16 v0, v19
+    move/from16 v0, v21
 
     if-ne v5, v0, :cond_2
 
     const/4 v5, 0x0
 
-    add-int v15, v15, v16
+    add-int v17, v17, v18
 
     :cond_2
-    add-int/lit8 v8, v8, 0x1
+    add-int/lit8 v9, v9, 0x1
 
     goto/16 :goto_0
 
-    .end local v9    # "dayTextColor":I
-    .end local v12    # "isDayActivated":Z
-    .end local v13    # "isDayToday":Z
+    .end local v7    # "colCenterRtl":I
+    .end local v10    # "dayTextColor":I
+    .end local v13    # "isDayActivated":Z
+    .end local v14    # "isDayEnabled":Z
+    .end local v15    # "isDayToday":Z
+    .end local v19    # "stateMask":I
     :cond_3
-    const/4 v12, 0x0
+    move v7, v6
 
-    goto :goto_1
+    .restart local v7    # "colCenterRtl":I
+    goto/16 :goto_1
 
-    .restart local v12    # "isDayActivated":Z
+    .restart local v14    # "isDayEnabled":Z
+    .restart local v19    # "stateMask":I
     :cond_4
+    const/4 v13, 0x0
+
+    goto :goto_2
+
+    .restart local v13    # "isDayActivated":Z
+    :cond_5
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
-
-    move/from16 v19, v0
-
-    move/from16 v0, v19
-
-    if-ne v0, v8, :cond_1
-
-    or-int/lit8 v17, v17, 0x10
-
-    int-to-float v0, v6
-
-    move/from16 v19, v0
-
-    int-to-float v0, v15
-
-    move/from16 v20, v0
-
-    move-object/from16 v0, p0
-
-    iget v0, v0, Landroid/widget/SimpleMonthView;->mDaySelectorRadius:I
 
     move/from16 v21, v0
 
     move/from16 v0, v21
 
-    int-to-float v0, v0
+    if-ne v0, v9, :cond_1
+
+    or-int/lit8 v19, v19, 0x10
+
+    if-eqz v14, :cond_1
+
+    int-to-float v0, v7
 
     move/from16 v21, v0
+
+    move/from16 v0, v17
+
+    int-to-float v0, v0
+
+    move/from16 v22, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mDaySelectorRadius:I
+
+    move/from16 v23, v0
+
+    move/from16 v0, v23
+
+    int-to-float v0, v0
+
+    move/from16 v23, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/SimpleMonthView;->mDayHighlightPaint:Landroid/graphics/Paint;
 
-    move-object/from16 v22, v0
+    move-object/from16 v24, v0
 
     move-object/from16 v0, p1
 
-    move/from16 v1, v19
+    move/from16 v1, v21
 
-    move/from16 v2, v20
+    move/from16 v2, v22
 
-    move/from16 v3, v21
+    move/from16 v3, v23
 
-    move-object/from16 v4, v22
+    move-object/from16 v4, v24
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/graphics/Canvas;->drawCircle(FFFLandroid/graphics/Paint;)V
 
-    goto :goto_2
+    goto/16 :goto_3
 
-    :cond_5
-    const/4 v13, 0x0
-
-    goto :goto_3
-
-    .restart local v13    # "isDayToday":Z
     :cond_6
-    invoke-static/range {v17 .. v17}, Landroid/util/StateSet;->get(I)[I
+    const/4 v15, 0x0
 
-    move-result-object v18
+    goto :goto_4
 
-    .local v18, "stateSet":[I
+    .restart local v15    # "isDayToday":Z
+    :cond_7
+    invoke-static/range {v19 .. v19}, Landroid/util/StateSet;->get(I)[I
+
+    move-result-object v20
+
+    .local v20, "stateSet":[I
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/SimpleMonthView;->mDayTextColor:Landroid/content/res/ColorStateList;
 
-    move-object/from16 v19, v0
+    move-object/from16 v21, v0
 
-    const/16 v20, 0x0
+    const/16 v22, 0x0
 
-    move-object/from16 v0, v19
+    move-object/from16 v0, v21
 
-    move-object/from16 v1, v18
+    move-object/from16 v1, v20
 
-    move/from16 v2, v20
+    move/from16 v2, v22
 
     invoke-virtual {v0, v1, v2}, Landroid/content/res/ColorStateList;->getColorForState([II)I
 
-    move-result v9
+    move-result v10
 
-    .restart local v9    # "dayTextColor":I
-    goto :goto_4
+    .restart local v10    # "dayTextColor":I
+    goto/16 :goto_5
 
     .end local v6    # "colCenter":I
-    .end local v9    # "dayTextColor":I
-    .end local v12    # "isDayActivated":Z
-    .end local v13    # "isDayToday":Z
-    .end local v17    # "stateMask":I
-    .end local v18    # "stateSet":[I
-    :cond_7
+    .end local v7    # "colCenterRtl":I
+    .end local v10    # "dayTextColor":I
+    .end local v13    # "isDayActivated":Z
+    .end local v14    # "isDayEnabled":Z
+    .end local v15    # "isDayToday":Z
+    .end local v19    # "stateMask":I
+    .end local v20    # "stateSet":[I
+    :cond_8
     return-void
 .end method
 
 .method private drawDaysOfWeek(Landroid/graphics/Canvas;)V
-    .locals 12
+    .locals 13
     .param p1, "canvas"    # Landroid/graphics/Canvas;
 
     .prologue
-    iget-object v7, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/text/TextPaint;
+    iget-object v8, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekPaint:Landroid/text/TextPaint;
 
-    .local v7, "p":Landroid/text/TextPaint;
-    iget v5, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
+    .local v8, "p":Landroid/text/TextPaint;
+    iget v6, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
 
-    .local v5, "headerHeight":I
-    iget v9, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
+    .local v6, "headerHeight":I
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
 
-    .local v9, "rowHeight":I
-    iget v10, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+    .local v10, "rowHeight":I
+    iget v3, p0, Landroid/widget/SimpleMonthView;->mCellWidth:I
 
-    div-int/lit8 v2, v10, 0x7
-
-    .local v2, "colWidth":I
-    invoke-virtual {v7}, Landroid/text/TextPaint;->ascent()F
-
-    move-result v10
-
-    invoke-virtual {v7}, Landroid/text/TextPaint;->descent()F
+    .local v3, "colWidth":I
+    invoke-virtual {v8}, Landroid/text/TextPaint;->ascent()F
 
     move-result v11
 
-    add-float/2addr v10, v11
+    invoke-virtual {v8}, Landroid/text/TextPaint;->descent()F
 
-    const/high16 v11, 0x40000000    # 2.0f
+    move-result v12
 
-    div-float v4, v10, v11
+    add-float/2addr v11, v12
 
-    .local v4, "halfLineHeight":F
-    div-int/lit8 v10, v9, 0x2
+    const/high16 v12, 0x40000000    # 2.0f
 
-    add-int v8, v5, v10
+    div-float v5, v11, v12
 
-    .local v8, "rowCenter":I
+    .local v5, "halfLineHeight":F
+    div-int/lit8 v11, v10, 0x2
+
+    add-int v9, v6, v11
+
+    .local v9, "rowCenter":I
     const/4 v0, 0x0
 
     .local v0, "col":I
     :goto_0
-    const/4 v10, 0x7
+    const/4 v11, 0x7
 
-    if-ge v0, v10, :cond_0
+    if-ge v0, v11, :cond_1
 
-    mul-int v10, v2, v0
+    mul-int v11, v3, v0
 
-    div-int/lit8 v11, v2, 0x2
+    div-int/lit8 v12, v3, 0x2
 
-    add-int v1, v10, v11
+    add-int v1, v11, v12
 
     .local v1, "colCenter":I
-    iget v10, p0, Landroid/widget/SimpleMonthView;->mWeekStart:I
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->isLayoutRtl()Z
 
-    add-int/2addr v10, v0
+    move-result v11
 
-    rem-int/lit8 v3, v10, 0x7
+    if-eqz v11, :cond_0
 
-    .local v3, "dayOfWeek":I
-    invoke-direct {p0, v3}, Landroid/widget/SimpleMonthView;->getDayOfWeekLabel(I)Ljava/lang/String;
+    iget v11, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
 
-    move-result-object v6
+    sub-int v2, v11, v1
 
-    .local v6, "label":Ljava/lang/String;
-    int-to-float v10, v1
+    .local v2, "colCenterRtl":I
+    :goto_1
+    iget v11, p0, Landroid/widget/SimpleMonthView;->mWeekStart:I
 
-    int-to-float v11, v8
+    add-int/2addr v11, v0
 
-    sub-float/2addr v11, v4
+    rem-int/lit8 v4, v11, 0x7
 
-    invoke-virtual {p1, v6, v10, v11, v7}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
+    .local v4, "dayOfWeek":I
+    invoke-direct {p0, v4}, Landroid/widget/SimpleMonthView;->getDayOfWeekLabel(I)Ljava/lang/String;
+
+    move-result-object v7
+
+    .local v7, "label":Ljava/lang/String;
+    int-to-float v11, v2
+
+    int-to-float v12, v9
+
+    sub-float/2addr v12, v5
+
+    invoke-virtual {p1, v7, v11, v12, v8}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
 
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .end local v1    # "colCenter":I
-    .end local v3    # "dayOfWeek":I
-    .end local v6    # "label":Ljava/lang/String;
+    .end local v2    # "colCenterRtl":I
+    .end local v4    # "dayOfWeek":I
+    .end local v7    # "label":Ljava/lang/String;
     :cond_0
+    move v2, v1
+
+    .restart local v2    # "colCenterRtl":I
+    goto :goto_1
+
+    .end local v1    # "colCenter":I
+    .end local v2    # "colCenterRtl":I
+    :cond_1
     return-void
 .end method
 
@@ -1178,97 +1036,144 @@
     return v0
 .end method
 
-.method private getBoundsForItem(ILandroid/graphics/Rect;)Z
-    .locals 11
+.method private getBoundsForDay(ILandroid/graphics/Rect;)Z
+    .locals 10
     .param p1, "id"    # I
     .param p2, "outBounds"    # Landroid/graphics/Rect;
 
     .prologue
-    const/4 v8, 0x1
+    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->isValidDayOfMonth(I)Z
 
-    iget-boolean v9, p0, Landroid/widget/SimpleMonthView;->mNextEnabled:Z
+    move-result v8
 
-    if-eqz v9, :cond_0
+    if-nez v8, :cond_0
 
-    const/16 v9, 0x100
-
-    if-ne p1, v9, :cond_0
-
-    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v9, :cond_1
-
-    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mNextHitArea:Landroid/graphics/Rect;
-
-    invoke-virtual {p2, v9}, Landroid/graphics/Rect;->set(Landroid/graphics/Rect;)V
+    const/4 v8, 0x0
 
     :goto_0
     return v8
 
     :cond_0
-    iget-boolean v9, p0, Landroid/widget/SimpleMonthView;->mPrevEnabled:Z
-
-    if-eqz v9, :cond_1
-
-    const/16 v9, 0x101
-
-    if-ne p1, v9, :cond_1
-
-    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v9, :cond_1
-
-    iget-object v9, p0, Landroid/widget/SimpleMonthView;->mPrevHitArea:Landroid/graphics/Rect;
-
-    invoke-virtual {p2, v9}, Landroid/graphics/Rect;->set(Landroid/graphics/Rect;)V
-
-    goto :goto_0
-
-    :cond_1
-    if-lt p1, v8, :cond_2
-
-    iget v9, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
-
-    if-le p1, v9, :cond_3
-
-    :cond_2
-    const/4 v8, 0x0
-
-    goto :goto_0
-
-    :cond_3
-    add-int/lit8 v9, p1, -0x1
+    add-int/lit8 v8, p1, -0x1
 
     invoke-direct {p0}, Landroid/widget/SimpleMonthView;->findDayOffset()I
 
-    move-result v10
+    move-result v9
 
-    add-int v3, v9, v10
+    add-int v3, v8, v9
 
     .local v3, "index":I
     rem-int/lit8 v0, v3, 0x7
 
     .local v0, "col":I
-    iget v9, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
-
-    div-int/lit8 v1, v9, 0x7
+    iget v1, p0, Landroid/widget/SimpleMonthView;->mCellWidth:I
 
     .local v1, "colWidth":I
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getPaddingLeft()I
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->isLayoutRtl()Z
+
+    move-result v8
+
+    if-eqz v8, :cond_1
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getWidth()I
+
+    move-result v8
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getPaddingRight()I
 
     move-result v9
 
-    mul-int v10, v0, v1
+    sub-int/2addr v8, v9
 
-    add-int v4, v9, v10
+    add-int/lit8 v9, v0, 0x1
+
+    mul-int/2addr v9, v1
+
+    sub-int v4, v8, v9
 
     .local v4, "left":I
+    :goto_1
     div-int/lit8 v5, v3, 0x7
 
     .local v5, "row":I
     iget v6, p0, Landroid/widget/SimpleMonthView;->mDayHeight:I
 
     .local v6, "rowHeight":I
+    iget v8, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
+
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
+
+    add-int v2, v8, v9
+
+    .local v2, "headerHeight":I
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getPaddingTop()I
+
+    move-result v8
+
+    add-int/2addr v8, v2
+
+    mul-int v9, v5, v6
+
+    add-int v7, v8, v9
+
+    .local v7, "top":I
+    add-int v8, v4, v1
+
+    add-int v9, v7, v6
+
+    invoke-virtual {p2, v4, v7, v8, v9}, Landroid/graphics/Rect;->set(IIII)V
+
+    const/4 v8, 0x1
+
+    goto :goto_0
+
+    .end local v2    # "headerHeight":I
+    .end local v4    # "left":I
+    .end local v5    # "row":I
+    .end local v6    # "rowHeight":I
+    .end local v7    # "top":I
+    :cond_1
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getPaddingLeft()I
+
+    move-result v8
+
+    mul-int v9, v0, v1
+
+    add-int v4, v8, v9
+
+    .restart local v4    # "left":I
+    goto :goto_1
+.end method
+
+.method private getDayAtLocation(II)I
+    .locals 11
+    .param p1, "x"    # I
+    .param p2, "y"    # I
+
+    .prologue
+    const/4 v8, -0x1
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getPaddingLeft()I
+
+    move-result v9
+
+    sub-int v4, p1, v9
+
+    .local v4, "paddedX":I
+    if-ltz v4, :cond_0
+
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+
+    if-lt v4, v9, :cond_2
+
+    :cond_0
+    move v1, v8
+
+    :cond_1
+    :goto_0
+    return v1
+
+    :cond_2
     iget v9, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
 
     iget v10, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
@@ -1280,20 +1185,81 @@
 
     move-result v9
 
-    add-int/2addr v9, v2
+    sub-int v6, p2, v9
 
-    mul-int v10, v5, v6
+    .local v6, "paddedY":I
+    if-lt v6, v2, :cond_3
 
-    add-int v7, v9, v10
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mPaddedHeight:I
 
-    .local v7, "top":I
-    add-int v9, v4, v1
+    if-lt v6, v9, :cond_4
 
-    add-int v10, v7, v6
-
-    invoke-virtual {p2, v4, v7, v9, v10}, Landroid/graphics/Rect;->set(IIII)V
+    :cond_3
+    move v1, v8
 
     goto :goto_0
+
+    :cond_4
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->isLayoutRtl()Z
+
+    move-result v9
+
+    if-eqz v9, :cond_5
+
+    iget v9, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+
+    sub-int v5, v9, v4
+
+    .local v5, "paddedXRtl":I
+    :goto_1
+    sub-int v9, v6, v2
+
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mDayHeight:I
+
+    div-int v7, v9, v10
+
+    .local v7, "row":I
+    mul-int/lit8 v9, v5, 0x7
+
+    iget v10, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+
+    div-int v0, v9, v10
+
+    .local v0, "col":I
+    mul-int/lit8 v9, v7, 0x7
+
+    add-int v3, v0, v9
+
+    .local v3, "index":I
+    add-int/lit8 v9, v3, 0x1
+
+    invoke-direct {p0}, Landroid/widget/SimpleMonthView;->findDayOffset()I
+
+    move-result v10
+
+    sub-int v1, v9, v10
+
+    .local v1, "day":I
+    invoke-direct {p0, v1}, Landroid/widget/SimpleMonthView;->isValidDayOfMonth(I)Z
+
+    move-result v9
+
+    if-nez v9, :cond_1
+
+    move v1, v8
+
+    goto :goto_0
+
+    .end local v0    # "col":I
+    .end local v1    # "day":I
+    .end local v3    # "index":I
+    .end local v5    # "paddedXRtl":I
+    .end local v7    # "row":I
+    :cond_5
+    move v5, v4
+
+    .restart local v5    # "paddedXRtl":I
+    goto :goto_1
 .end method
 
 .method private getDayOfWeekLabel(I)Ljava/lang/String;
@@ -1380,145 +1346,6 @@
         :pswitch_1
         :pswitch_0
     .end packed-switch
-.end method
-
-.method private getItemAtLocation(II)I
-    .locals 10
-    .param p1, "x"    # I
-    .param p2, "y"    # I
-
-    .prologue
-    const/4 v7, -0x1
-
-    iget-boolean v8, p0, Landroid/widget/SimpleMonthView;->mNextEnabled:Z
-
-    if-eqz v8, :cond_1
-
-    iget-object v8, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v8, :cond_1
-
-    iget-object v8, p0, Landroid/widget/SimpleMonthView;->mNextHitArea:Landroid/graphics/Rect;
-
-    invoke-virtual {v8, p1, p2}, Landroid/graphics/Rect;->contains(II)Z
-
-    move-result v8
-
-    if-eqz v8, :cond_1
-
-    const/16 v1, 0x100
-
-    :cond_0
-    :goto_0
-    return v1
-
-    :cond_1
-    iget-boolean v8, p0, Landroid/widget/SimpleMonthView;->mPrevEnabled:Z
-
-    if-eqz v8, :cond_2
-
-    iget-object v8, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v8, :cond_2
-
-    iget-object v8, p0, Landroid/widget/SimpleMonthView;->mPrevHitArea:Landroid/graphics/Rect;
-
-    invoke-virtual {v8, p1, p2}, Landroid/graphics/Rect;->contains(II)Z
-
-    move-result v8
-
-    if-eqz v8, :cond_2
-
-    const/16 v1, 0x101
-
-    goto :goto_0
-
-    :cond_2
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getPaddingLeft()I
-
-    move-result v8
-
-    sub-int v4, p1, v8
-
-    .local v4, "paddedX":I
-    if-ltz v4, :cond_3
-
-    iget v8, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
-
-    if-lt v4, v8, :cond_4
-
-    :cond_3
-    move v1, v7
-
-    goto :goto_0
-
-    :cond_4
-    iget v8, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
-
-    iget v9, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
-
-    add-int v2, v8, v9
-
-    .local v2, "headerHeight":I
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->getPaddingTop()I
-
-    move-result v8
-
-    sub-int v5, p2, v8
-
-    .local v5, "paddedY":I
-    if-lt v5, v2, :cond_5
-
-    iget v8, p0, Landroid/widget/SimpleMonthView;->mPaddedHeight:I
-
-    if-lt v5, v8, :cond_6
-
-    :cond_5
-    move v1, v7
-
-    goto :goto_0
-
-    :cond_6
-    sub-int v8, v5, v2
-
-    iget v9, p0, Landroid/widget/SimpleMonthView;->mDayHeight:I
-
-    div-int v6, v8, v9
-
-    .local v6, "row":I
-    mul-int/lit8 v8, v4, 0x7
-
-    iget v9, p0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
-
-    div-int v0, v8, v9
-
-    .local v0, "col":I
-    mul-int/lit8 v8, v6, 0x7
-
-    add-int v3, v0, v8
-
-    .local v3, "index":I
-    add-int/lit8 v8, v3, 0x1
-
-    invoke-direct {p0}, Landroid/widget/SimpleMonthView;->findDayOffset()I
-
-    move-result v9
-
-    sub-int v1, v8, v9
-
-    .local v1, "day":I
-    const/4 v8, 0x1
-
-    if-lt v1, v8, :cond_7
-
-    iget v8, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
-
-    if-le v1, v8, :cond_0
-
-    :cond_7
-    move v1, v7
-
-    goto :goto_0
 .end method
 
 .method private initPaints(Landroid/content/res/Resources;)V
@@ -1685,6 +1512,52 @@
     return-void
 .end method
 
+.method private isDayEnabled(I)Z
+    .locals 1
+    .param p1, "day"    # I
+
+    .prologue
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
+
+    if-lt p1, v0, :cond_0
+
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
+
+    if-gt p1, v0, :cond_0
+
+    const/4 v0, 0x1
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method private isValidDayOfMonth(I)Z
+    .locals 2
+    .param p1, "day"    # I
+
+    .prologue
+    const/4 v0, 0x1
+
+    if-lt p1, v0, :cond_0
+
+    iget v1, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
+
+    if-gt p1, v1, :cond_0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
 .method private static isValidDayOfWeek(I)Z
     .locals 2
     .param p0, "day"    # I
@@ -1736,11 +1609,17 @@
     .prologue
     const/4 v1, 0x1
 
-    if-ltz p1, :cond_0
+    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->isValidDayOfMonth(I)Z
 
-    iget v2, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
+    move-result v2
 
-    if-le p1, v2, :cond_1
+    if-eqz v2, :cond_0
+
+    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->isDayEnabled(I)Z
+
+    move-result v2
+
+    if-nez v2, :cond_1
 
     :cond_0
     const/4 v1, 0x0
@@ -1775,86 +1654,6 @@
     invoke-virtual {v2, p1, v1}, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->sendEventForVirtualView(II)Z
 
     goto :goto_0
-.end method
-
-.method private onItemClicked(IZ)Z
-    .locals 1
-    .param p1, "id"    # I
-    .param p2, "animate"    # Z
-
-    .prologue
-    invoke-direct {p0, p1, p2}, Landroid/widget/SimpleMonthView;->onNavigationClicked(IZ)Z
-
-    move-result v0
-
-    if-nez v0, :cond_0
-
-    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->onDayClicked(I)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_1
-
-    :cond_0
-    const/4 v0, 0x1
-
-    :goto_0
-    return v0
-
-    :cond_1
-    const/4 v0, 0x0
-
-    goto :goto_0
-.end method
-
-.method private onNavigationClicked(IZ)Z
-    .locals 3
-    .param p1, "id"    # I
-    .param p2, "animate"    # Z
-
-    .prologue
-    const/4 v1, 0x1
-
-    const/16 v2, 0x100
-
-    if-ne p1, v2, :cond_1
-
-    const/4 v0, 0x1
-
-    .local v0, "direction":I
-    :goto_0
-    iget-object v2, p0, Landroid/widget/SimpleMonthView;->mOnDayClickListener:Landroid/widget/SimpleMonthView$OnDayClickListener;
-
-    if-eqz v2, :cond_0
-
-    iget-object v2, p0, Landroid/widget/SimpleMonthView;->mOnDayClickListener:Landroid/widget/SimpleMonthView$OnDayClickListener;
-
-    invoke-interface {v2, p0, v0, p2}, Landroid/widget/SimpleMonthView$OnDayClickListener;->onNavigationClick(Landroid/widget/SimpleMonthView;IZ)V
-
-    :cond_0
-    iget-object v2, p0, Landroid/widget/SimpleMonthView;->mTouchHelper:Landroid/widget/SimpleMonthView$MonthViewTouchHelper;
-
-    invoke-virtual {v2, p1, v1}, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->sendEventForVirtualView(II)Z
-
-    .end local v0    # "direction":I
-    :goto_1
-    return v1
-
-    :cond_1
-    const/16 v2, 0x101
-
-    if-ne p1, v2, :cond_2
-
-    const/4 v0, -0x1
-
-    .restart local v0    # "direction":I
-    goto :goto_0
-
-    .end local v0    # "direction":I
-    :cond_2
-    const/4 v1, 0x0
-
-    goto :goto_1
 .end method
 
 .method private sameDay(ILjava/util/Calendar;)Z
@@ -1933,6 +1732,24 @@
     goto :goto_0
 .end method
 
+.method public getCellWidth()I
+    .locals 1
+
+    .prologue
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mCellWidth:I
+
+    return v0
+.end method
+
+.method public getMonthHeight()I
+    .locals 1
+
+    .prologue
+    iget v0, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
+
+    return v0
+.end method
+
 .method public getTitle()Ljava/lang/CharSequence;
     .locals 2
 
@@ -1988,8 +1805,6 @@
 
     invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->drawDays(Landroid/graphics/Canvas;)V
 
-    invoke-direct {p0, p1}, Landroid/widget/SimpleMonthView;->drawButtons(Landroid/graphics/Canvas;)V
-
     neg-int v2, v0
 
     int-to-float v2, v2
@@ -2003,23 +1818,262 @@
     return-void
 .end method
 
+.method protected onLayout(ZIIII)V
+    .locals 20
+    .param p1, "changed"    # Z
+    .param p2, "left"    # I
+    .param p3, "top"    # I
+    .param p4, "right"    # I
+    .param p5, "bottom"    # I
+
+    .prologue
+    if-nez p1, :cond_1
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :cond_1
+    sub-int v17, p4, p2
+
+    .local v17, "w":I
+    sub-int v3, p5, p3
+
+    .local v3, "h":I
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingLeft()I
+
+    move-result v13
+
+    .local v13, "paddingLeft":I
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingTop()I
+
+    move-result v15
+
+    .local v15, "paddingTop":I
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingRight()I
+
+    move-result v14
+
+    .local v14, "paddingRight":I
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingBottom()I
+
+    move-result v12
+
+    .local v12, "paddingBottom":I
+    sub-int v10, v17, v14
+
+    .local v10, "paddedRight":I
+    sub-int v8, v3, v12
+
+    .local v8, "paddedBottom":I
+    sub-int v11, v10, v13
+
+    .local v11, "paddedWidth":I
+    sub-int v9, v8, v15
+
+    .local v9, "paddedHeight":I
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+
+    move/from16 v18, v0
+
+    move/from16 v0, v18
+
+    if-eq v11, v0, :cond_0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mPaddedHeight:I
+
+    move/from16 v18, v0
+
+    move/from16 v0, v18
+
+    if-eq v9, v0, :cond_0
+
+    move-object/from16 v0, p0
+
+    iput v11, v0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+
+    move-object/from16 v0, p0
+
+    iput v9, v0, Landroid/widget/SimpleMonthView;->mPaddedHeight:I
+
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getMeasuredHeight()I
+
+    move-result v18
+
+    sub-int v18, v18, v15
+
+    sub-int v6, v18, v12
+
+    .local v6, "measuredPaddedHeight":I
+    int-to-float v0, v9
+
+    move/from16 v18, v0
+
+    int-to-float v0, v6
+
+    move/from16 v19, v0
+
+    div-float v16, v18, v19
+
+    .local v16, "scaleH":F
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mDesiredMonthHeight:I
+
+    move/from16 v18, v0
+
+    move/from16 v0, v18
+
+    int-to-float v0, v0
+
+    move/from16 v18, v0
+
+    mul-float v18, v18, v16
+
+    move/from16 v0, v18
+
+    float-to-int v7, v0
+
+    .local v7, "monthHeight":I
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
+
+    move/from16 v18, v0
+
+    div-int/lit8 v2, v18, 0x7
+
+    .local v2, "cellWidth":I
+    move-object/from16 v0, p0
+
+    iput v7, v0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mDesiredDayOfWeekHeight:I
+
+    move/from16 v18, v0
+
+    move/from16 v0, v18
+
+    int-to-float v0, v0
+
+    move/from16 v18, v0
+
+    mul-float v18, v18, v16
+
+    move/from16 v0, v18
+
+    float-to-int v0, v0
+
+    move/from16 v18, v0
+
+    move/from16 v0, v18
+
+    move-object/from16 v1, p0
+
+    iput v0, v1, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mDesiredDayHeight:I
+
+    move/from16 v18, v0
+
+    move/from16 v0, v18
+
+    int-to-float v0, v0
+
+    move/from16 v18, v0
+
+    mul-float v18, v18, v16
+
+    move/from16 v0, v18
+
+    float-to-int v0, v0
+
+    move/from16 v18, v0
+
+    move/from16 v0, v18
+
+    move-object/from16 v1, p0
+
+    iput v0, v1, Landroid/widget/SimpleMonthView;->mDayHeight:I
+
+    move-object/from16 v0, p0
+
+    iput v2, v0, Landroid/widget/SimpleMonthView;->mCellWidth:I
+
+    div-int/lit8 v18, v2, 0x2
+
+    invoke-static {v13, v14}, Ljava/lang/Math;->min(II)I
+
+    move-result v19
+
+    add-int v5, v18, v19
+
+    .local v5, "maxSelectorWidth":I
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mDayHeight:I
+
+    move/from16 v18, v0
+
+    div-int/lit8 v18, v18, 0x2
+
+    add-int v4, v18, v12
+
+    .local v4, "maxSelectorHeight":I
+    move-object/from16 v0, p0
+
+    iget v0, v0, Landroid/widget/SimpleMonthView;->mDesiredDaySelectorRadius:I
+
+    move/from16 v18, v0
+
+    invoke-static {v5, v4}, Ljava/lang/Math;->min(II)I
+
+    move-result v19
+
+    invoke-static/range {v18 .. v19}, Ljava/lang/Math;->min(II)I
+
+    move-result v18
+
+    move/from16 v0, v18
+
+    move-object/from16 v1, p0
+
+    iput v0, v1, Landroid/widget/SimpleMonthView;->mDaySelectorRadius:I
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Landroid/widget/SimpleMonthView;->mTouchHelper:Landroid/widget/SimpleMonthView$MonthViewTouchHelper;
+
+    move-object/from16 v18, v0
+
+    invoke-virtual/range {v18 .. v18}, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->invalidateRoot()V
+
+    goto/16 :goto_0
+.end method
+
 .method protected onMeasure(II)V
     .locals 6
     .param p1, "widthMeasureSpec"    # I
     .param p2, "heightMeasureSpec"    # I
 
     .prologue
-    iget v4, p0, Landroid/widget/SimpleMonthView;->mDayHeight:I
+    iget v4, p0, Landroid/widget/SimpleMonthView;->mDesiredDayHeight:I
 
-    iget v5, p0, Landroid/widget/SimpleMonthView;->mNumWeeks:I
+    mul-int/lit8 v4, v4, 0x6
 
-    mul-int/2addr v4, v5
-
-    iget v5, p0, Landroid/widget/SimpleMonthView;->mDayOfWeekHeight:I
+    iget v5, p0, Landroid/widget/SimpleMonthView;->mDesiredDayOfWeekHeight:I
 
     add-int/2addr v4, v5
 
-    iget v5, p0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
+    iget v5, p0, Landroid/widget/SimpleMonthView;->mDesiredMonthHeight:I
 
     add-int/2addr v4, v5
 
@@ -2036,7 +2090,7 @@
     add-int v0, v4, v5
 
     .local v0, "preferredHeight":I
-    iget v4, p0, Landroid/widget/SimpleMonthView;->mCellWidth:I
+    iget v4, p0, Landroid/widget/SimpleMonthView;->mDesiredCellWidth:I
 
     mul-int/lit8 v4, v4, 0x7
 
@@ -2068,211 +2122,14 @@
     return-void
 .end method
 
-.method protected onSizeChanged(IIII)V
-    .locals 23
-    .param p1, "w"    # I
-    .param p2, "h"    # I
-    .param p3, "oldw"    # I
-    .param p4, "oldh"    # I
+.method public onRtlPropertiesChanged(I)V
+    .locals 0
+    .param p1, "layoutDirection"    # I
 
     .prologue
-    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingLeft()I
+    invoke-super {p0, p1}, Landroid/view/View;->onRtlPropertiesChanged(I)V
 
-    move-result v14
-
-    .local v14, "paddedLeft":I
-    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingTop()I
-
-    move-result v16
-
-    .local v16, "paddedTop":I
-    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingRight()I
-
-    move-result v18
-
-    sub-int v15, p1, v18
-
-    .local v15, "paddedRight":I
-    invoke-virtual/range {p0 .. p0}, Landroid/widget/SimpleMonthView;->getPaddingBottom()I
-
-    move-result v18
-
-    sub-int v13, p2, v18
-
-    .local v13, "paddedBottom":I
-    sub-int v18, v15, v14
-
-    move/from16 v0, v18
-
-    move-object/from16 v1, p0
-
-    iput v0, v1, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
-
-    sub-int v18, v13, v16
-
-    move/from16 v0, v18
-
-    move-object/from16 v1, p0
-
-    iput v0, v1, Landroid/widget/SimpleMonthView;->mPaddedHeight:I
-
-    move-object/from16 v0, p0
-
-    iget v11, v0, Landroid/widget/SimpleMonthView;->mMonthHeight:I
-
-    .local v11, "monthHeight":I
-    move-object/from16 v0, p0
-
-    iget v0, v0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
-
-    move/from16 v18, v0
-
-    div-int/lit8 v5, v18, 0x7
-
-    .local v5, "cellWidth":I
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    move-object/from16 v17, v0
-
-    .local v17, "prevDrawable":Landroid/graphics/drawable/Drawable;
-    if-eqz v17, :cond_0
-
-    invoke-virtual/range {v17 .. v17}, Landroid/graphics/drawable/Drawable;->getIntrinsicWidth()I
-
-    move-result v7
-
-    .local v7, "dW":I
-    invoke-virtual/range {v17 .. v17}, Landroid/graphics/drawable/Drawable;->getIntrinsicHeight()I
-
-    move-result v6
-
-    .local v6, "dH":I
-    sub-int v18, v11, v6
-
-    div-int/lit8 v10, v18, 0x2
-
-    .local v10, "iconTop":I
-    sub-int v18, v5, v7
-
-    div-int/lit8 v8, v18, 0x2
-
-    .local v8, "iconLeft":I
-    add-int v18, v8, v7
-
-    add-int v19, v10, v6
-
-    move-object/from16 v0, v17
-
-    move/from16 v1, v18
-
-    move/from16 v2, v19
-
-    invoke-virtual {v0, v8, v10, v1, v2}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/SimpleMonthView;->mPrevHitArea:Landroid/graphics/Rect;
-
-    move-object/from16 v18, v0
-
-    const/16 v19, 0x0
-
-    const/16 v20, 0x0
-
-    add-int v21, v14, v5
-
-    add-int v22, v16, v11
-
-    invoke-virtual/range {v18 .. v22}, Landroid/graphics/Rect;->set(IIII)V
-
-    .end local v6    # "dH":I
-    .end local v7    # "dW":I
-    .end local v8    # "iconLeft":I
-    .end local v10    # "iconTop":I
-    :cond_0
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    .local v12, "nextDrawable":Landroid/graphics/drawable/Drawable;
-    if-eqz v12, :cond_1
-
-    invoke-virtual {v12}, Landroid/graphics/drawable/Drawable;->getIntrinsicWidth()I
-
-    move-result v7
-
-    .restart local v7    # "dW":I
-    invoke-virtual {v12}, Landroid/graphics/drawable/Drawable;->getIntrinsicHeight()I
-
-    move-result v6
-
-    .restart local v6    # "dH":I
-    sub-int v18, v11, v6
-
-    div-int/lit8 v10, v18, 0x2
-
-    .restart local v10    # "iconTop":I
-    move-object/from16 v0, p0
-
-    iget v0, v0, Landroid/widget/SimpleMonthView;->mPaddedWidth:I
-
-    move/from16 v18, v0
-
-    sub-int v19, v5, v7
-
-    div-int/lit8 v19, v19, 0x2
-
-    sub-int v9, v18, v19
-
-    .local v9, "iconRight":I
-    sub-int v18, v9, v7
-
-    add-int v19, v10, v6
-
-    move/from16 v0, v18
-
-    move/from16 v1, v19
-
-    invoke-virtual {v12, v0, v10, v9, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/SimpleMonthView;->mNextHitArea:Landroid/graphics/Rect;
-
-    move-object/from16 v18, v0
-
-    sub-int v19, v15, v5
-
-    const/16 v20, 0x0
-
-    add-int v21, v16, v11
-
-    move-object/from16 v0, v18
-
-    move/from16 v1, v19
-
-    move/from16 v2, v20
-
-    move/from16 v3, p1
-
-    move/from16 v4, v21
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/graphics/Rect;->set(IIII)V
-
-    .end local v6    # "dH":I
-    .end local v7    # "dW":I
-    .end local v9    # "iconRight":I
-    .end local v10    # "iconTop":I
-    :cond_1
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/SimpleMonthView;->mTouchHelper:Landroid/widget/SimpleMonthView$MonthViewTouchHelper;
-
-    move-object/from16 v18, v0
-
-    invoke-virtual/range {v18 .. v18}, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->invalidateRoot()V
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->requestLayout()V
 
     return-void
 .end method
@@ -2282,74 +2139,81 @@
     .param p1, "event"    # Landroid/view/MotionEvent;
 
     .prologue
-    const/4 v6, 0x1
-
-    const/high16 v5, 0x3f000000    # 0.5f
+    const/high16 v6, 0x3f000000    # 0.5f
 
     invoke-virtual {p1}, Landroid/view/MotionEvent;->getX()F
 
-    move-result v4
+    move-result v5
 
-    add-float/2addr v4, v5
+    add-float/2addr v5, v6
 
-    float-to-int v2, v4
+    float-to-int v3, v5
 
-    .local v2, "x":I
+    .local v3, "x":I
     invoke-virtual {p1}, Landroid/view/MotionEvent;->getY()F
 
-    move-result v4
+    move-result v5
 
-    add-float/2addr v4, v5
+    add-float/2addr v5, v6
 
-    float-to-int v3, v4
+    float-to-int v4, v5
 
-    .local v3, "y":I
+    .local v4, "y":I
     invoke-virtual {p1}, Landroid/view/MotionEvent;->getAction()I
-
-    move-result v4
-
-    packed-switch v4, :pswitch_data_0
-
-    :cond_0
-    :goto_0
-    return v6
-
-    :pswitch_0
-    invoke-direct {p0, v2, v3}, Landroid/widget/SimpleMonthView;->getItemAtLocation(II)I
-
-    move-result v1
-
-    .local v1, "touchedItem":I
-    iget v4, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
-
-    if-eq v4, v1, :cond_0
-
-    iput v1, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
-
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
-
-    goto :goto_0
-
-    .end local v1    # "touchedItem":I
-    :pswitch_1
-    invoke-direct {p0, v2, v3}, Landroid/widget/SimpleMonthView;->getItemAtLocation(II)I
 
     move-result v0
 
-    .local v0, "clickedItem":I
-    invoke-direct {p0, v0, v6}, Landroid/widget/SimpleMonthView;->onItemClicked(IZ)Z
+    .local v0, "action":I
+    packed-switch v0, :pswitch_data_0
 
-    .end local v0    # "clickedItem":I
+    :cond_0
+    :goto_0
+    const/4 v5, 0x1
+
+    :goto_1
+    return v5
+
+    :pswitch_0
+    invoke-direct {p0, v3, v4}, Landroid/widget/SimpleMonthView;->getDayAtLocation(II)I
+
+    move-result v2
+
+    .local v2, "touchedItem":I
+    iget v5, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
+
+    if-eq v5, v2, :cond_1
+
+    iput v2, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
+
+    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
+
+    :cond_1
+    if-nez v0, :cond_0
+
+    if-gez v2, :cond_0
+
+    const/4 v5, 0x0
+
+    goto :goto_1
+
+    .end local v2    # "touchedItem":I
+    :pswitch_1
+    invoke-direct {p0, v3, v4}, Landroid/widget/SimpleMonthView;->getDayAtLocation(II)I
+
+    move-result v1
+
+    .local v1, "clickedDay":I
+    invoke-direct {p0, v1}, Landroid/widget/SimpleMonthView;->onDayClicked(I)Z
+
+    .end local v1    # "clickedDay":I
     :pswitch_2
-    const/4 v4, -0x1
+    const/4 v5, -0x1
 
-    iput v4, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
+    iput v5, p0, Landroid/widget/SimpleMonthView;->mTouchedItem:I
 
     invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
 
     goto :goto_0
-
-    nop
 
     :pswitch_data_0
     .packed-switch 0x0
@@ -2358,19 +2222,6 @@
         :pswitch_0
         :pswitch_2
     .end packed-switch
-.end method
-
-.method public reuse()V
-    .locals 1
-
-    .prologue
-    const/4 v0, 0x6
-
-    iput v0, p0, Landroid/widget/SimpleMonthView;->mNumWeeks:I
-
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->requestLayout()V
-
-    return-void
 .end method
 
 .method setDayHighlightColor(Landroid/content/res/ColorStateList;)V
@@ -2533,7 +2384,7 @@
 .end method
 
 .method setMonthParams(IIIIII)V
-    .locals 8
+    .locals 7
     .param p1, "selectedDay"    # I
     .param p2, "month"    # I
     .param p3, "year"    # I
@@ -2542,8 +2393,6 @@
     .param p6, "enabledDayEnd"    # I
 
     .prologue
-    const/16 v7, 0x20
-
     const/4 v6, 0x1
 
     iput p1, p0, Landroid/widget/SimpleMonthView;->mActivatedDay:I
@@ -2593,27 +2442,11 @@
 
     move-result v3
 
-    if-eqz v3, :cond_4
+    if-eqz v3, :cond_2
 
     iput p4, p0, Landroid/widget/SimpleMonthView;->mWeekStart:I
 
     :goto_0
-    if-lez p5, :cond_1
-
-    if-ge p6, v7, :cond_1
-
-    iput p5, p0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
-
-    :cond_1
-    if-lez p6, :cond_2
-
-    if-ge p6, v7, :cond_2
-
-    if-lt p6, p5, :cond_2
-
-    iput p6, p0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
-
-    :cond_2
     invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
     move-result-object v2
@@ -2639,7 +2472,7 @@
     :goto_1
     iget v3, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
 
-    if-ge v1, v3, :cond_5
+    if-ge v1, v3, :cond_3
 
     add-int/lit8 v0, v1, 0x1
 
@@ -2648,11 +2481,11 @@
 
     move-result v3
 
-    if-eqz v3, :cond_3
+    if-eqz v3, :cond_1
 
     iput v0, p0, Landroid/widget/SimpleMonthView;->mToday:I
 
-    :cond_3
+    :cond_1
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_1
@@ -2660,7 +2493,7 @@
     .end local v0    # "day":I
     .end local v1    # "i":I
     .end local v2    # "today":Ljava/util/Calendar;
-    :cond_4
+    :cond_2
     iget-object v3, p0, Landroid/widget/SimpleMonthView;->mCalendar:Ljava/util/Calendar;
 
     invoke-virtual {v3}, Ljava/util/Calendar;->getFirstDayOfWeek()I
@@ -2673,12 +2506,24 @@
 
     .restart local v1    # "i":I
     .restart local v2    # "today":Ljava/util/Calendar;
-    :cond_5
-    invoke-direct {p0}, Landroid/widget/SimpleMonthView;->calculateNumRows()I
+    :cond_3
+    iget v3, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
+
+    invoke-static {p5, v6, v3}, Landroid/util/MathUtils;->constrain(III)I
 
     move-result v3
 
-    iput v3, p0, Landroid/widget/SimpleMonthView;->mNumWeeks:I
+    iput v3, p0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
+
+    iget v3, p0, Landroid/widget/SimpleMonthView;->mEnabledDayStart:I
+
+    iget v4, p0, Landroid/widget/SimpleMonthView;->mDaysInMonth:I
+
+    invoke-static {p6, v3, v4}, Landroid/util/MathUtils;->constrain(III)I
+
+    move-result v3
+
+    iput v3, p0, Landroid/widget/SimpleMonthView;->mEnabledDayEnd:I
 
     const/4 v3, 0x0
 
@@ -2692,37 +2537,14 @@
 .end method
 
 .method public setMonthTextAppearance(I)V
-    .locals 2
+    .locals 1
     .param p1, "resId"    # I
 
     .prologue
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/text/TextPaint;
+    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mMonthPaint:Landroid/text/TextPaint;
 
-    invoke-direct {p0, v1, p1}, Landroid/widget/SimpleMonthView;->applyTextAppearance(Landroid/graphics/Paint;I)Landroid/content/res/ColorStateList;
+    invoke-direct {p0, v0, p1}, Landroid/widget/SimpleMonthView;->applyTextAppearance(Landroid/graphics/Paint;I)Landroid/content/res/ColorStateList;
 
-    move-result-object v0
-
-    .local v0, "monthColor":Landroid/content/res/ColorStateList;
-    if-eqz v0, :cond_1
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v1, :cond_0
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mPrevDrawable:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v1, v0}, Landroid/graphics/drawable/Drawable;->setTintList(Landroid/content/res/ColorStateList;)V
-
-    :cond_0
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v1, :cond_1
-
-    iget-object v1, p0, Landroid/widget/SimpleMonthView;->mNextDrawable:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v1, v0}, Landroid/graphics/drawable/Drawable;->setTintList(Landroid/content/res/ColorStateList;)V
-
-    :cond_1
     invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
 
     return-void
@@ -2751,44 +2573,12 @@
     return-void
 .end method
 
-.method public setNextEnabled(Z)V
-    .locals 1
-    .param p1, "enabled"    # Z
-
-    .prologue
-    iput-boolean p1, p0, Landroid/widget/SimpleMonthView;->mNextEnabled:Z
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mTouchHelper:Landroid/widget/SimpleMonthView$MonthViewTouchHelper;
-
-    invoke-virtual {v0}, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->invalidateRoot()V
-
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
-
-    return-void
-.end method
-
 .method public setOnDayClickListener(Landroid/widget/SimpleMonthView$OnDayClickListener;)V
     .locals 0
     .param p1, "listener"    # Landroid/widget/SimpleMonthView$OnDayClickListener;
 
     .prologue
     iput-object p1, p0, Landroid/widget/SimpleMonthView;->mOnDayClickListener:Landroid/widget/SimpleMonthView$OnDayClickListener;
-
-    return-void
-.end method
-
-.method public setPrevEnabled(Z)V
-    .locals 1
-    .param p1, "enabled"    # Z
-
-    .prologue
-    iput-boolean p1, p0, Landroid/widget/SimpleMonthView;->mPrevEnabled:Z
-
-    iget-object v0, p0, Landroid/widget/SimpleMonthView;->mTouchHelper:Landroid/widget/SimpleMonthView$MonthViewTouchHelper;
-
-    invoke-virtual {v0}, Landroid/widget/SimpleMonthView$MonthViewTouchHelper;->invalidateRoot()V
-
-    invoke-virtual {p0}, Landroid/widget/SimpleMonthView;->invalidate()V
 
     return-void
 .end method

@@ -128,7 +128,7 @@
     iget-object v4, p0, Landroid/view/View$SendViewStateChangedAccessibilityEvent;->this$0:Landroid/view/View;
 
     # invokes: Landroid/view/View;->inLiveRegion()Z
-    invoke-static {v4}, Landroid/view/View;->access$2500(Landroid/view/View;)Z
+    invoke-static {v4}, Landroid/view/View;->access$3200(Landroid/view/View;)Z
 
     move-result v4
 

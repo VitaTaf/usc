@@ -3,7 +3,7 @@
 .source "DayPickerView.java"
 
 # interfaces
-.implements Landroid/widget/DayPickerAdapter$OnDaySelectedListener;
+.implements Landroid/widget/DayPickerPagerAdapter$OnDaySelectedListener;
 
 
 # annotations
@@ -35,9 +35,9 @@
 
 
 # virtual methods
-.method public onDaySelected(Landroid/widget/DayPickerAdapter;Ljava/util/Calendar;)V
+.method public onDaySelected(Landroid/widget/DayPickerPagerAdapter;Ljava/util/Calendar;)V
     .locals 2
-    .param p1, "adapter"    # Landroid/widget/DayPickerAdapter;
+    .param p1, "adapter"    # Landroid/widget/DayPickerPagerAdapter;
     .param p2, "day"    # Ljava/util/Calendar;
 
     .prologue
@@ -62,28 +62,5 @@
     invoke-interface {v0, v1, p2}, Landroid/widget/DayPickerView$OnDaySelectedListener;->onDaySelected(Landroid/widget/DayPickerView;Ljava/util/Calendar;)V
 
     :cond_0
-    return-void
-.end method
-
-.method public onNavigationClick(Landroid/widget/DayPickerAdapter;IZ)V
-    .locals 2
-    .param p1, "view"    # Landroid/widget/DayPickerAdapter;
-    .param p2, "direction"    # I
-    .param p3, "animate"    # Z
-
-    .prologue
-    iget-object v1, p0, Landroid/widget/DayPickerView$1;->this$0:Landroid/widget/DayPickerView;
-
-    invoke-virtual {v1}, Landroid/widget/DayPickerView;->getCurrentItem()I
-
-    move-result v1
-
-    add-int v0, v1, p2
-
-    .local v0, "nextItem":I
-    iget-object v1, p0, Landroid/widget/DayPickerView$1;->this$0:Landroid/widget/DayPickerView;
-
-    invoke-virtual {v1, v0, p3}, Landroid/widget/DayPickerView;->setCurrentItem(IZ)V
-
     return-void
 .end method

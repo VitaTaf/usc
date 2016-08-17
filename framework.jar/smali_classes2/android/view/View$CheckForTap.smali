@@ -73,7 +73,7 @@
     iget v3, p0, Landroid/view/View$CheckForTap;->y:F
 
     # invokes: Landroid/view/View;->setPressed(ZFF)V
-    invoke-static {v0, v1, v2, v3}, Landroid/view/View;->access$2200(Landroid/view/View;ZFF)V
+    invoke-static {v0, v1, v2, v3}, Landroid/view/View;->access$2900(Landroid/view/View;ZFF)V
 
     iget-object v0, p0, Landroid/view/View$CheckForTap;->this$0:Landroid/view/View;
 
@@ -82,7 +82,7 @@
     move-result v1
 
     # invokes: Landroid/view/View;->checkForLongClick(I)V
-    invoke-static {v0, v1}, Landroid/view/View;->access$2300(Landroid/view/View;I)V
+    invoke-static {v0, v1}, Landroid/view/View;->access$3000(Landroid/view/View;I)V
 
     return-void
 .end method

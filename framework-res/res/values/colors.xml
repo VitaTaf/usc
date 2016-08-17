@@ -219,8 +219,6 @@
     <color name="timepicker_default_numbers_background_color_material">@color/transparent</color>
     <color name="datepicker_default_header_selector_background_material_light">@color/white</color>
     <color name="datepicker_default_header_selector_background_material_dark">#ff303030</color>
-    <item type="color" name="APKTOOL_DUMMY_e6">false</item>
-    <item type="color" name="APKTOOL_DUMMY_e9">false</item>
     <item type="color" name="APKTOOL_DUMMY_ea">false</item>
     <item type="color" name="APKTOOL_DUMMY_fe">false</item>
     <item type="color" name="APKTOOL_DUMMY_ff">false</item>
@@ -249,5 +247,9 @@
     <item type="color" name="APKTOOL_DUMMY_116">false</item>
     <item type="color" name="APKTOOL_DUMMY_117">false</item>
     <item type="color" name="APKTOOL_DUMMY_118">false</item>
+    <item type="color" name="APKTOOL_DUMMY_119">false</item>
+    <item type="color" name="APKTOOL_DUMMY_11a">false</item>
+    <item type="color" name="APKTOOL_DUMMY_12e">false</item>
+    <item type="color" name="APKTOOL_DUMMY_12f">false</item>
     <item type="color" name="APKTOOL_DUMMY_13c">false</item>
 </resources>

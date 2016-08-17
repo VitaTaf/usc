@@ -245,6 +245,8 @@
 
 .field public static final day_picker_selector_layout:I = 0x10202ed
 
+.field public static final day_picker_view_pager:I = 0x10203f3
+
 .field public static final decimal:I = 0x102020a
 
 .field public static final decor_content_parent:I = 0x102037a

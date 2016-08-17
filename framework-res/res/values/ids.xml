@@ -381,4 +381,5 @@
     <item type="id" name="month_view">false</item>
     <item type="id" name="date_picker_day_picker">false</item>
     <item type="id" name="date_picker_year_picker">false</item>
+    <item type="id" name="day_picker_view_pager">false</item>
 </resources>

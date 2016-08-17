@@ -1,11 +1,11 @@
-.class Landroid/widget/DayPickerAdapter$ViewHolder;
+.class Landroid/widget/DayPickerPagerAdapter$ViewHolder;
 .super Ljava/lang/Object;
-.source "DayPickerAdapter.java"
+.source "DayPickerPagerAdapter.java"
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingClass;
-    value = Landroid/widget/DayPickerAdapter;
+    value = Landroid/widget/DayPickerPagerAdapter;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -32,11 +32,11 @@
     .prologue
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    iput p1, p0, Landroid/widget/DayPickerAdapter$ViewHolder;->position:I
+    iput p1, p0, Landroid/widget/DayPickerPagerAdapter$ViewHolder;->position:I
 
-    iput-object p2, p0, Landroid/widget/DayPickerAdapter$ViewHolder;->container:Landroid/view/View;
+    iput-object p2, p0, Landroid/widget/DayPickerPagerAdapter$ViewHolder;->container:Landroid/view/View;
 
-    iput-object p3, p0, Landroid/widget/DayPickerAdapter$ViewHolder;->calendar:Landroid/widget/SimpleMonthView;
+    iput-object p3, p0, Landroid/widget/DayPickerPagerAdapter$ViewHolder;->calendar:Landroid/widget/SimpleMonthView;
 
     return-void
 .end method

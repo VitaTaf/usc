@@ -1419,97 +1419,90 @@
 .end method
 
 .method public onRestoreInstanceState(Landroid/os/Parcelable;)V
-    .locals 7
+    .locals 8
     .param p1, "state"    # Landroid/os/Parcelable;
 
     .prologue
-    move-object v2, p1
+    move-object v3, p1
 
-    check-cast v2, Landroid/widget/DatePickerCalendarDelegate$SavedState;
+    check-cast v3, Landroid/widget/DatePickerCalendarDelegate$SavedState;
 
-    .local v2, "ss":Landroid/widget/DatePickerCalendarDelegate$SavedState;
-    iget-object v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mCurrentDate:Ljava/util/Calendar;
+    .local v3, "ss":Landroid/widget/DatePickerCalendarDelegate$SavedState;
+    iget-object v4, p0, Landroid/widget/DatePickerCalendarDelegate;->mCurrentDate:Ljava/util/Calendar;
 
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getSelectedYear()I
-
-    move-result v4
-
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getSelectedMonth()I
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getSelectedYear()I
 
     move-result v5
 
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getSelectedDay()I
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getSelectedMonth()I
 
     move-result v6
 
-    invoke-virtual {v3, v4, v5, v6}, Ljava/util/Calendar;->set(III)V
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getSelectedDay()I
 
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getCurrentView()I
+    move-result v7
 
-    move-result v3
+    invoke-virtual {v4, v5, v6, v7}, Ljava/util/Calendar;->set(III)V
 
-    iput v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mCurrentView:I
+    iget-object v4, p0, Landroid/widget/DatePickerCalendarDelegate;->mMinDate:Ljava/util/Calendar;
 
-    iget-object v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mMinDate:Ljava/util/Calendar;
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getMinDate()J
 
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getMinDate()J
+    move-result-wide v6
 
-    move-result-wide v4
+    invoke-virtual {v4, v6, v7}, Ljava/util/Calendar;->setTimeInMillis(J)V
 
-    invoke-virtual {v3, v4, v5}, Ljava/util/Calendar;->setTimeInMillis(J)V
+    iget-object v4, p0, Landroid/widget/DatePickerCalendarDelegate;->mMaxDate:Ljava/util/Calendar;
 
-    iget-object v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mMaxDate:Ljava/util/Calendar;
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getMaxDate()J
 
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getMaxDate()J
+    move-result-wide v6
 
-    move-result-wide v4
+    invoke-virtual {v4, v6, v7}, Ljava/util/Calendar;->setTimeInMillis(J)V
 
-    invoke-virtual {v3, v4, v5}, Ljava/util/Calendar;->setTimeInMillis(J)V
+    const/4 v4, 0x0
 
-    const/4 v3, 0x0
+    invoke-direct {p0, v4}, Landroid/widget/DatePickerCalendarDelegate;->onCurrentDateChanged(Z)V
 
-    invoke-direct {p0, v3}, Landroid/widget/DatePickerCalendarDelegate;->onCurrentDateChanged(Z)V
-
-    iget v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mCurrentView:I
-
-    invoke-direct {p0, v3}, Landroid/widget/DatePickerCalendarDelegate;->setCurrentView(I)V
-
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getListPosition()I
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getCurrentView()I
 
     move-result v0
 
-    .local v0, "listPosition":I
-    const/4 v3, -0x1
+    .local v0, "currentView":I
+    invoke-direct {p0, v0}, Landroid/widget/DatePickerCalendarDelegate;->setCurrentView(I)V
 
-    if-eq v0, v3, :cond_0
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getListPosition()I
 
-    iget v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mCurrentView:I
+    move-result v1
 
-    if-nez v3, :cond_1
+    .local v1, "listPosition":I
+    const/4 v4, -0x1
 
-    iget-object v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mDayPickerView:Landroid/widget/DayPickerView;
+    if-eq v1, v4, :cond_0
 
-    invoke-virtual {v3, v0}, Landroid/widget/DayPickerView;->setCurrentItem(I)V
+    if-nez v0, :cond_1
+
+    iget-object v4, p0, Landroid/widget/DatePickerCalendarDelegate;->mDayPickerView:Landroid/widget/DayPickerView;
+
+    invoke-virtual {v4, v1}, Landroid/widget/DayPickerView;->setPosition(I)V
 
     :cond_0
     :goto_0
     return-void
 
     :cond_1
-    iget v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mCurrentView:I
-
     const/4 v4, 0x1
 
-    if-ne v3, v4, :cond_0
+    if-ne v0, v4, :cond_0
 
-    invoke-virtual {v2}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getListPositionOffset()I
+    invoke-virtual {v3}, Landroid/widget/DatePickerCalendarDelegate$SavedState;->getListPositionOffset()I
 
-    move-result v1
+    move-result v2
 
-    .local v1, "listPositionOffset":I
-    iget-object v3, p0, Landroid/widget/DatePickerCalendarDelegate;->mYearPickerView:Landroid/widget/YearPickerView;
+    .local v2, "listPositionOffset":I
+    iget-object v4, p0, Landroid/widget/DatePickerCalendarDelegate;->mYearPickerView:Landroid/widget/YearPickerView;
 
-    invoke-virtual {v3, v0, v1}, Landroid/widget/YearPickerView;->setSelectionFromTop(II)V
+    invoke-virtual {v4, v1, v2}, Landroid/widget/YearPickerView;->setSelectionFromTop(II)V
 
     goto :goto_0
 .end method

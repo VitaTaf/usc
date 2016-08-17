@@ -57,7 +57,7 @@
     iput v1, p0, Lcom/android/internal/widget/ViewPager$LayoutParams;->widthFactor:F
 
     # getter for: Lcom/android/internal/widget/ViewPager;->LAYOUT_ATTRS:[I
-    invoke-static {}, Lcom/android/internal/widget/ViewPager;->access$400()[I
+    invoke-static {}, Lcom/android/internal/widget/ViewPager;->access$200()[I
 
     move-result-object v1
 

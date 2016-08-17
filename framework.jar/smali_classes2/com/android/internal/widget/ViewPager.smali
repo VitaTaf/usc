@@ -9,7 +9,6 @@
         Lcom/android/internal/widget/ViewPager$ViewPositionComparator;,
         Lcom/android/internal/widget/ViewPager$LayoutParams;,
         Lcom/android/internal/widget/ViewPager$PagerObserver;,
-        Lcom/android/internal/widget/ViewPager$MyAccessibilityDelegate;,
         Lcom/android/internal/widget/ViewPager$SavedState;,
         Lcom/android/internal/widget/ViewPager$Decor;,
         Lcom/android/internal/widget/ViewPager$OnAdapterChangeListener;,
@@ -35,7 +34,7 @@
     .end annotation
 .end field
 
-.field private static final DEBUG:Z = false
+.field private static final DEBUG:Z = true
 
 .field private static final DEFAULT_GUTTER_SIZE:I = 0x10
 
@@ -50,6 +49,8 @@
 .field private static final INVALID_POINTER:I = -0x1
 
 .field private static final LAYOUT_ATTRS:[I
+
+.field private static final MAX_SCROLL_X:I = 0x1000000
 
 .field private static final MAX_SETTLE_DURATION:I = 0x258
 
@@ -112,10 +113,6 @@
 
 .field private mExpectedAdapterCount:I
 
-.field private mFakeDragBeginTime:J
-
-.field private mFakeDragging:Z
-
 .field private mFirstLayout:Z
 
 .field private mFirstOffset:F
@@ -155,13 +152,13 @@
 
 .field private final mLeftEdge:Landroid/widget/EdgeEffect;
 
+.field private mLeftIncr:I
+
 .field private mMarginDrawable:Landroid/graphics/drawable/Drawable;
 
 .field private final mMaximumVelocity:I
 
 .field private final mMinimumVelocity:I
-
-.field private mNeedCalculatePageOffsets:Z
 
 .field private mObserver:Lcom/android/internal/widget/ViewPager$PagerObserver;
 
@@ -287,9 +284,9 @@
     .prologue
     const/4 v6, 0x0
 
-    const/4 v5, -0x1
+    const/4 v5, 0x0
 
-    const/4 v3, 0x0
+    const/4 v3, -0x1
 
     const/4 v4, 0x1
 
@@ -313,11 +310,13 @@
 
     iput-object v2, p0, Lcom/android/internal/widget/ViewPager;->mTempRect:Landroid/graphics/Rect;
 
-    iput v5, p0, Lcom/android/internal/widget/ViewPager;->mRestoredCurItem:I
+    iput v3, p0, Lcom/android/internal/widget/ViewPager;->mRestoredCurItem:I
 
     iput-object v6, p0, Lcom/android/internal/widget/ViewPager;->mRestoredAdapterState:Landroid/os/Parcelable;
 
     iput-object v6, p0, Lcom/android/internal/widget/ViewPager;->mRestoredClassLoader:Ljava/lang/ClassLoader;
+
+    iput v3, p0, Lcom/android/internal/widget/ViewPager;->mLeftIncr:I
 
     const v2, -0x800001
 
@@ -329,11 +328,9 @@
 
     iput v4, p0, Lcom/android/internal/widget/ViewPager;->mOffscreenPageLimit:I
 
-    iput v5, p0, Lcom/android/internal/widget/ViewPager;->mActivePointerId:I
+    iput v3, p0, Lcom/android/internal/widget/ViewPager;->mActivePointerId:I
 
     iput-boolean v4, p0, Lcom/android/internal/widget/ViewPager;->mFirstLayout:Z
-
-    iput-boolean v3, p0, Lcom/android/internal/widget/ViewPager;->mNeedCalculatePageOffsets:Z
 
     new-instance v2, Lcom/android/internal/widget/ViewPager$3;
 
@@ -341,9 +338,9 @@
 
     iput-object v2, p0, Lcom/android/internal/widget/ViewPager;->mEndScrollRunnable:Ljava/lang/Runnable;
 
-    iput v3, p0, Lcom/android/internal/widget/ViewPager;->mScrollState:I
+    iput v5, p0, Lcom/android/internal/widget/ViewPager;->mScrollState:I
 
-    invoke-virtual {p0, v3}, Lcom/android/internal/widget/ViewPager;->setWillNotDraw(Z)V
+    invoke-virtual {p0, v5}, Lcom/android/internal/widget/ViewPager;->setWillNotDraw(Z)V
 
     const/high16 v2, 0x40000
 
@@ -431,12 +428,6 @@
 
     iput v2, p0, Lcom/android/internal/widget/ViewPager;->mDefaultGutterSize:I
 
-    new-instance v2, Lcom/android/internal/widget/ViewPager$MyAccessibilityDelegate;
-
-    invoke-direct {v2, p0}, Lcom/android/internal/widget/ViewPager$MyAccessibilityDelegate;-><init>(Lcom/android/internal/widget/ViewPager;)V
-
-    invoke-virtual {p0, v2}, Lcom/android/internal/widget/ViewPager;->setAccessibilityDelegate(Landroid/view/View$AccessibilityDelegate;)V
-
     invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->getImportantForAccessibility()I
 
     move-result v2
@@ -460,27 +451,7 @@
     return-void
 .end method
 
-.method static synthetic access$200(Lcom/android/internal/widget/ViewPager;)Lcom/android/internal/widget/PagerAdapter;
-    .locals 1
-    .param p0, "x0"    # Lcom/android/internal/widget/ViewPager;
-
-    .prologue
-    iget-object v0, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    return-object v0
-.end method
-
-.method static synthetic access$300(Lcom/android/internal/widget/ViewPager;)I
-    .locals 1
-    .param p0, "x0"    # Lcom/android/internal/widget/ViewPager;
-
-    .prologue
-    iget v0, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
-
-    return v0
-.end method
-
-.method static synthetic access$400()[I
+.method static synthetic access$200()[I
     .locals 1
 
     .prologue
@@ -503,7 +474,7 @@
     move-result v1
 
     .local v1, "N":I
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
 
     move-result v11
 
@@ -534,9 +505,6 @@
     const/4 v5, 0x0
 
     .local v5, "itemIndex":I
-    const/4 v3, 0x0
-
-    .local v3, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     move-object/from16 v0, p3
 
     iget v12, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
@@ -572,10 +540,9 @@
 
     move-result-object v3
 
-    .end local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     check-cast v3, Lcom/android/internal/widget/ViewPager$ItemInfo;
 
-    .restart local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .local v3, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     :goto_2
     iget v12, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
@@ -673,9 +640,6 @@
     add-int/lit8 v5, v12, -0x1
 
     .restart local v5    # "itemIndex":I
-    const/4 v3, 0x0
-
-    .restart local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     move-object/from16 v0, p3
 
     iget v7, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
@@ -697,7 +661,6 @@
 
     move-result-object v3
 
-    .end local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     check-cast v3, Lcom/android/internal/widget/ViewPager$ItemInfo;
 
     .restart local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
@@ -967,11 +930,34 @@
 
     .end local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     :cond_e
-    const/4 v12, 0x0
-
-    iput-boolean v12, p0, Lcom/android/internal/widget/ViewPager;->mNeedCalculatePageOffsets:Z
-
     return-void
+.end method
+
+.method private canScroll()Z
+    .locals 2
+
+    .prologue
+    const/4 v0, 0x1
+
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    if-eqz v1, :cond_0
+
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    invoke-virtual {v1}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
+
+    move-result v1
+
+    if-le v1, v0, :cond_0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method
 
 .method private completeScroll(Z)V
@@ -1103,35 +1089,40 @@
 .end method
 
 .method private determineTargetPage(IFII)I
-    .locals 6
+    .locals 8
     .param p1, "currentPage"    # I
     .param p2, "pageOffset"    # F
     .param p3, "velocity"    # I
     .param p4, "deltaX"    # I
 
     .prologue
+    const/4 v5, 0x0
+
     invoke-static {p4}, Ljava/lang/Math;->abs(I)I
 
     move-result v4
 
-    iget v5, p0, Lcom/android/internal/widget/ViewPager;->mFlingDistance:I
+    iget v6, p0, Lcom/android/internal/widget/ViewPager;->mFlingDistance:I
 
-    if-le v4, v5, :cond_2
+    if-le v4, v6, :cond_2
 
     invoke-static {p3}, Ljava/lang/Math;->abs(I)I
 
     move-result v4
 
-    iget v5, p0, Lcom/android/internal/widget/ViewPager;->mMinimumVelocity:I
+    iget v6, p0, Lcom/android/internal/widget/ViewPager;->mMinimumVelocity:I
 
-    if-le v4, v5, :cond_2
+    if-le v4, v6, :cond_2
 
-    if-lez p3, :cond_1
+    if-gez p3, :cond_1
 
-    move v2, p1
+    iget v4, p0, Lcom/android/internal/widget/ViewPager;->mLeftIncr:I
+
+    :goto_0
+    sub-int v2, p1, v4
 
     .local v2, "targetPage":I
-    :goto_0
+    :goto_1
     iget-object v4, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
     invoke-virtual {v4}, Ljava/util/ArrayList;->size()I
@@ -1141,8 +1132,6 @@
     if-lez v4, :cond_0
 
     iget-object v4, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    const/4 v5, 0x0
 
     invoke-virtual {v4, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
@@ -1172,11 +1161,7 @@
 
     iget v5, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
-    invoke-static {v2, v5}, Ljava/lang/Math;->min(II)I
-
-    move-result v5
-
-    invoke-static {v4, v5}, Ljava/lang/Math;->max(II)I
+    invoke-static {v2, v4, v5}, Landroid/util/MathUtils;->constrain(III)I
 
     move-result v2
 
@@ -1187,7 +1172,7 @@
 
     .end local v2    # "targetPage":I
     :cond_1
-    add-int/lit8 v2, p1, 0x1
+    move v4, v5
 
     goto :goto_0
 
@@ -1199,24 +1184,30 @@
     const v3, 0x3ecccccd    # 0.4f
 
     .local v3, "truncator":F
-    :goto_1
+    :goto_2
     int-to-float v4, p1
 
-    add-float/2addr v4, p2
+    iget v6, p0, Lcom/android/internal/widget/ViewPager;->mLeftIncr:I
 
-    add-float/2addr v4, v3
+    int-to-float v6, v6
+
+    add-float v7, p2, v3
+
+    mul-float/2addr v6, v7
+
+    sub-float/2addr v4, v6
 
     float-to-int v2, v4
 
     .restart local v2    # "targetPage":I
-    goto :goto_0
+    goto :goto_1
 
     .end local v2    # "targetPage":I
     .end local v3    # "truncator":F
     :cond_3
     const v3, 0x3f19999a    # 0.6f
 
-    goto :goto_1
+    goto :goto_2
 .end method
 
 .method private enableLayers(Z)V
@@ -1402,7 +1393,76 @@
     goto :goto_0
 .end method
 
-.method private getClientWidth()I
+.method private getLeftEdgeForItem(I)I
+    .locals 8
+    .param p1, "position"    # I
+
+    .prologue
+    invoke-virtual {p0, p1}, Lcom/android/internal/widget/ViewPager;->infoForPosition(I)Lcom/android/internal/widget/ViewPager$ItemInfo;
+
+    move-result-object v0
+
+    .local v0, "info":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    if-nez v0, :cond_1
+
+    const/4 v2, 0x0
+
+    :cond_0
+    :goto_0
+    return v2
+
+    :cond_1
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
+
+    move-result v3
+
+    .local v3, "width":I
+    int-to-float v4, v3
+
+    iget v5, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+
+    iget v6, p0, Lcom/android/internal/widget/ViewPager;->mFirstOffset:F
+
+    iget v7, p0, Lcom/android/internal/widget/ViewPager;->mLastOffset:F
+
+    invoke-static {v5, v6, v7}, Landroid/util/MathUtils;->constrain(FFF)F
+
+    move-result v5
+
+    mul-float/2addr v4, v5
+
+    float-to-int v2, v4
+
+    .local v2, "scaledOffset":I
+    invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_0
+
+    int-to-float v4, v3
+
+    iget v5, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+
+    mul-float/2addr v4, v5
+
+    const/high16 v5, 0x3f000000    # 0.5f
+
+    add-float/2addr v4, v5
+
+    float-to-int v1, v4
+
+    .local v1, "itemWidth":I
+    const/high16 v4, 0x1000000
+
+    sub-int/2addr v4, v1
+
+    sub-int v2, v4, v2
+
+    goto :goto_0
+.end method
+
+.method private getPaddedWidth()I
     .locals 2
 
     .prologue
@@ -1425,195 +1485,287 @@
     return v0
 .end method
 
-.method private infoForCurrentScrollPosition()Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .locals 15
+.method private getScrollStart()I
+    .locals 2
 
     .prologue
-    const/4 v8, 0x0
+    invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
 
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    move-result v0
 
-    move-result v12
+    if-eqz v0, :cond_0
 
-    .local v12, "width":I
-    if-lez v12, :cond_5
+    const/high16 v0, 0x1000000
 
     invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->getScrollX()I
 
-    move-result v13
+    move-result v1
 
-    int-to-float v13, v13
+    sub-int/2addr v0, v1
 
-    int-to-float v14, v12
-
-    div-float v11, v13, v14
-
-    .local v11, "scrollOffset":F
     :goto_0
-    if-lez v12, :cond_0
+    return v0
 
-    iget v13, p0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
-
-    int-to-float v13, v13
-
-    int-to-float v14, v12
-
-    div-float v8, v13, v14
-
-    .local v8, "marginOffset":F
     :cond_0
-    const/4 v5, -0x1
+    invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->getScrollX()I
 
-    .local v5, "lastPos":I
-    const/4 v4, 0x0
-
-    .local v4, "lastOffset":F
-    const/4 v6, 0x0
-
-    .local v6, "lastWidth":F
-    const/4 v0, 0x1
-
-    .local v0, "first":Z
-    const/4 v3, 0x0
-
-    .local v3, "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    const/4 v1, 0x0
-
-    .local v1, "i":I
-    :goto_1
-    iget-object v13, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    invoke-virtual {v13}, Ljava/util/ArrayList;->size()I
-
-    move-result v13
-
-    if-ge v1, v13, :cond_4
-
-    iget-object v13, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    invoke-virtual {v13, v1}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, Lcom/android/internal/widget/ViewPager$ItemInfo;
-
-    .local v2, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    if-nez v0, :cond_1
-
-    iget v13, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
-
-    add-int/lit8 v14, v5, 0x1
-
-    if-eq v13, v14, :cond_1
-
-    iget-object v2, p0, Lcom/android/internal/widget/ViewPager;->mTempItem:Lcom/android/internal/widget/ViewPager$ItemInfo;
-
-    add-float v13, v4, v6
-
-    add-float/2addr v13, v8
-
-    iput v13, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    add-int/lit8 v13, v5, 0x1
-
-    iput v13, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
-
-    iget-object v13, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    iget v14, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
-
-    invoke-virtual {v13, v14}, Lcom/android/internal/widget/PagerAdapter;->getPageWidth(I)F
-
-    move-result v13
-
-    iput v13, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
-
-    add-int/lit8 v1, v1, -0x1
-
-    :cond_1
-    iget v9, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    .local v9, "offset":F
-    move v7, v9
-
-    .local v7, "leftBound":F
-    iget v13, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
-
-    add-float/2addr v13, v9
-
-    add-float v10, v13, v8
-
-    .local v10, "rightBound":F
-    if-nez v0, :cond_2
-
-    cmpl-float v13, v11, v7
-
-    if-ltz v13, :cond_4
-
-    :cond_2
-    cmpg-float v13, v11, v10
-
-    if-ltz v13, :cond_3
-
-    iget-object v13, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    invoke-virtual {v13}, Ljava/util/ArrayList;->size()I
-
-    move-result v13
-
-    add-int/lit8 v13, v13, -0x1
-
-    if-ne v1, v13, :cond_6
-
-    :cond_3
-    move-object v3, v2
-
-    .end local v2    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .end local v3    # "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .end local v7    # "leftBound":F
-    .end local v9    # "offset":F
-    .end local v10    # "rightBound":F
-    :cond_4
-    return-object v3
-
-    .end local v0    # "first":Z
-    .end local v1    # "i":I
-    .end local v4    # "lastOffset":F
-    .end local v5    # "lastPos":I
-    .end local v6    # "lastWidth":F
-    .end local v8    # "marginOffset":F
-    .end local v11    # "scrollOffset":F
-    :cond_5
-    move v11, v8
+    move-result v0
 
     goto :goto_0
+.end method
 
-    .restart local v0    # "first":Z
-    .restart local v1    # "i":I
-    .restart local v2    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .restart local v3    # "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .restart local v4    # "lastOffset":F
-    .restart local v5    # "lastPos":I
-    .restart local v6    # "lastWidth":F
-    .restart local v7    # "leftBound":F
-    .restart local v8    # "marginOffset":F
-    .restart local v9    # "offset":F
-    .restart local v10    # "rightBound":F
-    .restart local v11    # "scrollOffset":F
-    :cond_6
-    const/4 v0, 0x0
+.method private infoForFirstVisiblePage()Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .locals 19
 
-    iget v5, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+    .prologue
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollStart()I
 
-    move v4, v9
+    move-result v15
 
-    iget v6, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+    .local v15, "startOffset":I
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
 
-    move-object v3, v2
+    move-result v16
 
-    add-int/lit8 v1, v1, 0x1
+    .local v16, "width":I
+    if-lez v16, :cond_4
+
+    int-to-float v0, v15
+
+    move/from16 v17, v0
+
+    move/from16 v0, v16
+
+    int-to-float v0, v0
+
+    move/from16 v18, v0
+
+    div-float v13, v17, v18
+
+    .local v13, "scrollOffset":F
+    :goto_0
+    if-lez v16, :cond_5
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
+
+    move/from16 v17, v0
+
+    move/from16 v0, v17
+
+    int-to-float v0, v0
+
+    move/from16 v17, v0
+
+    move/from16 v0, v16
+
+    int-to-float v0, v0
+
+    move/from16 v18, v0
+
+    div-float v11, v17, v18
+
+    .local v11, "marginOffset":F
+    :goto_1
+    const/4 v9, -0x1
+
+    .local v9, "lastPos":I
+    const/4 v8, 0x0
+
+    .local v8, "lastOffset":F
+    const/4 v10, 0x0
+
+    .local v10, "lastWidth":F
+    const/4 v4, 0x1
+
+    .local v4, "first":Z
+    const/4 v7, 0x0
+
+    .local v7, "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v17 .. v17}, Ljava/util/ArrayList;->size()I
+
+    move-result v2
+
+    .local v2, "N":I
+    const/4 v5, 0x0
+
+    .local v5, "i":I
+    :goto_2
+    if-ge v5, v2, :cond_3
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v0, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v6
+
+    check-cast v6, Lcom/android/internal/widget/ViewPager$ItemInfo;
+
+    .local v6, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    if-nez v4, :cond_0
+
+    iget v0, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+
+    move/from16 v17, v0
+
+    add-int/lit8 v18, v9, 0x1
+
+    move/from16 v0, v17
+
+    move/from16 v1, v18
+
+    if-eq v0, v1, :cond_0
+
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/android/internal/widget/ViewPager;->mTempItem:Lcom/android/internal/widget/ViewPager$ItemInfo;
+
+    add-float v17, v8, v10
+
+    add-float v17, v17, v11
+
+    move/from16 v0, v17
+
+    iput v0, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+
+    add-int/lit8 v17, v9, 0x1
+
+    move/from16 v0, v17
+
+    iput v0, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    move-object/from16 v17, v0
+
+    iget v0, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+
+    move/from16 v18, v0
+
+    invoke-virtual/range {v17 .. v18}, Lcom/android/internal/widget/PagerAdapter;->getPageWidth(I)F
+
+    move-result v17
+
+    move/from16 v0, v17
+
+    iput v0, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+
+    add-int/lit8 v5, v5, -0x1
+
+    :cond_0
+    iget v12, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+
+    .local v12, "offset":F
+    move v14, v12
+
+    .local v14, "startBound":F
+    if-nez v4, :cond_1
+
+    cmpl-float v17, v13, v14
+
+    if-ltz v17, :cond_3
+
+    :cond_1
+    iget v0, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+
+    move/from16 v17, v0
+
+    add-float v17, v17, v12
+
+    add-float v3, v17, v11
+
+    .local v3, "endBound":F
+    cmpg-float v17, v13, v3
+
+    if-ltz v17, :cond_2
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v17 .. v17}, Ljava/util/ArrayList;->size()I
+
+    move-result v17
+
+    add-int/lit8 v17, v17, -0x1
+
+    move/from16 v0, v17
+
+    if-ne v5, v0, :cond_6
+
+    :cond_2
+    move-object v7, v6
+
+    .end local v3    # "endBound":F
+    .end local v6    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v7    # "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v12    # "offset":F
+    .end local v14    # "startBound":F
+    :cond_3
+    return-object v7
+
+    .end local v2    # "N":I
+    .end local v4    # "first":Z
+    .end local v5    # "i":I
+    .end local v8    # "lastOffset":F
+    .end local v9    # "lastPos":I
+    .end local v10    # "lastWidth":F
+    .end local v11    # "marginOffset":F
+    .end local v13    # "scrollOffset":F
+    :cond_4
+    const/4 v13, 0x0
+
+    goto/16 :goto_0
+
+    .restart local v13    # "scrollOffset":F
+    :cond_5
+    const/4 v11, 0x0
 
     goto :goto_1
+
+    .restart local v2    # "N":I
+    .restart local v3    # "endBound":F
+    .restart local v4    # "first":Z
+    .restart local v5    # "i":I
+    .restart local v6    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .restart local v7    # "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .restart local v8    # "lastOffset":F
+    .restart local v9    # "lastPos":I
+    .restart local v10    # "lastWidth":F
+    .restart local v11    # "marginOffset":F
+    .restart local v12    # "offset":F
+    .restart local v14    # "startBound":F
+    :cond_6
+    const/4 v4, 0x0
+
+    iget v9, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+
+    move v8, v12
+
+    iget v10, v6, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+
+    move-object v7, v6
+
+    add-int/lit8 v5, v5, 0x1
+
+    goto :goto_2
 .end method
 
 .method private isGutterDrag(FF)Z
@@ -1723,350 +1875,570 @@
 .end method
 
 .method private pageScrolled(I)Z
-    .locals 10
-    .param p1, "xpos"    # I
+    .locals 11
+    .param p1, "scrollX"    # I
 
     .prologue
-    const/4 v7, 0x0
-
-    iget-object v8, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    invoke-virtual {v8}, Ljava/util/ArrayList;->size()I
-
-    move-result v8
-
-    if-nez v8, :cond_0
-
-    iput-boolean v7, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
-
     const/4 v8, 0x0
 
-    invoke-virtual {p0, v7, v8, v7}, Lcom/android/internal/widget/ViewPager;->onPageScrolled(IFI)V
+    iget-object v9, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
-    iget-boolean v8, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
+    invoke-virtual {v9}, Ljava/util/ArrayList;->size()I
 
-    if-nez v8, :cond_2
+    move-result v9
 
-    new-instance v7, Ljava/lang/IllegalStateException;
+    if-nez v9, :cond_0
 
-    const-string v8, "onPageScrolled did not call superclass implementation"
+    iput-boolean v8, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
 
-    invoke-direct {v7, v8}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+    const/4 v9, 0x0
 
-    throw v7
+    invoke-virtual {p0, v8, v9, v8}, Lcom/android/internal/widget/ViewPager;->onPageScrolled(IFI)V
+
+    iget-boolean v9, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
+
+    if-nez v9, :cond_3
+
+    new-instance v8, Ljava/lang/IllegalStateException;
+
+    const-string v9, "onPageScrolled did not call superclass implementation"
+
+    invoke-direct {v8, v9}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+
+    throw v8
 
     :cond_0
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->infoForCurrentScrollPosition()Lcom/android/internal/widget/ViewPager$ItemInfo;
+    invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
+
+    move-result v9
+
+    if-eqz v9, :cond_1
+
+    const/high16 v9, 0x1000000
+
+    sub-int v5, v9, p1
+
+    .local v5, "scrollStart":I
+    :goto_0
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->infoForFirstVisiblePage()Lcom/android/internal/widget/ViewPager$ItemInfo;
 
     move-result-object v1
 
     .local v1, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
 
-    move-result v5
+    move-result v6
 
-    .local v5, "width":I
-    iget v8, p0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
+    .local v6, "width":I
+    iget v9, p0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
 
-    add-int v6, v5, v8
+    add-int v7, v6, v9
 
-    .local v6, "widthWithMargin":I
-    iget v8, p0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
+    .local v7, "widthWithMargin":I
+    iget v9, p0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
 
-    int-to-float v8, v8
+    int-to-float v9, v9
 
-    int-to-float v9, v5
+    int-to-float v10, v6
 
-    div-float v2, v8, v9
+    div-float v2, v9, v10
 
     .local v2, "marginOffset":F
     iget v0, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
     .local v0, "currentPage":I
-    int-to-float v8, p1
-
     int-to-float v9, v5
 
-    div-float/2addr v8, v9
+    int-to-float v10, v6
 
-    iget v9, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+    div-float/2addr v9, v10
 
-    sub-float/2addr v8, v9
+    iget v10, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
 
-    iget v9, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+    sub-float/2addr v9, v10
 
-    add-float/2addr v9, v2
+    iget v10, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
 
-    div-float v4, v8, v9
+    add-float/2addr v10, v2
+
+    div-float v4, v9, v10
 
     .local v4, "pageOffset":F
-    int-to-float v8, v6
+    int-to-float v9, v7
 
-    mul-float/2addr v8, v4
+    mul-float/2addr v9, v4
 
-    float-to-int v3, v8
+    float-to-int v3, v9
 
     .local v3, "offsetPixels":I
-    iput-boolean v7, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
+    iput-boolean v8, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
 
     invoke-virtual {p0, v0, v4, v3}, Lcom/android/internal/widget/ViewPager;->onPageScrolled(IFI)V
 
-    iget-boolean v7, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
+    iget-boolean v8, p0, Lcom/android/internal/widget/ViewPager;->mCalledSuper:Z
 
-    if-nez v7, :cond_1
+    if-nez v8, :cond_2
 
-    new-instance v7, Ljava/lang/IllegalStateException;
+    new-instance v8, Ljava/lang/IllegalStateException;
 
-    const-string v8, "onPageScrolled did not call superclass implementation"
+    const-string v9, "onPageScrolled did not call superclass implementation"
 
-    invoke-direct {v7, v8}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+    invoke-direct {v8, v9}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
 
-    throw v7
-
-    :cond_1
-    const/4 v7, 0x1
+    throw v8
 
     .end local v0    # "currentPage":I
     .end local v1    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     .end local v2    # "marginOffset":F
     .end local v3    # "offsetPixels":I
     .end local v4    # "pageOffset":F
-    .end local v5    # "width":I
-    .end local v6    # "widthWithMargin":I
+    .end local v5    # "scrollStart":I
+    .end local v6    # "width":I
+    .end local v7    # "widthWithMargin":I
+    :cond_1
+    move v5, p1
+
+    .restart local v5    # "scrollStart":I
+    goto :goto_0
+
+    .restart local v0    # "currentPage":I
+    .restart local v1    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .restart local v2    # "marginOffset":F
+    .restart local v3    # "offsetPixels":I
+    .restart local v4    # "pageOffset":F
+    .restart local v6    # "width":I
+    .restart local v7    # "widthWithMargin":I
     :cond_2
-    return v7
+    const/4 v8, 0x1
+
+    .end local v0    # "currentPage":I
+    .end local v1    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v2    # "marginOffset":F
+    .end local v3    # "offsetPixels":I
+    .end local v4    # "pageOffset":F
+    .end local v5    # "scrollStart":I
+    .end local v6    # "width":I
+    .end local v7    # "widthWithMargin":I
+    :cond_3
+    return v8
 .end method
 
 .method private performDrag(F)Z
-    .locals 17
+    .locals 21
     .param p1, "x"    # F
 
     .prologue
-    const/4 v7, 0x0
+    const/4 v9, 0x0
 
-    .local v7, "needsInvalidate":Z
+    .local v9, "needsInvalidate":Z
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
+
+    move-result v18
+
+    .local v18, "width":I
     move-object/from16 v0, p0
 
-    iget v14, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
 
-    sub-float v2, v14, p1
+    move/from16 v19, v0
 
-    .local v2, "deltaX":F
+    sub-float v4, v19, p1
+
+    .local v4, "deltaX":F
     move/from16 v0, p1
 
     move-object/from16 v1, p0
 
     iput v0, v1, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
 
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
+
+    move-result v19
+
+    if-eqz v19, :cond_1
+
+    move-object/from16 v0, p0
+
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mRightEdge:Landroid/widget/EdgeEffect;
+
+    .local v15, "startEdge":Landroid/widget/EdgeEffect;
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Lcom/android/internal/widget/ViewPager;->mLeftEdge:Landroid/widget/EdgeEffect;
+
+    .local v7, "endEdge":Landroid/widget/EdgeEffect;
+    :goto_0
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollX()I
 
-    move-result v14
+    move-result v19
 
-    int-to-float v8, v14
+    move/from16 v0, v19
 
-    .local v8, "oldScrollX":F
-    add-float v12, v8, v2
+    int-to-float v0, v0
 
-    .local v12, "scrollX":F
-    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    move/from16 v19, v0
 
-    move-result v13
+    add-float v10, v19, v4
 
-    .local v13, "width":I
-    int-to-float v14, v13
+    .local v10, "nextScrollX":F
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
+
+    move-result v19
+
+    if-eqz v19, :cond_2
+
+    const/high16 v19, 0x4b800000    # 1.6777216E7f
+
+    sub-float v12, v19, v10
+
+    .local v12, "scrollStart":F
+    :goto_1
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+
+    move-object/from16 v19, v0
+
+    const/16 v20, 0x0
+
+    invoke-virtual/range {v19 .. v20}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v16
+
+    check-cast v16, Lcom/android/internal/widget/ViewPager$ItemInfo;
+
+    .local v16, "startItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    move-object/from16 v0, v16
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+
+    move/from16 v19, v0
+
+    if-nez v19, :cond_3
+
+    const/4 v13, 0x1
+
+    .local v13, "startAbsolute":Z
+    :goto_2
+    if-eqz v13, :cond_4
+
+    move-object/from16 v0, v16
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+
+    move/from16 v19, v0
+
+    move/from16 v0, v18
+
+    int-to-float v0, v0
+
+    move/from16 v20, v0
+
+    mul-float v14, v19, v20
+
+    .local v14, "startBound":F
+    :goto_3
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+
+    move-object/from16 v19, v0
 
     move-object/from16 v0, p0
 
-    iget v15, v0, Lcom/android/internal/widget/ViewPager;->mFirstOffset:F
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
-    mul-float v6, v14, v15
+    move-object/from16 v20, v0
 
-    .local v6, "leftBound":F
-    int-to-float v14, v13
+    invoke-virtual/range {v20 .. v20}, Ljava/util/ArrayList;->size()I
+
+    move-result v20
+
+    add-int/lit8 v20, v20, -0x1
+
+    invoke-virtual/range {v19 .. v20}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v8
+
+    check-cast v8, Lcom/android/internal/widget/ViewPager$ItemInfo;
+
+    .local v8, "endItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    iget v0, v8, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+
+    move/from16 v19, v0
 
     move-object/from16 v0, p0
 
-    iget v15, v0, Lcom/android/internal/widget/ViewPager;->mLastOffset:F
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
 
-    mul-float v11, v14, v15
+    move-object/from16 v20, v0
 
-    .local v11, "rightBound":F
+    invoke-virtual/range {v20 .. v20}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
+
+    move-result v20
+
+    add-int/lit8 v20, v20, -0x1
+
+    move/from16 v0, v19
+
+    move/from16 v1, v20
+
+    if-ne v0, v1, :cond_5
+
     const/4 v5, 0x1
 
-    .local v5, "leftAbsolute":Z
-    const/4 v10, 0x1
+    .local v5, "endAbsolute":Z
+    :goto_4
+    if-eqz v5, :cond_6
 
-    .local v10, "rightAbsolute":Z
-    move-object/from16 v0, p0
+    iget v0, v8, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
 
-    iget-object v14, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    move/from16 v19, v0
 
-    const/4 v15, 0x0
+    move/from16 v0, v18
 
-    invoke-virtual {v14, v15}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    int-to-float v0, v0
 
-    move-result-object v3
+    move/from16 v20, v0
 
-    check-cast v3, Lcom/android/internal/widget/ViewPager$ItemInfo;
+    mul-float v6, v19, v20
 
-    .local v3, "firstItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    move-object/from16 v0, p0
+    .local v6, "endBound":F
+    :goto_5
+    cmpg-float v19, v12, v14
 
-    iget-object v14, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    if-gez v19, :cond_7
 
-    move-object/from16 v0, p0
+    if-eqz v13, :cond_0
 
-    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    sub-float v11, v14, v12
 
-    invoke-virtual {v15}, Ljava/util/ArrayList;->size()I
+    .local v11, "over":F
+    invoke-static {v11}, Ljava/lang/Math;->abs(F)F
 
-    move-result v15
+    move-result v19
 
-    add-int/lit8 v15, v15, -0x1
+    move/from16 v0, v18
 
-    invoke-virtual {v14, v15}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    int-to-float v0, v0
 
-    move-result-object v4
+    move/from16 v20, v0
 
-    check-cast v4, Lcom/android/internal/widget/ViewPager$ItemInfo;
+    div-float v19, v19, v20
 
-    .local v4, "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    iget v14, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+    move/from16 v0, v19
 
-    if-eqz v14, :cond_0
+    invoke-virtual {v15, v0}, Landroid/widget/EdgeEffect;->onPull(F)V
 
-    const/4 v5, 0x0
+    const/4 v9, 0x1
 
-    iget v14, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    int-to-float v15, v13
-
-    mul-float v6, v14, v15
-
+    .end local v11    # "over":F
     :cond_0
-    iget v14, v4, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+    move v3, v14
 
+    .local v3, "clampedScrollStart":F
+    :goto_6
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
+
+    move-result v19
+
+    if-eqz v19, :cond_a
+
+    const/high16 v19, 0x4b800000    # 1.6777216E7f
+
+    sub-float v17, v19, v3
+
+    .local v17, "targetScrollX":F
+    :goto_7
     move-object/from16 v0, p0
 
-    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
 
-    invoke-virtual {v15}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
+    move/from16 v19, v0
 
-    move-result v15
+    move/from16 v0, v17
 
-    add-int/lit8 v15, v15, -0x1
+    float-to-int v0, v0
 
-    if-eq v14, v15, :cond_1
+    move/from16 v20, v0
 
-    const/4 v10, 0x0
+    move/from16 v0, v20
 
-    iget v14, v4, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+    int-to-float v0, v0
 
-    int-to-float v15, v13
+    move/from16 v20, v0
 
-    mul-float v11, v14, v15
+    sub-float v20, v17, v20
 
-    :cond_1
-    cmpg-float v14, v12, v6
+    add-float v19, v19, v20
 
-    if-gez v14, :cond_4
+    move/from16 v0, v19
 
-    if-eqz v5, :cond_2
+    move-object/from16 v1, p0
 
-    sub-float v9, v6, v12
+    iput v0, v1, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
 
-    .local v9, "over":F
-    move-object/from16 v0, p0
+    move/from16 v0, v17
 
-    iget-object v14, v0, Lcom/android/internal/widget/ViewPager;->mLeftEdge:Landroid/widget/EdgeEffect;
+    float-to-int v0, v0
 
-    invoke-static {v9}, Ljava/lang/Math;->abs(F)F
-
-    move-result v15
-
-    int-to-float v0, v13
-
-    move/from16 v16, v0
-
-    div-float v15, v15, v16
-
-    invoke-virtual {v14, v15}, Landroid/widget/EdgeEffect;->onPull(F)V
-
-    const/4 v7, 0x1
-
-    .end local v9    # "over":F
-    :cond_2
-    move v12, v6
-
-    :cond_3
-    :goto_0
-    move-object/from16 v0, p0
-
-    iget v14, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    float-to-int v15, v12
-
-    int-to-float v15, v15
-
-    sub-float v15, v12, v15
-
-    add-float/2addr v14, v15
-
-    move-object/from16 v0, p0
-
-    iput v14, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    float-to-int v14, v12
+    move/from16 v19, v0
 
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollY()I
 
-    move-result v15
+    move-result v20
 
     move-object/from16 v0, p0
 
-    invoke-virtual {v0, v14, v15}, Lcom/android/internal/widget/ViewPager;->scrollTo(II)V
+    move/from16 v1, v19
 
-    float-to-int v14, v12
+    move/from16 v2, v20
+
+    invoke-virtual {v0, v1, v2}, Lcom/android/internal/widget/ViewPager;->scrollTo(II)V
+
+    move/from16 v0, v17
+
+    float-to-int v0, v0
+
+    move/from16 v19, v0
 
     move-object/from16 v0, p0
 
-    invoke-direct {v0, v14}, Lcom/android/internal/widget/ViewPager;->pageScrolled(I)Z
+    move/from16 v1, v19
 
-    return v7
+    invoke-direct {v0, v1}, Lcom/android/internal/widget/ViewPager;->pageScrolled(I)Z
 
+    return v9
+
+    .end local v3    # "clampedScrollStart":F
+    .end local v5    # "endAbsolute":Z
+    .end local v6    # "endBound":F
+    .end local v7    # "endEdge":Landroid/widget/EdgeEffect;
+    .end local v8    # "endItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v10    # "nextScrollX":F
+    .end local v12    # "scrollStart":F
+    .end local v13    # "startAbsolute":Z
+    .end local v14    # "startBound":F
+    .end local v15    # "startEdge":Landroid/widget/EdgeEffect;
+    .end local v16    # "startItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v17    # "targetScrollX":F
+    :cond_1
+    move-object/from16 v0, p0
+
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mLeftEdge:Landroid/widget/EdgeEffect;
+
+    .restart local v15    # "startEdge":Landroid/widget/EdgeEffect;
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Lcom/android/internal/widget/ViewPager;->mRightEdge:Landroid/widget/EdgeEffect;
+
+    .restart local v7    # "endEdge":Landroid/widget/EdgeEffect;
+    goto/16 :goto_0
+
+    .restart local v10    # "nextScrollX":F
+    :cond_2
+    move v12, v10
+
+    .restart local v12    # "scrollStart":F
+    goto/16 :goto_1
+
+    .restart local v16    # "startItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    :cond_3
+    const/4 v13, 0x0
+
+    goto/16 :goto_2
+
+    .restart local v13    # "startAbsolute":Z
     :cond_4
-    cmpl-float v14, v12, v11
+    move/from16 v0, v18
 
-    if-lez v14, :cond_3
+    int-to-float v0, v0
 
-    if-eqz v10, :cond_5
+    move/from16 v19, v0
 
-    sub-float v9, v12, v11
-
-    .restart local v9    # "over":F
     move-object/from16 v0, p0
 
-    iget-object v14, v0, Lcom/android/internal/widget/ViewPager;->mRightEdge:Landroid/widget/EdgeEffect;
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mFirstOffset:F
 
-    invoke-static {v9}, Ljava/lang/Math;->abs(F)F
+    move/from16 v20, v0
 
-    move-result v15
+    mul-float v14, v19, v20
 
-    int-to-float v0, v13
+    .restart local v14    # "startBound":F
+    goto/16 :goto_3
 
-    move/from16 v16, v0
-
-    div-float v15, v15, v16
-
-    invoke-virtual {v14, v15}, Landroid/widget/EdgeEffect;->onPull(F)V
-
-    const/4 v7, 0x1
-
-    .end local v9    # "over":F
+    .restart local v8    # "endItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
     :cond_5
-    move v12, v11
+    const/4 v5, 0x0
 
-    goto :goto_0
+    goto/16 :goto_4
+
+    .restart local v5    # "endAbsolute":Z
+    :cond_6
+    move/from16 v0, v18
+
+    int-to-float v0, v0
+
+    move/from16 v19, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mLastOffset:F
+
+    move/from16 v20, v0
+
+    mul-float v6, v19, v20
+
+    .restart local v6    # "endBound":F
+    goto/16 :goto_5
+
+    :cond_7
+    cmpl-float v19, v12, v6
+
+    if-lez v19, :cond_9
+
+    if-eqz v5, :cond_8
+
+    sub-float v11, v12, v6
+
+    .restart local v11    # "over":F
+    invoke-static {v11}, Ljava/lang/Math;->abs(F)F
+
+    move-result v19
+
+    move/from16 v0, v18
+
+    int-to-float v0, v0
+
+    move/from16 v20, v0
+
+    div-float v19, v19, v20
+
+    move/from16 v0, v19
+
+    invoke-virtual {v7, v0}, Landroid/widget/EdgeEffect;->onPull(F)V
+
+    const/4 v9, 0x1
+
+    .end local v11    # "over":F
+    :cond_8
+    move v3, v6
+
+    .restart local v3    # "clampedScrollStart":F
+    goto/16 :goto_6
+
+    .end local v3    # "clampedScrollStart":F
+    :cond_9
+    move v3, v12
+
+    .restart local v3    # "clampedScrollStart":F
+    goto/16 :goto_6
+
+    :cond_a
+    move/from16 v17, v3
+
+    .restart local v17    # "targetScrollX":F
+    goto/16 :goto_7
 .end method
 
 .method private recomputeScrollPosition(IIII)V
@@ -2328,109 +2700,77 @@
 .end method
 
 .method private scrollToItem(IZIZ)V
-    .locals 8
-    .param p1, "item"    # I
+    .locals 3
+    .param p1, "position"    # I
     .param p2, "smoothScroll"    # Z
     .param p3, "velocity"    # I
     .param p4, "dispatchSelected"    # Z
 
     .prologue
-    const/4 v7, 0x0
+    const/4 v2, 0x0
 
-    invoke-virtual {p0, p1}, Lcom/android/internal/widget/ViewPager;->infoForPosition(I)Lcom/android/internal/widget/ViewPager$ItemInfo;
+    invoke-direct {p0, p1}, Lcom/android/internal/widget/ViewPager;->getLeftEdgeForItem(I)I
 
-    move-result-object v0
+    move-result v0
 
-    .local v0, "curInfo":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    const/4 v1, 0x0
+    .local v0, "destX":I
+    if-eqz p2, :cond_2
 
-    .local v1, "destX":I
-    if-eqz v0, :cond_0
+    invoke-virtual {p0, v0, v2, p3}, Lcom/android/internal/widget/ViewPager;->smoothScrollTo(III)V
 
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    if-eqz p4, :cond_0
 
-    move-result v2
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
-    .local v2, "width":I
-    int-to-float v3, v2
+    if-eqz v1, :cond_0
 
-    iget v4, p0, Lcom/android/internal/widget/ViewPager;->mFirstOffset:F
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
-    iget v5, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+    invoke-interface {v1, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
 
-    iget v6, p0, Lcom/android/internal/widget/ViewPager;->mLastOffset:F
-
-    invoke-static {v5, v6}, Ljava/lang/Math;->min(FF)F
-
-    move-result v5
-
-    invoke-static {v4, v5}, Ljava/lang/Math;->max(FF)F
-
-    move-result v4
-
-    mul-float/2addr v3, v4
-
-    float-to-int v1, v3
-
-    .end local v2    # "width":I
     :cond_0
-    if-eqz p2, :cond_3
-
-    invoke-virtual {p0, v1, v7, p3}, Lcom/android/internal/widget/ViewPager;->smoothScrollTo(III)V
-
     if-eqz p4, :cond_1
 
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
-    if-eqz v3, :cond_1
+    if-eqz v1, :cond_1
 
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
-    invoke-interface {v3, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
+    invoke-interface {v1, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
 
     :cond_1
-    if-eqz p4, :cond_2
-
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
-
-    if-eqz v3, :cond_2
-
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
-
-    invoke-interface {v3, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
-
-    :cond_2
     :goto_0
     return-void
+
+    :cond_2
+    if-eqz p4, :cond_3
+
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+
+    if-eqz v1, :cond_3
+
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+
+    invoke-interface {v1, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
 
     :cond_3
     if-eqz p4, :cond_4
 
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
-    if-eqz v3, :cond_4
+    if-eqz v1, :cond_4
 
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
-    invoke-interface {v3, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
+    invoke-interface {v1, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
 
     :cond_4
-    if-eqz p4, :cond_5
+    invoke-direct {p0, v2}, Lcom/android/internal/widget/ViewPager;->completeScroll(Z)V
 
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+    invoke-virtual {p0, v0, v2}, Lcom/android/internal/widget/ViewPager;->scrollTo(II)V
 
-    if-eqz v3, :cond_5
-
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
-
-    invoke-interface {v3, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
-
-    :cond_5
-    invoke-direct {p0, v7}, Lcom/android/internal/widget/ViewPager;->completeScroll(Z)V
-
-    invoke-virtual {p0, v1, v7}, Lcom/android/internal/widget/ViewPager;->scrollTo(II)V
-
-    invoke-direct {p0, v1}, Lcom/android/internal/widget/ViewPager;->pageScrolled(I)Z
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/ViewPager;->pageScrolled(I)Z
 
     goto :goto_0
 .end method
@@ -3143,81 +3483,6 @@
     goto/16 :goto_1
 .end method
 
-.method public beginFakeDrag()Z
-    .locals 10
-
-    .prologue
-    const/4 v9, 0x1
-
-    const/4 v4, 0x0
-
-    const/4 v5, 0x0
-
-    iget-boolean v2, p0, Lcom/android/internal/widget/ViewPager;->mIsBeingDragged:Z
-
-    if-eqz v2, :cond_0
-
-    :goto_0
-    return v4
-
-    :cond_0
-    iput-boolean v9, p0, Lcom/android/internal/widget/ViewPager;->mFakeDragging:Z
-
-    invoke-direct {p0, v9}, Lcom/android/internal/widget/ViewPager;->setScrollState(I)V
-
-    iput v5, p0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    iput v5, p0, Lcom/android/internal/widget/ViewPager;->mInitialMotionX:F
-
-    iget-object v2, p0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
-
-    if-nez v2, :cond_1
-
-    invoke-static {}, Landroid/view/VelocityTracker;->obtain()Landroid/view/VelocityTracker;
-
-    move-result-object v2
-
-    iput-object v2, p0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
-
-    :goto_1
-    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
-
-    move-result-wide v0
-
-    .local v0, "time":J
-    move-wide v2, v0
-
-    move v6, v5
-
-    move v7, v4
-
-    invoke-static/range {v0 .. v7}, Landroid/view/MotionEvent;->obtain(JJIFFI)Landroid/view/MotionEvent;
-
-    move-result-object v8
-
-    .local v8, "ev":Landroid/view/MotionEvent;
-    iget-object v2, p0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
-
-    invoke-virtual {v2, v8}, Landroid/view/VelocityTracker;->addMovement(Landroid/view/MotionEvent;)V
-
-    invoke-virtual {v8}, Landroid/view/MotionEvent;->recycle()V
-
-    iput-wide v0, p0, Lcom/android/internal/widget/ViewPager;->mFakeDragBeginTime:J
-
-    move v4, v9
-
-    goto :goto_0
-
-    .end local v0    # "time":J
-    .end local v8    # "ev":Landroid/view/MotionEvent;
-    :cond_1
-    iget-object v2, p0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
-
-    invoke-virtual {v2}, Landroid/view/VelocityTracker;->clear()V
-
-    goto :goto_1
-.end method
-
 .method protected canScroll(Landroid/view/View;ZIII)Z
     .locals 11
     .param p1, "v"    # Landroid/view/View;
@@ -3389,7 +3654,7 @@
     return v3
 
     :cond_1
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
 
     move-result v1
 
@@ -3788,7 +4053,7 @@
     .end local v1    # "child":Landroid/view/View;
     .end local v6    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
     :cond_9
-    invoke-virtual {p0, v8, v11, v10}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)V
+    invoke-virtual {p0, v8, v11, v10}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)Z
 
     invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->requestLayout()V
 
@@ -3822,85 +4087,6 @@
 
     :cond_1
     const/4 v0, 0x0
-
-    goto :goto_0
-.end method
-
-.method public dispatchPopulateAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)Z
-    .locals 6
-    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
-
-    .prologue
-    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityEvent;->getEventType()I
-
-    move-result v4
-
-    const/16 v5, 0x1000
-
-    if-ne v4, v5, :cond_0
-
-    invoke-super {p0, p1}, Landroid/view/ViewGroup;->dispatchPopulateAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)Z
-
-    move-result v4
-
-    :goto_0
-    return v4
-
-    :cond_0
-    invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->getChildCount()I
-
-    move-result v1
-
-    .local v1, "childCount":I
-    const/4 v2, 0x0
-
-    .local v2, "i":I
-    :goto_1
-    if-ge v2, v1, :cond_2
-
-    invoke-virtual {p0, v2}, Lcom/android/internal/widget/ViewPager;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .local v0, "child":Landroid/view/View;
-    invoke-virtual {v0}, Landroid/view/View;->getVisibility()I
-
-    move-result v4
-
-    if-nez v4, :cond_1
-
-    invoke-virtual {p0, v0}, Lcom/android/internal/widget/ViewPager;->infoForChild(Landroid/view/View;)Lcom/android/internal/widget/ViewPager$ItemInfo;
-
-    move-result-object v3
-
-    .local v3, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    if-eqz v3, :cond_1
-
-    iget v4, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
-
-    iget v5, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
-
-    if-ne v4, v5, :cond_1
-
-    invoke-virtual {v0, p1}, Landroid/view/View;->dispatchPopulateAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)Z
-
-    move-result v4
-
-    if-eqz v4, :cond_1
-
-    const/4 v4, 0x1
-
-    goto :goto_0
-
-    .end local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    :cond_1
-    add-int/lit8 v2, v2, 0x1
-
-    goto :goto_1
-
-    .end local v0    # "child":Landroid/view/View;
-    :cond_2
-    const/4 v4, 0x0
 
     goto :goto_0
 .end method
@@ -4168,105 +4354,6 @@
     return-void
 .end method
 
-.method public endFakeDrag()V
-    .locals 12
-
-    .prologue
-    const/4 v11, 0x1
-
-    iget-boolean v9, p0, Lcom/android/internal/widget/ViewPager;->mFakeDragging:Z
-
-    if-nez v9, :cond_0
-
-    new-instance v9, Ljava/lang/IllegalStateException;
-
-    const-string v10, "No fake drag in progress. Call beginFakeDrag first."
-
-    invoke-direct {v9, v10}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
-
-    throw v9
-
-    :cond_0
-    iget-object v7, p0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
-
-    .local v7, "velocityTracker":Landroid/view/VelocityTracker;
-    const/16 v9, 0x3e8
-
-    iget v10, p0, Lcom/android/internal/widget/ViewPager;->mMaximumVelocity:I
-
-    int-to-float v10, v10
-
-    invoke-virtual {v7, v9, v10}, Landroid/view/VelocityTracker;->computeCurrentVelocity(IF)V
-
-    iget v9, p0, Lcom/android/internal/widget/ViewPager;->mActivePointerId:I
-
-    invoke-virtual {v7, v9}, Landroid/view/VelocityTracker;->getXVelocity(I)F
-
-    move-result v9
-
-    float-to-int v2, v9
-
-    .local v2, "initialVelocity":I
-    iput-boolean v11, p0, Lcom/android/internal/widget/ViewPager;->mPopulatePending:Z
-
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
-
-    move-result v8
-
-    .local v8, "width":I
-    invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->getScrollX()I
-
-    move-result v5
-
-    .local v5, "scrollX":I
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->infoForCurrentScrollPosition()Lcom/android/internal/widget/ViewPager$ItemInfo;
-
-    move-result-object v1
-
-    .local v1, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    iget v0, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
-
-    .local v0, "currentPage":I
-    int-to-float v9, v5
-
-    int-to-float v10, v8
-
-    div-float/2addr v9, v10
-
-    iget v10, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    sub-float/2addr v9, v10
-
-    iget v10, v1, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
-
-    div-float v4, v9, v10
-
-    .local v4, "pageOffset":F
-    iget v9, p0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    iget v10, p0, Lcom/android/internal/widget/ViewPager;->mInitialMotionX:F
-
-    sub-float/2addr v9, v10
-
-    float-to-int v6, v9
-
-    .local v6, "totalDelta":I
-    invoke-direct {p0, v0, v4, v2, v6}, Lcom/android/internal/widget/ViewPager;->determineTargetPage(IFII)I
-
-    move-result v3
-
-    .local v3, "nextPage":I
-    invoke-virtual {p0, v3, v11, v11, v2}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZI)V
-
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->endDrag()V
-
-    const/4 v9, 0x0
-
-    iput-boolean v9, p0, Lcom/android/internal/widget/ViewPager;->mFakeDragging:Z
-
-    return-void
-.end method
-
 .method public executeKeyEvent(Landroid/view/KeyEvent;)Z
     .locals 3
     .param p1, "event"    # Landroid/view/KeyEvent;
@@ -4347,235 +4434,6 @@
         0x16 -> :sswitch_1
         0x3d -> :sswitch_2
     .end sparse-switch
-.end method
-
-.method public fakeDragBy(F)V
-    .locals 18
-    .param p1, "xOffset"    # F
-
-    .prologue
-    move-object/from16 v0, p0
-
-    iget-boolean v2, v0, Lcom/android/internal/widget/ViewPager;->mFakeDragging:Z
-
-    if-nez v2, :cond_0
-
-    new-instance v2, Ljava/lang/IllegalStateException;
-
-    const-string v3, "No fake drag in progress. Call beginFakeDrag first."
-
-    invoke-direct {v2, v3}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
-
-    throw v2
-
-    :cond_0
-    move-object/from16 v0, p0
-
-    iget v2, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    add-float v2, v2, p1
-
-    move-object/from16 v0, p0
-
-    iput v2, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollX()I
-
-    move-result v2
-
-    int-to-float v14, v2
-
-    .local v14, "oldScrollX":F
-    sub-float v16, v14, p1
-
-    .local v16, "scrollX":F
-    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
-
-    move-result v17
-
-    .local v17, "width":I
-    move/from16 v0, v17
-
-    int-to-float v2, v0
-
-    move-object/from16 v0, p0
-
-    iget v3, v0, Lcom/android/internal/widget/ViewPager;->mFirstOffset:F
-
-    mul-float v13, v2, v3
-
-    .local v13, "leftBound":F
-    move/from16 v0, v17
-
-    int-to-float v2, v0
-
-    move-object/from16 v0, p0
-
-    iget v3, v0, Lcom/android/internal/widget/ViewPager;->mLastOffset:F
-
-    mul-float v15, v2, v3
-
-    .local v15, "rightBound":F
-    move-object/from16 v0, p0
-
-    iget-object v2, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    const/4 v3, 0x0
-
-    invoke-virtual {v2, v3}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v11
-
-    check-cast v11, Lcom/android/internal/widget/ViewPager$ItemInfo;
-
-    .local v11, "firstItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    move-object/from16 v0, p0
-
-    iget-object v2, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
-
-    invoke-virtual {v3}, Ljava/util/ArrayList;->size()I
-
-    move-result v3
-
-    add-int/lit8 v3, v3, -0x1
-
-    invoke-virtual {v2, v3}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v12
-
-    check-cast v12, Lcom/android/internal/widget/ViewPager$ItemInfo;
-
-    .local v12, "lastItem":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    iget v2, v11, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
-
-    if-eqz v2, :cond_1
-
-    iget v2, v11, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    move/from16 v0, v17
-
-    int-to-float v3, v0
-
-    mul-float v13, v2, v3
-
-    :cond_1
-    iget v2, v12, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
-
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    invoke-virtual {v3}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
-
-    move-result v3
-
-    add-int/lit8 v3, v3, -0x1
-
-    if-eq v2, v3, :cond_2
-
-    iget v2, v12, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    move/from16 v0, v17
-
-    int-to-float v3, v0
-
-    mul-float v15, v2, v3
-
-    :cond_2
-    cmpg-float v2, v16, v13
-
-    if-gez v2, :cond_4
-
-    move/from16 v16, v13
-
-    :cond_3
-    :goto_0
-    move-object/from16 v0, p0
-
-    iget v2, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    move/from16 v0, v16
-
-    float-to-int v3, v0
-
-    int-to-float v3, v3
-
-    sub-float v3, v16, v3
-
-    add-float/2addr v2, v3
-
-    move-object/from16 v0, p0
-
-    iput v2, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    move/from16 v0, v16
-
-    float-to-int v2, v0
-
-    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollY()I
-
-    move-result v3
-
-    move-object/from16 v0, p0
-
-    invoke-virtual {v0, v2, v3}, Lcom/android/internal/widget/ViewPager;->scrollTo(II)V
-
-    move/from16 v0, v16
-
-    float-to-int v2, v0
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0, v2}, Lcom/android/internal/widget/ViewPager;->pageScrolled(I)Z
-
-    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
-
-    move-result-wide v4
-
-    .local v4, "time":J
-    move-object/from16 v0, p0
-
-    iget-wide v2, v0, Lcom/android/internal/widget/ViewPager;->mFakeDragBeginTime:J
-
-    const/4 v6, 0x2
-
-    move-object/from16 v0, p0
-
-    iget v7, v0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
-
-    const/4 v8, 0x0
-
-    const/4 v9, 0x0
-
-    invoke-static/range {v2 .. v9}, Landroid/view/MotionEvent;->obtain(JJIFFI)Landroid/view/MotionEvent;
-
-    move-result-object v10
-
-    .local v10, "ev":Landroid/view/MotionEvent;
-    move-object/from16 v0, p0
-
-    iget-object v2, v0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
-
-    invoke-virtual {v2, v10}, Landroid/view/VelocityTracker;->addMovement(Landroid/view/MotionEvent;)V
-
-    invoke-virtual {v10}, Landroid/view/MotionEvent;->recycle()V
-
-    return-void
-
-    .end local v4    # "time":J
-    .end local v10    # "ev":Landroid/view/MotionEvent;
-    :cond_4
-    cmpl-float v2, v16, v15
-
-    if-lez v2, :cond_3
-
-    move/from16 v16, v15
-
-    goto :goto_0
 .end method
 
 .method protected generateDefaultLayoutParams()Landroid/view/ViewGroup$LayoutParams;
@@ -4838,15 +4696,6 @@
     goto :goto_1
 .end method
 
-.method public isFakeDragging()Z
-    .locals 1
-
-    .prologue
-    iget-boolean v0, p0, Lcom/android/internal/widget/ViewPager;->mFakeDragging:Z
-
-    return v0
-.end method
-
 .method protected onAttachedToWindow()V
     .locals 1
 
@@ -4874,7 +4723,7 @@
 .end method
 
 .method protected onDraw(Landroid/graphics/Canvas;)V
-    .locals 18
+    .locals 20
     .param p1, "canvas"    # Landroid/graphics/Canvas;
 
     .prologue
@@ -4882,278 +4731,402 @@
 
     move-object/from16 v0, p0
 
-    iget v13, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
+    iget v15, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
 
-    if-lez v13, :cond_2
-
-    move-object/from16 v0, p0
-
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mMarginDrawable:Landroid/graphics/drawable/Drawable;
-
-    if-eqz v13, :cond_2
+    if-lez v15, :cond_2
 
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mMarginDrawable:Landroid/graphics/drawable/Drawable;
 
-    invoke-virtual {v13}, Ljava/util/ArrayList;->size()I
-
-    move-result v13
-
-    if-lez v13, :cond_2
+    if-eqz v15, :cond_2
 
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
-    if-eqz v13, :cond_2
+    invoke-virtual {v15}, Ljava/util/ArrayList;->size()I
+
+    move-result v15
+
+    if-lez v15, :cond_2
+
+    move-object/from16 v0, p0
+
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    if-eqz v15, :cond_2
 
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollX()I
 
-    move-result v10
+    move-result v12
 
-    .local v10, "scrollX":I
+    .local v12, "scrollX":I
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getWidth()I
 
-    move-result v11
+    move-result v13
 
-    .local v11, "width":I
+    .local v13, "width":I
     move-object/from16 v0, p0
 
-    iget v13, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
+    iget v15, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
 
-    int-to-float v13, v13
+    int-to-float v15, v15
 
-    int-to-float v14, v11
+    int-to-float v0, v13
 
-    div-float v7, v13, v14
+    move/from16 v16, v0
 
-    .local v7, "marginOffset":F
-    const/4 v5, 0x0
+    div-float v8, v15, v16
 
-    .local v5, "itemIndex":I
+    .local v8, "marginOffset":F
+    const/4 v4, 0x0
+
+    .local v4, "itemIndex":I
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
-    const/4 v14, 0x0
+    const/16 v16, 0x0
 
-    invoke-virtual {v13, v14}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    invoke-virtual/range {v15 .. v16}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    move-result-object v3
+    move-result-object v2
 
-    check-cast v3, Lcom/android/internal/widget/ViewPager$ItemInfo;
+    check-cast v2, Lcom/android/internal/widget/ViewPager$ItemInfo;
 
-    .local v3, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    iget v8, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+    .local v2, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    iget v9, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
 
-    .local v8, "offset":F
+    .local v9, "offset":F
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
-    invoke-virtual {v13}, Ljava/util/ArrayList;->size()I
+    invoke-virtual {v15}, Ljava/util/ArrayList;->size()I
 
-    move-result v4
+    move-result v3
 
-    .local v4, "itemCount":I
-    iget v2, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+    .local v3, "itemCount":I
+    iget v1, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
-    .local v2, "firstPos":I
+    .local v1, "firstPos":I
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
-    add-int/lit8 v14, v4, -0x1
+    add-int/lit8 v16, v3, -0x1
 
-    invoke-virtual {v13, v14}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    invoke-virtual/range {v15 .. v16}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    move-result-object v13
+    move-result-object v15
 
-    check-cast v13, Lcom/android/internal/widget/ViewPager$ItemInfo;
+    check-cast v15, Lcom/android/internal/widget/ViewPager$ItemInfo;
 
-    iget v6, v13, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+    iget v6, v15, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
     .local v6, "lastPos":I
-    move v9, v2
+    move v10, v1
 
-    .local v9, "pos":I
+    .local v10, "pos":I
     :goto_0
-    if-ge v9, v6, :cond_2
+    if-ge v10, v6, :cond_2
 
     :goto_1
-    iget v13, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+    iget v15, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
-    if-le v9, v13, :cond_0
+    if-le v10, v15, :cond_0
 
-    if-ge v5, v4, :cond_0
+    if-ge v4, v3, :cond_0
 
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
-    add-int/lit8 v5, v5, 0x1
+    add-int/lit8 v4, v4, 0x1
 
-    invoke-virtual {v13, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    invoke-virtual {v15, v4}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    move-result-object v3
+    move-result-object v2
 
-    .end local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    check-cast v3, Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v2    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    check-cast v2, Lcom/android/internal/widget/ViewPager$ItemInfo;
 
-    .restart local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .restart local v2    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     goto :goto_1
 
     :cond_0
-    iget v13, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+    iget v15, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
-    if-ne v9, v13, :cond_3
+    if-ne v10, v15, :cond_3
 
-    iget v13, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+    iget v5, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
 
-    iget v14, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+    .local v5, "itemOffset":F
+    iget v14, v2, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
 
-    add-float/2addr v13, v14
-
-    int-to-float v14, v11
-
-    mul-float v1, v13, v14
-
-    .local v1, "drawAt":F
-    iget v13, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    iget v14, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
-
-    add-float/2addr v13, v14
-
-    add-float v8, v13, v7
-
+    .local v14, "widthFactor":F
     :goto_2
+    int-to-float v15, v13
+
+    mul-float v11, v5, v15
+
+    .local v11, "scaledOffset":F
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
+
+    move-result v15
+
+    if-eqz v15, :cond_4
+
+    const/high16 v15, 0x4b800000    # 1.6777216E7f
+
+    sub-float v7, v15, v11
+
+    .local v7, "left":F
+    :goto_3
+    add-float v15, v5, v14
+
+    add-float v9, v15, v8
+
     move-object/from16 v0, p0
 
-    iget v13, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
+    iget v15, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
 
-    int-to-float v13, v13
+    int-to-float v15, v15
 
-    add-float/2addr v13, v1
+    add-float/2addr v15, v7
 
-    int-to-float v14, v10
+    int-to-float v0, v12
 
-    cmpl-float v13, v13, v14
+    move/from16 v16, v0
 
-    if-lez v13, :cond_1
+    cmpl-float v15, v15, v16
 
-    move-object/from16 v0, p0
-
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mMarginDrawable:Landroid/graphics/drawable/Drawable;
-
-    float-to-int v14, v1
+    if-lez v15, :cond_1
 
     move-object/from16 v0, p0
 
-    iget v15, v0, Lcom/android/internal/widget/ViewPager;->mTopPageBounds:I
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mMarginDrawable:Landroid/graphics/drawable/Drawable;
+
+    float-to-int v0, v7
+
+    move/from16 v16, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mTopPageBounds:I
+
+    move/from16 v17, v0
 
     move-object/from16 v0, p0
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager;->mPageMargin:I
 
-    move/from16 v16, v0
+    move/from16 v18, v0
 
-    move/from16 v0, v16
+    move/from16 v0, v18
 
     int-to-float v0, v0
 
-    move/from16 v16, v0
+    move/from16 v18, v0
 
-    add-float v16, v16, v1
+    add-float v18, v18, v7
 
-    const/high16 v17, 0x3f000000    # 0.5f
+    const/high16 v19, 0x3f000000    # 0.5f
 
-    add-float v16, v16, v17
+    add-float v18, v18, v19
 
-    move/from16 v0, v16
+    move/from16 v0, v18
 
     float-to-int v0, v0
 
-    move/from16 v16, v0
+    move/from16 v18, v0
 
     move-object/from16 v0, p0
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager;->mBottomPageBounds:I
 
-    move/from16 v17, v0
+    move/from16 v19, v0
 
-    invoke-virtual/range {v13 .. v17}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
+    invoke-virtual/range {v15 .. v19}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mMarginDrawable:Landroid/graphics/drawable/Drawable;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mMarginDrawable:Landroid/graphics/drawable/Drawable;
 
     move-object/from16 v0, p1
 
-    invoke-virtual {v13, v0}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
+    invoke-virtual {v15, v0}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
 
     :cond_1
-    add-int v13, v10, v11
+    add-int v15, v12, v13
 
-    int-to-float v13, v13
+    int-to-float v15, v15
 
-    cmpl-float v13, v1, v13
+    cmpl-float v15, v7, v15
 
-    if-lez v13, :cond_4
+    if-lez v15, :cond_5
 
-    .end local v1    # "drawAt":F
-    .end local v2    # "firstPos":I
-    .end local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .end local v4    # "itemCount":I
-    .end local v5    # "itemIndex":I
+    .end local v1    # "firstPos":I
+    .end local v2    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v3    # "itemCount":I
+    .end local v4    # "itemIndex":I
+    .end local v5    # "itemOffset":F
     .end local v6    # "lastPos":I
-    .end local v7    # "marginOffset":F
-    .end local v8    # "offset":F
-    .end local v9    # "pos":I
-    .end local v10    # "scrollX":I
-    .end local v11    # "width":I
+    .end local v7    # "left":F
+    .end local v8    # "marginOffset":F
+    .end local v9    # "offset":F
+    .end local v10    # "pos":I
+    .end local v11    # "scaledOffset":F
+    .end local v12    # "scrollX":I
+    .end local v13    # "width":I
+    .end local v14    # "widthFactor":F
     :cond_2
     return-void
 
-    .restart local v2    # "firstPos":I
-    .restart local v3    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .restart local v4    # "itemCount":I
-    .restart local v5    # "itemIndex":I
+    .restart local v1    # "firstPos":I
+    .restart local v2    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .restart local v3    # "itemCount":I
+    .restart local v4    # "itemIndex":I
     .restart local v6    # "lastPos":I
-    .restart local v7    # "marginOffset":F
-    .restart local v8    # "offset":F
-    .restart local v9    # "pos":I
-    .restart local v10    # "scrollX":I
-    .restart local v11    # "width":I
+    .restart local v8    # "marginOffset":F
+    .restart local v9    # "offset":F
+    .restart local v10    # "pos":I
+    .restart local v12    # "scrollX":I
+    .restart local v13    # "width":I
     :cond_3
+    move v5, v9
+
+    .restart local v5    # "itemOffset":F
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+    iget-object v15, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
 
-    invoke-virtual {v13, v9}, Lcom/android/internal/widget/PagerAdapter;->getPageWidth(I)F
+    invoke-virtual {v15, v10}, Lcom/android/internal/widget/PagerAdapter;->getPageWidth(I)F
 
-    move-result v12
+    move-result v14
 
-    .local v12, "widthFactor":F
-    add-float v13, v8, v12
-
-    int-to-float v14, v11
-
-    mul-float v1, v13, v14
-
-    .restart local v1    # "drawAt":F
-    add-float v13, v12, v7
-
-    add-float/2addr v8, v13
-
+    .restart local v14    # "widthFactor":F
     goto :goto_2
 
-    .end local v12    # "widthFactor":F
+    .restart local v11    # "scaledOffset":F
     :cond_4
-    add-int/lit8 v9, v9, 0x1
+    int-to-float v15, v13
 
-    goto :goto_0
+    mul-float/2addr v15, v14
+
+    add-float v7, v11, v15
+
+    .restart local v7    # "left":F
+    goto :goto_3
+
+    :cond_5
+    add-int/lit8 v10, v10, 0x1
+
+    goto/16 :goto_0
+.end method
+
+.method public onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+    .locals 2
+    .param p1, "event"    # Landroid/view/accessibility/AccessibilityEvent;
+
+    .prologue
+    invoke-super {p0, p1}, Landroid/view/ViewGroup;->onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+
+    const-class v0, Lcom/android/internal/widget/ViewPager;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setClassName(Ljava/lang/CharSequence;)V
+
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->canScroll()Z
+
+    move-result v0
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setScrollable(Z)V
+
+    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityEvent;->getEventType()I
+
+    move-result v0
+
+    const/16 v1, 0x1000
+
+    if-ne v0, v1, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    invoke-virtual {v0}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
+
+    move-result v0
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setItemCount(I)V
+
+    iget v0, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setFromIndex(I)V
+
+    iget v0, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setToIndex(I)V
+
+    :cond_0
+    return-void
+.end method
+
+.method public onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+    .locals 1
+    .param p1, "info"    # Landroid/view/accessibility/AccessibilityNodeInfo;
+
+    .prologue
+    invoke-super {p0, p1}, Landroid/view/ViewGroup;->onInitializeAccessibilityNodeInfo(Landroid/view/accessibility/AccessibilityNodeInfo;)V
+
+    const-class v0, Lcom/android/internal/widget/ViewPager;
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setClassName(Ljava/lang/CharSequence;)V
+
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->canScroll()Z
+
+    move-result v0
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->setScrollable(Z)V
+
+    const/4 v0, 0x1
+
+    invoke-virtual {p0, v0}, Lcom/android/internal/widget/ViewPager;->canScrollHorizontally(I)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    sget-object v0, Landroid/view/accessibility/AccessibilityNodeInfo$AccessibilityAction;->ACTION_SCROLL_FORWARD:Landroid/view/accessibility/AccessibilityNodeInfo$AccessibilityAction;
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->addAction(Landroid/view/accessibility/AccessibilityNodeInfo$AccessibilityAction;)V
+
+    :cond_0
+    const/4 v0, -0x1
+
+    invoke-virtual {p0, v0}, Lcom/android/internal/widget/ViewPager;->canScrollHorizontally(I)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    sget-object v0, Landroid/view/accessibility/AccessibilityNodeInfo$AccessibilityAction;->ACTION_SCROLL_BACKWARD:Landroid/view/accessibility/AccessibilityNodeInfo$AccessibilityAction;
+
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityNodeInfo;->addAction(Landroid/view/accessibility/AccessibilityNodeInfo$AccessibilityAction;)V
+
+    :cond_1
+    return-void
 .end method
 
 .method public onInterceptTouchEvent(Landroid/view/MotionEvent;)Z
@@ -5177,6 +5150,12 @@
     if-ne v6, v0, :cond_2
 
     :cond_0
+    const-string v0, "ViewPager"
+
+    const-string v1, "Intercept done!"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
+
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/widget/ViewPager;->mIsBeingDragged:Z
@@ -5214,6 +5193,12 @@
 
     if-eqz v0, :cond_3
 
+    const-string v0, "ViewPager"
+
+    const-string v1, "Being dragged, intercept returning true!"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
+
     const/4 v0, 0x1
 
     goto :goto_0
@@ -5222,6 +5207,12 @@
     iget-boolean v0, p0, Lcom/android/internal/widget/ViewPager;->mIsUnableToDrag:Z
 
     if-eqz v0, :cond_4
+
+    const-string v0, "ViewPager"
+
+    const-string v1, "Unable to drag, intercept returning false!"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     const/4 v0, 0x0
 
@@ -5293,6 +5284,58 @@
     move-result v13
 
     .local v13, "yDiff":F
+    const-string v0, "ViewPager"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Moved x to "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v10}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ","
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v12}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " diff="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v11}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ","
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v13}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
+
     const/4 v0, 0x0
 
     cmpl-float v0, v8, v0
@@ -5335,7 +5378,7 @@
 
     const/4 v0, 0x0
 
-    goto :goto_0
+    goto/16 :goto_0
 
     :cond_7
     iget v0, p0, Lcom/android/internal/widget/ViewPager;->mTouchSlop:I
@@ -5353,6 +5396,12 @@
     cmpl-float v0, v0, v13
 
     if-lez v0, :cond_a
+
+    const-string v0, "ViewPager"
+
+    const-string v1, "Starting drag!"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     const/4 v0, 0x1
 
@@ -5424,6 +5473,12 @@
     cmpl-float v0, v13, v0
 
     if-lez v0, :cond_8
+
+    const-string v0, "ViewPager"
+
+    const-string v1, "Starting unable to drag!"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     const/4 v0, 0x1
 
@@ -5521,6 +5576,67 @@
 
     invoke-direct {p0, v0}, Lcom/android/internal/widget/ViewPager;->setScrollState(I)V
 
+    :goto_4
+    const-string v0, "ViewPager"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Down at "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget v2, p0, Lcom/android/internal/widget/ViewPager;->mLastMotionX:F
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, ","
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget v2, p0, Lcom/android/internal/widget/ViewPager;->mLastMotionY:F
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " mIsBeingDragged="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-boolean v2, p0, Lcom/android/internal/widget/ViewPager;->mIsBeingDragged:Z
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, "mIsUnableToDrag="
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-boolean v2, p0, Lcom/android/internal/widget/ViewPager;->mIsUnableToDrag:Z
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
+
     goto/16 :goto_1
 
     :cond_b
@@ -5532,14 +5648,12 @@
 
     iput-boolean v0, p0, Lcom/android/internal/widget/ViewPager;->mIsBeingDragged:Z
 
-    goto/16 :goto_1
+    goto :goto_4
 
     :sswitch_2
     invoke-direct {p0, p1}, Lcom/android/internal/widget/ViewPager;->onSecondaryPointerUp(Landroid/view/MotionEvent;)V
 
     goto/16 :goto_1
-
-    nop
 
     :sswitch_data_0
     .sparse-switch
@@ -5550,7 +5664,7 @@
 .end method
 
 .method protected onLayout(ZIIII)V
-    .locals 30
+    .locals 31
     .param p1, "changed"    # Z
     .param p2, "l"    # I
     .param p3, "t"    # I
@@ -5560,15 +5674,15 @@
     .prologue
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getChildCount()I
 
-    move-result v9
+    move-result v10
 
-    .local v9, "count":I
-    sub-int v24, p4, p2
+    .local v10, "count":I
+    sub-int v25, p4, p2
 
-    .local v24, "width":I
-    sub-int v11, p5, p3
+    .local v25, "width":I
+    sub-int v12, p5, p3
 
-    .local v11, "height":I
+    .local v12, "height":I
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getPaddingLeft()I
 
     move-result v19
@@ -5594,31 +5708,31 @@
     move-result v22
 
     .local v22, "scrollX":I
-    const/4 v10, 0x0
+    const/4 v11, 0x0
 
-    .local v10, "decorCount":I
-    const/4 v14, 0x0
+    .local v11, "decorCount":I
+    const/4 v15, 0x0
 
-    .local v14, "i":I
+    .local v15, "i":I
     :goto_0
-    if-ge v14, v9, :cond_1
+    if-ge v15, v10, :cond_1
 
     move-object/from16 v0, p0
 
-    invoke-virtual {v0, v14}, Lcom/android/internal/widget/ViewPager;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {v0, v15}, Lcom/android/internal/widget/ViewPager;->getChildAt(I)Landroid/view/View;
 
     move-result-object v5
 
     .local v5, "child":Landroid/view/View;
     invoke-virtual {v5}, Landroid/view/View;->getVisibility()I
 
-    move-result v26
+    move-result v27
 
-    const/16 v27, 0x8
+    const/16 v28, 0x8
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
-    move/from16 v1, v27
+    move/from16 v1, v28
 
     if-eq v0, v1, :cond_0
 
@@ -5632,104 +5746,104 @@
     const/4 v6, 0x0
 
     .local v6, "childLeft":I
-    const/4 v7, 0x0
+    const/4 v8, 0x0
 
-    .local v7, "childTop":I
+    .local v8, "childTop":I
     move-object/from16 v0, v17
 
     iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->isDecor:Z
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
-    if-eqz v26, :cond_0
+    if-eqz v27, :cond_0
 
     move-object/from16 v0, v17
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->gravity:I
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
-    and-int/lit8 v13, v26, 0x7
+    and-int/lit8 v14, v27, 0x7
 
-    .local v13, "hgrav":I
+    .local v14, "hgrav":I
     move-object/from16 v0, v17
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->gravity:I
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
-    and-int/lit8 v23, v26, 0x70
+    and-int/lit8 v24, v27, 0x70
 
-    .local v23, "vgrav":I
-    packed-switch v13, :pswitch_data_0
+    .local v24, "vgrav":I
+    packed-switch v14, :pswitch_data_0
 
     :pswitch_0
     move/from16 v6, v19
 
     :goto_1
-    sparse-switch v23, :sswitch_data_0
+    sparse-switch v24, :sswitch_data_0
 
-    move/from16 v7, v21
+    move/from16 v8, v21
 
     :goto_2
     add-int v6, v6, v22
 
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
 
-    move-result v26
+    move-result v27
 
-    add-int v26, v26, v6
+    add-int v27, v27, v6
 
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
 
-    move-result v27
+    move-result v28
 
-    add-int v27, v27, v7
+    add-int v28, v28, v8
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
-    move/from16 v1, v27
+    move/from16 v1, v28
 
-    invoke-virtual {v5, v6, v7, v0, v1}, Landroid/view/View;->layout(IIII)V
+    invoke-virtual {v5, v6, v8, v0, v1}, Landroid/view/View;->layout(IIII)V
 
-    add-int/lit8 v10, v10, 0x1
+    add-int/lit8 v11, v11, 0x1
 
     .end local v6    # "childLeft":I
-    .end local v7    # "childTop":I
-    .end local v13    # "hgrav":I
+    .end local v8    # "childTop":I
+    .end local v14    # "hgrav":I
     .end local v17    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
-    .end local v23    # "vgrav":I
+    .end local v24    # "vgrav":I
     :cond_0
-    add-int/lit8 v14, v14, 0x1
+    add-int/lit8 v15, v15, 0x1
 
     goto :goto_0
 
     .restart local v6    # "childLeft":I
-    .restart local v7    # "childTop":I
-    .restart local v13    # "hgrav":I
+    .restart local v8    # "childTop":I
+    .restart local v14    # "hgrav":I
     .restart local v17    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
-    .restart local v23    # "vgrav":I
+    .restart local v24    # "vgrav":I
     :pswitch_1
     move/from16 v6, v19
 
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
 
-    move-result v26
+    move-result v27
 
-    add-int v19, v19, v26
+    add-int v19, v19, v27
 
     goto :goto_1
 
     :pswitch_2
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
 
-    move-result v26
+    move-result v27
 
-    sub-int v26, v24, v26
+    sub-int v27, v25, v27
 
-    div-int/lit8 v26, v26, 0x2
+    div-int/lit8 v27, v27, 0x2
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
     move/from16 v1, v19
 
@@ -5740,105 +5854,112 @@
     goto :goto_1
 
     :pswitch_3
-    sub-int v26, v24, v20
+    sub-int v27, v25, v20
+
+    invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
+
+    move-result v28
+
+    sub-int v6, v27, v28
 
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
 
     move-result v27
 
-    sub-int v6, v26, v27
-
-    invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
-
-    move-result v26
-
-    add-int v20, v20, v26
+    add-int v20, v20, v27
 
     goto :goto_1
 
     :sswitch_0
-    move/from16 v7, v21
+    move/from16 v8, v21
 
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
 
-    move-result v26
+    move-result v27
 
-    add-int v21, v21, v26
+    add-int v21, v21, v27
 
     goto :goto_2
 
     :sswitch_1
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
 
-    move-result v26
+    move-result v27
 
-    sub-int v26, v11, v26
+    sub-int v27, v12, v27
 
-    div-int/lit8 v26, v26, 0x2
+    div-int/lit8 v27, v27, 0x2
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
     move/from16 v1, v21
 
     invoke-static {v0, v1}, Ljava/lang/Math;->max(II)I
 
-    move-result v7
+    move-result v8
 
     goto :goto_2
 
     :sswitch_2
-    sub-int v26, v11, v18
+    sub-int v27, v12, v18
+
+    invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
+
+    move-result v28
+
+    sub-int v8, v27, v28
 
     invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
 
     move-result v27
 
-    sub-int v7, v26, v27
-
-    invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
-
-    move-result v26
-
-    add-int v18, v18, v26
+    add-int v18, v18, v27
 
     goto :goto_2
 
     .end local v5    # "child":Landroid/view/View;
     .end local v6    # "childLeft":I
-    .end local v7    # "childTop":I
-    .end local v13    # "hgrav":I
+    .end local v8    # "childTop":I
+    .end local v14    # "hgrav":I
     .end local v17    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
-    .end local v23    # "vgrav":I
+    .end local v24    # "vgrav":I
     :cond_1
-    sub-int v26, v24, v19
+    sub-int v27, v25, v19
 
-    sub-int v8, v26, v20
+    sub-int v9, v27, v20
 
-    .local v8, "childWidth":I
-    const/4 v14, 0x0
+    .local v9, "childWidth":I
+    const/4 v15, 0x0
 
     :goto_3
-    if-ge v14, v9, :cond_4
+    if-ge v15, v10, :cond_6
 
     move-object/from16 v0, p0
 
-    invoke-virtual {v0, v14}, Lcom/android/internal/widget/ViewPager;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {v0, v15}, Lcom/android/internal/widget/ViewPager;->getChildAt(I)Landroid/view/View;
 
     move-result-object v5
 
     .restart local v5    # "child":Landroid/view/View;
     invoke-virtual {v5}, Landroid/view/View;->getVisibility()I
 
-    move-result v26
+    move-result v27
 
-    const/16 v27, 0x8
+    const/16 v28, 0x8
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
-    move/from16 v1, v27
+    move/from16 v1, v28
 
-    if-eq v0, v1, :cond_3
+    if-ne v0, v1, :cond_3
 
+    :cond_2
+    :goto_4
+    add-int/lit8 v15, v15, 0x1
+
+    goto :goto_3
+
+    :cond_3
     invoke-virtual {v5}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v17
@@ -5850,140 +5971,161 @@
 
     iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->isDecor:Z
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
-    if-nez v26, :cond_3
+    if-nez v27, :cond_2
 
     move-object/from16 v0, p0
 
     invoke-virtual {v0, v5}, Lcom/android/internal/widget/ViewPager;->infoForChild(Landroid/view/View;)Lcom/android/internal/widget/ViewPager$ItemInfo;
 
-    move-result-object v15
+    move-result-object v16
 
-    .local v15, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    if-eqz v15, :cond_3
+    .local v16, "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    if-eqz v16, :cond_2
 
-    int-to-float v0, v8
-
-    move/from16 v26, v0
-
-    iget v0, v15, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
-
-    move/from16 v27, v0
-
-    mul-float v26, v26, v27
-
-    move/from16 v0, v26
-
-    float-to-int v0, v0
-
-    move/from16 v16, v0
-
-    .local v16, "loff":I
-    add-int v6, v19, v16
-
-    .restart local v6    # "childLeft":I
-    move/from16 v7, v21
-
-    .restart local v7    # "childTop":I
     move-object/from16 v0, v17
 
     iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->needsMeasure:Z
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
-    if-eqz v26, :cond_2
+    if-eqz v27, :cond_4
 
-    const/16 v26, 0x0
+    const/16 v27, 0x0
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
     move-object/from16 v1, v17
 
     iput-boolean v0, v1, Lcom/android/internal/widget/ViewPager$LayoutParams;->needsMeasure:Z
 
-    int-to-float v0, v8
+    int-to-float v0, v9
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
     move-object/from16 v0, v17
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->widthFactor:F
 
-    move/from16 v27, v0
+    move/from16 v28, v0
 
-    mul-float v26, v26, v27
+    mul-float v27, v27, v28
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
     float-to-int v0, v0
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
-    const/high16 v27, 0x40000000    # 2.0f
+    const/high16 v28, 0x40000000    # 2.0f
 
-    invoke-static/range {v26 .. v27}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
-
-    move-result v25
-
-    .local v25, "widthSpec":I
-    sub-int v26, v11, v21
-
-    sub-int v26, v26, v18
-
-    const/high16 v27, 0x40000000    # 2.0f
-
-    invoke-static/range {v26 .. v27}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
-
-    move-result v12
-
-    .local v12, "heightSpec":I
-    move/from16 v0, v25
-
-    invoke-virtual {v5, v0, v12}, Landroid/view/View;->measure(II)V
-
-    .end local v12    # "heightSpec":I
-    .end local v25    # "widthSpec":I
-    :cond_2
-    invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
+    invoke-static/range {v27 .. v28}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
 
     move-result v26
 
-    add-int v26, v26, v6
+    .local v26, "widthSpec":I
+    sub-int v27, v12, v21
 
-    invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
+    sub-int v27, v27, v18
+
+    const/high16 v28, 0x40000000    # 2.0f
+
+    invoke-static/range {v27 .. v28}, Landroid/view/View$MeasureSpec;->makeMeasureSpec(II)I
+
+    move-result v13
+
+    .local v13, "heightSpec":I
+    move/from16 v0, v26
+
+    invoke-virtual {v5, v0, v13}, Landroid/view/View;->measure(II)V
+
+    .end local v13    # "heightSpec":I
+    .end local v26    # "widthSpec":I
+    :cond_4
+    invoke-virtual {v5}, Landroid/view/View;->getMeasuredWidth()I
+
+    move-result v7
+
+    .local v7, "childMeasuredWidth":I
+    int-to-float v0, v9
+
+    move/from16 v27, v0
+
+    move-object/from16 v0, v16
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+
+    move/from16 v28, v0
+
+    mul-float v27, v27, v28
+
+    move/from16 v0, v27
+
+    float-to-int v0, v0
+
+    move/from16 v23, v0
+
+    .local v23, "startOffset":I
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
 
     move-result v27
 
-    add-int v27, v27, v7
+    if-eqz v27, :cond_5
 
-    move/from16 v0, v26
+    const/high16 v27, 0x1000000
 
-    move/from16 v1, v27
+    sub-int v27, v27, v20
 
-    invoke-virtual {v5, v6, v7, v0, v1}, Landroid/view/View;->layout(IIII)V
+    sub-int v27, v27, v23
+
+    sub-int v6, v27, v7
+
+    .restart local v6    # "childLeft":I
+    :goto_5
+    move/from16 v8, v21
+
+    .restart local v8    # "childTop":I
+    add-int v27, v6, v7
+
+    invoke-virtual {v5}, Landroid/view/View;->getMeasuredHeight()I
+
+    move-result v28
+
+    add-int v28, v28, v8
+
+    move/from16 v0, v27
+
+    move/from16 v1, v28
+
+    invoke-virtual {v5, v6, v8, v0, v1}, Landroid/view/View;->layout(IIII)V
+
+    goto/16 :goto_4
 
     .end local v6    # "childLeft":I
-    .end local v7    # "childTop":I
-    .end local v15    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    .end local v16    # "loff":I
-    .end local v17    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
-    :cond_3
-    add-int/lit8 v14, v14, 0x1
+    .end local v8    # "childTop":I
+    :cond_5
+    add-int v6, v19, v23
 
-    goto/16 :goto_3
+    .restart local v6    # "childLeft":I
+    goto :goto_5
 
     .end local v5    # "child":Landroid/view/View;
-    :cond_4
+    .end local v6    # "childLeft":I
+    .end local v7    # "childMeasuredWidth":I
+    .end local v16    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    .end local v17    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
+    .end local v23    # "startOffset":I
+    :cond_6
     move/from16 v0, v21
 
     move-object/from16 v1, p0
 
     iput v0, v1, Lcom/android/internal/widget/ViewPager;->mTopPageBounds:I
 
-    sub-int v26, v11, v18
+    sub-int v27, v12, v18
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
     move-object/from16 v1, p0
 
@@ -5991,44 +6133,44 @@
 
     move-object/from16 v0, p0
 
-    iput v10, v0, Lcom/android/internal/widget/ViewPager;->mDecorChildCount:I
+    iput v11, v0, Lcom/android/internal/widget/ViewPager;->mDecorChildCount:I
 
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager;->mFirstLayout:Z
 
-    move/from16 v26, v0
+    move/from16 v27, v0
 
-    if-eqz v26, :cond_5
+    if-eqz v27, :cond_7
 
     move-object/from16 v0, p0
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
 
-    move/from16 v26, v0
-
-    const/16 v27, 0x0
+    move/from16 v27, v0
 
     const/16 v28, 0x0
 
     const/16 v29, 0x0
 
+    const/16 v30, 0x0
+
     move-object/from16 v0, p0
 
-    move/from16 v1, v26
+    move/from16 v1, v27
 
-    move/from16 v2, v27
+    move/from16 v2, v28
 
-    move/from16 v3, v28
+    move/from16 v3, v29
 
-    move/from16 v4, v29
+    move/from16 v4, v30
 
     invoke-direct {v0, v1, v2, v3, v4}, Lcom/android/internal/widget/ViewPager;->scrollToItem(IZIZ)V
 
-    :cond_5
-    const/16 v26, 0x0
+    :cond_7
+    const/16 v27, 0x0
 
-    move/from16 v0, v26
+    move/from16 v0, v27
 
     move-object/from16 v1, p0
 
@@ -6056,7 +6198,7 @@
 .end method
 
 .method protected onMeasure(II)V
-    .locals 23
+    .locals 24
     .param p1, "widthMeasureSpec"    # I
     .param p2, "heightMeasureSpec"    # I
 
@@ -6493,6 +6635,58 @@
 
     if-eq v0, v1, :cond_c
 
+    const-string v21, "ViewPager"
+
+    new-instance v22, Ljava/lang/StringBuilder;
+
+    invoke-direct/range {v22 .. v22}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v23, "Measuring #"
+
+    invoke-virtual/range {v22 .. v23}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v22
+
+    move-object/from16 v0, v22
+
+    invoke-virtual {v0, v12}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v22
+
+    const-string v23, " "
+
+    invoke-virtual/range {v22 .. v23}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v22
+
+    move-object/from16 v0, v22
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v22
+
+    const-string v23, ": "
+
+    invoke-virtual/range {v22 .. v23}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v22
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mChildWidthMeasureSpec:I
+
+    move/from16 v23, v0
+
+    invoke-virtual/range {v22 .. v23}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v22
+
+    invoke-virtual/range {v22 .. v22}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v22
+
+    invoke-static/range {v21 .. v22}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
+
     invoke-virtual {v3}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v13
@@ -6801,7 +6995,7 @@
 
     int-to-float v15, v15
 
-    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
 
     move-result v16
 
@@ -6991,7 +7185,7 @@
 
     const/4 v3, 0x1
 
-    invoke-virtual {p0, v1, v2, v3}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)V
+    invoke-virtual {p0, v1, v2, v3}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)Z
 
     goto :goto_0
 
@@ -7007,6 +7201,30 @@
     iget-object v1, v0, Lcom/android/internal/widget/ViewPager$SavedState;->loader:Ljava/lang/ClassLoader;
 
     iput-object v1, p0, Lcom/android/internal/widget/ViewPager;->mRestoredClassLoader:Ljava/lang/ClassLoader;
+
+    goto :goto_0
+.end method
+
+.method public onRtlPropertiesChanged(I)V
+    .locals 1
+    .param p1, "layoutDirection"    # I
+
+    .prologue
+    invoke-super {p0, p1}, Landroid/view/ViewGroup;->onRtlPropertiesChanged(I)V
+
+    if-nez p1, :cond_0
+
+    const/4 v0, -0x1
+
+    iput v0, p0, Lcom/android/internal/widget/ViewPager;->mLeftIncr:I
+
+    :goto_0
+    return-void
+
+    :cond_0
+    const/4 v0, 0x1
+
+    iput v0, p0, Lcom/android/internal/widget/ViewPager;->mLeftIncr:I
 
     goto :goto_0
 .end method
@@ -7072,44 +7290,31 @@
     .param p1, "ev"    # Landroid/view/MotionEvent;
 
     .prologue
-    move-object/from16 v0, p0
-
-    iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager;->mFakeDragging:Z
-
-    move/from16 v24, v0
-
-    if-eqz v24, :cond_0
-
-    const/16 v24, 0x1
-
-    :goto_0
-    return v24
-
-    :cond_0
     invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getAction()I
 
     move-result v24
 
-    if-nez v24, :cond_1
+    if-nez v24, :cond_0
 
     invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getEdgeFlags()I
 
     move-result v24
 
-    if-eqz v24, :cond_1
+    if-eqz v24, :cond_0
 
     const/16 v24, 0x0
 
-    goto :goto_0
+    :goto_0
+    return v24
 
-    :cond_1
+    :cond_0
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
 
     move-object/from16 v24, v0
 
-    if-eqz v24, :cond_2
+    if-eqz v24, :cond_1
 
     move-object/from16 v0, p0
 
@@ -7121,21 +7326,21 @@
 
     move-result v24
 
-    if-nez v24, :cond_3
+    if-nez v24, :cond_2
 
-    :cond_2
+    :cond_1
     const/16 v24, 0x0
 
     goto :goto_0
 
-    :cond_3
+    :cond_2
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
 
     move-object/from16 v24, v0
 
-    if-nez v24, :cond_4
+    if-nez v24, :cond_3
 
     invoke-static {}, Landroid/view/VelocityTracker;->obtain()Landroid/view/VelocityTracker;
 
@@ -7147,7 +7352,7 @@
 
     iput-object v0, v1, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
 
-    :cond_4
+    :cond_3
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
@@ -7174,14 +7379,14 @@
 
     packed-switch v24, :pswitch_data_0
 
-    :cond_5
+    :cond_4
     :goto_1
     :pswitch_0
-    if-eqz v11, :cond_6
+    if-eqz v11, :cond_5
 
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->postInvalidateOnAnimation()V
 
-    :cond_6
+    :cond_5
     const/16 v24, 0x1
 
     goto :goto_0
@@ -7262,7 +7467,7 @@
 
     move/from16 v24, v0
 
-    if-nez v24, :cond_7
+    if-nez v24, :cond_6
 
     move-object/from16 v0, p0
 
@@ -7319,6 +7524,74 @@
     move-result v23
 
     .local v23, "yDiff":F
+    const-string v24, "ViewPager"
+
+    new-instance v25, Ljava/lang/StringBuilder;
+
+    invoke-direct/range {v25 .. v25}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v26, "Moved x to "
+
+    invoke-virtual/range {v25 .. v26}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    move/from16 v1, v20
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    const-string v26, ","
+
+    invoke-virtual/range {v25 .. v26}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    move/from16 v1, v22
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    const-string v26, " diff="
+
+    invoke-virtual/range {v25 .. v26}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    move/from16 v1, v21
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    const-string v26, ","
+
+    invoke-virtual/range {v25 .. v26}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    move/from16 v1, v23
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    move-result-object v25
+
+    invoke-virtual/range {v25 .. v25}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v25
+
+    invoke-static/range {v24 .. v25}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
+
     move-object/from16 v0, p0
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager;->mTouchSlop:I
@@ -7333,11 +7606,17 @@
 
     cmpl-float v24, v21, v24
 
-    if-lez v24, :cond_7
+    if-lez v24, :cond_6
 
     cmpl-float v24, v21, v23
 
-    if-lez v24, :cond_7
+    if-lez v24, :cond_6
+
+    const-string v24, "ViewPager"
+
+    const-string v25, "Starting drag!"
+
+    invoke-static/range {v24 .. v25}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     const/16 v24, 0x1
 
@@ -7367,7 +7646,7 @@
 
     cmpl-float v24, v24, v25
 
-    if-lez v24, :cond_8
+    if-lez v24, :cond_7
 
     move-object/from16 v0, p0
 
@@ -7423,7 +7702,7 @@
     move-result-object v14
 
     .local v14, "parent":Landroid/view/ViewParent;
-    if-eqz v14, :cond_7
+    if-eqz v14, :cond_6
 
     const/16 v24, 0x1
 
@@ -7437,14 +7716,14 @@
     .end local v21    # "xDiff":F
     .end local v22    # "y":F
     .end local v23    # "yDiff":F
-    :cond_7
+    :cond_6
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager;->mIsBeingDragged:Z
 
     move/from16 v24, v0
 
-    if-eqz v24, :cond_5
+    if-eqz v24, :cond_4
 
     move-object/from16 v0, p0
 
@@ -7485,7 +7764,7 @@
     .restart local v21    # "xDiff":F
     .restart local v22    # "y":F
     .restart local v23    # "yDiff":F
-    :cond_8
+    :cond_7
     move-object/from16 v0, p0
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager;->mInitialMotionX:F
@@ -7520,15 +7799,15 @@
 
     move/from16 v24, v0
 
-    if-eqz v24, :cond_5
+    if-eqz v24, :cond_4
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mVelocityTracker:Landroid/view/VelocityTracker;
 
-    move-object/from16 v18, v0
+    move-object/from16 v19, v0
 
-    .local v18, "velocityTracker":Landroid/view/VelocityTracker;
+    .local v19, "velocityTracker":Landroid/view/VelocityTracker;
     const/16 v24, 0x3e8
 
     move-object/from16 v0, p0
@@ -7543,7 +7822,7 @@
 
     move/from16 v25, v0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move/from16 v1, v24
 
@@ -7557,7 +7836,7 @@
 
     move/from16 v24, v0
 
-    move-object/from16 v0, v18
+    move-object/from16 v0, v19
 
     move/from16 v1, v24
 
@@ -7578,17 +7857,31 @@
 
     iput-boolean v0, v1, Lcom/android/internal/widget/ViewPager;->mPopulatePending:Z
 
-    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollStart()I
 
-    move-result v19
+    move-result v24
 
-    .local v19, "width":I
-    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getScrollX()I
+    move/from16 v0, v24
 
-    move-result v16
+    int-to-float v0, v0
 
-    .local v16, "scrollX":I
-    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->infoForCurrentScrollPosition()Lcom/android/internal/widget/ViewPager$ItemInfo;
+    move/from16 v16, v0
+
+    .local v16, "scrollStart":F
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
+
+    move-result v24
+
+    move/from16 v0, v24
+
+    int-to-float v0, v0
+
+    move/from16 v24, v0
+
+    div-float v17, v16, v24
+
+    .local v17, "scrolledPages":F
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->infoForFirstVisiblePage()Lcom/android/internal/widget/ViewPager$ItemInfo;
 
     move-result-object v8
 
@@ -7596,25 +7889,17 @@
     iget v7, v8, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
     .local v7, "currentPage":I
-    move/from16 v0, v16
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->isLayoutRtl()Z
 
-    int-to-float v0, v0
+    move-result v24
 
-    move/from16 v24, v0
-
-    move/from16 v0, v19
-
-    int-to-float v0, v0
-
-    move/from16 v25, v0
-
-    div-float v24, v24, v25
+    if-eqz v24, :cond_8
 
     iget v0, v8, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
 
-    move/from16 v25, v0
+    move/from16 v24, v0
 
-    sub-float v24, v24, v25
+    sub-float v24, v24, v17
 
     iget v0, v8, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
 
@@ -7622,7 +7907,8 @@
 
     div-float v13, v24, v25
 
-    .local v13, "pageOffset":F
+    .local v13, "nextPageOffset":F
+    :goto_3
     move-object/from16 v0, p0
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager;->mActivePointerId:I
@@ -7657,12 +7943,12 @@
 
     float-to-int v0, v0
 
-    move/from16 v17, v0
+    move/from16 v18, v0
 
-    .local v17, "totalDelta":I
+    .local v18, "totalDelta":I
     move-object/from16 v0, p0
 
-    move/from16 v1, v17
+    move/from16 v1, v18
 
     invoke-direct {v0, v7, v13, v10, v1}, Lcom/android/internal/widget/ViewPager;->determineTargetPage(IFII)I
 
@@ -7679,7 +7965,7 @@
 
     move/from16 v2, v25
 
-    invoke-virtual {v0, v12, v1, v2, v10}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZI)V
+    invoke-virtual {v0, v12, v1, v2, v10}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZI)Z
 
     const/16 v24, -0x1
 
@@ -7712,16 +7998,33 @@
     goto/16 :goto_1
 
     .end local v6    # "activePointerIndex":I
+    .end local v12    # "nextPage":I
+    .end local v13    # "nextPageOffset":F
+    .end local v18    # "totalDelta":I
+    .end local v20    # "x":F
+    :cond_8
+    iget v0, v8, Lcom/android/internal/widget/ViewPager$ItemInfo;->offset:F
+
+    move/from16 v24, v0
+
+    sub-float v24, v17, v24
+
+    iget v0, v8, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+
+    move/from16 v25, v0
+
+    div-float v13, v24, v25
+
+    .restart local v13    # "nextPageOffset":F
+    goto :goto_3
+
     .end local v7    # "currentPage":I
     .end local v8    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     .end local v10    # "initialVelocity":I
-    .end local v12    # "nextPage":I
-    .end local v13    # "pageOffset":F
-    .end local v16    # "scrollX":I
-    .end local v17    # "totalDelta":I
-    .end local v18    # "velocityTracker":Landroid/view/VelocityTracker;
-    .end local v19    # "width":I
-    .end local v20    # "x":F
+    .end local v13    # "nextPageOffset":F
+    .end local v16    # "scrollStart":F
+    .end local v17    # "scrolledPages":F
+    .end local v19    # "velocityTracker":Landroid/view/VelocityTracker;
     :pswitch_4
     move-object/from16 v0, p0
 
@@ -7729,7 +8032,7 @@
 
     move/from16 v24, v0
 
-    if-eqz v24, :cond_5
+    if-eqz v24, :cond_4
 
     move-object/from16 v0, p0
 
@@ -7853,6 +8156,8 @@
 
     goto/16 :goto_1
 
+    nop
+
     :pswitch_data_0
     .packed-switch 0x0
         :pswitch_1
@@ -7866,68 +8171,125 @@
 .end method
 
 .method pageLeft()Z
-    .locals 2
+    .locals 3
 
     .prologue
-    const/4 v0, 0x1
+    iget v0, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
 
-    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mLeftIncr:I
 
-    if-lez v1, :cond_0
+    add-int/2addr v0, v1
 
-    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+    const/4 v1, 0x1
 
-    add-int/lit8 v1, v1, -0x1
+    const/4 v2, 0x0
 
-    invoke-virtual {p0, v1, v0}, Lcom/android/internal/widget/ViewPager;->setCurrentItem(IZ)V
+    invoke-virtual {p0, v0, v1, v2}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)Z
 
-    :goto_0
+    move-result v0
+
     return v0
-
-    :cond_0
-    const/4 v0, 0x0
-
-    goto :goto_0
 .end method
 
 .method pageRight()Z
     .locals 3
 
     .prologue
+    iget v0, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+
+    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mLeftIncr:I
+
+    sub-int/2addr v0, v1
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    invoke-virtual {p0, v0, v1, v2}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public performAccessibilityAction(ILandroid/os/Bundle;)Z
+    .locals 3
+    .param p1, "action"    # I
+    .param p2, "args"    # Landroid/os/Bundle;
+
+    .prologue
+    const/4 v1, 0x0
+
     const/4 v0, 0x1
 
-    iget-object v1, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    if-eqz v1, :cond_0
-
-    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
-
-    iget-object v2, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    invoke-virtual {v2}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
+    invoke-super {p0, p1, p2}, Landroid/view/ViewGroup;->performAccessibilityAction(ILandroid/os/Bundle;)Z
 
     move-result v2
 
-    add-int/lit8 v2, v2, -0x1
-
-    if-ge v1, v2, :cond_0
-
-    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
-
-    add-int/lit8 v1, v1, 0x1
-
-    invoke-virtual {p0, v1, v0}, Lcom/android/internal/widget/ViewPager;->setCurrentItem(IZ)V
+    if-eqz v2, :cond_0
 
     :goto_0
     return v0
 
     :cond_0
-    const/4 v0, 0x0
+    sparse-switch p1, :sswitch_data_0
+
+    move v0, v1
 
     goto :goto_0
+
+    :sswitch_0
+    invoke-virtual {p0, v0}, Lcom/android/internal/widget/ViewPager;->canScrollHorizontally(I)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1
+
+    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+
+    add-int/lit8 v1, v1, 0x1
+
+    invoke-virtual {p0, v1}, Lcom/android/internal/widget/ViewPager;->setCurrentItem(I)V
+
+    goto :goto_0
+
+    :cond_1
+    move v0, v1
+
+    goto :goto_0
+
+    :sswitch_1
+    const/4 v2, -0x1
+
+    invoke-virtual {p0, v2}, Lcom/android/internal/widget/ViewPager;->canScrollHorizontally(I)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_2
+
+    iget v1, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+
+    add-int/lit8 v1, v1, -0x1
+
+    invoke-virtual {p0, v1}, Lcom/android/internal/widget/ViewPager;->setCurrentItem(I)V
+
+    goto :goto_0
+
+    :cond_2
+    move v0, v1
+
+    goto :goto_0
+
+    nop
+
+    :sswitch_data_0
+    .sparse-switch
+        0x1000 -> :sswitch_0
+        0x2000 -> :sswitch_1
+    .end sparse-switch
 .end method
 
-.method populate()V
+.method public populate()V
     .locals 1
 
     .prologue
@@ -8024,6 +8386,12 @@
     move/from16 v27, v0
 
     if-eqz v27, :cond_4
+
+    const-string v27, "ViewPager"
+
+    const-string v28, "populate is pending, skipping for now..."
+
+    invoke-static/range {v27 .. v28}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->sortChildDrawingOrder()V
 
@@ -8286,7 +8654,7 @@
 
     move/from16 v1, v28
 
-    if-lt v0, v1, :cond_c
+    if-lt v0, v1, :cond_b
 
     move-object/from16 v0, v17
 
@@ -8337,7 +8705,7 @@
     add-int/lit8 v18, v8, -0x1
 
     .local v18, "itemIndex":I
-    if-ltz v18, :cond_d
+    if-ltz v18, :cond_c
 
     move-object/from16 v0, p0
 
@@ -8359,12 +8727,12 @@
 
     .restart local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     :goto_4
-    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
 
     move-result v7
 
     .local v7, "clientWidth":I
-    if-gtz v7, :cond_e
+    if-gtz v7, :cond_d
 
     const/16 v19, 0x0
 
@@ -8384,15 +8752,15 @@
 
     cmpl-float v27, v13, v19
 
-    if-ltz v27, :cond_12
+    if-ltz v27, :cond_11
 
     move/from16 v0, v23
 
     move/from16 v1, v26
 
-    if-ge v0, v1, :cond_12
+    if-ge v0, v1, :cond_11
 
-    if-nez v17, :cond_f
+    if-nez v17, :cond_e
 
     :cond_8
     iget v14, v9, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
@@ -8420,7 +8788,7 @@
 
     move/from16 v1, v27
 
-    if-ge v0, v1, :cond_16
+    if-ge v0, v1, :cond_15
 
     move-object/from16 v0, p0
 
@@ -8441,7 +8809,7 @@
     move-object/from16 v17, v27
 
     :goto_7
-    if-gtz v7, :cond_17
+    if-gtz v7, :cond_16
 
     const/16 v25, 0x0
 
@@ -8462,13 +8830,13 @@
 
     cmpl-float v27, v14, v25
 
-    if-ltz v27, :cond_1b
+    if-ltz v27, :cond_1a
 
     move/from16 v0, v23
 
-    if-le v0, v12, :cond_1b
+    if-le v0, v12, :cond_1a
 
-    if-nez v17, :cond_18
+    if-nez v17, :cond_17
 
     .end local v25    # "rightWidthNeeded":F
     :cond_9
@@ -8486,147 +8854,113 @@
     .end local v19    # "leftWidthNeeded":F
     .end local v23    # "pos":I
     :cond_a
+    const-string v27, "ViewPager"
+
+    const-string v28, "Current page list:"
+
+    invoke-static/range {v27 .. v28}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    const/16 v16, 0x0
+
+    .local v16, "i":I
+    :goto_a
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    move-object/from16 v28, v0
-
-    move-object/from16 v0, p0
-
-    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
-
-    move/from16 v29, v0
-
-    if-eqz v9, :cond_1f
-
-    iget-object v0, v9, Lcom/android/internal/widget/ViewPager$ItemInfo;->object:Ljava/lang/Object;
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
     move-object/from16 v27, v0
 
-    :goto_a
-    move-object/from16 v0, v28
+    invoke-virtual/range {v27 .. v27}, Ljava/util/ArrayList;->size()I
 
-    move-object/from16 v1, p0
+    move-result v27
 
-    move/from16 v2, v29
+    move/from16 v0, v16
 
-    move-object/from16 v3, v27
+    move/from16 v1, v27
 
-    invoke-virtual {v0, v1, v2, v3}, Lcom/android/internal/widget/PagerAdapter;->setPrimaryItem(Landroid/view/ViewGroup;ILjava/lang/Object;)V
+    if-ge v0, v1, :cond_1e
+
+    const-string v28, "ViewPager"
+
+    new-instance v27, Ljava/lang/StringBuilder;
+
+    invoke-direct/range {v27 .. v27}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v29, "#"
+
+    move-object/from16 v0, v27
+
+    move-object/from16 v1, v29
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v27
+
+    move-object/from16 v0, v27
+
+    move/from16 v1, v16
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v27
+
+    const-string v29, ": page "
+
+    move-object/from16 v0, v27
+
+    move-object/from16 v1, v29
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v29
 
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
     move-object/from16 v27, v0
 
     move-object/from16 v0, v27
 
-    move-object/from16 v1, p0
-
-    invoke-virtual {v0, v1}, Lcom/android/internal/widget/PagerAdapter;->finishUpdate(Landroid/view/ViewGroup;)V
-
-    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getChildCount()I
-
-    move-result v6
-
-    .local v6, "childCount":I
-    const/16 v16, 0x0
-
-    .local v16, "i":I
-    :goto_b
-    move/from16 v0, v16
-
-    if-ge v0, v6, :cond_20
-
-    move-object/from16 v0, p0
-
     move/from16 v1, v16
 
-    invoke-virtual {v0, v1}, Lcom/android/internal/widget/ViewPager;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    move-result-object v5
+    move-result-object v27
 
-    .local v5, "child":Landroid/view/View;
-    invoke-virtual {v5}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    check-cast v27, Lcom/android/internal/widget/ViewPager$ItemInfo;
 
-    move-result-object v20
-
-    check-cast v20, Lcom/android/internal/widget/ViewPager$LayoutParams;
-
-    .local v20, "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
-    move/from16 v0, v16
-
-    move-object/from16 v1, v20
-
-    iput v0, v1, Lcom/android/internal/widget/ViewPager$LayoutParams;->childIndex:I
-
-    move-object/from16 v0, v20
-
-    iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->isDecor:Z
-
-    move/from16 v27, v0
-
-    if-nez v27, :cond_b
-
-    move-object/from16 v0, v20
-
-    iget v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->widthFactor:F
-
-    move/from16 v27, v0
-
-    const/16 v28, 0x0
-
-    cmpl-float v27, v27, v28
-
-    if-nez v27, :cond_b
-
-    move-object/from16 v0, p0
-
-    invoke-virtual {v0, v5}, Lcom/android/internal/widget/ViewPager;->infoForChild(Landroid/view/View;)Lcom/android/internal/widget/ViewPager$ItemInfo;
-
-    move-result-object v17
-
-    .restart local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    if-eqz v17, :cond_b
-
-    move-object/from16 v0, v17
-
-    iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
-
-    move/from16 v27, v0
-
-    move/from16 v0, v27
-
-    move-object/from16 v1, v20
-
-    iput v0, v1, Lcom/android/internal/widget/ViewPager$LayoutParams;->widthFactor:F
-
-    move-object/from16 v0, v17
+    move-object/from16 v0, v27
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
 
     move/from16 v27, v0
 
-    move/from16 v0, v27
+    move-object/from16 v0, v29
 
-    move-object/from16 v1, v20
+    move/from16 v1, v27
 
-    iput v0, v1, Lcom/android/internal/widget/ViewPager$LayoutParams;->position:I
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    .end local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    :cond_b
+    move-result-object v27
+
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v27
+
+    move-object/from16 v0, v28
+
+    move-object/from16 v1, v27
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
     add-int/lit8 v16, v16, 0x1
 
-    goto :goto_b
+    goto :goto_a
 
-    .end local v5    # "child":Landroid/view/View;
-    .end local v6    # "childCount":I
     .end local v16    # "i":I
-    .end local v20    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
     .restart local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    :cond_c
+    :cond_b
     add-int/lit8 v8, v8, 0x1
 
     goto/16 :goto_3
@@ -8634,14 +8968,14 @@
     .end local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     .restart local v13    # "extraWidthLeft":F
     .restart local v18    # "itemIndex":I
-    :cond_d
+    :cond_c
     const/16 v17, 0x0
 
     goto/16 :goto_4
 
     .restart local v7    # "clientWidth":I
     .restart local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    :cond_e
+    :cond_d
     const/high16 v27, 0x40000000    # 2.0f
 
     iget v0, v9, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
@@ -8672,7 +9006,7 @@
 
     .restart local v19    # "leftWidthNeeded":F
     .restart local v23    # "pos":I
-    :cond_f
+    :cond_e
     move-object/from16 v0, v17
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
@@ -8683,7 +9017,7 @@
 
     move/from16 v1, v27
 
-    if-ne v0, v1, :cond_10
+    if-ne v0, v1, :cond_f
 
     move-object/from16 v0, v17
 
@@ -8691,7 +9025,7 @@
 
     move/from16 v27, v0
 
-    if-nez v27, :cond_10
+    if-nez v27, :cond_f
 
     move-object/from16 v0, p0
 
@@ -8727,11 +9061,53 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lcom/android/internal/widget/PagerAdapter;->destroyItem(Landroid/view/ViewGroup;ILjava/lang/Object;)V
 
+    const-string v27, "ViewPager"
+
+    new-instance v28, Ljava/lang/StringBuilder;
+
+    invoke-direct/range {v28 .. v28}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v29, "populate() - destroyItem() with pos: "
+
+    invoke-virtual/range {v28 .. v29}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    move-object/from16 v0, v28
+
+    move/from16 v1, v23
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    const-string v29, " view: "
+
+    invoke-virtual/range {v28 .. v29}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    move-object/from16 v0, v17
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->object:Ljava/lang/Object;
+
+    move-object/from16 v29, v0
+
+    invoke-virtual/range {v28 .. v29}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    invoke-virtual/range {v28 .. v28}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v28
+
+    invoke-static/range {v27 .. v28}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
     add-int/lit8 v18, v18, -0x1
 
     add-int/lit8 v8, v8, -0x1
 
-    if-ltz v18, :cond_11
+    if-ltz v18, :cond_10
 
     move-object/from16 v0, p0
 
@@ -8751,19 +9127,19 @@
 
     move-object/from16 v17, v27
 
-    :cond_10
-    :goto_c
+    :cond_f
+    :goto_b
     add-int/lit8 v23, v23, -0x1
 
     goto/16 :goto_6
 
-    :cond_11
+    :cond_10
     const/16 v17, 0x0
 
-    goto :goto_c
+    goto :goto_b
 
-    :cond_12
-    if-eqz v17, :cond_14
+    :cond_11
+    if-eqz v17, :cond_13
 
     move-object/from16 v0, v17
 
@@ -8775,7 +9151,7 @@
 
     move/from16 v1, v27
 
-    if-ne v0, v1, :cond_14
+    if-ne v0, v1, :cond_13
 
     move-object/from16 v0, v17
 
@@ -8787,7 +9163,7 @@
 
     add-int/lit8 v18, v18, -0x1
 
-    if-ltz v18, :cond_13
+    if-ltz v18, :cond_12
 
     move-object/from16 v0, p0
 
@@ -8807,15 +9183,15 @@
 
     move-object/from16 v17, v27
 
-    :goto_d
+    :goto_c
+    goto :goto_b
+
+    :cond_12
+    const/16 v17, 0x0
+
     goto :goto_c
 
     :cond_13
-    const/16 v17, 0x0
-
-    goto :goto_d
-
-    :cond_14
     add-int/lit8 v27, v18, 0x1
 
     move-object/from16 v0, p0
@@ -8838,7 +9214,7 @@
 
     add-int/lit8 v8, v8, 0x1
 
-    if-ltz v18, :cond_15
+    if-ltz v18, :cond_14
 
     move-object/from16 v0, p0
 
@@ -8858,21 +9234,21 @@
 
     move-object/from16 v17, v27
 
-    :goto_e
-    goto :goto_c
+    :goto_d
+    goto :goto_b
 
-    :cond_15
+    :cond_14
     const/16 v17, 0x0
 
-    goto :goto_e
+    goto :goto_d
 
     .restart local v14    # "extraWidthRight":F
-    :cond_16
+    :cond_15
     const/16 v17, 0x0
 
     goto/16 :goto_7
 
-    :cond_17
+    :cond_16
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getPaddingRight()I
 
     move-result v27
@@ -8896,7 +9272,7 @@
     goto/16 :goto_8
 
     .restart local v25    # "rightWidthNeeded":F
-    :cond_18
+    :cond_17
     move-object/from16 v0, v17
 
     iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
@@ -8907,7 +9283,7 @@
 
     move/from16 v1, v27
 
-    if-ne v0, v1, :cond_19
+    if-ne v0, v1, :cond_18
 
     move-object/from16 v0, v17
 
@@ -8915,7 +9291,7 @@
 
     move/from16 v27, v0
 
-    if-nez v27, :cond_19
+    if-nez v27, :cond_18
 
     move-object/from16 v0, p0
 
@@ -8951,6 +9327,48 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lcom/android/internal/widget/PagerAdapter;->destroyItem(Landroid/view/ViewGroup;ILjava/lang/Object;)V
 
+    const-string v27, "ViewPager"
+
+    new-instance v28, Ljava/lang/StringBuilder;
+
+    invoke-direct/range {v28 .. v28}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v29, "populate() - destroyItem() with pos: "
+
+    invoke-virtual/range {v28 .. v29}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    move-object/from16 v0, v28
+
+    move/from16 v1, v23
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    const-string v29, " view: "
+
+    invoke-virtual/range {v28 .. v29}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    move-object/from16 v0, v17
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->object:Ljava/lang/Object;
+
+    move-object/from16 v29, v0
+
+    invoke-virtual/range {v28 .. v29}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v28
+
+    invoke-virtual/range {v28 .. v28}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v28
+
+    invoke-static/range {v27 .. v28}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
@@ -8965,7 +9383,7 @@
 
     move/from16 v1, v27
 
-    if-ge v0, v1, :cond_1a
+    if-ge v0, v1, :cond_19
 
     move-object/from16 v0, p0
 
@@ -8985,19 +9403,19 @@
 
     move-object/from16 v17, v27
 
-    :cond_19
-    :goto_f
+    :cond_18
+    :goto_e
     add-int/lit8 v23, v23, 0x1
 
     goto/16 :goto_9
 
-    :cond_1a
+    :cond_19
     const/16 v17, 0x0
 
-    goto :goto_f
+    goto :goto_e
 
-    :cond_1b
-    if-eqz v17, :cond_1d
+    :cond_1a
+    if-eqz v17, :cond_1c
 
     move-object/from16 v0, v17
 
@@ -9009,7 +9427,7 @@
 
     move/from16 v1, v27
 
-    if-ne v0, v1, :cond_1d
+    if-ne v0, v1, :cond_1c
 
     move-object/from16 v0, v17
 
@@ -9035,7 +9453,7 @@
 
     move/from16 v1, v27
 
-    if-ge v0, v1, :cond_1c
+    if-ge v0, v1, :cond_1b
 
     move-object/from16 v0, p0
 
@@ -9055,15 +9473,15 @@
 
     move-object/from16 v17, v27
 
-    :goto_10
+    :goto_f
+    goto :goto_e
+
+    :cond_1b
+    const/16 v17, 0x0
+
     goto :goto_f
 
     :cond_1c
-    const/16 v17, 0x0
-
-    goto :goto_10
-
-    :cond_1d
     move-object/from16 v0, p0
 
     move/from16 v1, v23
@@ -9098,7 +9516,7 @@
 
     move/from16 v1, v27
 
-    if-ge v0, v1, :cond_1e
+    if-ge v0, v1, :cond_1d
 
     move-object/from16 v0, p0
 
@@ -9118,13 +9536,13 @@
 
     move-object/from16 v17, v27
 
-    :goto_11
-    goto :goto_f
+    :goto_10
+    goto :goto_e
 
-    :cond_1e
+    :cond_1d
     const/16 v17, 0x0
 
-    goto :goto_11
+    goto :goto_10
 
     .end local v7    # "clientWidth":I
     .end local v13    # "extraWidthLeft":F
@@ -9134,14 +9552,152 @@
     .end local v19    # "leftWidthNeeded":F
     .end local v23    # "pos":I
     .end local v25    # "rightWidthNeeded":F
+    .restart local v16    # "i":I
+    :cond_1e
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    move-object/from16 v28, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
+
+    move/from16 v29, v0
+
+    if-eqz v9, :cond_20
+
+    iget-object v0, v9, Lcom/android/internal/widget/ViewPager$ItemInfo;->object:Ljava/lang/Object;
+
+    move-object/from16 v27, v0
+
+    :goto_11
+    move-object/from16 v0, v28
+
+    move-object/from16 v1, p0
+
+    move/from16 v2, v29
+
+    move-object/from16 v3, v27
+
+    invoke-virtual {v0, v1, v2, v3}, Lcom/android/internal/widget/PagerAdapter;->setPrimaryItem(Landroid/view/ViewGroup;ILjava/lang/Object;)V
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    move-object/from16 v27, v0
+
+    move-object/from16 v0, v27
+
+    move-object/from16 v1, p0
+
+    invoke-virtual {v0, v1}, Lcom/android/internal/widget/PagerAdapter;->finishUpdate(Landroid/view/ViewGroup;)V
+
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getChildCount()I
+
+    move-result v6
+
+    .local v6, "childCount":I
+    const/16 v16, 0x0
+
+    :goto_12
+    move/from16 v0, v16
+
+    if-ge v0, v6, :cond_21
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, v16
+
+    invoke-virtual {v0, v1}, Lcom/android/internal/widget/ViewPager;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v5
+
+    .local v5, "child":Landroid/view/View;
+    invoke-virtual {v5}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v20
+
+    check-cast v20, Lcom/android/internal/widget/ViewPager$LayoutParams;
+
+    .local v20, "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
+    move/from16 v0, v16
+
+    move-object/from16 v1, v20
+
+    iput v0, v1, Lcom/android/internal/widget/ViewPager$LayoutParams;->childIndex:I
+
+    move-object/from16 v0, v20
+
+    iget-boolean v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->isDecor:Z
+
+    move/from16 v27, v0
+
+    if-nez v27, :cond_1f
+
+    move-object/from16 v0, v20
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager$LayoutParams;->widthFactor:F
+
+    move/from16 v27, v0
+
+    const/16 v28, 0x0
+
+    cmpl-float v27, v27, v28
+
+    if-nez v27, :cond_1f
+
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v5}, Lcom/android/internal/widget/ViewPager;->infoForChild(Landroid/view/View;)Lcom/android/internal/widget/ViewPager$ItemInfo;
+
+    move-result-object v17
+
+    .restart local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
+    if-eqz v17, :cond_1f
+
+    move-object/from16 v0, v17
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->widthFactor:F
+
+    move/from16 v27, v0
+
+    move/from16 v0, v27
+
+    move-object/from16 v1, v20
+
+    iput v0, v1, Lcom/android/internal/widget/ViewPager$LayoutParams;->widthFactor:F
+
+    move-object/from16 v0, v17
+
+    iget v0, v0, Lcom/android/internal/widget/ViewPager$ItemInfo;->position:I
+
+    move/from16 v27, v0
+
+    move/from16 v0, v27
+
+    move-object/from16 v1, v20
+
+    iput v0, v1, Lcom/android/internal/widget/ViewPager$LayoutParams;->position:I
+
+    .end local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
     :cond_1f
+    add-int/lit8 v16, v16, 0x1
+
+    goto :goto_12
+
+    .end local v5    # "child":Landroid/view/View;
+    .end local v6    # "childCount":I
+    .end local v20    # "lp":Lcom/android/internal/widget/ViewPager$LayoutParams;
+    :cond_20
     const/16 v27, 0x0
 
-    goto/16 :goto_a
+    goto :goto_11
 
     .restart local v6    # "childCount":I
-    .restart local v16    # "i":I
-    :cond_20
+    :cond_21
     invoke-direct/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->sortChildDrawingOrder()V
 
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->hasFocus()Z
@@ -9155,7 +9711,7 @@
     move-result-object v10
 
     .local v10, "currentFocused":Landroid/view/View;
-    if-eqz v10, :cond_23
+    if-eqz v10, :cond_24
 
     move-object/from16 v0, p0
 
@@ -9164,8 +9720,8 @@
     move-result-object v17
 
     .restart local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    :goto_12
-    if-eqz v17, :cond_21
+    :goto_13
+    if-eqz v17, :cond_22
 
     move-object/from16 v0, v17
 
@@ -9185,10 +9741,10 @@
 
     if-eq v0, v1, :cond_1
 
-    :cond_21
+    :cond_22
     const/16 v16, 0x0
 
-    :goto_13
+    :goto_14
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/widget/ViewPager;->getChildCount()I
 
     move-result v27
@@ -9214,7 +9770,7 @@
 
     move-result-object v17
 
-    if-eqz v17, :cond_22
+    if-eqz v17, :cond_23
 
     move-object/from16 v0, v17
 
@@ -9232,7 +9788,7 @@
 
     move/from16 v1, v28
 
-    if-ne v0, v1, :cond_22
+    if-ne v0, v1, :cond_23
 
     invoke-virtual {v5, v15}, Landroid/view/View;->requestFocus(I)Z
 
@@ -9240,17 +9796,17 @@
 
     if-nez v27, :cond_1
 
-    :cond_22
+    :cond_23
     add-int/lit8 v16, v16, 0x1
 
-    goto :goto_13
+    goto :goto_14
 
     .end local v5    # "child":Landroid/view/View;
     .end local v17    # "ii":Lcom/android/internal/widget/ViewPager$ItemInfo;
-    :cond_23
+    :cond_24
     const/16 v17, 0x0
 
-    goto :goto_12
+    goto :goto_13
 .end method
 
 .method public removeView(Landroid/view/View;)V
@@ -9406,7 +9962,7 @@
 
     iget v4, p0, Lcom/android/internal/widget/ViewPager;->mRestoredCurItem:I
 
-    invoke-virtual {p0, v4, v7, v9}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)V
+    invoke-virtual {p0, v4, v7, v9}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)Z
 
     const/4 v4, -0x1
 
@@ -9462,7 +10018,7 @@
     const/4 v0, 0x1
 
     :goto_0
-    invoke-virtual {p0, p1, v0, v1}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)V
+    invoke-virtual {p0, p1, v0, v1}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)Z
 
     return-void
 
@@ -9482,12 +10038,12 @@
 
     iput-boolean v0, p0, Lcom/android/internal/widget/ViewPager;->mPopulatePending:Z
 
-    invoke-virtual {p0, p1, p2, v0}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)V
+    invoke-virtual {p0, p1, p2, v0}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZ)Z
 
     return-void
 .end method
 
-.method setCurrentItemInternal(IZZ)V
+.method setCurrentItemInternal(IZZ)Z
     .locals 1
     .param p1, "item"    # I
     .param p2, "smoothScroll"    # Z
@@ -9496,12 +10052,14 @@
     .prologue
     const/4 v0, 0x0
 
-    invoke-virtual {p0, p1, p2, p3, v0}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZI)V
+    invoke-virtual {p0, p1, p2, p3, v0}, Lcom/android/internal/widget/ViewPager;->setCurrentItemInternal(IZZI)Z
 
-    return-void
+    move-result v0
+
+    return v0
 .end method
 
-.method setCurrentItemInternal(IZZI)V
+.method setCurrentItemInternal(IZZI)Z
     .locals 5
     .param p1, "item"    # I
     .param p2, "smoothScroll"    # Z
@@ -9509,9 +10067,9 @@
     .param p4, "velocity"    # I
 
     .prologue
-    const/4 v0, 0x1
+    const/4 v4, 0x1
 
-    const/4 v4, 0x0
+    const/4 v0, 0x0
 
     iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
 
@@ -9526,12 +10084,24 @@
     if-gtz v3, :cond_1
 
     :cond_0
-    invoke-direct {p0, v4}, Lcom/android/internal/widget/ViewPager;->setScrollingCacheEnabled(Z)V
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/ViewPager;->setScrollingCacheEnabled(Z)V
 
     :goto_0
-    return-void
+    return v0
 
     :cond_1
+    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
+
+    invoke-virtual {v3}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
+
+    move-result v3
+
+    add-int/lit8 v3, v3, -0x1
+
+    invoke-static {p1, v0, v3}, Landroid/util/MathUtils;->constrain(III)I
+
+    move-result p1
+
     if-nez p3, :cond_2
 
     iget v3, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
@@ -9546,17 +10116,11 @@
 
     if-eqz v3, :cond_2
 
-    invoke-direct {p0, v4}, Lcom/android/internal/widget/ViewPager;->setScrollingCacheEnabled(Z)V
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/ViewPager;->setScrollingCacheEnabled(Z)V
 
     goto :goto_0
 
     :cond_2
-    if-gez p1, :cond_5
-
-    const/4 p1, 0x0
-
-    :cond_3
-    :goto_1
     iget v2, p0, Lcom/android/internal/widget/ViewPager;->mOffscreenPageLimit:I
 
     .local v2, "pageLimit":I
@@ -9564,26 +10128,26 @@
 
     add-int/2addr v3, v2
 
-    if-gt p1, v3, :cond_4
+    if-gt p1, v3, :cond_3
 
     iget v3, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
 
     sub-int/2addr v3, v2
 
-    if-ge p1, v3, :cond_6
+    if-ge p1, v3, :cond_4
 
-    :cond_4
+    :cond_3
     const/4 v1, 0x0
 
     .local v1, "i":I
-    :goto_2
+    :goto_1
     iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
     invoke-virtual {v3}, Ljava/util/ArrayList;->size()I
 
     move-result v3
 
-    if-ge v1, v3, :cond_6
+    if-ge v1, v3, :cond_4
 
     iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mItems:Ljava/util/ArrayList;
 
@@ -9593,86 +10157,63 @@
 
     check-cast v3, Lcom/android/internal/widget/ViewPager$ItemInfo;
 
-    iput-boolean v0, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->scrolling:Z
+    iput-boolean v4, v3, Lcom/android/internal/widget/ViewPager$ItemInfo;->scrolling:Z
 
     add-int/lit8 v1, v1, 0x1
 
-    goto :goto_2
-
-    .end local v1    # "i":I
-    .end local v2    # "pageLimit":I
-    :cond_5
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    invoke-virtual {v3}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
-
-    move-result v3
-
-    if-lt p1, v3, :cond_3
-
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mAdapter:Lcom/android/internal/widget/PagerAdapter;
-
-    invoke-virtual {v3}, Lcom/android/internal/widget/PagerAdapter;->getCount()I
-
-    move-result v3
-
-    add-int/lit8 p1, v3, -0x1
-
     goto :goto_1
 
-    .restart local v2    # "pageLimit":I
-    :cond_6
+    .end local v1    # "i":I
+    :cond_4
     iget v3, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
 
-    if-eq v3, p1, :cond_9
+    if-eq v3, p1, :cond_5
+
+    move v0, v4
 
     .local v0, "dispatchSelected":Z
-    :goto_3
+    :cond_5
     iget-boolean v3, p0, Lcom/android/internal/widget/ViewPager;->mFirstLayout:Z
 
-    if-eqz v3, :cond_a
+    if-eqz v3, :cond_8
 
     iput p1, p0, Lcom/android/internal/widget/ViewPager;->mCurItem:I
 
-    if-eqz v0, :cond_7
+    if-eqz v0, :cond_6
 
     iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+
+    if-eqz v3, :cond_6
+
+    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+
+    invoke-interface {v3, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
+
+    :cond_6
+    if-eqz v0, :cond_7
+
+    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
     if-eqz v3, :cond_7
 
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mOnPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
+    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
 
     invoke-interface {v3, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
 
     :cond_7
-    if-eqz v0, :cond_8
-
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
-
-    if-eqz v3, :cond_8
-
-    iget-object v3, p0, Lcom/android/internal/widget/ViewPager;->mInternalPageChangeListener:Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
-
-    invoke-interface {v3, p1}, Lcom/android/internal/widget/ViewPager$OnPageChangeListener;->onPageSelected(I)V
-
-    :cond_8
     invoke-virtual {p0}, Lcom/android/internal/widget/ViewPager;->requestLayout()V
+
+    :goto_2
+    move v0, v4
 
     goto :goto_0
 
-    .end local v0    # "dispatchSelected":Z
-    :cond_9
-    move v0, v4
-
-    goto :goto_3
-
-    .restart local v0    # "dispatchSelected":Z
-    :cond_a
+    :cond_8
     invoke-virtual {p0, p1}, Lcom/android/internal/widget/ViewPager;->populate(I)V
 
     invoke-direct {p0, p1, p2, p4, v0}, Lcom/android/internal/widget/ViewPager;->scrollToItem(IZIZ)V
 
-    goto :goto_0
+    goto :goto_2
 .end method
 
 .method setInternalPageChangeListener(Lcom/android/internal/widget/ViewPager$OnPageChangeListener;)Lcom/android/internal/widget/ViewPager$OnPageChangeListener;
@@ -9983,7 +10524,7 @@
 
     invoke-direct {p0, v1}, Lcom/android/internal/widget/ViewPager;->setScrollState(I)V
 
-    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getClientWidth()I
+    invoke-direct {p0}, Lcom/android/internal/widget/ViewPager;->getPaddedWidth()I
 
     move-result v12
 

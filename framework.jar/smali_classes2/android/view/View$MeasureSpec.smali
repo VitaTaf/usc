@@ -155,7 +155,7 @@
 
     .prologue
     # getter for: Landroid/view/View;->sUseBrokenMakeMeasureSpec:Z
-    invoke-static {}, Landroid/view/View;->access$2000()Z
+    invoke-static {}, Landroid/view/View;->access$2700()Z
 
     move-result v0
 

@@ -134,86 +134,106 @@
 .end method
 
 .method public getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
-    .locals 6
+    .locals 8
     .param p1, "position"    # I
     .param p2, "convertView"    # Landroid/view/View;
     .param p3, "parent"    # Landroid/view/ViewGroup;
 
     .prologue
-    const/4 v0, 0x0
-
-    if-nez p2, :cond_0
-
-    iget-object v4, p0, Landroid/widget/YearPickerView$YearAdapter;->mInflater:Landroid/view/LayoutInflater;
-
-    const v5, 0x10900f0
-
-    invoke-virtual {v4, v5, p3, v0}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
-
-    move-result-object p2
-
-    :cond_0
-    invoke-virtual {p0, p1}, Landroid/widget/YearPickerView$YearAdapter;->getYearForPosition(I)I
-
-    move-result v3
-
-    .local v3, "year":I
-    iget v4, p0, Landroid/widget/YearPickerView$YearAdapter;->mActivatedYear:I
-
-    if-ne v4, v3, :cond_1
-
     const/4 v0, 0x1
 
-    .local v0, "activated":Z
-    :cond_1
-    if-eqz v0, :cond_2
+    const/4 v5, 0x0
 
-    const v1, 0x10303eb
+    if-nez p2, :cond_2
 
-    .local v1, "textAppearanceResId":I
+    move v1, v0
+
+    .local v1, "hasNewView":Z
     :goto_0
-    move-object v2, p2
+    if-eqz v1, :cond_3
 
-    check-cast v2, Landroid/widget/TextView;
+    iget-object v6, p0, Landroid/widget/YearPickerView$YearAdapter;->mInflater:Landroid/view/LayoutInflater;
 
-    .local v2, "v":Landroid/widget/TextView;
-    new-instance v4, Ljava/lang/StringBuilder;
+    const v7, 0x10900f0
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v6, v7, p3, v5}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
-    const-string v5, ""
+    move-result-object v3
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    check-cast v3, Landroid/widget/TextView;
 
-    move-result-object v4
+    .local v3, "v":Landroid/widget/TextView;
+    :goto_1
+    invoke-virtual {p0, p1}, Landroid/widget/YearPickerView$YearAdapter;->getYearForPosition(I)I
 
-    invoke-virtual {v4, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    move-result v4
 
-    move-result-object v4
+    .local v4, "year":I
+    iget v6, p0, Landroid/widget/YearPickerView$YearAdapter;->mActivatedYear:I
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    if-ne v6, v4, :cond_4
 
-    move-result-object v4
+    .local v0, "activated":Z
+    :goto_2
+    if-nez v1, :cond_0
 
-    invoke-virtual {v2, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v3}, Landroid/widget/TextView;->isActivated()Z
 
-    invoke-virtual {v2}, Landroid/widget/TextView;->getContext()Landroid/content/Context;
+    move-result v5
 
-    move-result-object v4
+    if-eq v5, v0, :cond_1
 
-    invoke-virtual {v2, v4, v1}, Landroid/widget/TextView;->setTextAppearance(Landroid/content/Context;I)V
+    :cond_0
+    if-eqz v0, :cond_5
 
-    invoke-virtual {v2, v0}, Landroid/widget/TextView;->setActivated(Z)V
+    const v2, 0x10303eb
 
-    return-object v2
+    .local v2, "textAppearanceResId":I
+    :goto_3
+    invoke-virtual {v3, v2}, Landroid/widget/TextView;->setTextAppearance(I)V
 
-    .end local v1    # "textAppearanceResId":I
-    .end local v2    # "v":Landroid/widget/TextView;
+    invoke-virtual {v3, v0}, Landroid/widget/TextView;->setActivated(Z)V
+
+    .end local v2    # "textAppearanceResId":I
+    :cond_1
+    invoke-static {v4}, Ljava/lang/Integer;->toString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v3, v5}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    return-object v3
+
+    .end local v0    # "activated":Z
+    .end local v1    # "hasNewView":Z
+    .end local v3    # "v":Landroid/widget/TextView;
+    .end local v4    # "year":I
     :cond_2
-    const v1, 0x1030428
+    move v1, v5
 
-    .restart local v1    # "textAppearanceResId":I
     goto :goto_0
+
+    .restart local v1    # "hasNewView":Z
+    :cond_3
+    move-object v3, p2
+
+    check-cast v3, Landroid/widget/TextView;
+
+    .restart local v3    # "v":Landroid/widget/TextView;
+    goto :goto_1
+
+    .restart local v4    # "year":I
+    :cond_4
+    move v0, v5
+
+    goto :goto_2
+
+    .restart local v0    # "activated":Z
+    :cond_5
+    const v2, 0x1030428
+
+    .restart local v2    # "textAppearanceResId":I
+    goto :goto_3
 .end method
 
 .method public getViewTypeCount()I

@@ -122,6 +122,10 @@
 .field private mFreezesText:Z
 
 .field private mGravity:I
+    .annotation runtime Landroid/view/ViewDebug$ExportedProperty;
+        category = "text"
+    .end annotation
+.end field
 
 .field mHighlightColor:I
 

@@ -1323,10 +1323,6 @@
 
 .field public static final ic_checkmark_holo_light:I = 0x1080332
 
-.field public static final ic_chevron_left:I = 0x1080571
-
-.field public static final ic_chevron_right:I = 0x10805c3
-
 .field public static final ic_clear:I = 0x1080333
 
 .field public static final ic_clear_disabled:I = 0x1080334
