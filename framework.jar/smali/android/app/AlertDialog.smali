@@ -20,14 +20,29 @@
 .field public static final LAYOUT_HINT_SIDE:I = 0x1
 
 .field public static final THEME_DEVICE_DEFAULT_DARK:I = 0x4
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final THEME_DEVICE_DEFAULT_LIGHT:I = 0x5
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final THEME_HOLO_DARK:I = 0x2
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final THEME_HOLO_LIGHT:I = 0x3
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 .field public static final THEME_TRADITIONAL:I = 0x1
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+.end field
 
 
 # instance fields
@@ -36,48 +51,28 @@
 
 # direct methods
 .method protected constructor <init>(Landroid/content/Context;)V
-    .locals 2
+    .locals 1
     .param p1, "context"    # Landroid/content/Context;
 
     .prologue
     const/4 v0, 0x0
 
-    invoke-static {p1, v0}, Landroid/app/AlertDialog;->resolveDialogTheme(Landroid/content/Context;I)I
-
-    move-result v0
-
-    const/4 v1, 0x1
-
-    invoke-direct {p0, p1, v0, v1}, Landroid/app/AlertDialog;-><init>(Landroid/content/Context;IZ)V
+    invoke-direct {p0, p1, v0}, Landroid/app/AlertDialog;-><init>(Landroid/content/Context;I)V
 
     return-void
 .end method
 
 .method protected constructor <init>(Landroid/content/Context;I)V
-    .locals 1
-    .param p1, "context"    # Landroid/content/Context;
-    .param p2, "theme"    # I
-
-    .prologue
-    const/4 v0, 0x1
-
-    invoke-direct {p0, p1, p2, v0}, Landroid/app/AlertDialog;-><init>(Landroid/content/Context;IZ)V
-
-    return-void
-.end method
-
-.method constructor <init>(Landroid/content/Context;IZ)V
     .locals 3
     .param p1, "context"    # Landroid/content/Context;
-    .param p2, "theme"    # I
-    .param p3, "createThemeContextWrapper"    # Z
+    .param p2, "themeResId"    # I
 
     .prologue
     invoke-static {p1, p2}, Landroid/app/AlertDialog;->resolveDialogTheme(Landroid/content/Context;I)I
 
     move-result v0
 
-    invoke-direct {p0, p1, v0, p3}, Landroid/app/Dialog;-><init>(Landroid/content/Context;IZ)V
+    invoke-direct {p0, p1, v0}, Landroid/app/Dialog;-><init>(Landroid/content/Context;I)V
 
     iget-object v0, p0, Landroid/app/AlertDialog;->mWindow:Landroid/view/Window;
 
@@ -101,7 +96,7 @@
 .end method
 
 .method protected constructor <init>(Landroid/content/Context;ZLandroid/content/DialogInterface$OnCancelListener;)V
-    .locals 2
+    .locals 1
     .param p1, "context"    # Landroid/content/Context;
     .param p2, "cancelable"    # Z
     .param p3, "cancelListener"    # Landroid/content/DialogInterface$OnCancelListener;
@@ -109,29 +104,11 @@
     .prologue
     const/4 v0, 0x0
 
-    invoke-static {p1, v0}, Landroid/app/AlertDialog;->resolveDialogTheme(Landroid/content/Context;I)I
-
-    move-result v0
-
-    invoke-direct {p0, p1, v0}, Landroid/app/Dialog;-><init>(Landroid/content/Context;I)V
-
-    iget-object v0, p0, Landroid/app/AlertDialog;->mWindow:Landroid/view/Window;
-
-    invoke-virtual {v0}, Landroid/view/Window;->alwaysReadCloseOnTouchAttr()V
+    invoke-direct {p0, p1, v0}, Landroid/app/AlertDialog;-><init>(Landroid/content/Context;I)V
 
     invoke-virtual {p0, p2}, Landroid/app/AlertDialog;->setCancelable(Z)V
 
     invoke-virtual {p0, p3}, Landroid/app/AlertDialog;->setOnCancelListener(Landroid/content/DialogInterface$OnCancelListener;)V
-
-    new-instance v0, Lcom/android/internal/app/AlertController;
-
-    invoke-virtual {p0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
-
-    move-result-object v1
-
-    invoke-direct {v0, p1, p0, v1}, Lcom/android/internal/app/AlertController;-><init>(Landroid/content/Context;Landroid/content/DialogInterface;Landroid/view/Window;)V
-
-    iput-object v0, p0, Landroid/app/AlertDialog;->mAlert:Lcom/android/internal/app/AlertController;
 
     return-void
 .end method
@@ -149,7 +126,7 @@
 .method static resolveDialogTheme(Landroid/content/Context;I)I
     .locals 4
     .param p0, "context"    # Landroid/content/Context;
-    .param p1, "resid"    # I
+    .param p1, "themeResId"    # I
 
     .prologue
     const/4 v3, 0x1
@@ -158,12 +135,12 @@
 
     const p1, 0x103047d
 
-    .end local p1    # "resid":I
+    .end local p1    # "themeResId":I
     :cond_0
     :goto_0
     return p1
 
-    .restart local p1    # "resid":I
+    .restart local p1    # "themeResId":I
     :cond_1
     const/4 v1, 0x2
 

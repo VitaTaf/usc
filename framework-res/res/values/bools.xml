@@ -230,4 +230,5 @@
     <bool name="adjusting_lte_signal_rsrp_level_as_band_changing">false</bool>
     <bool name="config_enabled_frp_violation_suicide">false</bool>
     <bool name="config_persist_pnt_with_simslot">false</bool>
+    <bool name="allow_stacked_button_bar">false</bool>
 </resources>

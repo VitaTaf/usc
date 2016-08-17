@@ -246,8 +246,8 @@
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mCircleRadius:F
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$900(Landroid/widget/RadialTimePickerView;)F
+    # getter for: Landroid/widget/RadialTimePickerView;->mCircleRadius:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$900(Landroid/widget/RadialTimePickerView;)I
 
     move-result v12
 
@@ -255,8 +255,8 @@
 
     iget-object v13, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mNumbersRadiusMultiplier:[F
-    invoke-static {v13}, Landroid/widget/RadialTimePickerView;->access$1000(Landroid/widget/RadialTimePickerView;)[F
+    # getter for: Landroid/widget/RadialTimePickerView;->mTextInset:[I
+    invoke-static {v13}, Landroid/widget/RadialTimePickerView;->access$1000(Landroid/widget/RadialTimePickerView;)[I
 
     move-result-object v13
 
@@ -264,21 +264,19 @@
 
     aget v13, v13, v14
 
-    mul-float v2, v12, v13
+    sub-int/2addr v12, v13
+
+    int-to-float v2, v12
 
     .local v2, "centerRadius":F
     move-object/from16 v0, p0
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mSelectionRadius:[I
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1100(Landroid/widget/RadialTimePickerView;)[I
+    # getter for: Landroid/widget/RadialTimePickerView;->mSelectorRadius:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1100(Landroid/widget/RadialTimePickerView;)I
 
-    move-result-object v12
-
-    const/4 v13, 0x2
-
-    aget v12, v12, v13
+    move-result v12
 
     int-to-float v5, v12
 
@@ -309,10 +307,12 @@
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mXCenter:F
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1400(Landroid/widget/RadialTimePickerView;)F
+    # getter for: Landroid/widget/RadialTimePickerView;->mXCenter:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1400(Landroid/widget/RadialTimePickerView;)I
 
     move-result v12
+
+    int-to-float v12, v12
 
     invoke-static {v6, v7}, Ljava/lang/Math;->sin(D)D
 
@@ -329,10 +329,12 @@
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mYCenter:F
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1500(Landroid/widget/RadialTimePickerView;)F
+    # getter for: Landroid/widget/RadialTimePickerView;->mYCenter:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1500(Landroid/widget/RadialTimePickerView;)I
 
     move-result v12
+
+    int-to-float v12, v12
 
     invoke-static {v6, v7}, Ljava/lang/Math;->cos(D)D
 
@@ -384,8 +386,8 @@
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mCircleRadius:F
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$900(Landroid/widget/RadialTimePickerView;)F
+    # getter for: Landroid/widget/RadialTimePickerView;->mCircleRadius:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$900(Landroid/widget/RadialTimePickerView;)I
 
     move-result v12
 
@@ -393,8 +395,8 @@
 
     iget-object v13, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mNumbersRadiusMultiplier:[F
-    invoke-static {v13}, Landroid/widget/RadialTimePickerView;->access$1000(Landroid/widget/RadialTimePickerView;)[F
+    # getter for: Landroid/widget/RadialTimePickerView;->mTextInset:[I
+    invoke-static {v13}, Landroid/widget/RadialTimePickerView;->access$1000(Landroid/widget/RadialTimePickerView;)[I
 
     move-result-object v13
 
@@ -402,21 +404,19 @@
 
     aget v13, v13, v14
 
-    mul-float v2, v12, v13
+    sub-int/2addr v12, v13
+
+    int-to-float v2, v12
 
     .restart local v2    # "centerRadius":F
     move-object/from16 v0, p0
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mSelectionRadius:[I
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1100(Landroid/widget/RadialTimePickerView;)[I
+    # getter for: Landroid/widget/RadialTimePickerView;->mSelectorRadius:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1100(Landroid/widget/RadialTimePickerView;)I
 
-    move-result-object v12
-
-    const/4 v13, 0x0
-
-    aget v12, v12, v13
+    move-result v12
 
     int-to-float v5, v12
 
@@ -435,8 +435,8 @@
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mCircleRadius:F
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$900(Landroid/widget/RadialTimePickerView;)F
+    # getter for: Landroid/widget/RadialTimePickerView;->mCircleRadius:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$900(Landroid/widget/RadialTimePickerView;)I
 
     move-result v12
 
@@ -444,8 +444,8 @@
 
     iget-object v13, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mNumbersRadiusMultiplier:[F
-    invoke-static {v13}, Landroid/widget/RadialTimePickerView;->access$1000(Landroid/widget/RadialTimePickerView;)[F
+    # getter for: Landroid/widget/RadialTimePickerView;->mTextInset:[I
+    invoke-static {v13}, Landroid/widget/RadialTimePickerView;->access$1000(Landroid/widget/RadialTimePickerView;)[I
 
     move-result-object v13
 
@@ -453,7 +453,9 @@
 
     aget v13, v13, v14
 
-    mul-float v2, v12, v13
+    sub-int/2addr v12, v13
+
+    int-to-float v2, v12
 
     .restart local v2    # "centerRadius":F
     move-object/from16 v0, p0
@@ -472,14 +474,10 @@
 
     iget-object v12, v0, Landroid/widget/RadialTimePickerView$RadialPickerTouchHelper;->this$0:Landroid/widget/RadialTimePickerView;
 
-    # getter for: Landroid/widget/RadialTimePickerView;->mSelectionRadius:[I
-    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1100(Landroid/widget/RadialTimePickerView;)[I
+    # getter for: Landroid/widget/RadialTimePickerView;->mSelectorRadius:I
+    invoke-static {v12}, Landroid/widget/RadialTimePickerView;->access$1100(Landroid/widget/RadialTimePickerView;)I
 
-    move-result-object v12
-
-    const/4 v13, 0x1
-
-    aget v12, v12, v13
+    move-result v12
 
     int-to-float v5, v12
 

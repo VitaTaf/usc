@@ -872,7 +872,7 @@
 
     iput v1, p1, Landroid/content/res/Configuration;->mnc:I
 
-    const-string v1, "locale"
+    const-string/jumbo v1, "locale"
 
     invoke-static {p0, v1}, Lcom/android/internal/util/XmlUtils;->readStringAttribute(Lorg/xmlpull/v1/XmlPullParser;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1491,7 +1491,7 @@
     goto/16 :goto_1
 
     :sswitch_3
-    const-string v1, "long"
+    const-string/jumbo v1, "long"
 
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
@@ -1728,8 +1728,6 @@
 
     goto/16 :goto_c
 
-    nop
-
     :sswitch_data_0
     .sparse-switch
         0x40 -> :sswitch_1
@@ -1868,7 +1866,7 @@
 
     if-eqz v0, :cond_2
 
-    const-string v0, "locale"
+    const-string/jumbo v0, "locale"
 
     iget-object v1, p1, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
 

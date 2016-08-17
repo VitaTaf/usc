@@ -24,7 +24,7 @@
 
 
 # instance fields
-.field mItemTextAppearanceResId:I
+.field private mItemTextAppearanceResId:I
 
 .field final synthetic this$0:Landroid/widget/YearPickerView;
 
@@ -61,7 +61,7 @@
     check-cast v1, Landroid/widget/TextViewWithCircularIndicator;
 
     .local v1, "v":Landroid/widget/TextViewWithCircularIndicator;
-    invoke-virtual {p0}, Landroid/widget/YearPickerView$YearAdapter;->getContext()Landroid/content/Context;
+    invoke-virtual {v1}, Landroid/widget/TextViewWithCircularIndicator;->getContext()Landroid/content/Context;
 
     move-result-object v3
 
@@ -69,7 +69,14 @@
 
     invoke-virtual {v1, v3, v4}, Landroid/widget/TextViewWithCircularIndicator;->setTextAppearance(Landroid/content/Context;I)V
 
-    invoke-virtual {v1}, Landroid/widget/TextViewWithCircularIndicator;->requestLayout()V
+    iget-object v3, p0, Landroid/widget/YearPickerView$YearAdapter;->this$0:Landroid/widget/YearPickerView;
+
+    # getter for: Landroid/widget/YearPickerView;->mYearActivatedColor:I
+    invoke-static {v3}, Landroid/widget/YearPickerView;->access$000(Landroid/widget/YearPickerView;)I
+
+    move-result v3
+
+    invoke-virtual {v1, v3}, Landroid/widget/TextViewWithCircularIndicator;->setCircleColor(I)V
 
     invoke-virtual {p0, p1}, Landroid/widget/YearPickerView$YearAdapter;->getItem(I)Ljava/lang/Object;
 
@@ -85,7 +92,7 @@
     iget-object v3, p0, Landroid/widget/YearPickerView$YearAdapter;->this$0:Landroid/widget/YearPickerView;
 
     # getter for: Landroid/widget/YearPickerView;->mController:Landroid/widget/DatePickerController;
-    invoke-static {v3}, Landroid/widget/YearPickerView;->access$000(Landroid/widget/YearPickerView;)Landroid/widget/DatePickerController;
+    invoke-static {v3}, Landroid/widget/YearPickerView;->access$100(Landroid/widget/YearPickerView;)Landroid/widget/DatePickerController;
 
     move-result-object v3
 
@@ -97,28 +104,16 @@
 
     move-result v3
 
-    if-ne v3, v2, :cond_1
+    if-ne v3, v2, :cond_0
 
     .local v0, "selected":Z
     :goto_0
-    invoke-virtual {v1, v0}, Landroid/widget/TextViewWithCircularIndicator;->setDrawIndicator(Z)V
+    invoke-virtual {v1, v0}, Landroid/widget/TextViewWithCircularIndicator;->setActivated(Z)V
 
-    if-eqz v0, :cond_0
-
-    iget-object v3, p0, Landroid/widget/YearPickerView$YearAdapter;->this$0:Landroid/widget/YearPickerView;
-
-    # getter for: Landroid/widget/YearPickerView;->mYearSelectedCircleColor:I
-    invoke-static {v3}, Landroid/widget/YearPickerView;->access$100(Landroid/widget/YearPickerView;)I
-
-    move-result v3
-
-    invoke-virtual {v1, v3}, Landroid/widget/TextViewWithCircularIndicator;->setCircleColor(I)V
-
-    :cond_0
     return-object v1
 
     .end local v0    # "selected":Z
-    :cond_1
+    :cond_0
     const/4 v0, 0x0
 
     goto :goto_0

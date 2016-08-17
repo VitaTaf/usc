@@ -767,7 +767,7 @@
 
 .method public setCheckMarkDrawable(I)V
     .locals 3
-    .param p1, "resid"    # I
+    .param p1, "resId"    # I
 
     .prologue
     if-eqz p1, :cond_0

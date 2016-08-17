@@ -556,7 +556,7 @@
     .local v14, "defaultHighlightColor":I
     const/16 v24, 0x9
 
-    const/16 v25, -0x1
+    const/16 v25, 0x0
 
     move/from16 v0, v24
 
@@ -567,11 +567,7 @@
     move-result v13
 
     .local v13, "dayOfWeekTextAppearanceResId":I
-    const/16 v24, -0x1
-
-    move/from16 v0, v24
-
-    if-eq v13, v0, :cond_0
+    if-eqz v13, :cond_0
 
     move-object/from16 v0, p0
 
@@ -614,18 +610,9 @@
 
     invoke-virtual {v11, v0}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    const/16 v24, 0x13
-
-    move/from16 v0, v24
-
-    invoke-virtual {v6, v0, v14}, Landroid/content/res/TypedArray;->getColor(II)I
-
-    move-result v15
-
-    .local v15, "headerSelectedTextColor":I
     const/16 v24, 0xa
 
-    const/16 v25, -0x1
+    const/16 v25, 0x0
 
     move/from16 v0, v24
 
@@ -636,13 +623,7 @@
     move-result v20
 
     .local v20, "monthTextAppearanceResId":I
-    const/16 v24, -0x1
-
-    move/from16 v0, v20
-
-    move/from16 v1, v24
-
-    if-eq v0, v1, :cond_1
+    if-eqz v20, :cond_1
 
     move-object/from16 v0, p0
 
@@ -659,37 +640,9 @@
     invoke-virtual {v0, v1, v2}, Landroid/widget/TextView;->setTextAppearance(Landroid/content/Context;I)V
 
     :cond_1
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mHeaderMonthTextView:Landroid/widget/TextView;
-
-    move-object/from16 v24, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mHeaderMonthTextView:Landroid/widget/TextView;
-
-    move-object/from16 v25, v0
-
-    invoke-virtual/range {v25 .. v25}, Landroid/widget/TextView;->getTextColors()Landroid/content/res/ColorStateList;
-
-    move-result-object v25
-
-    const v26, 0x10100a1
-
-    move-object/from16 v0, v25
-
-    move/from16 v1, v26
-
-    invoke-static {v0, v1, v15}, Landroid/content/res/ColorStateList;->addFirstIfMissing(Landroid/content/res/ColorStateList;II)Landroid/content/res/ColorStateList;
-
-    move-result-object v25
-
-    invoke-virtual/range {v24 .. v25}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
-
     const/16 v24, 0xb
 
-    const/16 v25, -0x1
+    const/16 v25, 0x0
 
     move/from16 v0, v24
 
@@ -700,11 +653,7 @@
     move-result v12
 
     .local v12, "dayOfMonthTextAppearanceResId":I
-    const/16 v24, -0x1
-
-    move/from16 v0, v24
-
-    if-eq v12, v0, :cond_2
+    if-eqz v12, :cond_2
 
     move-object/from16 v0, p0
 
@@ -719,37 +668,9 @@
     invoke-virtual {v0, v1, v12}, Landroid/widget/TextView;->setTextAppearance(Landroid/content/Context;I)V
 
     :cond_2
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mHeaderDayOfMonthTextView:Landroid/widget/TextView;
-
-    move-object/from16 v24, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mHeaderDayOfMonthTextView:Landroid/widget/TextView;
-
-    move-object/from16 v25, v0
-
-    invoke-virtual/range {v25 .. v25}, Landroid/widget/TextView;->getTextColors()Landroid/content/res/ColorStateList;
-
-    move-result-object v25
-
-    const v26, 0x10100a1
-
-    move-object/from16 v0, v25
-
-    move/from16 v1, v26
-
-    invoke-static {v0, v1, v15}, Landroid/content/res/ColorStateList;->addFirstIfMissing(Landroid/content/res/ColorStateList;II)Landroid/content/res/ColorStateList;
-
-    move-result-object v25
-
-    invoke-virtual/range {v24 .. v25}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
-
     const/16 v24, 0xc
 
-    const/16 v25, -0x1
+    const/16 v25, 0x0
 
     move/from16 v0, v24
 
@@ -757,16 +678,10 @@
 
     invoke-virtual {v6, v0, v1}, Landroid/content/res/TypedArray;->getResourceId(II)I
 
-    move-result v23
+    move-result v15
 
-    .local v23, "yearTextAppearanceResId":I
-    const/16 v24, -0x1
-
-    move/from16 v0, v23
-
-    move/from16 v1, v24
-
-    if-eq v0, v1, :cond_3
+    .local v15, "headerYearTextAppearanceResId":I
+    if-eqz v15, :cond_3
 
     move-object/from16 v0, p0
 
@@ -778,39 +693,9 @@
 
     move-object/from16 v1, p2
 
-    move/from16 v2, v23
-
-    invoke-virtual {v0, v1, v2}, Landroid/widget/TextView;->setTextAppearance(Landroid/content/Context;I)V
+    invoke-virtual {v0, v1, v15}, Landroid/widget/TextView;->setTextAppearance(Landroid/content/Context;I)V
 
     :cond_3
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mHeaderYearTextView:Landroid/widget/TextView;
-
-    move-object/from16 v24, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mHeaderYearTextView:Landroid/widget/TextView;
-
-    move-object/from16 v25, v0
-
-    invoke-virtual/range {v25 .. v25}, Landroid/widget/TextView;->getTextColors()Landroid/content/res/ColorStateList;
-
-    move-result-object v25
-
-    const v26, 0x10100a1
-
-    move-object/from16 v0, v25
-
-    move/from16 v1, v26
-
-    invoke-static {v0, v1, v15}, Landroid/content/res/ColorStateList;->addFirstIfMissing(Landroid/content/res/ColorStateList;II)Landroid/content/res/ColorStateList;
-
-    move-result-object v25
-
-    invoke-virtual/range {v24 .. v25}, Landroid/widget/TextView;->setTextColor(Landroid/content/res/ColorStateList;)V
-
     new-instance v24, Landroid/widget/DayPickerView;
 
     move-object/from16 v0, p0
@@ -973,11 +858,11 @@
 
     move/from16 v0, v24
 
-    invoke-virtual {v6, v0, v14}, Landroid/content/res/TypedArray;->getColor(II)I
+    invoke-virtual {v6, v0}, Landroid/content/res/TypedArray;->getColorStateList(I)Landroid/content/res/ColorStateList;
 
-    move-result v22
+    move-result-object v22
 
-    .local v22, "yearSelectedCircleColor":I
+    .local v22, "yearBackgroundColor":Landroid/content/res/ColorStateList;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mYearPickerView:Landroid/widget/YearPickerView;
@@ -986,10 +871,38 @@
 
     move-object/from16 v0, v24
 
-    move/from16 v1, v22
+    move-object/from16 v1, v22
 
-    invoke-virtual {v0, v1}, Landroid/widget/YearPickerView;->setYearSelectedCircleColor(I)V
+    invoke-virtual {v0, v1}, Landroid/widget/YearPickerView;->setYearBackgroundColor(Landroid/content/res/ColorStateList;)V
 
+    const/16 v24, 0xd
+
+    const/16 v25, 0x0
+
+    move/from16 v0, v24
+
+    move/from16 v1, v25
+
+    invoke-virtual {v6, v0, v1}, Landroid/content/res/TypedArray;->getResourceId(II)I
+
+    move-result v23
+
+    .local v23, "yearTextAppearanceResId":I
+    if-eqz v23, :cond_4
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Landroid/widget/DatePickerCalendarDelegate;->mYearPickerView:Landroid/widget/YearPickerView;
+
+    move-object/from16 v24, v0
+
+    move-object/from16 v0, v24
+
+    move/from16 v1, v23
+
+    invoke-virtual {v0, v1}, Landroid/widget/YearPickerView;->setYearTextAppearance(I)V
+
+    :cond_4
     const/16 v24, 0xf
 
     move/from16 v0, v24
@@ -1009,7 +922,7 @@
 
     invoke-virtual {v0, v10}, Landroid/widget/DayPickerView;->setCalendarTextColor(Landroid/content/res/ColorStateList;)V
 
-    const/16 v24, 0x14
+    const/16 v24, 0x13
 
     move/from16 v0, v24
 

@@ -174,110 +174,6 @@
     return v0
 .end method
 
-.method public static addFirstIfMissing(Landroid/content/res/ColorStateList;II)Landroid/content/res/ColorStateList;
-    .locals 10
-    .param p0, "colorStateList"    # Landroid/content/res/ColorStateList;
-    .param p1, "state"    # I
-    .param p2, "color"    # I
-
-    .prologue
-    const/4 v9, 0x1
-
-    const/4 v8, 0x0
-
-    invoke-virtual {p0}, Landroid/content/res/ColorStateList;->getStates()[[I
-
-    move-result-object v3
-
-    .local v3, "inputStates":[[I
-    const/4 v0, 0x0
-
-    .local v0, "i":I
-    :goto_0
-    array-length v7, v3
-
-    if-ge v0, v7, :cond_2
-
-    aget-object v2, v3, v0
-
-    .local v2, "inputState":[I
-    const/4 v4, 0x0
-
-    .local v4, "j":I
-    :goto_1
-    array-length v7, v2
-
-    if-ge v4, v7, :cond_1
-
-    aget v7, v2, v4
-
-    if-ne v7, p1, :cond_0
-
-    .end local v2    # "inputState":[I
-    .end local v4    # "j":I
-    .end local p0    # "colorStateList":Landroid/content/res/ColorStateList;
-    :goto_2
-    return-object p0
-
-    .restart local v2    # "inputState":[I
-    .restart local v4    # "j":I
-    .restart local p0    # "colorStateList":Landroid/content/res/ColorStateList;
-    :cond_0
-    add-int/lit8 v4, v4, 0x1
-
-    goto :goto_1
-
-    :cond_1
-    add-int/lit8 v0, v0, 0x1
-
-    goto :goto_0
-
-    .end local v2    # "inputState":[I
-    .end local v4    # "j":I
-    :cond_2
-    array-length v7, v3
-
-    add-int/lit8 v7, v7, 0x1
-
-    new-array v6, v7, [[I
-
-    .local v6, "outputStates":[[I
-    array-length v7, v3
-
-    invoke-static {v3, v8, v6, v9, v7}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
-
-    new-array v7, v9, [I
-
-    aput p1, v7, v8
-
-    aput-object v7, v6, v8
-
-    invoke-virtual {p0}, Landroid/content/res/ColorStateList;->getColors()[I
-
-    move-result-object v1
-
-    .local v1, "inputColors":[I
-    array-length v7, v1
-
-    add-int/lit8 v7, v7, 0x1
-
-    new-array v5, v7, [I
-
-    .local v5, "outputColors":[I
-    array-length v7, v1
-
-    invoke-static {v1, v8, v5, v9, v7}, Ljava/lang/System;->arraycopy([II[III)V
-
-    aput p2, v5, v8
-
-    new-instance p0, Landroid/content/res/ColorStateList;
-
-    .end local p0    # "colorStateList":Landroid/content/res/ColorStateList;
-    invoke-direct {p0, v6, v5}, Landroid/content/res/ColorStateList;-><init>([[I[I)V
-
-    goto :goto_2
-.end method
-
 .method public static createFromXml(Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;)Landroid/content/res/ColorStateList;
     .locals 1
     .param p0, "r"    # Landroid/content/res/Resources;
@@ -1451,7 +1347,7 @@
 
     move-result-object v0
 
-    const-string v1, "mChangingConfigurations="
+    const-string/jumbo v1, "mChangingConfigurations="
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1479,7 +1375,7 @@
 
     move-result-object v0
 
-    const-string v1, "mColors="
+    const-string/jumbo v1, "mColors="
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1495,7 +1391,7 @@
 
     move-result-object v0
 
-    const-string v1, "mDefaultColor="
+    const-string/jumbo v1, "mDefaultColor="
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 

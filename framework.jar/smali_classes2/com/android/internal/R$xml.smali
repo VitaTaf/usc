@@ -39,8 +39,6 @@
 
 .field public static final power_profile:I = 0x111000e
 
-.field public static final signallevel:I = 0x1110010
-
 .field public static final sms_7bit_translation_table:I = 0x1110011
 
 .field public static final sms_short_codes:I = 0x1110012

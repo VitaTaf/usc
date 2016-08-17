@@ -39,7 +39,21 @@
 
 .field public static final alert_dialog:I = 0x1090026
 
+.field public static final alert_dialog_holo:I = 0x1090027
+
+.field public static final alert_dialog_leanback:I = 0x1090028
+
+.field public static final alert_dialog_leanback_button_panel_side:I = 0x1090029
+
+.field public static final alert_dialog_material:I = 0x109002a
+
+.field public static final alert_dialog_micro:I = 0x109002b
+
 .field public static final alert_dialog_progress:I = 0x109002c
+
+.field public static final alert_dialog_progress_holo:I = 0x109002d
+
+.field public static final alert_dialog_progress_material:I = 0x109002e
 
 .field public static final always_use_checkbox:I = 0x109002f
 
@@ -56,6 +70,10 @@
 .field public static final app_perms_summary:I = 0x1090035
 
 .field public static final auto_complete_list:I = 0x1090036
+
+.field public static final breadcrumbs_in_fragment:I = 0x1090037
+
+.field public static final breadcrumbs_in_fragment_material:I = 0x1090038
 
 .field public static final browser_link_context_header:I = 0x109000e
 
@@ -79,11 +97,39 @@
 
 .field public static final date_picker_legacy:I = 0x1090042
 
+.field public static final date_picker_legacy_holo:I = 0x1090043
+
+.field public static final date_picker_selected_date:I = 0x1090044
+
+.field public static final date_picker_view_animator:I = 0x1090045
+
+.field public static final default_navigation:I = 0x1090046
+
+.field public static final dialog_custom_title:I = 0x1090047
+
+.field public static final dialog_custom_title_holo:I = 0x1090048
+
+.field public static final dialog_custom_title_material:I = 0x1090049
+
+.field public static final dialog_title:I = 0x109004a
+
+.field public static final dialog_title_holo:I = 0x109004b
+
+.field public static final dialog_title_icons:I = 0x109004c
+
+.field public static final dialog_title_icons_holo:I = 0x109004d
+
+.field public static final dialog_title_icons_material:I = 0x109004e
+
+.field public static final dialog_title_material:I = 0x109004f
+
 .field public static final expandable_list_content:I = 0x1090001
 
 .field public static final expanded_menu_layout:I = 0x1090050
 
 .field public static final fragment_bread_crumb_item:I = 0x1090051
+
+.field public static final fragment_bread_crumb_item_material:I = 0x1090052
 
 .field public static final fragment_bread_crumbs:I = 0x1090053
 
@@ -111,11 +157,19 @@
 
 .field public static final js_prompt:I = 0x109005f
 
+.field public static final keyboard_key_preview:I = 0x1090060
+
+.field public static final keyboard_popup_keyboard:I = 0x1090061
+
+.field public static final keyguard:I = 0x1090062
+
 .field public static final launch_warning:I = 0x1090063
 
 .field public static final list_content:I = 0x1090014
 
 .field public static final list_content_simple:I = 0x1090064
+
+.field public static final list_gestures_overlay:I = 0x1090065
 
 .field public static final list_menu_item_checkbox:I = 0x1090066
 
@@ -134,6 +188,10 @@
 .field public static final media_route_controller_dialog:I = 0x109006d
 
 .field public static final media_route_list_item:I = 0x109006e
+
+.field public static final menu_item:I = 0x109006f
+
+.field public static final notification_action_list:I = 0x1090070
 
 .field public static final notification_intruder_content:I = 0x1090071
 
@@ -163,31 +221,95 @@
 
 .field public static final notification_template_material_media:I = 0x109007e
 
+.field public static final notification_template_part_chronometer:I = 0x109007f
+
+.field public static final notification_template_part_line1:I = 0x1090080
+
+.field public static final notification_template_part_line2:I = 0x1090081
+
+.field public static final notification_template_part_line3:I = 0x1090082
+
+.field public static final notification_template_part_time:I = 0x1090083
+
+.field public static final notification_template_progressbar:I = 0x1090084
+
 .field public static final number_picker:I = 0x1090085
 
+.field public static final number_picker_with_selector_wheel:I = 0x1090086
+
+.field public static final number_picker_with_selector_wheel_micro:I = 0x1090087
+
 .field public static final overlay_display_window:I = 0x1090088
+
+.field public static final permissions_account_and_authtokentype:I = 0x1090089
 
 .field public static final permissions_package_list_item:I = 0x109008a
 
 .field public static final popup_menu_item_layout:I = 0x109008b
 
+.field public static final power_dialog:I = 0x109008c
+
 .field public static final preference:I = 0x109008d
 
 .field public static final preference_category:I = 0x1090002
 
+.field public static final preference_category_holo:I = 0x109008e
+
+.field public static final preference_category_material:I = 0x109008f
+
+.field public static final preference_child:I = 0x1090090
+
+.field public static final preference_child_holo:I = 0x1090091
+
+.field public static final preference_child_material:I = 0x1090092
+
+.field public static final preference_dialog_edittext:I = 0x1090093
+
+.field public static final preference_dialog_edittext_material:I = 0x1090094
+
 .field public static final preference_header_item:I = 0x1090095
 
+.field public static final preference_header_item_material:I = 0x1090096
+
+.field public static final preference_holo:I = 0x1090097
+
+.field public static final preference_information:I = 0x1090098
+
+.field public static final preference_information_holo:I = 0x1090099
+
+.field public static final preference_information_material:I = 0x109009a
+
 .field public static final preference_list_content:I = 0x109009b
+
+.field public static final preference_list_content_material:I = 0x109009c
 
 .field public static final preference_list_content_single:I = 0x109009d
 
 .field public static final preference_list_fragment:I = 0x109009e
 
+.field public static final preference_list_fragment_material:I = 0x109009f
+
+.field public static final preference_material:I = 0x10900a0
+
+.field public static final preference_widget_checkbox:I = 0x10900a1
+
 .field public static final preference_widget_seekbar:I = 0x10900a2
+
+.field public static final preference_widget_seekbar_material:I = 0x10900a3
+
+.field public static final preference_widget_switch:I = 0x10900a4
+
+.field public static final preferences:I = 0x10900a5
 
 .field public static final progress_dialog:I = 0x10900a6
 
+.field public static final progress_dialog_holo:I = 0x10900a7
+
+.field public static final progress_dialog_material:I = 0x10900a8
+
 .field public static final recent_apps_dialog:I = 0x10900a9
+
+.field public static final recent_apps_icon:I = 0x10900aa
 
 .field public static final remote_views_adapter_default_loading_view:I = 0x10900ab
 
@@ -205,6 +327,8 @@
 
 .field public static final safe_mode:I = 0x10900b2
 
+.field public static final screen:I = 0x10900b3
+
 .field public static final screen_action_bar:I = 0x10900b4
 
 .field public static final screen_custom_title:I = 0x10900b5
@@ -221,6 +345,8 @@
 
 .field public static final screen_title_icons:I = 0x10900bb
 
+.field public static final screen_toolbar:I = 0x10900bc
+
 .field public static final search_bar:I = 0x10900bd
 
 .field public static final search_dropdown_item_icons_2line:I = 0x10900be
@@ -231,9 +357,19 @@
 
 .field public static final select_dialog:I = 0x10900c1
 
+.field public static final select_dialog_holo:I = 0x10900c2
+
 .field public static final select_dialog_item:I = 0x1090011
 
+.field public static final select_dialog_item_holo:I = 0x10900c3
+
+.field public static final select_dialog_item_material:I = 0x10900c4
+
+.field public static final select_dialog_material:I = 0x10900c5
+
 .field public static final select_dialog_multichoice:I = 0x1090013
+
+.field public static final select_dialog_multichoice_holo:I = 0x10900c6
 
 .field public static final select_dialog_multichoice_material:I = 0x10900c7
 
@@ -248,6 +384,8 @@
 .field public static final simple_dropdown_hint:I = 0x10900cb
 
 .field public static final simple_dropdown_item_1line:I = 0x109000a
+
+.field public static final simple_dropdown_item_2line:I = 0x10900cc
 
 .field public static final simple_expandable_list_item_1:I = 0x1090006
 
@@ -283,9 +421,15 @@
 
 .field public static final status_bar_latest_event_content:I = 0x10900d0
 
+.field public static final subscription_item_layout:I = 0x10900d1
+
 .field public static final tab_content:I = 0x10900d2
 
+.field public static final tab_indicator:I = 0x10900d3
+
 .field public static final tab_indicator_holo:I = 0x10900d4
+
+.field public static final tab_indicator_material:I = 0x10900d5
 
 .field public static final test_list_item:I = 0x109000c
 
@@ -293,17 +437,31 @@
 
 .field public static final text_edit_action_popup_text:I = 0x10900d7
 
-.field public static final textview_hint:I = 0x10900de
+.field public static final text_edit_no_paste_window:I = 0x10900d8
 
-.field public static final time_header_label:I = 0x10900df
+.field public static final text_edit_paste_window:I = 0x10900d9
+
+.field public static final text_edit_side_no_paste_window:I = 0x10900da
+
+.field public static final text_edit_side_paste_window:I = 0x10900db
+
+.field public static final text_edit_suggestion_item:I = 0x10900dc
+
+.field public static final text_edit_suggestions_window:I = 0x10900dd
+
+.field public static final textview_hint:I = 0x10900de
 
 .field public static final time_picker_dialog:I = 0x10900e0
 
-.field public static final time_picker_holo:I = 0x10900e1
+.field public static final time_picker_header_material:I = 0x10900e3
 
 .field public static final time_picker_legacy:I = 0x10900e2
 
+.field public static final time_picker_material:I = 0x10900f6
+
 .field public static final transient_notification:I = 0x10900e4
+
+.field public static final twelve_key_entry:I = 0x10900e5
 
 .field public static final two_line_list_item:I = 0x109000d
 
@@ -314,6 +472,8 @@
 .field public static final user_switching_dialog:I = 0x10900e8
 
 .field public static final voice_interaction_session:I = 0x10900e9
+
+.field public static final web_runtime:I = 0x10900ea
 
 .field public static final web_text_view_dropdown:I = 0x10900eb
 
@@ -326,6 +486,8 @@
 .field public static final wifi_p2p_dialog_row:I = 0x10900ef
 
 .field public static final year_label_text_view:I = 0x10900f0
+
+.field public static final zoom_browser_accessory_buttons:I = 0x10900f1
 
 .field public static final zoom_container:I = 0x10900f2
 

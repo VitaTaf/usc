@@ -117,8 +117,7 @@
     <attr name="virtualButtonPressedDrawable" format="reference" />
     <attr name="hideWheelUntilFocused" format="boolean" />
     <attr name="legacyLayout" format="reference" />
-    <attr name="headerSelectedTextColor" format="color" />
-    <attr name="amPmSelectedBackgroundColor" format="color" />
+    <attr name="calendarDayBackgroundColor" format="color" />
     <attr name="frameDuration" format="integer" />
     <attr name="framesCount" format="integer" />
     <attr name="state_accessibility_focused" format="boolean" />
@@ -211,5 +210,5 @@
     <attr name="interpolatorX" format="reference" />
     <attr name="interpolatorY" format="reference" />
     <attr name="interpolatorZ" format="reference" />
-    <attr name="calendarDayBackgroundColor" format="color" />
+    <item type="^attr-private" name="APKTOOL_DUMMY_66">false</item>
 </resources>

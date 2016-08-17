@@ -155,8 +155,6 @@
 
 .field public static final amPmBackgroundColor:I = 0x10104a5
 
-.field public static final amPmSelectedBackgroundColor:I = 0x1160066
-
 .field public static final amPmTextColor:I = 0x10104a4
 
 .field public static final ambientShadowAlpha:I = 0x10104be
@@ -880,8 +878,6 @@
 
 .field public static final headerMonthTextAppearance:I = 0x1010496
 
-.field public static final headerSelectedTextColor:I = 0x1160065
-
 .field public static final headerTimeTextAppearance:I = 0x101049f
 
 .field public static final headerYearTextAppearance:I = 0x1010498
@@ -1366,6 +1362,8 @@
 .field public static final numberPickerStyle:I = 0x1160017
 
 .field public static final numbersBackgroundColor:I = 0x10104a2
+
+.field public static final numbersInnerTextColor:I = 0x10104da
 
 .field public static final numbersSelectorColor:I = 0x10104a3
 

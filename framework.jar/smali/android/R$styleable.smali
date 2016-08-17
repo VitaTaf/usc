@@ -1135,6 +1135,8 @@
 
 .field public static final DatePicker:[I
 
+.field public static final DatePicker_calendarDayBackgroundColor:I = 0x13
+
 .field public static final DatePicker_calendarTextColor:I = 0xf
 
 .field public static final DatePicker_calendarViewShown:I = 0x7
@@ -1157,8 +1159,6 @@
 .field public static final DatePicker_headerDayOfMonthTextAppearance:I = 0xb
 
 .field public static final DatePicker_headerMonthTextAppearance:I = 0xa
-
-.field public static final DatePicker_headerSelectedTextColor:I = 0x13
 
 .field public static final DatePicker_headerYearTextAppearance:I = 0xc
 
@@ -3727,23 +3727,21 @@
 
 .field public static final TimePicker_amPmBackgroundColor:I = 0x7
 
-.field public static final TimePicker_amPmSelectedBackgroundColor:I = 0xc
-
 .field public static final TimePicker_amPmTextColor:I = 0x6
 
 .field public static final TimePicker_headerAmPmTextAppearance:I = 0x2
 
 .field public static final TimePicker_headerBackground:I = 0x0
 
-.field public static final TimePicker_headerSelectedTextColor:I = 0xb
-
 .field public static final TimePicker_headerTimeTextAppearance:I = 0x1
 
-.field public static final TimePicker_internalLayout:I = 0x9
+.field public static final TimePicker_internalLayout:I = 0xa
 
-.field public static final TimePicker_legacyLayout:I = 0xa
+.field public static final TimePicker_legacyLayout:I = 0xb
 
 .field public static final TimePicker_numbersBackgroundColor:I = 0x4
+
+.field public static final TimePicker_numbersInnerTextColor:I = 0x9
 
 .field public static final TimePicker_numbersSelectorColor:I = 0x5
 
@@ -5061,7 +5059,7 @@
 
     sput-object v0, Landroid/R$styleable;->CycleInterpolator:[I
 
-    const/16 v0, 0x15
+    const/16 v0, 0x14
 
     new-array v0, v0, [I
 
@@ -6205,7 +6203,7 @@
 
     sput-object v0, Landroid/R$styleable;->Theme:[I
 
-    const/16 v0, 0xd
+    const/16 v0, 0xc
 
     new-array v0, v0, [I
 
@@ -7181,7 +7179,6 @@
         0x10104b3
         0x1160053
         0x1160064
-        0x1160065
         0x11600b5
     .end array-data
 
@@ -8790,10 +8787,9 @@
         0x10104a4
         0x10104a5
         0x10104b4
+        0x10104da
         0x1160053
         0x1160064
-        0x1160065
-        0x1160066
     .end array-data
 
     :array_b9

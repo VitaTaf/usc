@@ -1331,6 +1331,8 @@
 
 .field public static final numbersBackgroundColor:I = 0x10104a2
 
+.field public static final numbersInnerTextColor:I = 0x10104da
+
 .field public static final numbersSelectorColor:I = 0x10104a3
 
 .field public static final numbersTextColor:I = 0x10104a1

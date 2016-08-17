@@ -45,6 +45,8 @@
 
 .field public static final action_menu_presenter:I = 0x102003f
 
+.field public static final action_mode_bar:I = 0x1020376
+
 .field public static final action_mode_bar_stub:I = 0x1020375
 
 .field public static final action_mode_close_button:I = 0x10202ba
@@ -111,11 +113,19 @@
 
 .field public static final button_once:I = 0x102036c
 
+.field public static final buttons:I = 0x1020303
+
 .field public static final by_common:I = 0x10203a1
+
+.field public static final by_common_header:I = 0x10203a0
 
 .field public static final by_org:I = 0x10203a3
 
+.field public static final by_org_header:I = 0x10203a2
+
 .field public static final by_org_unit:I = 0x10203a5
+
+.field public static final by_org_unit_header:I = 0x10203a4
 
 .field public static final calendar_view:I = 0x10202ec
 
@@ -124,6 +134,8 @@
 .field public static final candidatesArea:I = 0x102001d
 
 .field public static final characterPicker:I = 0x10202e3
+
+.field public static final check:I = 0x102032f
 
 .field public static final checkbox:I = 0x1020001
 
@@ -179,6 +191,8 @@
 
 .field public static final default_activity_button:I = 0x10202be
 
+.field public static final default_loading_view:I = 0x1020369
+
 .field public static final deny_button:I = 0x1020304
 
 .field public static final description:I = 0x10202d7
@@ -199,7 +213,11 @@
 
 .field public static final expand_activities_button:I = 0x10202bc
 
+.field public static final expanded_menu:I = 0x10202f7
+
 .field public static final expires_on:I = 0x10203aa
+
+.field public static final expires_on_header:I = 0x10203a9
 
 .field public static final extractArea:I = 0x102001c
 
@@ -213,11 +231,17 @@
 
 .field public static final find_prev:I = 0x10203e5
 
+.field public static final fingerprints:I = 0x10203ab
+
 .field public static final five:I = 0x10203c6
 
 .field public static final four:I = 0x10203c5
 
 .field public static final fullscreenArea:I = 0x1020310
+
+.field public static final grant_credentials_permission_message_footer:I = 0x1020302
+
+.field public static final grant_credentials_permission_message_header:I = 0x10202fc
 
 .field public static final hard_keyboard_section:I = 0x1020314
 
@@ -240,6 +264,10 @@
 .field public static final icon2:I = 0x1020008
 
 .field public static final icon_frame:I = 0x1020356
+
+.field public static final icon_group:I = 0x1020334
+
+.field public static final icon_menu:I = 0x102030e
 
 .field public static final icon_menu_presenter:I = 0x102003d
 
@@ -265,6 +293,8 @@
 
 .field public static final increment:I = 0x102034c
 
+.field public static final index:I = 0x102032e
+
 .field public static final info:I = 0x102034a
 
 .field public static final input:I = 0x1020009
@@ -283,9 +313,21 @@
 
 .field public static final issued_on:I = 0x10203a8
 
+.field public static final issued_on_header:I = 0x10203a7
+
+.field public static final issued_to_header:I = 0x1020397
+
 .field public static final keyboard:I = 0x1020285
 
 .field public static final keyboardView:I = 0x1020026
+
+.field public static final keyguard_click_area:I = 0x10202f5
+
+.field public static final keyguard_message_area:I = 0x10202f6
+
+.field public static final label:I = 0x1020318
+
+.field public static final leftPanel:I = 0x10202cc
 
 .field public static final leftSpacer:I = 0x10202c6
 
@@ -308,6 +350,8 @@
 .field public static final locale:I = 0x10201b9
 
 .field public static final lock_screen:I = 0x1020036
+
+.field public static final main:I = 0x10203cc
 
 .field public static final mask:I = 0x102002e
 
@@ -341,6 +385,8 @@
 
 .field public static final month_name:I = 0x10202e1
 
+.field public static final month_text_view:I = 0x10203d6
+
 .field public static final mount_button:I = 0x10203ce
 
 .field public static final name:I = 0x10203d5
@@ -363,9 +409,13 @@
 
 .field public static final no_permissions:I = 0x10202de
 
+.field public static final not_pressed:I = 0x10203e0
+
 .field public static final notification_main_column:I = 0x1020336
 
 .field public static final numberpicker_input:I = 0x102034d
+
+.field public static final off:I = 0x1020353
 
 .field public static final ok:I = 0x102030f
 
@@ -374,6 +424,8 @@
 .field public static final old_app_description:I = 0x1020309
 
 .field public static final old_app_icon:I = 0x1020307
+
+.field public static final on:I = 0x10203de
 
 .field public static final one:I = 0x10203c2
 
@@ -393,6 +445,8 @@
 
 .field public static final overlay_display_window_title:I = 0x1020350
 
+.field public static final package_icon:I = 0x1020351
+
 .field public static final package_label:I = 0x1020352
 
 .field public static final packages_list:I = 0x10202fd
@@ -407,9 +461,15 @@
 
 .field public static final perm_icon:I = 0x10202d8
 
+.field public static final perm_money_icon:I = 0x10202da
+
+.field public static final perm_money_label:I = 0x10202db
+
 .field public static final perm_name:I = 0x10202d9
 
 .field public static final permission_group:I = 0x10202dc
+
+.field public static final permission_icon:I = 0x10202fe
 
 .field public static final permission_list:I = 0x10202dd
 
@@ -422,6 +482,8 @@
 .field public static final pin_confirm_text:I = 0x1020374
 
 .field public static final pin_error_message:I = 0x102036f
+
+.field public static final pin_message:I = 0x1020372
 
 .field public static final pin_new_text:I = 0x1020373
 
@@ -436,6 +498,8 @@
 .field public static final prefs:I = 0x102035b
 
 .field public static final prefs_frame:I = 0x102035a
+
+.field public static final pressed:I = 0x10203df
 
 .field public static final prev:I = 0x1020321
 
@@ -465,6 +529,8 @@
 
 .field public static final radio:I = 0x1020316
 
+.field public static final radio_power:I = 0x1020355
+
 .field public static final reask_hint:I = 0x10202d6
 
 .field public static final replace_app_icon:I = 0x1020319
@@ -476,6 +542,8 @@
 .field public static final rew:I = 0x1020322
 
 .field public static final rightSpacer:I = 0x10202c7
+
+.field public static final right_container:I = 0x1020377
 
 .field public static final right_icon:I = 0x1020034
 
@@ -523,25 +591,37 @@
 
 .field public static final select_all:I = 0x10203e1
 
+.field public static final select_dialog_listview:I = 0x102038d
+
 .field public static final selectedIcon:I = 0x102000e
 
 .field public static final separator:I = 0x10203b6
 
 .field public static final serial_number:I = 0x102039f
 
+.field public static final serial_number_header:I = 0x102039e
+
 .field public static final seven:I = 0x10203c8
 
 .field public static final sha1_fingerprint:I = 0x10203af
 
+.field public static final sha1_fingerprint_header:I = 0x10203ae
+
 .field public static final sha256_fingerprint:I = 0x10203ad
+
+.field public static final sha256_fingerprint_header:I = 0x10203ac
 
 .field public static final share:I = 0x10203e2
 
 .field public static final shortcut:I = 0x1020320
 
+.field public static final silent:I = 0x1020354
+
 .field public static final six:I = 0x10203c7
 
 .field public static final skip_button:I = 0x102035e
+
+.field public static final sms_short_code_coins_icon:I = 0x1020390
 
 .field public static final sms_short_code_confirm_message:I = 0x102038e
 
@@ -551,7 +631,13 @@
 
 .field public static final sms_short_code_remember_choice_checkbox:I = 0x1020392
 
+.field public static final sms_short_code_remember_choice_text:I = 0x1020393
+
 .field public static final sms_short_code_remember_undo_instruction:I = 0x1020394
+
+.field public static final spacer:I = 0x10203e7
+
+.field public static final splashscreen:I = 0x10203d1
 
 .field public static final split_action_bar:I = 0x102037e
 
@@ -564,6 +650,14 @@
 .field public static final status_bar_latest_event_content:I = 0x1020335
 
 .field public static final stopSelectingText:I = 0x1020029
+
+.field public static final sub_color:I = 0x10203b0
+
+.field public static final sub_name:I = 0x10203b2
+
+.field public static final sub_number:I = 0x10203b3
+
+.field public static final sub_short_number:I = 0x10203b1
 
 .field public static final submit_area:I = 0x102038a
 
@@ -603,6 +697,8 @@
 
 .field public static final time_header:I = 0x10203b4
 
+.field public static final time_layout:I = 0x10203ed
+
 .field public static final title:I = 0x1020016
 
 .field public static final titleDivider:I = 0x10202c4
@@ -611,13 +707,21 @@
 
 .field public static final title_container:I = 0x1020035
 
+.field public static final title_separator:I = 0x1020396
+
 .field public static final title_template:I = 0x10202c2
 
 .field public static final to_common:I = 0x1020399
 
+.field public static final to_common_header:I = 0x1020398
+
 .field public static final to_org:I = 0x102039b
 
+.field public static final to_org_header:I = 0x102039a
+
 .field public static final to_org_unit:I = 0x102039d
+
+.field public static final to_org_unit_header:I = 0x102039c
 
 .field public static final toggle:I = 0x1020017
 
@@ -633,9 +737,13 @@
 
 .field public static final up:I = 0x102003b
 
+.field public static final validity_header:I = 0x10203a6
+
 .field public static final value:I = 0x1020317
 
 .field public static final websearch:I = 0x10203e4
+
+.field public static final webview:I = 0x10203d0
 
 .field public static final widget_frame:I = 0x1020018
 
@@ -652,6 +760,10 @@
 .field public static final zoomMagnify:I = 0x10203dc
 
 .field public static final zoomOut:I = 0x10203da
+
+.field public static final zoom_fit_page:I = 0x10203d7
+
+.field public static final zoom_page_overview:I = 0x10203d8
 
 
 # direct methods

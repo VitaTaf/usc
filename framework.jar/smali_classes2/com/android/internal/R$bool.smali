@@ -15,6 +15,8 @@
 
 
 # static fields
+.field public static final ImsConnectedDefaultValue:I = 0x112000d
+
 .field public static final action_bar_embed_tabs:I = 0x1120003
 
 .field public static final action_bar_embed_tabs_pre_jb:I = 0x1120004
@@ -22,6 +24,8 @@
 .field public static final action_bar_expanded_action_views_exclusive:I = 0x1120008
 
 .field public static final adjusting_lte_signal_rsrp_level_as_band_changing:I = 0x11200e5
+
+.field public static final allow_stacked_button_bar:I = 0x11200e8
 
 .field public static final app_directed_sms_enabled:I = 0x11200b3
 
@@ -32,6 +36,8 @@
 .field public static final config_LTE_eri_for_network_name:I = 0x112008f
 
 .field public static final config_PowerButtonInstantlyLock:I = 0x11200a0
+
+.field public static final config_actionMenuItemAllCaps:I = 0x112005c
 
 .field public static final config_allowActionMenuItemTextWithIcon:I = 0x112005d
 
@@ -79,6 +85,8 @@
 
 .field public static final config_avoidGfxAccel:I = 0x1120014
 
+.field public static final config_batterySdCardAccessibility:I = 0x1120036
+
 .field public static final config_bluetooth_address_validation:I = 0x112004c
 
 .field public static final config_bluetooth_default_profiles:I = 0x1120051
@@ -86,6 +94,8 @@
 .field public static final config_bluetooth_le_peripheral_mode_supported:I = 0x112004d
 
 .field public static final config_bluetooth_sco_off_call:I = 0x112004a
+
+.field public static final config_bluetooth_wide_band_speech:I = 0x112004b
 
 .field public static final config_built_in_sip_phone:I = 0x1120053
 
@@ -106,6 +116,8 @@
 .field public static final config_cellBroadcastAppLinks:I = 0x1120067
 
 .field public static final config_cell_location_controlled_by_network_loc_setting:I = 0x11200bb
+
+.field public static final config_closeDialogWhenTouchOutside:I = 0x1120013
 
 .field public static final config_dataconnect_confirm_enabled:I = 0x11200d9
 
@@ -417,13 +429,33 @@
 
 .field public static final is_broker_home_mcc_mnc:I = 0x1120093
 
+.field public static final kg_center_small_widgets_vertically:I = 0x1120001
+
+.field public static final kg_enable_camera_default_widget:I = 0x1120000
+
+.field public static final kg_share_status_area:I = 0x112000a
+
+.field public static final kg_sim_puk_account_full_screen:I = 0x112000b
+
+.field public static final kg_top_align_page_shrink_on_bouncer_visible:I = 0x1120002
+
+.field public static final lockscreen_isPortrait:I = 0x112009a
+
 .field public static final mdn_min_for_non_provisioned_csim:I = 0x11200e0
+
+.field public static final one_hspa:I = 0x11200ac
 
 .field public static final preferences_prefer_dual_pane:I = 0x1120006
 
+.field public static final prioritize_voicemail_number_from_sim:I = 0x11200a6
+
 .field public static final read_gid_from_usim_for_ruim:I = 0x1120092
 
+.field public static final show_brazil_settings:I = 0x11200cc
+
 .field public static final show_ongoing_ime_switcher:I = 0x1120007
+
+.field public static final sim_pin_subsidy_digits_hide:I = 0x11200a7
 
 .field public static final skipHoldBeforeMerge:I = 0x112007c
 
@@ -440,6 +472,8 @@
 .field public static final wifi_bcm_device:I = 0x11200d3
 
 .field public static final wifi_device_has_pronto_2_0:I = 0x11200ab
+
+.field public static final wifi_eap_seamless_auth_for_qc:I = 0x11200a9
 
 .field public static final wifi_eap_seamless_authentication:I = 0x11200a8
 

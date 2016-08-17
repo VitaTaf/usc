@@ -30,7 +30,7 @@
 
 .field private final mViewSize:I
 
-.field private mYearSelectedCircleColor:I
+.field private mYearActivatedColor:I
 
 
 # direct methods
@@ -173,7 +173,17 @@
     return-void
 .end method
 
-.method static synthetic access$000(Landroid/widget/YearPickerView;)Landroid/widget/DatePickerController;
+.method static synthetic access$000(Landroid/widget/YearPickerView;)I
+    .locals 1
+    .param p0, "x0"    # Landroid/widget/YearPickerView;
+
+    .prologue
+    iget v0, p0, Landroid/widget/YearPickerView;->mYearActivatedColor:I
+
+    return v0
+.end method
+
+.method static synthetic access$100(Landroid/widget/YearPickerView;)Landroid/widget/DatePickerController;
     .locals 1
     .param p0, "x0"    # Landroid/widget/YearPickerView;
 
@@ -181,16 +191,6 @@
     iget-object v0, p0, Landroid/widget/YearPickerView;->mController:Landroid/widget/DatePickerController;
 
     return-object v0
-.end method
-
-.method static synthetic access$100(Landroid/widget/YearPickerView;)I
-    .locals 1
-    .param p0, "x0"    # Landroid/widget/YearPickerView;
-
-    .prologue
-    iget v0, p0, Landroid/widget/YearPickerView;->mYearSelectedCircleColor:I
-
-    return v0
 .end method
 
 .method private updateAdapterData()V
@@ -260,15 +260,6 @@
     move-result v1
 
     goto :goto_0
-.end method
-
-.method public getYearSelectedCircleColor()I
-    .locals 1
-
-    .prologue
-    iget v0, p0, Landroid/widget/YearPickerView;->mYearSelectedCircleColor:I
-
-    return v0
 .end method
 
 .method public init(Landroid/widget/DatePickerController;)V
@@ -435,18 +426,6 @@
     return-void
 .end method
 
-.method setItemTextAppearance(I)V
-    .locals 1
-    .param p1, "resId"    # I
-
-    .prologue
-    iget-object v0, p0, Landroid/widget/YearPickerView;->mAdapter:Landroid/widget/YearPickerView$YearAdapter;
-
-    invoke-virtual {v0, p1}, Landroid/widget/YearPickerView$YearAdapter;->setItemTextAppearance(I)V
-
-    return-void
-.end method
-
 .method public setRange(Ljava/util/Calendar;Ljava/util/Calendar;)V
     .locals 4
     .param p1, "min"    # Ljava/util/Calendar;
@@ -474,19 +453,38 @@
     return-void
 .end method
 
-.method public setYearSelectedCircleColor(I)V
-    .locals 1
-    .param p1, "color"    # I
+.method public setYearBackgroundColor(Landroid/content/res/ColorStateList;)V
+    .locals 2
+    .param p1, "yearBackgroundColor"    # Landroid/content/res/ColorStateList;
 
     .prologue
-    iget v0, p0, Landroid/widget/YearPickerView;->mYearSelectedCircleColor:I
+    const/16 v0, 0x28
 
-    if-eq p1, v0, :cond_0
+    invoke-static {v0}, Landroid/util/StateSet;->get(I)[I
 
-    iput p1, p0, Landroid/widget/YearPickerView;->mYearSelectedCircleColor:I
+    move-result-object v0
 
-    :cond_0
-    invoke-virtual {p0}, Landroid/widget/YearPickerView;->requestLayout()V
+    const/4 v1, 0x0
+
+    invoke-virtual {p1, v0, v1}, Landroid/content/res/ColorStateList;->getColorForState([II)I
+
+    move-result v0
+
+    iput v0, p0, Landroid/widget/YearPickerView;->mYearActivatedColor:I
+
+    invoke-virtual {p0}, Landroid/widget/YearPickerView;->invalidate()V
+
+    return-void
+.end method
+
+.method public setYearTextAppearance(I)V
+    .locals 1
+    .param p1, "resId"    # I
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/YearPickerView;->mAdapter:Landroid/widget/YearPickerView$YearAdapter;
+
+    invoke-virtual {v0, p1}, Landroid/widget/YearPickerView$YearAdapter;->setItemTextAppearance(I)V
 
     return-void
 .end method

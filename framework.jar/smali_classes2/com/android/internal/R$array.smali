@@ -15,10 +15,6 @@
 
 
 # static fields
-.field public static final Carrier_MccMnc:I = 0x107004e
-
-.field public static final broker_mnc_mcc:I = 0x107004d
-
 .field public static final carrier_properties:I = 0x1070048
 
 .field public static final common_nicknames:I = 0x1070046
@@ -51,12 +47,6 @@
 
 .field public static final config_disabledUntilUsedPreinstalledImes:I = 0x1070032
 
-.field public static final config_dual_imsi_sim_mcc_mnc_list:I = 0x107004c
-
-.field public static final config_erase_recovery_blacklist:I = 0x1070053
-
-.field public static final config_erase_recovery_prefix:I = 0x1070054
-
 .field public static final config_globalActionsList:I = 0x1070037
 
 .field public static final config_gpsParameters:I = 0x107003b
@@ -64,10 +54,6 @@
 .field public static final config_keySystemUuidMapping:I = 0x1070005
 
 .field public static final config_keyboardTapVibePattern:I = 0x107001e
-
-.field public static final config_lmk_minfreehigh:I = 0x1070052
-
-.field public static final config_lmk_minfreelow:I = 0x1070051
 
 .field public static final config_locationProviderPackageNames:I = 0x1070028
 
@@ -91,10 +77,6 @@
 
 .field public static final config_protectedNetworks:I = 0x107000e
 
-.field public static final config_recover_carriers_fields:I = 0x107004f
-
-.field public static final config_recover_carriers_keys:I = 0x1070050
-
 .field public static final config_safeModeDisabledVibePattern:I = 0x1070021
 
 .field public static final config_safeModeEnabledVibePattern:I = 0x1070022
@@ -103,21 +85,11 @@
 
 .field public static final config_serialPorts:I = 0x107001b
 
-.field public static final config_sim_operator_override_rules:I = 0x1070043
-
 .field public static final config_sms_convert_destination_number_support:I = 0x1070040
 
 .field public static final config_sms_enabled_locking_shift_tables:I = 0x107002c
 
 .field public static final config_sms_enabled_single_shift_tables:I = 0x107002b
-
-.field public static final config_sms_priority_filter_list:I = 0x107004a
-
-.field public static final config_sms_short_code_exception_list:I = 0x1070049
-
-.field public static final config_sms_write_message_filter_list:I = 0x107004b
-
-.field public static final config_spn_display_rules:I = 0x1070042
 
 .field public static final config_statusBarIcons:I = 0x107000b
 

@@ -17,7 +17,7 @@
 # instance fields
 .field private final P:Lcom/android/internal/app/AlertController$AlertParams;
 
-.field private mTheme:I
+.field private mThemeResId:I
 
 
 # direct methods
@@ -40,7 +40,7 @@
 .method public constructor <init>(Landroid/content/Context;I)V
     .locals 3
     .param p1, "context"    # Landroid/content/Context;
-    .param p2, "theme"    # I
+    .param p2, "themeResId"    # I
 
     .prologue
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -59,7 +59,7 @@
 
     iput-object v0, p0, Landroid/app/AlertDialog$Builder;->P:Lcom/android/internal/app/AlertController$AlertParams;
 
-    iput p2, p0, Landroid/app/AlertDialog$Builder;->mTheme:I
+    iput p2, p0, Landroid/app/AlertDialog$Builder;->mThemeResId:I
 
     return-void
 .end method
@@ -67,7 +67,7 @@
 
 # virtual methods
 .method public create()Landroid/app/AlertDialog;
-    .locals 4
+    .locals 3
 
     .prologue
     new-instance v0, Landroid/app/AlertDialog;
@@ -76,11 +76,9 @@
 
     iget-object v1, v1, Lcom/android/internal/app/AlertController$AlertParams;->mContext:Landroid/content/Context;
 
-    iget v2, p0, Landroid/app/AlertDialog$Builder;->mTheme:I
+    iget v2, p0, Landroid/app/AlertDialog$Builder;->mThemeResId:I
 
-    const/4 v3, 0x0
-
-    invoke-direct {v0, v1, v2, v3}, Landroid/app/AlertDialog;-><init>(Landroid/content/Context;IZ)V
+    invoke-direct {v0, v1, v2}, Landroid/app/AlertDialog;-><init>(Landroid/content/Context;I)V
 
     .local v0, "dialog":Landroid/app/AlertDialog;
     iget-object v1, p0, Landroid/app/AlertDialog$Builder;->P:Lcom/android/internal/app/AlertController$AlertParams;
@@ -269,6 +267,8 @@
 .method public setInverseBackgroundForced(Z)Landroid/app/AlertDialog$Builder;
     .locals 1
     .param p1, "useInverseBackground"    # Z
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/app/AlertDialog$Builder;->P:Lcom/android/internal/app/AlertController$AlertParams;
@@ -857,6 +857,8 @@
     .param p3, "viewSpacingTop"    # I
     .param p4, "viewSpacingRight"    # I
     .param p5, "viewSpacingBottom"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     iget-object v0, p0, Landroid/app/AlertDialog$Builder;->P:Lcom/android/internal/app/AlertController$AlertParams;

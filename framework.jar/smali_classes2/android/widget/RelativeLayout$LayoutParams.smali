@@ -1717,6 +1717,18 @@
     return-object v0
 .end method
 
+.method public getRule(I)I
+    .locals 1
+    .param p1, "verb"    # I
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/RelativeLayout$LayoutParams;->mRules:[I
+
+    aget v0, v0, p1
+
+    return v0
+.end method
+
 .method public getRules()[I
     .locals 1
 

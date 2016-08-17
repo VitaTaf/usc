@@ -19,11 +19,15 @@
 
 .field public static final action_bar_content_inset_material:I = 0x10500d1
 
+.field public static final action_bar_default_height:I = 0x105003a
+
 .field public static final action_bar_default_height_material:I = 0x10500cf
 
 .field public static final action_bar_default_padding_material:I = 0x10500d0
 
 .field public static final action_bar_elevation_material:I = 0x10500d9
+
+.field public static final action_bar_icon_vertical_padding:I = 0x105003b
 
 .field public static final action_bar_icon_vertical_padding_material:I = 0x10500d2
 
@@ -37,17 +41,33 @@
 
 .field public static final action_bar_stacked_tab_max_width:I = 0x1050053
 
+.field public static final action_bar_subtitle_bottom_margin:I = 0x105003f
+
 .field public static final action_bar_subtitle_bottom_margin_material:I = 0x10500d4
+
+.field public static final action_bar_subtitle_text_size:I = 0x105003d
+
+.field public static final action_bar_subtitle_top_margin:I = 0x105003e
 
 .field public static final action_bar_subtitle_top_margin_material:I = 0x10500d3
 
+.field public static final action_bar_title_text_size:I = 0x105003c
+
 .field public static final action_button_min_height_material:I = 0x10500dc
+
+.field public static final action_button_min_width:I = 0x1050051
 
 .field public static final action_button_min_width_material:I = 0x10500db
 
 .field public static final action_button_min_width_overflow_material:I = 0x10500da
 
+.field public static final activity_chooser_popup_min_width:I = 0x1050047
+
+.field public static final alert_dialog_button_bar_height:I = 0x1050037
+
 .field public static final alert_dialog_round_padding:I = 0x1050035
+
+.field public static final alert_dialog_title_height:I = 0x1050036
 
 .field public static final ambient_shadow_alpha:I = 0x10500a6
 
@@ -127,11 +147,21 @@
 
 .field public static final default_gap:I = 0x1050048
 
+.field public static final dialog_fixed_height_major:I = 0x105002b
+
+.field public static final dialog_fixed_height_minor:I = 0x105002c
+
+.field public static final dialog_fixed_width_major:I = 0x1050029
+
+.field public static final dialog_fixed_width_minor:I = 0x105002a
+
 .field public static final dialog_list_padding_vertical_material:I = 0x1050101
 
 .field public static final dialog_min_width_major:I = 0x1050003
 
 .field public static final dialog_min_width_minor:I = 0x1050004
+
+.field public static final dialog_padding:I = 0x1050032
 
 .field public static final dialog_padding_material:I = 0x10500ff
 
@@ -139,15 +169,23 @@
 
 .field public static final disabled_alpha_leanback_formwizard:I = 0x10500af
 
+.field public static final disabled_alpha_material_dark:I = 0x1050008
+
+.field public static final disabled_alpha_material_light:I = 0x1050007
+
 .field public static final dropdownitem_icon_width:I = 0x105004b
 
 .field public static final dropdownitem_text_padding_left:I = 0x1050049
+
+.field public static final dropdownitem_text_padding_right:I = 0x105004a
 
 .field public static final edit_text_inset_bottom_material:I = 0x10500fe
 
 .field public static final edit_text_inset_horizontal_material:I = 0x10500fc
 
 .field public static final edit_text_inset_top_material:I = 0x10500fd
+
+.field public static final face_unlock_height:I = 0x1050046
 
 .field public static final fast_scroller_minimum_touch_target:I = 0x105009b
 
@@ -165,11 +203,89 @@
 
 .field public static final immersive_mode_cling_width:I = 0x105009c
 
+.field public static final keyguard_avatar_frame_shadow_radius:I = 0x1050076
+
+.field public static final keyguard_avatar_frame_stroke_width:I = 0x1050075
+
+.field public static final keyguard_avatar_name_size:I = 0x1050078
+
+.field public static final keyguard_avatar_size:I = 0x1050077
+
+.field public static final keyguard_lockscreen_clock_font_size:I = 0x1050040
+
+.field public static final keyguard_lockscreen_outerring_diameter:I = 0x105001e
+
+.field public static final keyguard_lockscreen_pin_margin_left:I = 0x1050045
+
+.field public static final keyguard_lockscreen_status_line_clockfont_bottom_margin:I = 0x1050044
+
+.field public static final keyguard_lockscreen_status_line_clockfont_top_margin:I = 0x1050043
+
+.field public static final keyguard_lockscreen_status_line_font_right_margin:I = 0x1050042
+
+.field public static final keyguard_lockscreen_status_line_font_size:I = 0x1050041
+
+.field public static final keyguard_muliuser_selector_margin:I = 0x1050074
+
 .field public static final keyguard_pattern_unlock_clock_font_size:I = 0x10500ab
 
 .field public static final keyguard_pattern_unlock_status_line_font_size:I = 0x10500ad
 
+.field public static final keyguard_security_height:I = 0x1050072
+
+.field public static final keyguard_security_view_margin:I = 0x1050073
+
+.field public static final keyguard_security_width:I = 0x1050071
+
+.field public static final kg_clock_top_margin:I = 0x1050065
+
+.field public static final kg_edge_swipe_region_size:I = 0x1050079
+
 .field public static final kg_emergency_button_shift:I = 0x10500a9
+
+.field public static final kg_key_horizontal_gap:I = 0x1050066
+
+.field public static final kg_key_vertical_gap:I = 0x1050067
+
+.field public static final kg_pin_key_height:I = 0x1050068
+
+.field public static final kg_runway_lights_height:I = 0x105006a
+
+.field public static final kg_runway_lights_top_margin:I = 0x105006f
+
+.field public static final kg_runway_lights_vertical_padding:I = 0x105006b
+
+.field public static final kg_secure_padding_height:I = 0x1050069
+
+.field public static final kg_security_panel_height:I = 0x105005d
+
+.field public static final kg_security_view_height:I = 0x105005e
+
+.field public static final kg_small_widget_height:I = 0x105007b
+
+.field public static final kg_squashed_layout_threshold:I = 0x105007a
+
+.field public static final kg_status_clock_font_size:I = 0x1050061
+
+.field public static final kg_status_date_font_size:I = 0x1050062
+
+.field public static final kg_status_line_font_right_margin:I = 0x1050064
+
+.field public static final kg_status_line_font_size:I = 0x1050063
+
+.field public static final kg_widget_pager_bottom_padding:I = 0x105006e
+
+.field public static final kg_widget_pager_horizontal_padding:I = 0x105006c
+
+.field public static final kg_widget_pager_top_padding:I = 0x105006d
+
+.field public static final kg_widget_view_height:I = 0x1050060
+
+.field public static final kg_widget_view_width:I = 0x105005f
+
+.field public static final leanback_alert_dialog_horizontal_margin:I = 0x1050039
+
+.field public static final leanback_alert_dialog_vertical_margin:I = 0x1050038
 
 .field public static final leanback_setup_alpha_activity_in_bkg_end:I = 0x10500b5
 
@@ -233,6 +349,8 @@
 
 .field public static final lock_pattern_dot_size_activated:I = 0x10500a1
 
+.field public static final min_xlarge_screen_width:I = 0x1050018
+
 .field public static final navigation_bar_height:I = 0x1050012
 
 .field public static final navigation_bar_height_landscape:I = 0x1050013
@@ -263,11 +381,25 @@
 
 .field public static final notification_top_pad_narrow:I = 0x1050058
 
+.field public static final password_keyboard_horizontalGap:I = 0x105001c
+
+.field public static final password_keyboard_key_height_alpha:I = 0x1050019
+
+.field public static final password_keyboard_key_height_numeric:I = 0x105001a
+
 .field public static final password_keyboard_spacebar_vertical_correction:I = 0x105001b
+
+.field public static final password_keyboard_verticalGap:I = 0x105001d
+
+.field public static final preference_breadcrumb_paddingLeft:I = 0x1050026
+
+.field public static final preference_breadcrumb_paddingRight:I = 0x1050027
 
 .field public static final preference_breadcrumbs_padding_end_material:I = 0x10500cd
 
 .field public static final preference_breadcrumbs_padding_start_material:I = 0x10500cc
+
+.field public static final preference_child_padding_side:I = 0x1050031
 
 .field public static final preference_fragment_padding_bottom:I = 0x1050024
 
@@ -275,19 +407,49 @@
 
 .field public static final preference_fragment_padding_side_material:I = 0x10500cb
 
+.field public static final preference_icon_minWidth:I = 0x1050028
+
+.field public static final preference_item_padding_inner:I = 0x1050030
+
+.field public static final preference_item_padding_side:I = 0x105002f
+
+.field public static final preference_screen_bottom_margin:I = 0x1050022
+
+.field public static final preference_screen_header_padding_side:I = 0x105002e
+
 .field public static final preference_screen_header_padding_side_material:I = 0x10500ce
+
+.field public static final preference_screen_header_vertical_padding:I = 0x105002d
 
 .field public static final preference_screen_header_vertical_padding_material:I = 0x10500c8
 
+.field public static final preference_screen_side_margin:I = 0x105001f
+
 .field public static final preference_screen_side_margin_material:I = 0x10500c9
+
+.field public static final preference_screen_side_margin_negative:I = 0x1050020
 
 .field public static final preference_screen_side_margin_negative_material:I = 0x10500ca
 
+.field public static final preference_screen_top_margin:I = 0x1050021
+
+.field public static final preference_widget_width:I = 0x1050023
+
+.field public static final progress_bar_height_material:I = 0x105010b
+
 .field public static final resolver_max_width:I = 0x105009d
+
+.field public static final scrubber_track_height_material:I = 0x105010a
 
 .field public static final search_view_preferred_width:I = 0x1050034
 
+.field public static final search_view_text_min_width:I = 0x1050033
+
 .field public static final spot_shadow_alpha:I = 0x10500a7
+
+.field public static final status_bar_content_number_size:I = 0x1050016
+
+.field public static final status_bar_edge_ignore:I = 0x1050017
 
 .field public static final status_bar_height:I = 0x1050011
 
@@ -347,43 +509,33 @@
 
 .field public static final timepicker_ampm_label_size:I = 0x1050082
 
-.field public static final timepicker_ampm_vertical_padding:I = 0x1050084
-
-.field public static final timepicker_extra_time_label_margin:I = 0x1050081
+.field public static final timepicker_center_dot_radius:I = 0x1050108
 
 .field public static final timepicker_header_height:I = 0x1050087
 
 .field public static final timepicker_left_side_width:I = 0x10500aa
 
-.field public static final timepicker_minimum_margin_sides:I = 0x1050088
-
-.field public static final timepicker_minimum_margin_top_bottom:I = 0x1050089
-
-.field public static final timepicker_numbers_radius_multiplier_inner:I = 0x1050102
-
-.field public static final timepicker_numbers_radius_multiplier_normal:I = 0x10500a8
-
-.field public static final timepicker_numbers_radius_multiplier_outer:I = 0x1050103
-
 .field public static final timepicker_pm_top_padding:I = 0x1050085
 
 .field public static final timepicker_radial_picker_dimen:I = 0x105008a
 
-.field public static final timepicker_selection_radius_multiplier:I = 0x105008f
+.field public static final timepicker_selector_dot_radius:I = 0x1050109
+
+.field public static final timepicker_selector_radius:I = 0x1050106
+
+.field public static final timepicker_selector_stroke:I = 0x1050107
 
 .field public static final timepicker_separator_padding:I = 0x1050086
 
-.field public static final timepicker_text_size_multiplier_inner:I = 0x1050105
+.field public static final timepicker_text_inset_inner:I = 0x1050102
 
-.field public static final timepicker_text_size_multiplier_normal:I = 0x1050104
+.field public static final timepicker_text_inset_normal:I = 0x105010c
 
-.field public static final timepicker_text_size_multiplier_outer:I = 0x1050106
+.field public static final timepicker_text_size_inner:I = 0x105010e
+
+.field public static final timepicker_text_size_normal:I = 0x105010d
 
 .field public static final timepicker_time_label_size:I = 0x1050080
-
-.field public static final timepicker_transition_end_radius_multiplier:I = 0x1050108
-
-.field public static final timepicker_transition_mid_radius_multiplier:I = 0x1050107
 
 .field public static final toast_y_offset:I = 0x1050010
 

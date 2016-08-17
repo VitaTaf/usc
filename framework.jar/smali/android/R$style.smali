@@ -403,18 +403,6 @@
 
 .field public static final TextAppearance_Holo_CalendarViewWeekDayView:I = 0x103038a
 
-.field public static final TextAppearance_Holo_DatePicker_DayOfWeekLabel:I = 0x10303ef
-
-.field public static final TextAppearance_Holo_DatePicker_List_YearLabel:I = 0x10303f4
-
-.field public static final TextAppearance_Holo_DatePicker_Selector:I = 0x10303f0
-
-.field public static final TextAppearance_Holo_DatePicker_Selector_DayOfMonthLabel:I = 0x10303f2
-
-.field public static final TextAppearance_Holo_DatePicker_Selector_MonthLabel:I = 0x10303f1
-
-.field public static final TextAppearance_Holo_DatePicker_Selector_YearLabel:I = 0x10303f3
-
 .field public static final TextAppearance_Holo_DialogWindowTitle:I = 0x1030117
 
 .field public static final TextAppearance_Holo_Inverse:I = 0x10300fc
@@ -426,18 +414,6 @@
 .field public static final TextAppearance_Holo_Light:I = 0x103038b
 
 .field public static final TextAppearance_Holo_Light_CalendarViewWeekDayView:I = 0x10303a1
-
-.field public static final TextAppearance_Holo_Light_DatePicker_DayOfWeekLabel:I = 0x10303f5
-
-.field public static final TextAppearance_Holo_Light_DatePicker_List_YearLabel:I = 0x10303fa
-
-.field public static final TextAppearance_Holo_Light_DatePicker_Selector:I = 0x10303f6
-
-.field public static final TextAppearance_Holo_Light_DatePicker_Selector_DayOfMonthLabel:I = 0x10303f8
-
-.field public static final TextAppearance_Holo_Light_DatePicker_Selector_MonthLabel:I = 0x10303f7
-
-.field public static final TextAppearance_Holo_Light_DatePicker_Selector_YearLabel:I = 0x10303f9
 
 .field public static final TextAppearance_Holo_Light_DialogWindowTitle:I = 0x10303a0
 
@@ -460,10 +436,6 @@
 .field public static final TextAppearance_Holo_Light_Small:I = 0x103038f
 
 .field public static final TextAppearance_Holo_Light_Small_Inverse:I = 0x1030392
-
-.field public static final TextAppearance_Holo_Light_TimePicker_AmPmLabel:I = 0x10303ee
-
-.field public static final TextAppearance_Holo_Light_TimePicker_TimeLabel:I = 0x10303ed
 
 .field public static final TextAppearance_Holo_Light_Widget:I = 0x1030396
 
@@ -500,10 +472,6 @@
 .field public static final TextAppearance_Holo_Small:I = 0x1030101
 
 .field public static final TextAppearance_Holo_Small_Inverse:I = 0x1030102
-
-.field public static final TextAppearance_Holo_TimePicker_AmPmLabel:I = 0x10303ec
-
-.field public static final TextAppearance_Holo_TimePicker_TimeLabel:I = 0x10303eb
 
 .field public static final TextAppearance_Holo_Widget:I = 0x1030105
 
@@ -818,6 +786,8 @@
 .field public static final ThemeOverlay_Material_Dark:I = 0x103024b
 
 .field public static final ThemeOverlay_Material_Dark_ActionBar:I = 0x103024c
+
+.field public static final ThemeOverlay_Material_Dialog:I = 0x10304c2
 
 .field public static final ThemeOverlay_Material_Light:I = 0x103024a
 

@@ -1212,6 +1212,7 @@
     <public type="attr" name="end" id="0x010104d7" />
     <public type="attr" name="trackTint" id="0x010104d8" />
     <public type="attr" name="trackTintMode" id="0x010104d9" />
+    <public type="attr" name="numbersInnerTextColor" id="0x010104da" />
     <public type="attr" name="APKTOOL_DUMMY_267" id="0x01010267" />
     <public type="attr" name="APKTOOL_DUMMY_3a8" id="0x010103a8" />
     <public type="attr" name="APKTOOL_DUMMY_3c3" id="0x010103c3" />
@@ -2241,6 +2242,8 @@
     <public type="id" name="websearch" id="0x010203e4" />
     <public type="id" name="find_prev" id="0x010203e5" />
     <public type="id" name="find_next" id="0x010203e6" />
+    <public type="id" name="spacer" id="0x010203e7" />
+    <public type="id" name="time_layout" id="0x010203ed" />
     <public type="style" name="Animation" id="0x01030000" />
     <public type="style" name="Animation.Activity" id="0x01030001" />
     <public type="style" name="Animation.Dialog" id="0x01030002" />
@@ -3244,22 +3247,6 @@
     <public type="style" name="DialogWindowTitle.Holo" id="0x010303e8" />
     <public type="style" name="DialogWindowTitle.Holo.Light" id="0x010303e9" />
     <public type="style" name="Widget.Holo.PreferenceFrameLayout" id="0x010303ea" />
-    <public type="style" name="TextAppearance.Holo.TimePicker.TimeLabel" id="0x010303eb" />
-    <public type="style" name="TextAppearance.Holo.TimePicker.AmPmLabel" id="0x010303ec" />
-    <public type="style" name="TextAppearance.Holo.Light.TimePicker.TimeLabel" id="0x010303ed" />
-    <public type="style" name="TextAppearance.Holo.Light.TimePicker.AmPmLabel" id="0x010303ee" />
-    <public type="style" name="TextAppearance.Holo.DatePicker.DayOfWeekLabel" id="0x010303ef" />
-    <public type="style" name="TextAppearance.Holo.DatePicker.Selector" id="0x010303f0" />
-    <public type="style" name="TextAppearance.Holo.DatePicker.Selector.MonthLabel" id="0x010303f1" />
-    <public type="style" name="TextAppearance.Holo.DatePicker.Selector.DayOfMonthLabel" id="0x010303f2" />
-    <public type="style" name="TextAppearance.Holo.DatePicker.Selector.YearLabel" id="0x010303f3" />
-    <public type="style" name="TextAppearance.Holo.DatePicker.List.YearLabel" id="0x010303f4" />
-    <public type="style" name="TextAppearance.Holo.Light.DatePicker.DayOfWeekLabel" id="0x010303f5" />
-    <public type="style" name="TextAppearance.Holo.Light.DatePicker.Selector" id="0x010303f6" />
-    <public type="style" name="TextAppearance.Holo.Light.DatePicker.Selector.MonthLabel" id="0x010303f7" />
-    <public type="style" name="TextAppearance.Holo.Light.DatePicker.Selector.DayOfMonthLabel" id="0x010303f8" />
-    <public type="style" name="TextAppearance.Holo.Light.DatePicker.Selector.YearLabel" id="0x010303f9" />
-    <public type="style" name="TextAppearance.Holo.Light.DatePicker.List.YearLabel" id="0x010303fa" />
     <public type="style" name="Widget.Holo.FastScroll" id="0x010303fb" />
     <public type="style" name="Widget.Holo.Light.FastScroll" id="0x010303fc" />
     <public type="style" name="AlertDialog.Leanback" id="0x010303fd" />
@@ -3459,6 +3446,7 @@
     <public type="style" name="Theme.Micro.Dialog.Alert" id="0x010304bf" />
     <public type="style" name="Theme.Micro.Dialog.AppError" id="0x010304c0" />
     <public type="style" name="Widget.Material.Button.Colored" id="0x010304c1" />
+    <public type="style" name="ThemeOverlay.Material.Dialog" id="0x010304c2" />
     <public type="string" name="APKTOOL_DUMMY_6a3" id="0x010406a3" />
     <public type="string" name="APKTOOL_DUMMY_6a4" id="0x010406a4" />
     <public type="string" name="APKTOOL_DUMMY_6a5" id="0x010406a5" />
@@ -5429,21 +5417,21 @@
     <public type="dimen" name="subtitle_shadow_offset" id="0x0105007e" />
     <public type="dimen" name="subtitle_outline_width" id="0x0105007f" />
     <public type="dimen" name="timepicker_time_label_size" id="0x01050080" />
-    <public type="dimen" name="timepicker_extra_time_label_margin" id="0x01050081" />
+    <public type="dimen" name="hint_alpha_material_dark" id="0x01050081" />
     <public type="dimen" name="timepicker_ampm_label_size" id="0x01050082" />
     <public type="dimen" name="timepicker_ampm_horizontal_padding" id="0x01050083" />
-    <public type="dimen" name="timepicker_ampm_vertical_padding" id="0x01050084" />
+    <public type="dimen" name="hint_alpha_material_light" id="0x01050084" />
     <public type="dimen" name="timepicker_pm_top_padding" id="0x01050085" />
     <public type="dimen" name="timepicker_separator_padding" id="0x01050086" />
     <public type="dimen" name="timepicker_header_height" id="0x01050087" />
-    <public type="dimen" name="timepicker_minimum_margin_sides" id="0x01050088" />
-    <public type="dimen" name="timepicker_minimum_margin_top_bottom" id="0x01050089" />
+    <public type="dimen" name="highlight_alpha_material_light" id="0x01050088" />
+    <public type="dimen" name="highlight_alpha_material_dark" id="0x01050089" />
     <public type="dimen" name="timepicker_radial_picker_dimen" id="0x0105008a" />
     <public type="dimen" name="datepicker_day_number_size" id="0x0105008b" />
     <public type="dimen" name="datepicker_month_label_size" id="0x0105008c" />
     <public type="dimen" name="datepicker_month_day_label_text_size" id="0x0105008d" />
     <public type="dimen" name="datepicker_month_list_item_header_height" id="0x0105008e" />
-    <public type="dimen" name="timepicker_selection_radius_multiplier" id="0x0105008f" />
+    <public type="dimen" name="highlight_alpha_material_colored" id="0x0105008f" />
     <public type="dimen" name="datepicker_view_animator_height" id="0x01050090" />
     <public type="dimen" name="datepicker_year_picker_padding_top" id="0x01050091" />
     <public type="dimen" name="datepicker_year_label_height" id="0x01050092" />
@@ -5468,7 +5456,6 @@
     <public type="dimen" name="light_radius" id="0x010500a5" />
     <public type="dimen" name="ambient_shadow_alpha" id="0x010500a6" />
     <public type="dimen" name="spot_shadow_alpha" id="0x010500a7" />
-    <public type="dimen" name="timepicker_numbers_radius_multiplier_normal" id="0x010500a8" />
     <public type="dimen" name="disabled_alpha_leanback_formwizard" id="0x010500af" />
     <public type="dimen" name="leanback_setup_alpha_animiation_max_opacity" id="0x010500b0" />
     <public type="dimen" name="leanback_setup_alpha_animiation_min_opacity" id="0x010500b1" />
@@ -5552,16 +5539,19 @@
     <public type="dimen" name="dialog_padding_material" id="0x010500ff" />
     <public type="dimen" name="dialog_padding_top_material" id="0x01050100" />
     <public type="dimen" name="dialog_list_padding_vertical_material" id="0x01050101" />
-    <public type="dimen" name="timepicker_numbers_radius_multiplier_inner" id="0x01050102" />
-    <public type="dimen" name="timepicker_numbers_radius_multiplier_outer" id="0x01050103" />
-    <public type="dimen" name="timepicker_text_size_multiplier_normal" id="0x01050104" />
-    <public type="dimen" name="timepicker_text_size_multiplier_inner" id="0x01050105" />
-    <public type="dimen" name="timepicker_text_size_multiplier_outer" id="0x01050106" />
-    <public type="dimen" name="timepicker_transition_mid_radius_multiplier" id="0x01050107" />
-    <public type="dimen" name="timepicker_transition_end_radius_multiplier" id="0x01050108" />
+    <public type="dimen" name="timepicker_text_inset_inner" id="0x01050102" />
+    <public type="dimen" name="timepicker_am_top_padding" id="0x01050103" />
+    <public type="dimen" name="timepicker_radial_picker_top_margin" id="0x01050104" />
+    <public type="dimen" name="timepicker_radial_picker_horizontal_margin" id="0x01050105" />
+    <public type="dimen" name="timepicker_selector_radius" id="0x01050106" />
+    <public type="dimen" name="timepicker_selector_stroke" id="0x01050107" />
+    <public type="dimen" name="timepicker_center_dot_radius" id="0x01050108" />
+    <public type="dimen" name="timepicker_selector_dot_radius" id="0x01050109" />
     <public type="dimen" name="scrubber_track_height_material" id="0x0105010a" />
     <public type="dimen" name="progress_bar_height_material" id="0x0105010b" />
-    <public type="dimen" name="APKTOOL_DUMMY_109" id="0x01050109" />
+    <public type="dimen" name="timepicker_text_inset_normal" id="0x0105010c" />
+    <public type="dimen" name="timepicker_text_size_normal" id="0x0105010d" />
+    <public type="dimen" name="timepicker_text_size_inner" id="0x0105010e" />
     <public type="dimen" name="keyguard_pattern_unlock_clock_font_size" id="0x010500ab" />
     <public type="dimen" name="glowpadview_target_placement_radius" id="0x010500ac" />
     <public type="dimen" name="keyguard_pattern_unlock_status_line_font_size" id="0x010500ad" />
@@ -5723,30 +5713,30 @@
     <public type="color" name="group_button_dialog_focused_holo_dark" id="0x01060098" />
     <public type="color" name="group_button_dialog_pressed_holo_light" id="0x01060099" />
     <public type="color" name="group_button_dialog_focused_holo_light" id="0x0106009a" />
-    <public type="color" name="timepicker_default_background_holo_light" id="0x0106009b" />
-    <public type="color" name="timepicker_default_background_holo_dark" id="0x0106009c" />
-    <public type="color" name="timepicker_default_text_color_holo_light" id="0x0106009d" />
-    <public type="color" name="timepicker_default_text_color_holo_dark" id="0x0106009e" />
-    <public type="color" name="timepicker_default_ampm_selected_background_color_holo_light" id="0x0106009f" />
-    <public type="color" name="timepicker_default_ampm_selected_background_color_holo_dark" id="0x010600a0" />
-    <public type="color" name="timepicker_default_ampm_unselected_background_color_holo_light" id="0x010600a1" />
-    <public type="color" name="timepicker_default_ampm_unselected_background_color_holo_dark" id="0x010600a2" />
-    <public type="color" name="datepicker_default_header_selector_background_holo_light" id="0x010600a3" />
-    <public type="color" name="datepicker_default_header_selector_background_holo_dark" id="0x010600a4" />
-    <public type="color" name="datepicker_default_header_dayofweek_background_color_holo_light" id="0x010600a5" />
-    <public type="color" name="datepicker_default_header_dayofweek_background_color_holo_dark" id="0x010600a6" />
-    <public type="color" name="datepicker_default_normal_text_color_holo_light" id="0x010600a7" />
-    <public type="color" name="datepicker_default_normal_text_color_holo_dark" id="0x010600a8" />
-    <public type="color" name="datepicker_default_disabled_text_color_holo_light" id="0x010600a9" />
-    <public type="color" name="datepicker_default_disabled_text_color_holo_dark" id="0x010600aa" />
-    <public type="color" name="datepicker_default_selected_text_color_holo_light" id="0x010600ab" />
-    <public type="color" name="datepicker_default_selected_text_color_holo_dark" id="0x010600ac" />
-    <public type="color" name="datepicker_default_pressed_text_color_holo_light" id="0x010600ad" />
-    <public type="color" name="datepicker_default_pressed_text_color_holo_dark" id="0x010600ae" />
-    <public type="color" name="datepicker_default_circle_background_color_holo_light" id="0x010600af" />
-    <public type="color" name="datepicker_default_circle_background_color_holo_dark" id="0x010600b0" />
-    <public type="color" name="datepicker_default_view_animator_color_holo_light" id="0x010600b1" />
-    <public type="color" name="datepicker_default_view_animator_color_holo_dark" id="0x010600b2" />
+    <public type="color" name="foreground_material_dark" id="0x0106009b" />
+    <public type="color" name="foreground_material_light" id="0x0106009c" />
+    <public type="color" name="datepicker_default_header_dayofweek_background_color_material_light" id="0x0106009d" />
+    <public type="color" name="datepicker_default_header_dayofweek_background_color_material_dark" id="0x0106009e" />
+    <public type="color" name="datepicker_default_normal_text_color_material_light" id="0x0106009f" />
+    <public type="color" name="datepicker_default_normal_text_color_material_dark" id="0x010600a0" />
+    <public type="color" name="datepicker_default_disabled_text_color_material_light" id="0x010600a1" />
+    <public type="color" name="datepicker_default_disabled_text_color_material_dark" id="0x010600a2" />
+    <public type="color" name="datepicker_default_selected_text_color_material_light" id="0x010600a3" />
+    <public type="color" name="datepicker_default_selected_text_color_material_dark" id="0x010600a4" />
+    <public type="color" name="datepicker_default_pressed_text_color_material_light" id="0x010600a5" />
+    <public type="color" name="datepicker_default_pressed_text_color_material_dark" id="0x010600a6" />
+    <public type="color" name="datepicker_default_circle_background_color_material_light" id="0x010600a7" />
+    <public type="color" name="datepicker_default_circle_background_color_material_dark" id="0x010600a8" />
+    <public type="color" name="datepicker_default_view_animator_color_material_light" id="0x010600a9" />
+    <public type="color" name="datepicker_default_view_animator_color_material_dark" id="0x010600aa" />
+    <public type="color" name="config_defaultNotificationColor" id="0x010600ab" />
+    <public type="color" name="background_cache_hint_selector_holo_dark" id="0x010600ac" />
+    <public type="color" name="background_cache_hint_selector_holo_light" id="0x010600ad" />
+    <public type="color" name="background_cache_hint_selector_material_dark" id="0x010600ae" />
+    <public type="color" name="background_cache_hint_selector_material_light" id="0x010600af" />
+    <public type="color" name="btn_colored_material" id="0x010600b0" />
+    <public type="color" name="btn_colored_text_material" id="0x010600b1" />
+    <public type="color" name="btn_default_material_dark" id="0x010600b2" />
     <public type="color" name="background_leanback_dark" id="0x010600b3" />
     <public type="color" name="background_leanback_light" id="0x010600b4" />
     <public type="color" name="primary_text_leanback_dark" id="0x010600b5" />
@@ -5789,20 +5779,15 @@
     <public type="color" name="switch_thumb_normal_material_light" id="0x010600da" />
     <public type="color" name="switch_thumb_disabled_material_dark" id="0x010600db" />
     <public type="color" name="switch_thumb_disabled_material_light" id="0x010600dc" />
-    <public type="color" name="bright_foreground_material_dark" id="0x010600dd" />
-    <public type="color" name="bright_foreground_material_light" id="0x010600de" />
-    <public type="color" name="bright_foreground_disabled_material_dark" id="0x010600df" />
-    <public type="color" name="bright_foreground_disabled_material_light" id="0x010600e0" />
-    <public type="color" name="bright_foreground_inverse_material_dark" id="0x010600e1" />
-    <public type="color" name="bright_foreground_inverse_material_light" id="0x010600e2" />
-    <public type="color" name="dim_foreground_material_dark" id="0x010600e3" />
-    <public type="color" name="dim_foreground_material_light" id="0x010600e4" />
-    <public type="color" name="dim_foreground_disabled_material_dark" id="0x010600e5" />
-    <public type="color" name="dim_foreground_disabled_material_light" id="0x010600e6" />
+    <public type="color" name="btn_default_material_light" id="0x010600dd" />
+    <public type="color" name="date_picker_header_text_material" id="0x010600de" />
+    <public type="color" name="highlighted_text_material" id="0x010600df" />
+    <public type="color" name="list_highlight_material" id="0x010600e0" />
+    <public type="color" name="tab_highlight_material" id="0x010600e1" />
+    <public type="color" name="tab_indicator_text_material" id="0x010600e2" />
+    <public type="color" name="time_picker_header_text_material" id="0x010600e3" />
     <public type="color" name="hint_foreground_material_dark" id="0x010600e7" />
     <public type="color" name="hint_foreground_material_light" id="0x010600e8" />
-    <public type="color" name="highlighted_text_material_dark" id="0x010600e9" />
-    <public type="color" name="highlighted_text_material_light" id="0x010600ea" />
     <public type="color" name="link_text_material_dark" id="0x010600eb" />
     <public type="color" name="link_text_material_light" id="0x010600ec" />
     <public type="color" name="primary_text_default_material_light" id="0x010600ed" />
@@ -5822,33 +5807,6 @@
     <public type="color" name="timepicker_default_numbers_background_color_material" id="0x010600fb" />
     <public type="color" name="datepicker_default_header_selector_background_material_light" id="0x010600fc" />
     <public type="color" name="datepicker_default_header_selector_background_material_dark" id="0x010600fd" />
-    <public type="color" name="datepicker_default_header_dayofweek_background_color_material_light" id="0x010600fe" />
-    <public type="color" name="datepicker_default_header_dayofweek_background_color_material_dark" id="0x010600ff" />
-    <public type="color" name="datepicker_default_normal_text_color_material_light" id="0x01060100" />
-    <public type="color" name="datepicker_default_normal_text_color_material_dark" id="0x01060101" />
-    <public type="color" name="datepicker_default_disabled_text_color_material_light" id="0x01060102" />
-    <public type="color" name="datepicker_default_disabled_text_color_material_dark" id="0x01060103" />
-    <public type="color" name="datepicker_default_selected_text_color_material_light" id="0x01060104" />
-    <public type="color" name="datepicker_default_selected_text_color_material_dark" id="0x01060105" />
-    <public type="color" name="datepicker_default_pressed_text_color_material_light" id="0x01060106" />
-    <public type="color" name="datepicker_default_pressed_text_color_material_dark" id="0x01060107" />
-    <public type="color" name="datepicker_default_circle_background_color_material_light" id="0x01060108" />
-    <public type="color" name="datepicker_default_circle_background_color_material_dark" id="0x01060109" />
-    <public type="color" name="datepicker_default_view_animator_color_material_light" id="0x0106010a" />
-    <public type="color" name="datepicker_default_view_animator_color_material_dark" id="0x0106010b" />
-    <public type="color" name="config_defaultNotificationColor" id="0x0106010c" />
-    <public type="color" name="background_cache_hint_selector_holo_dark" id="0x0106010d" />
-    <public type="color" name="background_cache_hint_selector_holo_light" id="0x0106010e" />
-    <public type="color" name="background_cache_hint_selector_material_dark" id="0x0106010f" />
-    <public type="color" name="background_cache_hint_selector_material_light" id="0x01060110" />
-    <public type="color" name="btn_default_material_dark" id="0x01060111" />
-    <public type="color" name="btn_default_material_light" id="0x01060112" />
-    <public type="color" name="date_picker_calendar_holo_dark" id="0x01060113" />
-    <public type="color" name="date_picker_calendar_holo_light" id="0x01060114" />
-    <public type="color" name="date_picker_selector_holo_dark" id="0x01060115" />
-    <public type="color" name="date_picker_selector_holo_light" id="0x01060116" />
-    <public type="color" name="date_picker_year_selector_holo_dark" id="0x01060117" />
-    <public type="color" name="date_picker_year_selector_holo_light" id="0x01060118" />
     <public type="color" name="primary_text_activated_material_dark" id="0x01060119" />
     <public type="color" name="primary_text_activated_material_light" id="0x0106011a" />
     <public type="color" name="primary_text_dark_disable_only" id="0x0106011b" />
@@ -5884,7 +5842,6 @@
     <public type="color" name="tab_indicator_text_v4" id="0x01060139" />
     <public type="color" name="tertiary_text_holo_dark" id="0x0106013a" />
     <public type="color" name="tertiary_text_holo_light" id="0x0106013b" />
-    <public type="color" name="btn_material_accent" id="0x0106013c" />
     <public type="color" name="control_highlight_material" id="0x0106013d" />
     <public type="color" name="control_checkable_material" id="0x0106013e" />
     <public type="color" name="control_default_material" id="0x0106013f" />
@@ -6080,6 +6037,7 @@
     <public type="drawable" name="btn_toggle_bg" id="0x01080244" />
     <public type="drawable" name="btn_toggle_holo_dark" id="0x01080245" />
     <public type="drawable" name="btn_toggle_holo_light" id="0x01080246" />
+    <public type="drawable" name="list_highlight_material" id="0x01080247" />
     <public type="drawable" name="btn_toggle_material" id="0x01080248" />
     <public type="drawable" name="btn_zoom_down" id="0x0108025f" />
     <public type="drawable" name="btn_zoom_page" id="0x01080265" />
@@ -8087,11 +8045,11 @@
     <public type="layout" name="text_edit_suggestion_item" id="0x010900dc" />
     <public type="layout" name="text_edit_suggestions_window" id="0x010900dd" />
     <public type="layout" name="textview_hint" id="0x010900de" />
-    <public type="layout" name="time_header_label" id="0x010900df" />
+    <public type="layout" name="alert_dialog_button_bar_material" id="0x010900df" />
     <public type="layout" name="time_picker_dialog" id="0x010900e0" />
-    <public type="layout" name="time_picker_holo" id="0x010900e1" />
+    <public type="layout" name="alert_dialog_title_material" id="0x010900e1" />
     <public type="layout" name="time_picker_legacy" id="0x010900e2" />
-    <public type="layout" name="time_picker_legacy_holo" id="0x010900e3" />
+    <public type="layout" name="time_picker_header_material" id="0x010900e3" />
     <public type="layout" name="transient_notification" id="0x010900e4" />
     <public type="layout" name="twelve_key_entry" id="0x010900e5" />
     <public type="layout" name="typing_filter" id="0x010900e6" />
@@ -8109,6 +8067,8 @@
     <public type="layout" name="zoom_container" id="0x010900f2" />
     <public type="layout" name="zoom_controls" id="0x010900f3" />
     <public type="layout" name="zoom_magnify" id="0x010900f4" />
+    <public type="layout" name="time_picker_legacy_material" id="0x010900f5" />
+    <public type="layout" name="time_picker_material" id="0x010900f6" />
     <public type="layout" name="icon_menu_layout" id="0x01090059" />
     <public type="anim" name="fade_in" id="0x010a0000" />
     <public type="anim" name="fade_out" id="0x010a0001" />
@@ -8131,7 +8091,6 @@
     <public type="anim" name="button_state_list_anim_material" id="0x010a0012" />
     <public type="anim" name="dialog_enter" id="0x010a0013" />
     <public type="anim" name="dialog_exit" id="0x010a0014" />
-    <public type="anim" name="disabled_anim_material" id="0x010a0015" />
     <public type="anim" name="dock_bottom_enter" id="0x010a0016" />
     <public type="anim" name="dock_bottom_exit" id="0x010a0017" />
     <public type="anim" name="dock_left_enter" id="0x010a0018" />
@@ -8514,6 +8473,7 @@
     <public type="integer" name="config_smoothenIncreaseInterval" id="0x010e00e7" />
     <public type="integer" name="def_lock_screen_lock_after_timeout" id="0x010e00e8" />
     <public type="integer" name="config_emergency_sms" id="0x010e00e9" />
+    <public type="integer" name="timepicker_title_visibility" id="0x010e00ea" />
     <public type="integer" name="kg_selector_gravity" id="0x010e009d" />
     <public type="integer" name="kg_widget_region_weight" id="0x010e009e" />
     <public type="integer" name="kg_security_flipper_weight" id="0x010e009f" />
@@ -8785,6 +8745,7 @@
     <public type="bool" name="adjusting_lte_signal_rsrp_level_as_band_changing" id="0x011200e5" />
     <public type="bool" name="config_enabled_frp_violation_suicide" id="0x011200e6" />
     <public type="bool" name="config_persist_pnt_with_simslot" id="0x011200e7" />
+    <public type="bool" name="allow_stacked_button_bar" id="0x011200e8" />
     <public type="bool" name="kg_share_status_area" id="0x0112000a" />
     <public type="bool" name="kg_sim_puk_account_full_screen" id="0x0112000b" />
     <public type="fraction" name="config_dimBehindFadeDuration" id="0x01130000" />
@@ -8922,8 +8883,6 @@
     <public type="^attr-private" name="virtualButtonPressedDrawable" id="0x01160062" />
     <public type="^attr-private" name="hideWheelUntilFocused" id="0x01160063" />
     <public type="^attr-private" name="legacyLayout" id="0x01160064" />
-    <public type="^attr-private" name="headerSelectedTextColor" id="0x01160065" />
-    <public type="^attr-private" name="amPmSelectedBackgroundColor" id="0x01160066" />
     <public type="^attr-private" name="frameDuration" id="0x01160067" />
     <public type="^attr-private" name="framesCount" id="0x01160068" />
     <public type="^attr-private" name="state_accessibility_focused" id="0x01160069" />

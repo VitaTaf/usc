@@ -18538,6 +18538,16 @@
 
 .method public final getMeasuredHeightAndState()I
     .locals 1
+    .annotation runtime Landroid/view/ViewDebug$ExportedProperty;
+        category = "measurement"
+        flagMapping = {
+            .subannotation Landroid/view/ViewDebug$FlagToString;
+                equals = 0x1000000
+                mask = -0x1000000
+                name = "MEASURED_STATE_TOO_SMALL"
+            .end subannotation
+        }
+    .end annotation
 
     .prologue
     iget v0, p0, Landroid/view/View;->mMeasuredHeight:I
@@ -18581,6 +18591,16 @@
 
 .method public final getMeasuredWidthAndState()I
     .locals 1
+    .annotation runtime Landroid/view/ViewDebug$ExportedProperty;
+        category = "measurement"
+        flagMapping = {
+            .subannotation Landroid/view/ViewDebug$FlagToString;
+                equals = 0x1000000
+                mask = -0x1000000
+                name = "MEASURED_STATE_TOO_SMALL"
+            .end subannotation
+        }
+    .end annotation
 
     .prologue
     iget v0, p0, Landroid/view/View;->mMeasuredWidth:I

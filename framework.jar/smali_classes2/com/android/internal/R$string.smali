@@ -663,10 +663,6 @@
 
 .field public static final elapsed_time_short_format_mm_ss:I = 0x1040464
 
-.field public static final ellipsis:I = 0x10406a3
-
-.field public static final ellipsis_two_dots:I = 0x10406a4
-
 .field public static final emailTypeCustom:I = 0x104034c
 
 .field public static final emailTypeHome:I = 0x104034d
@@ -738,6 +734,14 @@
 .field public static final extmedia_format_title:I = 0x1040501
 
 .field public static final extract_edit_menu_button:I = 0x10405a8
+
+.field public static final f39360_data_roaming:I = 0x1040713
+
+.field public static final f39360_touch_for_network_settings:I = 0x1040715
+
+.field public static final f39360_voice_and_data_roaming:I = 0x1040714
+
+.field public static final f39360_voice_roaming:I = 0x1040712
 
 .field public static final faceunlock_multiple_failures:I = 0x104038e
 
@@ -1107,6 +1111,8 @@
 
 .field public static final kg_password_wrong_pin_code:I = 0x10405f4
 
+.field public static final kg_password_wrong_remote_lock_code:I = 0x104071b
+
 .field public static final kg_pattern_instructions:I = 0x10405ec
 
 .field public static final kg_pin_instructions:I = 0x10405ee
@@ -1114,6 +1120,10 @@
 .field public static final kg_puk_enter_pin_hint:I = 0x10405f1
 
 .field public static final kg_puk_enter_puk_hint:I = 0x10405f0
+
+.field public static final kg_remote_lock_instructions:I = 0x1040719
+
+.field public static final kg_remote_unlock_progress_dialog_message:I = 0x104071a
 
 .field public static final kg_reordering_delete_drop_target_text:I = 0x1040608
 
@@ -1617,6 +1627,8 @@
 
 .field public static final perm_costs_money:I = 0x10404ea
 
+.field public static final permdesc_accessClogoBlock:I = 0x1040723
+
 .field public static final permdesc_accessCoarseLocation:I = 0x1040246
 
 .field public static final permdesc_accessContentProvidersExternally:I = 0x1040436
@@ -1653,6 +1665,8 @@
 
 .field public static final permdesc_anyCodecForPlayback:I = 0x1040210
 
+.field public static final permdesc_aov_audio_process:I = 0x1040725
+
 .field public static final permdesc_asec_access:I = 0x1040272
 
 .field public static final permdesc_asec_create:I = 0x1040274
@@ -1680,6 +1694,8 @@
 .field public static final permdesc_bindDreamService:I = 0x1040310
 
 .field public static final permdesc_bindGadget:I = 0x1040292
+
+.field public static final permdesc_bindGeoFenceService:I = 0x1040703
 
 .field public static final permdesc_bindInputMethod:I = 0x10401d6
 
@@ -1777,6 +1793,8 @@
 
 .field public static final permdesc_clearAppUserData:I = 0x1040202
 
+.field public static final permdesc_clearCache:I = 0x1040737
+
 .field public static final permdesc_configureWifiDisplay:I = 0x104024e
 
 .field public static final permdesc_confirm_full_backup:I = 0x10401c6
@@ -1867,6 +1885,8 @@
 
 .field public static final permdesc_locationUpdates:I = 0x104028e
 
+.field public static final permdesc_lockNow:I = 0x1040735
+
 .field public static final permdesc_manageAccounts:I = 0x10402b4
 
 .field public static final permdesc_manageActivityStacks:I = 0x104018a
@@ -1930,6 +1950,8 @@
 .field public static final permdesc_readCallLog:I = 0x104022c
 
 .field public static final permdesc_readCellBroadcasts:I = 0x104016c
+
+.field public static final permdesc_readCidBlock:I = 0x1040721
 
 .field public static final permdesc_readContacts:I = 0x1040228
 
@@ -2011,6 +2033,8 @@
 
 .field public static final permdesc_sendSms:I = 0x104016e
 
+.field public static final permdesc_sensorhub:I = 0x1040727
+
 .field public static final permdesc_serialPort:I = 0x1040434
 
 .field public static final permdesc_setAlarm:I = 0x1040426
@@ -2064,6 +2088,8 @@
 .field public static final permdesc_subscribedFeedsWrite:I = 0x10402e4
 
 .field public static final permdesc_systemAlertWindow:I = 0x10401ca
+
+.field public static final permdesc_tcmdlocal:I = 0x1040739
 
 .field public static final permdesc_temporary_enable_accessibility:I = 0x10401a0
 
@@ -2249,6 +2275,8 @@
 
 .field public static final permission_request_notification_with_subtitle:I = 0x1040546
 
+.field public static final permlab_accessClogoBlock:I = 0x1040722
+
 .field public static final permlab_accessCoarseLocation:I = 0x1040245
 
 .field public static final permlab_accessContentProvidersExternally:I = 0x1040435
@@ -2285,6 +2313,8 @@
 
 .field public static final permlab_anyCodecForPlayback:I = 0x104020f
 
+.field public static final permlab_aov_audio_process:I = 0x1040724
+
 .field public static final permlab_asec_access:I = 0x1040271
 
 .field public static final permlab_asec_create:I = 0x1040273
@@ -2312,6 +2342,8 @@
 .field public static final permlab_bindDreamService:I = 0x104030f
 
 .field public static final permlab_bindGadget:I = 0x1040291
+
+.field public static final permlab_bindGeoFenceService:I = 0x1040702
 
 .field public static final permlab_bindInputMethod:I = 0x10401d5
 
@@ -2409,6 +2441,8 @@
 
 .field public static final permlab_clearAppUserData:I = 0x1040201
 
+.field public static final permlab_clearCache:I = 0x1040736
+
 .field public static final permlab_configureWifiDisplay:I = 0x104024d
 
 .field public static final permlab_confirm_full_backup:I = 0x10401c5
@@ -2499,6 +2533,8 @@
 
 .field public static final permlab_locationUpdates:I = 0x104028d
 
+.field public static final permlab_lockNow:I = 0x1040734
+
 .field public static final permlab_manageAccounts:I = 0x10402b3
 
 .field public static final permlab_manageActivityStacks:I = 0x1040189
@@ -2562,6 +2598,8 @@
 .field public static final permlab_readCallLog:I = 0x104022b
 
 .field public static final permlab_readCellBroadcasts:I = 0x104016b
+
+.field public static final permlab_readCidBlock:I = 0x1040720
 
 .field public static final permlab_readContacts:I = 0x1040227
 
@@ -2643,6 +2681,8 @@
 
 .field public static final permlab_sendSms:I = 0x104016d
 
+.field public static final permlab_sensorhub:I = 0x1040726
+
 .field public static final permlab_serialPort:I = 0x1040433
 
 .field public static final permlab_setAlarm:I = 0x1040425
@@ -2696,6 +2736,8 @@
 .field public static final permlab_subscribedFeedsWrite:I = 0x10402e3
 
 .field public static final permlab_systemAlertWindow:I = 0x10401c9
+
+.field public static final permlab_tcmdlocal:I = 0x1040738
 
 .field public static final permlab_temporary_enable_accessibility:I = 0x104019f
 
@@ -3131,6 +3173,12 @@
 
 .field public static final skip_button_label:I = 0x1040563
 
+.field public static final smart_unlock_toast_cardock:I = 0x1040717
+
+.field public static final smart_unlock_toast_charger:I = 0x1040716
+
+.field public static final smart_unlock_toast_deskdock:I = 0x1040718
+
 .field public static final sms_control_message:I = 0x10404d1
 
 .field public static final sms_control_no:I = 0x10404d3
@@ -3193,6 +3241,8 @@
 
 .field public static final storage_usb:I = 0x10405a7
 
+.field public static final storage_usb_disk:I = 0x104071d
+
 .field public static final submit:I = 0x104055c
 
 .field public static final switch_ime_warning:I = 0x104071c
@@ -3248,14 +3298,6 @@
 .field public static final textSelectionCABTitle:I = 0x1040468
 
 .field public static final text_copied:I = 0x104043e
-
-.field public static final throttle_warning_notification_message:I = 0x10406b3
-
-.field public static final throttle_warning_notification_title:I = 0x10406b2
-
-.field public static final throttled_notification_message:I = 0x10406b5
-
-.field public static final throttled_notification_title:I = 0x10406b4
 
 .field public static final time_of_day:I = 0x1040058
 
@@ -3324,8 +3366,6 @@
 .field public static final usb_storage_stop_title:I = 0x10404f4
 
 .field public static final usb_storage_title:I = 0x10404ec
-
-.field public static final use_physical_keyboard:I = 0x10406b1
 
 .field public static final use_a_different_app:I = 0x1040480
 

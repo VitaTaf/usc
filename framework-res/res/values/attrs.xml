@@ -2153,6 +2153,7 @@
         <enum name="src_in" value="5" />
         <enum name="src_over" value="3" />
     </attr>
+    <attr name="numbersInnerTextColor" format="color" />
     <item type="attr" name="APKTOOL_DUMMY_267">false</item>
     <item type="attr" name="APKTOOL_DUMMY_3a8">false</item>
     <item type="attr" name="APKTOOL_DUMMY_3c3">false</item>

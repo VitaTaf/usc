@@ -15,6 +15,10 @@
 
 
 # static fields
+.field public static final button_pressed_animation_delay:I = 0x10e009a
+
+.field public static final button_pressed_animation_duration:I = 0x10e0099
+
 .field public static final config_LTE_RSRP_threshold_type:I = 0x10e007c
 
 .field public static final config_MaxConcurrentDownloadsAllowed:I = 0x10e0064
@@ -279,9 +283,59 @@
 
 .field public static final def_lock_screen_lock_after_timeout:I = 0x10e00e8
 
+.field public static final disabled_alpha_animation_duration:I = 0x10e009b
+
 .field public static final dock_enter_exit_duration:I = 0x10e009c
 
 .field public static final eap_preloaded_ssid_retry_count:I = 0x10e00e1
+
+.field public static final kg_carousel_angle:I = 0x10e0097
+
+.field public static final kg_glowpad_rotation_offset:I = 0x10e0098
+
+.field public static final kg_security_flipper_weight:I = 0x10e009f
+
+.field public static final kg_selector_gravity:I = 0x10e009d
+
+.field public static final kg_widget_region_weight:I = 0x10e009e
+
+.field public static final leanback_setup_alpha_activity_in_bkg_delay:I = 0x10e0087
+
+.field public static final leanback_setup_alpha_activity_in_bkg_duration:I = 0x10e0088
+
+.field public static final leanback_setup_alpha_activity_out_bkg_delay:I = 0x10e0089
+
+.field public static final leanback_setup_alpha_activity_out_bkg_duration:I = 0x10e008a
+
+.field public static final leanback_setup_alpha_backward_in_content_delay:I = 0x10e0091
+
+.field public static final leanback_setup_alpha_backward_in_content_duration:I = 0x10e0092
+
+.field public static final leanback_setup_alpha_backward_out_content_delay:I = 0x10e0093
+
+.field public static final leanback_setup_alpha_backward_out_content_duration:I = 0x10e0094
+
+.field public static final leanback_setup_alpha_forward_in_content_delay:I = 0x10e008b
+
+.field public static final leanback_setup_alpha_forward_in_content_duration:I = 0x10e008c
+
+.field public static final leanback_setup_alpha_forward_out_content_delay:I = 0x10e008d
+
+.field public static final leanback_setup_alpha_forward_out_content_duration:I = 0x10e008e
+
+.field public static final leanback_setup_base_animation_duration:I = 0x10e0084
+
+.field public static final leanback_setup_translation_backward_out_content_delay:I = 0x10e0095
+
+.field public static final leanback_setup_translation_backward_out_content_duration:I = 0x10e0096
+
+.field public static final leanback_setup_translation_content_cliff_v4:I = 0x10e0086
+
+.field public static final leanback_setup_translation_content_resting_point_v4:I = 0x10e0085
+
+.field public static final leanback_setup_translation_forward_in_content_delay:I = 0x10e008f
+
+.field public static final leanback_setup_translation_forward_in_content_duration:I = 0x10e0090
 
 .field public static final max_action_buttons:I = 0x10e007f
 

@@ -84,7 +84,7 @@
     move-result-object v4
 
     .local v4, "a":Landroid/content/res/TypedArray;
-    const/16 v12, 0xa
+    const/16 v12, 0xb
 
     const v13, 0x10900e2
 

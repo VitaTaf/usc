@@ -143,30 +143,23 @@
     <color name="group_button_dialog_focused_holo_dark">#2699cc00</color>
     <color name="group_button_dialog_pressed_holo_light">#ffffffff</color>
     <color name="group_button_dialog_focused_holo_light">#4699cc00</color>
-    <color name="timepicker_default_background_holo_light">@color/white</color>
-    <color name="timepicker_default_background_holo_dark">#ff303030</color>
-    <color name="timepicker_default_text_color_holo_light">#ff8c8c8c</color>
-    <color name="timepicker_default_text_color_holo_dark">@color/white</color>
-    <color name="timepicker_default_ampm_selected_background_color_holo_light">@color/holo_blue_light</color>
-    <color name="timepicker_default_ampm_selected_background_color_holo_dark">@color/holo_blue_light</color>
-    <color name="timepicker_default_ampm_unselected_background_color_holo_light">@color/white</color>
-    <color name="timepicker_default_ampm_unselected_background_color_holo_dark">@color/transparent</color>
-    <color name="datepicker_default_header_selector_background_holo_light">@color/white</color>
-    <color name="datepicker_default_header_selector_background_holo_dark">#ff303030</color>
-    <color name="datepicker_default_header_dayofweek_background_color_holo_light">#ff999999</color>
-    <color name="datepicker_default_header_dayofweek_background_color_holo_dark">@color/white</color>
-    <color name="datepicker_default_normal_text_color_holo_light">#ff999999</color>
-    <color name="datepicker_default_normal_text_color_holo_dark">@color/white</color>
-    <color name="datepicker_default_disabled_text_color_holo_light">#80999999</color>
-    <color name="datepicker_default_disabled_text_color_holo_dark">#80999999</color>
-    <color name="datepicker_default_selected_text_color_holo_light">#ff33b5e5</color>
-    <color name="datepicker_default_selected_text_color_holo_dark">#ff33b5e5</color>
-    <color name="datepicker_default_pressed_text_color_holo_light">#ff0099cc</color>
-    <color name="datepicker_default_pressed_text_color_holo_dark">#ff0099cc</color>
-    <color name="datepicker_default_circle_background_color_holo_light">@color/holo_blue_light</color>
-    <color name="datepicker_default_circle_background_color_holo_dark">@color/holo_blue_light</color>
-    <color name="datepicker_default_view_animator_color_holo_light">#fff2f2f2</color>
-    <color name="datepicker_default_view_animator_color_holo_dark">#ff303030</color>
+    <color name="foreground_material_dark">@color/white</color>
+    <color name="foreground_material_light">@color/black</color>
+    <color name="datepicker_default_header_dayofweek_background_color_material_light">#ff999999</color>
+    <color name="datepicker_default_header_dayofweek_background_color_material_dark">@color/white</color>
+    <color name="datepicker_default_normal_text_color_material_light">#ff999999</color>
+    <color name="datepicker_default_normal_text_color_material_dark">@color/white</color>
+    <color name="datepicker_default_disabled_text_color_material_light">#80999999</color>
+    <color name="datepicker_default_disabled_text_color_material_dark">#80999999</color>
+    <color name="datepicker_default_selected_text_color_material_light">#ff33b5e5</color>
+    <color name="datepicker_default_selected_text_color_material_dark">#ff33b5e5</color>
+    <color name="datepicker_default_pressed_text_color_material_light">#ff0099cc</color>
+    <color name="datepicker_default_pressed_text_color_material_dark">#ff0099cc</color>
+    <color name="datepicker_default_circle_background_color_material_light">@color/material_deep_teal_500</color>
+    <color name="datepicker_default_circle_background_color_material_dark">@color/material_deep_teal_200</color>
+    <color name="datepicker_default_view_animator_color_material_light">#fff2f2f2</color>
+    <color name="datepicker_default_view_animator_color_material_dark">#ff303030</color>
+    <color name="config_defaultNotificationColor">#ffffffff</color>
     <color name="background_leanback_dark">#ff324248</color>
     <color name="background_leanback_light">#ffeeeeee</color>
     <color name="primary_text_leanback_dark">#cceeeeee</color>
@@ -192,15 +185,13 @@
     <color name="legacy_light_button_pressed">@color/legacy_button_pressed</color>
     <color name="legacy_light_button_normal">@color/legacy_button_normal</color>
     <color name="background_material_dark">#ff303030</color>
-    <color name="background_material_light">#ffeeeeee</color>
+    <color name="background_material_light">#fffafafa</color>
     <color name="background_floating_material_dark">#ff424242</color>
-    <color name="background_floating_material_light">#ffeeeeee</color>
+    <color name="background_floating_material_light">#ffffffff</color>
     <color name="primary_material_dark">#ff212121</color>
-    <color name="primary_material_light">#ffefefef</color>
+    <color name="primary_material_light">#fff5f5f5</color>
     <color name="primary_dark_material_dark">#ff000000</color>
     <color name="primary_dark_material_light">#ff757575</color>
-    <color name="ripple_material_dark">#4dffffff</color>
-    <color name="ripple_material_light">#1f000000</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="button_material_dark">#ff5a595b</color>
@@ -209,20 +200,6 @@
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
     <color name="switch_thumb_disabled_material_dark">#ff616161</color>
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
-    <color name="bright_foreground_material_dark">@color/white</color>
-    <color name="bright_foreground_material_light">@color/black</color>
-    <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
-    <color name="bright_foreground_disabled_material_light">#80000000</color>
-    <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
-    <color name="bright_foreground_inverse_material_light">@color/bright_foreground_material_dark</color>
-    <color name="dim_foreground_material_dark">#ffbebebe</color>
-    <color name="dim_foreground_material_light">#ff323232</color>
-    <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
-    <color name="dim_foreground_disabled_material_light">#80323232</color>
-    <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
-    <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
-    <color name="highlighted_text_material_dark">#6680cbc4</color>
-    <color name="highlighted_text_material_light">#66009688</color>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
     <color name="link_text_material_light">@color/material_deep_teal_500</color>
     <color name="primary_text_default_material_light">#de000000</color>
@@ -242,19 +219,37 @@
     <color name="timepicker_default_numbers_background_color_material">@color/transparent</color>
     <color name="datepicker_default_header_selector_background_material_light">@color/white</color>
     <color name="datepicker_default_header_selector_background_material_dark">#ff303030</color>
-    <color name="datepicker_default_header_dayofweek_background_color_material_light">#ff999999</color>
-    <color name="datepicker_default_header_dayofweek_background_color_material_dark">@color/white</color>
-    <color name="datepicker_default_normal_text_color_material_light">#ff999999</color>
-    <color name="datepicker_default_normal_text_color_material_dark">@color/white</color>
-    <color name="datepicker_default_disabled_text_color_material_light">#80999999</color>
-    <color name="datepicker_default_disabled_text_color_material_dark">#80999999</color>
-    <color name="datepicker_default_selected_text_color_material_light">#ff33b5e5</color>
-    <color name="datepicker_default_selected_text_color_material_dark">#ff33b5e5</color>
-    <color name="datepicker_default_pressed_text_color_material_light">#ff0099cc</color>
-    <color name="datepicker_default_pressed_text_color_material_dark">#ff0099cc</color>
-    <color name="datepicker_default_circle_background_color_material_light">@color/material_deep_teal_500</color>
-    <color name="datepicker_default_circle_background_color_material_dark">@color/material_deep_teal_200</color>
-    <color name="datepicker_default_view_animator_color_material_light">#fff2f2f2</color>
-    <color name="datepicker_default_view_animator_color_material_dark">#ff303030</color>
-    <color name="config_defaultNotificationColor">#ffffffff</color>
+    <item type="color" name="APKTOOL_DUMMY_e4">false</item>
+    <item type="color" name="APKTOOL_DUMMY_e5">false</item>
+    <item type="color" name="APKTOOL_DUMMY_e6">false</item>
+    <item type="color" name="APKTOOL_DUMMY_e9">false</item>
+    <item type="color" name="APKTOOL_DUMMY_ea">false</item>
+    <item type="color" name="APKTOOL_DUMMY_fe">false</item>
+    <item type="color" name="APKTOOL_DUMMY_ff">false</item>
+    <item type="color" name="APKTOOL_DUMMY_100">false</item>
+    <item type="color" name="APKTOOL_DUMMY_101">false</item>
+    <item type="color" name="APKTOOL_DUMMY_102">false</item>
+    <item type="color" name="APKTOOL_DUMMY_103">false</item>
+    <item type="color" name="APKTOOL_DUMMY_104">false</item>
+    <item type="color" name="APKTOOL_DUMMY_105">false</item>
+    <item type="color" name="APKTOOL_DUMMY_106">false</item>
+    <item type="color" name="APKTOOL_DUMMY_107">false</item>
+    <item type="color" name="APKTOOL_DUMMY_108">false</item>
+    <item type="color" name="APKTOOL_DUMMY_109">false</item>
+    <item type="color" name="APKTOOL_DUMMY_10a">false</item>
+    <item type="color" name="APKTOOL_DUMMY_10b">false</item>
+    <item type="color" name="APKTOOL_DUMMY_10c">false</item>
+    <item type="color" name="APKTOOL_DUMMY_10d">false</item>
+    <item type="color" name="APKTOOL_DUMMY_10e">false</item>
+    <item type="color" name="APKTOOL_DUMMY_10f">false</item>
+    <item type="color" name="APKTOOL_DUMMY_110">false</item>
+    <item type="color" name="APKTOOL_DUMMY_111">false</item>
+    <item type="color" name="APKTOOL_DUMMY_112">false</item>
+    <item type="color" name="APKTOOL_DUMMY_113">false</item>
+    <item type="color" name="APKTOOL_DUMMY_114">false</item>
+    <item type="color" name="APKTOOL_DUMMY_115">false</item>
+    <item type="color" name="APKTOOL_DUMMY_116">false</item>
+    <item type="color" name="APKTOOL_DUMMY_117">false</item>
+    <item type="color" name="APKTOOL_DUMMY_118">false</item>
+    <item type="color" name="APKTOOL_DUMMY_13c">false</item>
 </resources>
