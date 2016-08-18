@@ -314,6 +314,10 @@
     iget-wide v0, p0, Landroid/graphics/Matrix;->native_instance:J
 
     invoke-static {v0, v1}, Landroid/graphics/Matrix;->finalizer(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Matrix;->native_instance:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

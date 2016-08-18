@@ -14,7 +14,7 @@
 # instance fields
 .field private final mBitmap:Landroid/graphics/Bitmap;
 
-.field public final mNativeChunk:J
+.field public mNativeChunk:J
 
 .field private mPaint:Landroid/graphics/Paint;
 
@@ -249,10 +249,10 @@
     .end annotation
 
     .prologue
+    const-wide/16 v2, 0x0
+
     :try_start_0
     iget-wide v0, p0, Landroid/graphics/NinePatch;->mNativeChunk:J
-
-    const-wide/16 v2, 0x0
 
     cmp-long v0, v0, v2
 
@@ -261,6 +261,10 @@
     iget-wide v0, p0, Landroid/graphics/NinePatch;->mNativeChunk:J
 
     invoke-static {v0, v1}, Landroid/graphics/NinePatch;->nativeFinalize(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/NinePatch;->mNativeChunk:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

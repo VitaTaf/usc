@@ -2255,6 +2255,7 @@
     <public type="id" name="date_picker_day_picker" id="0x010203f1" />
     <public type="id" name="date_picker_year_picker" id="0x010203f2" />
     <public type="id" name="day_picker_view_pager" id="0x010203f3" />
+    <public type="id" name="unpressed" id="0x010203f4" />
     <public type="style" name="Animation" id="0x01030000" />
     <public type="style" name="Animation.Activity" id="0x01030001" />
     <public type="style" name="Animation.Dialog" id="0x01030002" />
@@ -6269,6 +6270,11 @@
     <public type="drawable" name="screen_background_selector_dark" id="0x010805cb" />
     <public type="drawable" name="screen_background_selector_light" id="0x010805cc" />
     <public type="drawable" name="scrollbar_handle_material" id="0x010805d1" />
+    <public type="drawable" name="ic_spinner_caret" id="0x010805d5" />
+    <public type="drawable" name="seekbar_thumb_pressed_to_unpressed" id="0x010805d6" />
+    <public type="drawable" name="seekbar_thumb_pressed_to_unpressed_animation" id="0x010805d7" />
+    <public type="drawable" name="seekbar_thumb_unpressed_to_pressed" id="0x010805d8" />
+    <public type="drawable" name="seekbar_thumb_unpressed_to_pressed_animation" id="0x010805d9" />
     <public type="drawable" name="scrubber_control_selector_holo" id="0x010805e2" />
     <public type="drawable" name="scrubber_progress_horizontal_holo_dark" id="0x010805ec" />
     <public type="drawable" name="scrubber_progress_horizontal_holo_light" id="0x010805ed" />
@@ -7483,26 +7489,12 @@
     <public type="drawable" name="scrollbar_handle_vertical" id="0x010805d2" />
     <public type="drawable" name="scrubber_control_disabled_holo" id="0x010805d3" />
     <public type="drawable" name="scrubber_control_focused_holo" id="0x010805d4" />
-    <public type="drawable" name="scrubber_control_from_pressed_mtrl_000" id="0x010805d5" />
-    <public type="drawable" name="scrubber_control_from_pressed_mtrl_001" id="0x010805d6" />
-    <public type="drawable" name="scrubber_control_from_pressed_mtrl_002" id="0x010805d7" />
-    <public type="drawable" name="scrubber_control_from_pressed_mtrl_003" id="0x010805d8" />
-    <public type="drawable" name="scrubber_control_from_pressed_mtrl_004" id="0x010805d9" />
-    <public type="drawable" name="scrubber_control_from_pressed_mtrl_005" id="0x010805da" />
     <public type="drawable" name="ic_star_black_16dp" id="0x010805db" />
     <public type="drawable" name="scrubber_control_normal_holo" id="0x010805dc" />
-    <public type="drawable" name="scrubber_control_off_mtrl_alpha" id="0x010805dd" />
-    <public type="drawable" name="scrubber_control_off_pressed_mtrl_alpha" id="0x010805de" />
     <public type="drawable" name="scrubber_control_on_mtrl_alpha" id="0x010805df" />
     <public type="drawable" name="scrubber_control_on_pressed_mtrl_alpha" id="0x010805e0" />
     <public type="drawable" name="scrubber_control_pressed_holo" id="0x010805e1" />
     <public type="drawable" name="ic_star_black_36dp" id="0x010805e3" />
-    <public type="drawable" name="scrubber_control_to_pressed_mtrl_000" id="0x010805e4" />
-    <public type="drawable" name="scrubber_control_to_pressed_mtrl_001" id="0x010805e5" />
-    <public type="drawable" name="scrubber_control_to_pressed_mtrl_002" id="0x010805e6" />
-    <public type="drawable" name="scrubber_control_to_pressed_mtrl_003" id="0x010805e7" />
-    <public type="drawable" name="scrubber_control_to_pressed_mtrl_004" id="0x010805e8" />
-    <public type="drawable" name="scrubber_control_to_pressed_mtrl_005" id="0x010805e9" />
     <public type="drawable" name="scrubber_primary_holo" id="0x010805ea" />
     <public type="drawable" name="scrubber_primary_mtrl_alpha" id="0x010805eb" />
     <public type="drawable" name="ic_star_black_48dp" id="0x010805ee" />
@@ -8249,6 +8241,8 @@
     <public type="anim" name="wallpaper_open_exit" id="0x010a0082" />
     <public type="anim" name="window_move_from_decor" id="0x010a0083" />
     <public type="anim" name="date_picker_fade_out_material" id="0x010a0084" />
+    <public type="anim" name="seekbar_thumb_pressed_to_unpressed_thumb_animation" id="0x010a0085" />
+    <public type="anim" name="seekbar_thumb_unpressed_to_pressed_thumb_0_animation" id="0x010a0086" />
     <public type="animator" name="fade_in" id="0x010b0000" />
     <public type="animator" name="fade_out" id="0x010b0001" />
     <public type="animator" name="fragment_close_enter" id="0x010b0002" />
@@ -9015,4 +9009,9 @@
     <public type="^attr-private" name="dayHighlightColor" id="0x011600b6" />
     <public type="^attr-private" name="defaultQueryHint" id="0x011600b7" />
     <public type="^attr-private" name="seekBarDialogPreferenceStyle" id="0x011600b8" />
+    <public type="^attr-private" name="useDisabledAlpha" id="0x011600b9" />
+    <public type="^attr-private" name="opticalInsetLeft" id="0x011600ba" />
+    <public type="^attr-private" name="opticalInsetTop" id="0x011600bb" />
+    <public type="^attr-private" name="opticalInsetRight" id="0x011600bc" />
+    <public type="^attr-private" name="opticalInsetBottom" id="0x011600bd" />
 </resources>

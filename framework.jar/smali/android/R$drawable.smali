@@ -1987,6 +1987,18 @@
 
 .field public static final ic_sim_card_multi_48px_clr:I = 0x1080436
 
+.field public static final ic_star_black_16dp:I = 0x10805db
+
+.field public static final ic_star_black_36dp:I = 0x10805e3
+
+.field public static final ic_star_black_48dp:I = 0x10805ee
+
+.field public static final ic_star_half_black_16dp:I = 0x108063a
+
+.field public static final ic_star_half_black_36dp:I = 0x10806b9
+
+.field public static final ic_star_half_black_48dp:I = 0x108073f
+
 .field public static final ic_suggestions_add:I = 0x1080437
 
 .field public static final ic_suggestions_delete:I = 0x1080438
@@ -2172,6 +2184,8 @@
 .field public static final light_header_dither:I = 0x1080490
 
 .field public static final list_activated_holo:I = 0x1080491
+
+.field public static final list_choice_background_material:I = 0x1080765
 
 .field public static final list_divider_holo_dark:I = 0x1080492
 
@@ -2825,6 +2839,8 @@
 
 .field public static final ratingbar_full_filled_material:I = 0x10805c0
 
+.field public static final ratingbar_full_half_material:I = 0x1080766
+
 .field public static final ratingbar_full_holo_dark:I = 0x10805c1
 
 .field public static final ratingbar_full_holo_light:I = 0x10805c2
@@ -2833,11 +2849,17 @@
 
 .field public static final ratingbar_holo_light:I = 0x10805c5
 
+.field public static final ratingbar_indicator_material:I = 0x1080767
+
+.field public static final ratingbar_material:I = 0x1080768
+
 .field public static final ratingbar_small:I = 0x10805c6
 
 .field public static final ratingbar_small_holo_dark:I = 0x10805c7
 
 .field public static final ratingbar_small_holo_light:I = 0x10805c8
+
+.field public static final ratingbar_small_material:I = 0x1080769
 
 .field public static final recent_dialog_background:I = 0x10805c9
 
@@ -2877,23 +2899,7 @@
 
 .field public static final scrubber_control_focused_holo:I = 0x10805d4
 
-.field public static final scrubber_control_from_pressed_mtrl_000:I = 0x10805d5
-
-.field public static final scrubber_control_from_pressed_mtrl_001:I = 0x10805d6
-
-.field public static final scrubber_control_from_pressed_mtrl_002:I = 0x10805d7
-
-.field public static final scrubber_control_from_pressed_mtrl_003:I = 0x10805d8
-
-.field public static final scrubber_control_from_pressed_mtrl_004:I = 0x10805d9
-
-.field public static final scrubber_control_from_pressed_mtrl_005:I = 0x10805da
-
 .field public static final scrubber_control_normal_holo:I = 0x10805dc
-
-.field public static final scrubber_control_off_mtrl_alpha:I = 0x10805dd
-
-.field public static final scrubber_control_off_pressed_mtrl_alpha:I = 0x10805de
 
 .field public static final scrubber_control_on_mtrl_alpha:I = 0x10805df
 
@@ -2902,18 +2908,6 @@
 .field public static final scrubber_control_pressed_holo:I = 0x10805e1
 
 .field public static final scrubber_control_selector_holo:I = 0x10805e2
-
-.field public static final scrubber_control_to_pressed_mtrl_000:I = 0x10805e4
-
-.field public static final scrubber_control_to_pressed_mtrl_001:I = 0x10805e5
-
-.field public static final scrubber_control_to_pressed_mtrl_002:I = 0x10805e6
-
-.field public static final scrubber_control_to_pressed_mtrl_003:I = 0x10805e7
-
-.field public static final scrubber_control_to_pressed_mtrl_004:I = 0x10805e8
-
-.field public static final scrubber_control_to_pressed_mtrl_005:I = 0x10805e9
 
 .field public static final scrubber_primary_holo:I = 0x10805ea
 
@@ -2952,6 +2946,10 @@
 .field public static final seek_thumb_pressed:I = 0x10805fb
 
 .field public static final seek_thumb_selected:I = 0x10805fc
+
+.field public static final seekbar_thumb_material_anim:I = 0x108076a
+
+.field public static final seekbar_track_material:I = 0x108076b
 
 .field public static final selected_day_background:I = 0x108075d
 

@@ -82,7 +82,7 @@
 .end method
 
 .method protected finalize()V
-    .locals 1
+    .locals 2
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Throwable;
@@ -92,6 +92,10 @@
     .prologue
     :try_start_0
     invoke-direct {p0}, Landroid/graphics/Camera;->nativeDestructor()V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Camera;->native_instance:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

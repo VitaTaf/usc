@@ -55,6 +55,8 @@
 
 .field mOpaqueOverShape:Z
 
+.field public mOpticalInsets:Landroid/graphics/Insets;
+
 .field public mOrientation:Landroid/graphics/drawable/GradientDrawable$Orientation;
 
 .field public mPadding:Landroid/graphics/Rect;
@@ -151,6 +153,10 @@
     iput v2, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mThickness:I
 
     iput-boolean v1, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mDither:Z
+
+    sget-object v0, Landroid/graphics/Insets;->NONE:Landroid/graphics/Insets;
+
+    iput-object v0, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mOpticalInsets:Landroid/graphics/Insets;
 
     iput v3, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mCenterX:F
 
@@ -302,6 +308,10 @@
 
     iput-boolean v0, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mDither:Z
 
+    iget-object v0, p1, Landroid/graphics/drawable/GradientDrawable$GradientState;->mOpticalInsets:Landroid/graphics/Insets;
+
+    iput-object v0, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mOpticalInsets:Landroid/graphics/Insets;
+
     iget v0, p1, Landroid/graphics/drawable/GradientDrawable$GradientState;->mCenterX:F
 
     iput v0, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mCenterX:F
@@ -426,6 +436,10 @@
     iput v2, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mThickness:I
 
     iput-boolean v1, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mDither:Z
+
+    sget-object v0, Landroid/graphics/Insets;->NONE:Landroid/graphics/Insets;
+
+    iput-object v0, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mOpticalInsets:Landroid/graphics/Insets;
 
     iput v3, p0, Landroid/graphics/drawable/GradientDrawable$GradientState;->mCenterX:F
 

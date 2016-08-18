@@ -96,7 +96,7 @@
 
     sget-object v0, Landroid/graphics/Color;->sColorNameMap:Ljava/util/HashMap;
 
-    const-string v1, "lightgray"
+    const-string/jumbo v1, "lightgray"
 
     invoke-static {v7}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
@@ -228,7 +228,7 @@
 
     sget-object v0, Landroid/graphics/Color;->sColorNameMap:Ljava/util/HashMap;
 
-    const-string v1, "lightgrey"
+    const-string/jumbo v1, "lightgrey"
 
     invoke-static {v7}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
@@ -238,7 +238,7 @@
 
     sget-object v0, Landroid/graphics/Color;->sColorNameMap:Ljava/util/HashMap;
 
-    const-string v1, "lime"
+    const-string/jumbo v1, "lime"
 
     invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 

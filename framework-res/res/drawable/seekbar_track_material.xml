@@ -4,7 +4,7 @@
     <item android:gravity="fill_horizontal|center" android:id="@id/background">
         <shape android:tint="?colorControlNormal" android:shape="rectangle">
             <size android:height="@dimen/seekbar_track_background_height_material" />
-            <solid android:color="@color/white_disabled_material" />
+            <solid android:color="#ff000000" />
         </shape>
     </item>
     <item android:gravity="fill_horizontal|center" android:id="@id/secondaryProgress">

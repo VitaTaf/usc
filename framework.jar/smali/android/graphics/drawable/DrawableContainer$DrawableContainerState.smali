@@ -972,10 +972,12 @@
 .end method
 
 .method public final getChild(I)Landroid/graphics/drawable/Drawable;
-    .locals 4
+    .locals 5
     .param p1, "index"    # I
 
     .prologue
+    const/4 v4, 0x0
+
     iget-object v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mDrawables:[Landroid/graphics/drawable/Drawable;
 
     aget-object v2, v3, p1
@@ -991,7 +993,7 @@
     :cond_0
     iget-object v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mDrawableFutures:Landroid/util/SparseArray;
 
-    if-eqz v3, :cond_1
+    if-eqz v3, :cond_2
 
     iget-object v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mDrawableFutures:Landroid/util/SparseArray;
 
@@ -1000,7 +1002,7 @@
     move-result v0
 
     .local v0, "keyIndex":I
-    if-ltz v0, :cond_1
+    if-ltz v0, :cond_2
 
     iget-object v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mDrawableFutures:Landroid/util/SparseArray;
 
@@ -1023,14 +1025,25 @@
 
     invoke-virtual {v3, v0}, Landroid/util/SparseArray;->removeAt(I)V
 
+    iget-object v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mDrawableFutures:Landroid/util/SparseArray;
+
+    invoke-virtual {v3}, Landroid/util/SparseArray;->size()I
+
+    move-result v3
+
+    if-nez v3, :cond_1
+
+    iput-object v4, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mDrawableFutures:Landroid/util/SparseArray;
+
+    :cond_1
     move-object v2, v1
 
     goto :goto_0
 
     .end local v0    # "keyIndex":I
     .end local v1    # "prepared":Landroid/graphics/drawable/Drawable;
-    :cond_1
-    const/4 v2, 0x0
+    :cond_2
+    move-object v2, v4
 
     goto :goto_0
 .end method

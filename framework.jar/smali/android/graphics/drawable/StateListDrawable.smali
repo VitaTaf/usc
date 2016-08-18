@@ -15,9 +15,7 @@
 # static fields
 .field private static final DEBUG:Z = false
 
-.field private static final DEFAULT_DITHER:Z = true
-
-.field private static final TAG:Ljava/lang/String;
+.field private static final TAG:Ljava/lang/String; = "StateListDrawable"
 
 
 # instance fields
@@ -27,21 +25,6 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 1
-
-    .prologue
-    const-class v0, Landroid/graphics/drawable/StateListDrawable;
-
-    invoke-virtual {v0}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
-
-    move-result-object v0
-
-    sput-object v0, Landroid/graphics/drawable/StateListDrawable;->TAG:Ljava/lang/String;
-
-    return-void
-.end method
-
 .method public constructor <init>()V
     .locals 1
 
@@ -648,8 +631,7 @@
 
     iget-object v0, p0, Landroid/graphics/drawable/StateListDrawable;->mStateListState:Landroid/graphics/drawable/StateListDrawable$StateListState;
 
-    # invokes: Landroid/graphics/drawable/StateListDrawable$StateListState;->mutate()V
-    invoke-static {v0}, Landroid/graphics/drawable/StateListDrawable$StateListState;->access$000(Landroid/graphics/drawable/StateListDrawable$StateListState;)V
+    invoke-virtual {v0}, Landroid/graphics/drawable/StateListDrawable$StateListState;->mutate()V
 
     const/4 v0, 0x1
 
@@ -660,43 +642,49 @@
 .end method
 
 .method protected onStateChange([I)Z
-    .locals 3
+    .locals 4
     .param p1, "stateSet"    # [I
 
     .prologue
-    iget-object v1, p0, Landroid/graphics/drawable/StateListDrawable;->mStateListState:Landroid/graphics/drawable/StateListDrawable$StateListState;
-
-    invoke-virtual {v1, p1}, Landroid/graphics/drawable/StateListDrawable$StateListState;->indexOfStateSet([I)I
-
-    move-result v0
-
-    .local v0, "idx":I
-    if-gez v0, :cond_0
-
-    iget-object v1, p0, Landroid/graphics/drawable/StateListDrawable;->mStateListState:Landroid/graphics/drawable/StateListDrawable$StateListState;
-
-    sget-object v2, Landroid/util/StateSet;->WILD_CARD:[I
-
-    invoke-virtual {v1, v2}, Landroid/graphics/drawable/StateListDrawable$StateListState;->indexOfStateSet([I)I
-
-    move-result v0
-
-    :cond_0
-    invoke-virtual {p0, v0}, Landroid/graphics/drawable/StateListDrawable;->selectDrawable(I)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    const/4 v1, 0x1
-
-    :goto_0
-    return v1
-
-    :cond_1
     invoke-super {p0, p1}, Landroid/graphics/drawable/DrawableContainer;->onStateChange([I)Z
 
+    move-result v0
+
+    .local v0, "changed":Z
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable;->mStateListState:Landroid/graphics/drawable/StateListDrawable$StateListState;
+
+    invoke-virtual {v2, p1}, Landroid/graphics/drawable/StateListDrawable$StateListState;->indexOfStateSet([I)I
+
     move-result v1
+
+    .local v1, "idx":I
+    if-gez v1, :cond_0
+
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable;->mStateListState:Landroid/graphics/drawable/StateListDrawable$StateListState;
+
+    sget-object v3, Landroid/util/StateSet;->WILD_CARD:[I
+
+    invoke-virtual {v2, v3}, Landroid/graphics/drawable/StateListDrawable$StateListState;->indexOfStateSet([I)I
+
+    move-result v1
+
+    :cond_0
+    invoke-virtual {p0, v1}, Landroid/graphics/drawable/StateListDrawable;->selectDrawable(I)Z
+
+    move-result v2
+
+    if-nez v2, :cond_1
+
+    if-eqz v0, :cond_2
+
+    :cond_1
+    const/4 v2, 0x1
+
+    :goto_0
+    return v2
+
+    :cond_2
+    const/4 v2, 0x0
 
     goto :goto_0
 .end method

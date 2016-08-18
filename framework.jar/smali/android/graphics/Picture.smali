@@ -16,7 +16,7 @@
 
 
 # instance fields
-.field private final mNativePicture:J
+.field private mNativePicture:J
 
 .field private mRecordingCanvas:Landroid/graphics/Canvas;
 
@@ -232,6 +232,10 @@
     iget-wide v0, p0, Landroid/graphics/Picture;->mNativePicture:J
 
     invoke-static {v0, v1}, Landroid/graphics/Picture;->nativeDestructor(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Picture;->mNativePicture:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

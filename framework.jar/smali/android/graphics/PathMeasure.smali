@@ -12,7 +12,7 @@
 # instance fields
 .field private mPath:Landroid/graphics/Path;
 
-.field private final native_instance:J
+.field private native_instance:J
 
 
 # direct methods
@@ -111,6 +111,10 @@
     iget-wide v0, p0, Landroid/graphics/PathMeasure;->native_instance:J
 
     invoke-static {v0, v1}, Landroid/graphics/PathMeasure;->native_destroy(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/PathMeasure;->native_instance:J
 
     return-void
 .end method

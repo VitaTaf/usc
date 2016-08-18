@@ -40,5 +40,9 @@
 
     invoke-static {v0, v1}, Landroid/graphics/Rasterizer;->finalizer(J)V
 
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Rasterizer;->native_instance:J
+
     return-void
 .end method

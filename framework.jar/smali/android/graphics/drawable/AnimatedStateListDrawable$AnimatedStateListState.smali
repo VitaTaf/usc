@@ -71,16 +71,6 @@
     goto :goto_0
 .end method
 
-.method static synthetic access$200(Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;)V
-    .locals 0
-    .param p0, "x0"    # Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;
-
-    .prologue
-    invoke-direct {p0}, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mutate()V
-
-    return-void
-.end method
-
 .method private static generateTransitionKey(II)J
     .locals 4
     .param p0, "fromId"    # I
@@ -98,29 +88,6 @@
     or-long/2addr v0, v2
 
     return-wide v0
-.end method
-
-.method private mutate()V
-    .locals 1
-
-    .prologue
-    iget-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mTransitions:Landroid/util/LongSparseLongArray;
-
-    invoke-virtual {v0}, Landroid/util/LongSparseLongArray;->clone()Landroid/util/LongSparseLongArray;
-
-    move-result-object v0
-
-    iput-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mTransitions:Landroid/util/LongSparseLongArray;
-
-    iget-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mStateIds:Landroid/util/SparseIntArray;
-
-    invoke-virtual {v0}, Landroid/util/SparseIntArray;->clone()Landroid/util/SparseIntArray;
-
-    move-result-object v0
-
-    iput-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mStateIds:Landroid/util/SparseIntArray;
-
-    return-void
 .end method
 
 
@@ -339,6 +306,29 @@
     const/4 v2, 0x0
 
     goto :goto_0
+.end method
+
+.method mutate()V
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mTransitions:Landroid/util/LongSparseLongArray;
+
+    invoke-virtual {v0}, Landroid/util/LongSparseLongArray;->clone()Landroid/util/LongSparseLongArray;
+
+    move-result-object v0
+
+    iput-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mTransitions:Landroid/util/LongSparseLongArray;
+
+    iget-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mStateIds:Landroid/util/SparseIntArray;
+
+    invoke-virtual {v0}, Landroid/util/SparseIntArray;->clone()Landroid/util/SparseIntArray;
+
+    move-result-object v0
+
+    iput-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mStateIds:Landroid/util/SparseIntArray;
+
+    return-void
 .end method
 
 .method public newDrawable()Landroid/graphics/drawable/Drawable;

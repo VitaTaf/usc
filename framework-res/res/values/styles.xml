@@ -3956,6 +3956,7 @@
         <item name="paddingEnd">16.0dip</item>
         <item name="mirrorForRtl">true</item>
         <item name="splitTrack">true</item>
+        <item name="useDisabledAlpha">false</item>
     </style>
     <style name="Widget.Material.SegmentedButton" parent="@style/SegmentedButton">
         <item name="background">@drawable/btn_group_holo_dark</item>

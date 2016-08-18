@@ -49,8 +49,6 @@
 
 .field private static final CURSOR_OPT_MAX_VALUE:I = 0x4
 
-.field static final DEFAULT_PAINT_FLAGS:I = 0x500
-
 .field public static final DEV_KERN_TEXT_FLAG:I = 0x100
 
 .field public static final DIRECTION_LTR:I = 0x0
@@ -64,6 +62,8 @@
 .field public static final FAKE_BOLD_TEXT_FLAG:I = 0x20
 
 .field public static final FILTER_BITMAP_FLAG:I = 0x2
+
+.field static final HIDDEN_DEFAULT_PAINT_FLAGS:I = 0x500
 
 .field public static final HINTING_OFF:I = 0x0
 
@@ -889,6 +889,10 @@
     iget-wide v0, p0, Landroid/graphics/Paint;->mNativePaint:J
 
     invoke-static {v0, v1}, Landroid/graphics/Paint;->finalizer(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Paint;->mNativePaint:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
@@ -2056,7 +2060,7 @@
 .end method
 
 .method public getTextRunCursor(Ljava/lang/CharSequence;IIIII)I
-    .locals 8
+    .locals 9
     .param p1, "text"    # Ljava/lang/CharSequence;
     .param p2, "contextStart"    # I
     .param p3, "contextEnd"    # I
@@ -2066,6 +2070,8 @@
 
     .prologue
     const/4 v2, 0x0
+
+    const/4 v8, -0x1
 
     instance-of v0, p1, Ljava/lang/String;
 
@@ -2098,10 +2104,10 @@
 
     invoke-virtual/range {v0 .. v6}, Landroid/graphics/Paint;->getTextRunCursor(Ljava/lang/String;IIIII)I
 
-    move-result v7
+    move-result v0
 
     :goto_0
-    return v7
+    return v0
 
     :cond_1
     instance-of v0, p1, Landroid/text/GraphicsOperations;
@@ -2126,7 +2132,7 @@
 
     invoke-interface/range {v0 .. v6}, Landroid/text/GraphicsOperations;->getTextRunCursor(IIIIILandroid/graphics/Paint;)I
 
-    move-result v7
+    move-result v0
 
     goto :goto_0
 
@@ -2153,8 +2159,17 @@
 
     move-result v7
 
-    .local v7, "result":I
+    .local v7, "relPos":I
     invoke-static {v1}, Landroid/graphics/TemporaryBuffer;->recycle([C)V
+
+    if-ne v7, v8, :cond_3
+
+    move v0, v8
+
+    goto :goto_0
+
+    :cond_3
+    add-int v0, v7, p2
 
     goto :goto_0
 .end method
@@ -3908,7 +3923,7 @@
 
     new-instance v0, Ljava/lang/IllegalArgumentException;
 
-    const-string v1, "locale cannot be null"
+    const-string/jumbo v1, "locale cannot be null"
 
     invoke-direct {v0, v1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
 

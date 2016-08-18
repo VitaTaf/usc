@@ -92,6 +92,8 @@
 
     iput-boolean v0, p0, Landroid/graphics/drawable/RippleComponent;->mHasPendingHardwareAnimator:Z
 
+    invoke-virtual {p0}, Landroid/graphics/drawable/RippleComponent;->jumpValuesToExit()V
+
     :cond_1
     return-void
 .end method
@@ -114,6 +116,48 @@
 
     :cond_0
     return-void
+.end method
+
+.method private static getTargetRadius(Landroid/graphics/Rect;)F
+    .locals 4
+    .param p0, "bounds"    # Landroid/graphics/Rect;
+
+    .prologue
+    const/high16 v3, 0x40000000    # 2.0f
+
+    invoke-virtual {p0}, Landroid/graphics/Rect;->width()I
+
+    move-result v2
+
+    int-to-float v2, v2
+
+    div-float v1, v2, v3
+
+    .local v1, "halfWidth":F
+    invoke-virtual {p0}, Landroid/graphics/Rect;->height()I
+
+    move-result v2
+
+    int-to-float v2, v2
+
+    div-float v0, v2, v3
+
+    .local v0, "halfHeight":F
+    mul-float v2, v1, v1
+
+    mul-float v3, v0, v0
+
+    add-float/2addr v2, v3
+
+    float-to-double v2, v2
+
+    invoke-static {v2, v3}, Ljava/lang/Math;->sqrt(D)D
+
+    move-result-wide v2
+
+    double-to-float v2, v2
+
+    return v2
 .end method
 
 .method private startPendingAnimation(Landroid/view/HardwareCanvas;Landroid/graphics/Paint;)V
@@ -340,12 +384,14 @@
 .end method
 
 .method protected final invalidateSelf()V
-    .locals 1
+    .locals 2
 
     .prologue
     iget-object v0, p0, Landroid/graphics/drawable/RippleComponent;->mOwner:Landroid/graphics/drawable/RippleDrawable;
 
-    invoke-virtual {v0}, Landroid/graphics/drawable/RippleDrawable;->invalidateSelf()V
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Landroid/graphics/drawable/RippleDrawable;->invalidateSelf(Z)V
 
     return-void
 .end method
@@ -384,6 +430,30 @@
 .end method
 
 .method protected abstract jumpValuesToExit()V
+.end method
+
+.method public onBoundsChange()V
+    .locals 1
+
+    .prologue
+    iget-boolean v0, p0, Landroid/graphics/drawable/RippleComponent;->mHasMaxRadius:Z
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Landroid/graphics/drawable/RippleComponent;->mBounds:Landroid/graphics/Rect;
+
+    invoke-static {v0}, Landroid/graphics/drawable/RippleComponent;->getTargetRadius(Landroid/graphics/Rect;)F
+
+    move-result v0
+
+    iput v0, p0, Landroid/graphics/drawable/RippleComponent;->mTargetRadius:F
+
+    iget v0, p0, Landroid/graphics/drawable/RippleComponent;->mTargetRadius:F
+
+    invoke-virtual {p0, v0}, Landroid/graphics/drawable/RippleComponent;->onTargetRadiusChanged(F)V
+
+    :cond_0
+    return-void
 .end method
 
 .method protected final onHotspotBoundsChanged()V
@@ -451,72 +521,40 @@
 .end method
 
 .method public final setup(FF)V
-    .locals 4
+    .locals 1
     .param p1, "maxRadius"    # F
     .param p2, "density"    # F
 
     .prologue
-    const/high16 v3, 0x40000000    # 2.0f
+    const/4 v0, 0x0
 
-    const/4 v2, 0x0
+    cmpl-float v0, p1, v0
 
-    cmpl-float v2, p1, v2
+    if-ltz v0, :cond_0
 
-    if-ltz v2, :cond_0
+    const/4 v0, 0x1
 
-    const/4 v2, 0x1
-
-    iput-boolean v2, p0, Landroid/graphics/drawable/RippleComponent;->mHasMaxRadius:Z
+    iput-boolean v0, p0, Landroid/graphics/drawable/RippleComponent;->mHasMaxRadius:Z
 
     iput p1, p0, Landroid/graphics/drawable/RippleComponent;->mTargetRadius:F
 
     :goto_0
     iput p2, p0, Landroid/graphics/drawable/RippleComponent;->mDensity:F
 
-    iget v2, p0, Landroid/graphics/drawable/RippleComponent;->mTargetRadius:F
+    iget v0, p0, Landroid/graphics/drawable/RippleComponent;->mTargetRadius:F
 
-    invoke-virtual {p0, v2}, Landroid/graphics/drawable/RippleComponent;->onTargetRadiusChanged(F)V
+    invoke-virtual {p0, v0}, Landroid/graphics/drawable/RippleComponent;->onTargetRadiusChanged(F)V
 
     return-void
 
     :cond_0
-    iget-object v2, p0, Landroid/graphics/drawable/RippleComponent;->mBounds:Landroid/graphics/Rect;
+    iget-object v0, p0, Landroid/graphics/drawable/RippleComponent;->mBounds:Landroid/graphics/Rect;
 
-    invoke-virtual {v2}, Landroid/graphics/Rect;->width()I
+    invoke-static {v0}, Landroid/graphics/drawable/RippleComponent;->getTargetRadius(Landroid/graphics/Rect;)F
 
-    move-result v2
+    move-result v0
 
-    int-to-float v2, v2
-
-    div-float v1, v2, v3
-
-    .local v1, "halfWidth":F
-    iget-object v2, p0, Landroid/graphics/drawable/RippleComponent;->mBounds:Landroid/graphics/Rect;
-
-    invoke-virtual {v2}, Landroid/graphics/Rect;->height()I
-
-    move-result v2
-
-    int-to-float v2, v2
-
-    div-float v0, v2, v3
-
-    .local v0, "halfHeight":F
-    mul-float v2, v1, v1
-
-    mul-float v3, v0, v0
-
-    add-float/2addr v2, v3
-
-    float-to-double v2, v2
-
-    invoke-static {v2, v3}, Ljava/lang/Math;->sqrt(D)D
-
-    move-result-wide v2
-
-    double-to-float v2, v2
-
-    iput v2, p0, Landroid/graphics/drawable/RippleComponent;->mTargetRadius:F
+    iput v0, p0, Landroid/graphics/drawable/RippleComponent;->mTargetRadius:F
 
     goto :goto_0
 .end method

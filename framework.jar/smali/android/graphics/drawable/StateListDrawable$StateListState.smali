@@ -59,95 +59,6 @@
     goto :goto_0
 .end method
 
-.method static synthetic access$000(Landroid/graphics/drawable/StateListDrawable$StateListState;)V
-    .locals 0
-    .param p0, "x0"    # Landroid/graphics/drawable/StateListDrawable$StateListState;
-
-    .prologue
-    invoke-direct {p0}, Landroid/graphics/drawable/StateListDrawable$StateListState;->mutate()V
-
-    return-void
-.end method
-
-.method private mutate()V
-    .locals 4
-
-    .prologue
-    const/4 v3, 0x0
-
-    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mThemeAttrs:[I
-
-    if-eqz v2, :cond_0
-
-    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mThemeAttrs:[I
-
-    invoke-virtual {v2}, [I->clone()Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, [I
-
-    :goto_0
-    iput-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mThemeAttrs:[I
-
-    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
-
-    array-length v2, v2
-
-    new-array v1, v2, [[I
-
-    .local v1, "stateSets":[[I
-    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
-
-    array-length v2, v2
-
-    add-int/lit8 v0, v2, -0x1
-
-    .local v0, "i":I
-    :goto_1
-    if-ltz v0, :cond_2
-
-    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
-
-    aget-object v2, v2, v0
-
-    if-eqz v2, :cond_1
-
-    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
-
-    aget-object v2, v2, v0
-
-    invoke-virtual {v2}, [I->clone()Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, [I
-
-    :goto_2
-    aput-object v2, v1, v0
-
-    add-int/lit8 v0, v0, -0x1
-
-    goto :goto_1
-
-    .end local v0    # "i":I
-    .end local v1    # "stateSets":[[I
-    :cond_0
-    move-object v2, v3
-
-    goto :goto_0
-
-    .restart local v0    # "i":I
-    .restart local v1    # "stateSets":[[I
-    :cond_1
-    move-object v2, v3
-
-    goto :goto_2
-
-    :cond_2
-    return-void
-.end method
-
 
 # virtual methods
 .method addStateSet([ILandroid/graphics/drawable/Drawable;)I
@@ -257,6 +168,87 @@
     const/4 v1, -0x1
 
     goto :goto_1
+.end method
+
+.method mutate()V
+    .locals 4
+
+    .prologue
+    const/4 v3, 0x0
+
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mThemeAttrs:[I
+
+    if-eqz v2, :cond_0
+
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mThemeAttrs:[I
+
+    invoke-virtual {v2}, [I->clone()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, [I
+
+    :goto_0
+    iput-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mThemeAttrs:[I
+
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
+
+    array-length v2, v2
+
+    new-array v1, v2, [[I
+
+    .local v1, "stateSets":[[I
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
+
+    array-length v2, v2
+
+    add-int/lit8 v0, v2, -0x1
+
+    .local v0, "i":I
+    :goto_1
+    if-ltz v0, :cond_2
+
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
+
+    aget-object v2, v2, v0
+
+    if-eqz v2, :cond_1
+
+    iget-object v2, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
+
+    aget-object v2, v2, v0
+
+    invoke-virtual {v2}, [I->clone()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, [I
+
+    :goto_2
+    aput-object v2, v1, v0
+
+    add-int/lit8 v0, v0, -0x1
+
+    goto :goto_1
+
+    .end local v0    # "i":I
+    .end local v1    # "stateSets":[[I
+    :cond_0
+    move-object v2, v3
+
+    goto :goto_0
+
+    .restart local v0    # "i":I
+    .restart local v1    # "stateSets":[[I
+    :cond_1
+    move-object v2, v3
+
+    goto :goto_2
+
+    :cond_2
+    iput-object v1, p0, Landroid/graphics/drawable/StateListDrawable$StateListState;->mStateSets:[[I
+
+    return-void
 .end method
 
 .method public newDrawable()Landroid/graphics/drawable/Drawable;

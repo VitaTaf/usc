@@ -4,7 +4,7 @@
 
 
 # instance fields
-.field private final mNativeMovie:J
+.field private mNativeMovie:J
 
 
 # direct methods
@@ -179,6 +179,10 @@
     iget-wide v0, p0, Landroid/graphics/Movie;->mNativeMovie:J
 
     invoke-static {v0, v1}, Landroid/graphics/Movie;->nativeDestructor(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Movie;->mNativeMovie:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

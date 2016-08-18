@@ -1349,24 +1349,6 @@
     return-object v0
 .end method
 
-.method public getDither()Z
-    .locals 1
-
-    .prologue
-    const/4 v0, 0x0
-
-    return v0
-.end method
-
-.method public getFilterBitmap()Z
-    .locals 1
-
-    .prologue
-    const/4 v0, 0x0
-
-    return v0
-.end method
-
 .method public getHotspotBounds(Landroid/graphics/Rect;)V
     .locals 1
     .param p1, "outRect"    # Landroid/graphics/Rect;
@@ -1636,6 +1618,15 @@
     return v0
 .end method
 
+.method public isFilterBitmap()Z
+    .locals 1
+
+    .prologue
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
 .method public isProjected()Z
     .locals 1
 
@@ -1685,7 +1676,7 @@
     return-void
 .end method
 
-.method public onLayoutDirectionChange(I)Z
+.method public onLayoutDirectionChanged(I)Z
     .locals 1
     .param p1, "layoutDirection"    # I
 
@@ -1870,6 +1861,8 @@
 .method public setDither(Z)V
     .locals 0
     .param p1, "dither"    # Z
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
 
     .prologue
     return-void
@@ -1914,7 +1907,7 @@
 
     iput p1, p0, Landroid/graphics/drawable/Drawable;->mLayoutDirection:I
 
-    invoke-virtual {p0, p1}, Landroid/graphics/drawable/Drawable;->onLayoutDirectionChange(I)Z
+    invoke-virtual {p0, p1}, Landroid/graphics/drawable/Drawable;->onLayoutDirectionChanged(I)Z
 
     move-result v0
 

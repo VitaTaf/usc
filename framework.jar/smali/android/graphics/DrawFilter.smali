@@ -35,6 +35,10 @@
     iget-wide v0, p0, Landroid/graphics/DrawFilter;->mNativeInt:J
 
     invoke-static {v0, v1}, Landroid/graphics/DrawFilter;->nativeDestructor(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/DrawFilter;->mNativeInt:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

@@ -41,7 +41,7 @@
 
 
 # instance fields
-.field public final mNativeRegion:J
+.field public mNativeRegion:J
 
 
 # direct methods
@@ -353,6 +353,10 @@
     iget-wide v0, p0, Landroid/graphics/Region;->mNativeRegion:J
 
     invoke-static {v0, v1}, Landroid/graphics/Region;->nativeDestructor(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Region;->mNativeRegion:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

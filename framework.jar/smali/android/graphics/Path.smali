@@ -22,7 +22,7 @@
 
 .field private mLastDirection:Landroid/graphics/Path$Direction;
 
-.field public final mNativePath:J
+.field public mNativePath:J
 
 .field public rects:Landroid/graphics/Region;
 
@@ -902,6 +902,10 @@
     iget-wide v0, p0, Landroid/graphics/Path;->mNativePath:J
 
     invoke-static {v0, v1}, Landroid/graphics/Path;->finalizer(J)V
+
+    const-wide/16 v0, 0x0
+
+    iput-wide v0, p0, Landroid/graphics/Path;->mNativePath:J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 

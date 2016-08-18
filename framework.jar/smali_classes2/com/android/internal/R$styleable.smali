@@ -1588,6 +1588,14 @@
 
 .field public static final GradientDrawable_innerRadiusRatio:I = 0x4
 
+.field public static final GradientDrawable_opticalInsetBottom:I = 0xd
+
+.field public static final GradientDrawable_opticalInsetLeft:I = 0xa
+
+.field public static final GradientDrawable_opticalInsetRight:I = 0xc
+
+.field public static final GradientDrawable_opticalInsetTop:I = 0xb
+
 .field public static final GradientDrawable_shape:I = 0x3
 
 .field public static final GradientDrawable_thickness:I = 0x8
@@ -1920,11 +1928,23 @@
 
 .field public static final LayerDrawableItem_width:I = 0x3
 
-.field public static final LayerDrawable_autoMirrored:I = 0x1
+.field public static final LayerDrawable_autoMirrored:I = 0x7
 
-.field public static final LayerDrawable_opacity:I = 0x0
+.field public static final LayerDrawable_opacity:I = 0x4
 
-.field public static final LayerDrawable_paddingMode:I = 0x2
+.field public static final LayerDrawable_paddingBottom:I = 0x3
+
+.field public static final LayerDrawable_paddingEnd:I = 0x6
+
+.field public static final LayerDrawable_paddingLeft:I = 0x0
+
+.field public static final LayerDrawable_paddingMode:I = 0x8
+
+.field public static final LayerDrawable_paddingRight:I = 0x2
+
+.field public static final LayerDrawable_paddingStart:I = 0x5
+
+.field public static final LayerDrawable_paddingTop:I = 0x1
 
 .field public static final LayoutAnimation:[I
 
@@ -2743,6 +2763,8 @@
 .field public static final SeekBar_thumbTint:I = 0x3
 
 .field public static final SeekBar_thumbTintMode:I = 0x4
+
+.field public static final SeekBar_useDisabledAlpha:I = 0x5
 
 .field public static final SelectionModeDrawables:[I
 
@@ -4092,6 +4114,14 @@
 
 .field public static final VectorDrawable_name:I = 0x0
 
+.field public static final VectorDrawable_opticalInsetBottom:I = 0xc
+
+.field public static final VectorDrawable_opticalInsetLeft:I = 0x9
+
+.field public static final VectorDrawable_opticalInsetRight:I = 0xb
+
+.field public static final VectorDrawable_opticalInsetTop:I = 0xa
+
 .field public static final VectorDrawable_tint:I = 0x1
 
 .field public static final VectorDrawable_tintMode:I = 0x6
@@ -5418,7 +5448,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->GlowPadView:[I
 
-    const/16 v0, 0xa
+    const/16 v0, 0xe
 
     new-array v0, v0, [I
 
@@ -5646,7 +5676,9 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->KeyguardSecurityViewFlipper_Layout:[I
 
-    new-array v0, v5, [I
+    const/16 v0, 0x9
+
+    new-array v0, v0, [I
 
     fill-array-data v0, :array_68
 
@@ -6126,7 +6158,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->SearchableActionKey:[I
 
-    const/4 v0, 0x5
+    const/4 v0, 0x6
 
     new-array v0, v0, [I
 
@@ -6462,7 +6494,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->TwoLineListItem:[I
 
-    const/16 v0, 0x9
+    const/16 v0, 0xd
 
     new-array v0, v0, [I
 
@@ -7551,6 +7583,10 @@
         0x101025f
         0x1010260
         0x10103fb
+        0x11600ba
+        0x11600bb
+        0x11600bc
+        0x11600bd
     .end array-data
 
     :array_4f
@@ -7789,7 +7825,13 @@
 
     :array_68
     .array-data 4
+        0x10100d6
+        0x10100d7
+        0x10100d8
+        0x10100d9
         0x101031e
+        0x10103b3
+        0x10103b4
         0x10103ea
         0x1010457
     .end array-data
@@ -8343,6 +8385,7 @@
         0x101044c
         0x1010471
         0x1010472
+        0x11600b9
     .end array-data
 
     :array_9f
@@ -9057,6 +9100,10 @@
         0x10103fb
         0x1010402
         0x1010403
+        0x11600ba
+        0x11600bb
+        0x11600bc
+        0x11600bd
     .end array-data
 
     :array_c1

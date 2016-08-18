@@ -80,7 +80,7 @@
 .end method
 
 .method protected finalize()V
-    .locals 4
+    .locals 6
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Throwable;
@@ -88,6 +88,8 @@
     .end annotation
 
     .prologue
+    const-wide/16 v4, 0x0
+
     :try_start_0
     invoke-super {p0}, Ljava/lang/Object;->finalize()V
     :try_end_0
@@ -97,6 +99,8 @@
 
     invoke-static {v0, v1}, Landroid/graphics/Shader;->nativeDestructor(J)V
 
+    iput-wide v4, p0, Landroid/graphics/Shader;->native_instance:J
+
     return-void
 
     :catchall_0
@@ -105,6 +109,8 @@
     iget-wide v2, p0, Landroid/graphics/Shader;->native_instance:J
 
     invoke-static {v2, v3}, Landroid/graphics/Shader;->nativeDestructor(J)V
+
+    iput-wide v4, p0, Landroid/graphics/Shader;->native_instance:J
 
     throw v0
 .end method

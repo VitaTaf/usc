@@ -978,8 +978,7 @@
 
     iget-object v0, p0, Landroid/graphics/drawable/AnimatedStateListDrawable;->mState:Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;
 
-    # invokes: Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mutate()V
-    invoke-static {v0}, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->access$200(Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;)V
+    invoke-virtual {v0}, Landroid/graphics/drawable/AnimatedStateListDrawable$AnimatedStateListState;->mutate()V
 
     const/4 v0, 0x1
 
