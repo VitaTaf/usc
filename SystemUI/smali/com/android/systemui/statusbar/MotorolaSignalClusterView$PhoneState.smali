@@ -705,6 +705,28 @@
     return-void
 .end method
 
+.method public setIconTint(I)V
+    .locals 2
+    .param p1, "tint"    # I
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;->this$0:Lcom/android/systemui/statusbar/MotorolaSignalClusterView;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;->mMobile:Landroid/widget/ImageView;
+
+    # invokes: Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+    invoke-static {v0, v1, p1}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->access$1500(Lcom/android/systemui/statusbar/MotorolaSignalClusterView;Landroid/widget/ImageView;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;->this$0:Lcom/android/systemui/statusbar/MotorolaSignalClusterView;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;->mMobileType:Landroid/widget/ImageView;
+
+    # invokes: Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+    invoke-static {v0, v1, p1}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->access$1500(Lcom/android/systemui/statusbar/MotorolaSignalClusterView;Landroid/widget/ImageView;I)V
+
+    return-void
+.end method
+
 .method public setViews(Landroid/view/ViewGroup;)V
     .locals 1
     .param p1, "root"    # Landroid/view/ViewGroup;

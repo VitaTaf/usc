@@ -3,12 +3,12 @@
 .source "PhoneStatusBar.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateStatusBarHide(Landroid/view/View;Z)V
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,17 +20,13 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-.field final synthetic val$v:Landroid/view/View;
-
 
 # direct methods
-.method constructor <init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;)V
+.method constructor <init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
     .locals 0
 
     .prologue
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$31;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
-
-    iput-object p2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$31;->val$v:Landroid/view/View;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -39,15 +35,13 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onFocusChange(Landroid/view/View;Z)V
+    .locals 0
+    .param p1, "v"    # Landroid/view/View;
+    .param p2, "hasFocus"    # Z
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$31;->val$v:Landroid/view/View;
-
-    const/4 v1, 0x4
-
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    invoke-virtual {p1, p2}, Landroid/view/View;->setSelected(Z)V
 
     return-void
 .end method

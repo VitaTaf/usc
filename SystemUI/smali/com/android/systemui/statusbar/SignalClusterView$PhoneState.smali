@@ -303,3 +303,25 @@
     :cond_0
     return-void
 .end method
+
+.method public setIconTint(I)V
+    .locals 2
+    .param p1, "tint"    # I
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView$PhoneState;->this$0:Lcom/android/systemui/statusbar/SignalClusterView;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/SignalClusterView$PhoneState;->mMobile:Landroid/widget/ImageView;
+
+    # invokes: Lcom/android/systemui/statusbar/SignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+    invoke-static {v0, v1, p1}, Lcom/android/systemui/statusbar/SignalClusterView;->access$1500(Lcom/android/systemui/statusbar/SignalClusterView;Landroid/widget/ImageView;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView$PhoneState;->this$0:Lcom/android/systemui/statusbar/SignalClusterView;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/SignalClusterView$PhoneState;->mMobileType:Landroid/widget/ImageView;
+
+    # invokes: Lcom/android/systemui/statusbar/SignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+    invoke-static {v0, v1, p1}, Lcom/android/systemui/statusbar/SignalClusterView;->access$1500(Lcom/android/systemui/statusbar/SignalClusterView;Landroid/widget/ImageView;I)V
+
+    return-void
+.end method

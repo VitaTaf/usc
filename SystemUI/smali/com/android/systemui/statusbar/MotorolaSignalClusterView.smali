@@ -34,6 +34,8 @@
 
 .field private mEndPaddingNothingVisible:I
 
+.field private mIconTint:I
+
 .field private mIsAirplaneModeEnabled:Z
 
 .field mMobileSignalGroup:Landroid/widget/LinearLayout;
@@ -164,6 +166,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mPhoneStates:Ljava/util/ArrayList;
 
+    const/4 v0, -0x1
+
+    iput v0, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
     iput v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mWideTypeIconStartPadding:I
 
     iput v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mSecondaryTelephonyPadding:I
@@ -188,6 +194,18 @@
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mVpnVisible:Z
 
     return p1
+.end method
+
+.method static synthetic access$1500(Lcom/android/systemui/statusbar/MotorolaSignalClusterView;Landroid/widget/ImageView;I)V
+    .locals 0
+    .param p0, "x0"    # Lcom/android/systemui/statusbar/MotorolaSignalClusterView;
+    .param p1, "x1"    # Landroid/widget/ImageView;
+    .param p2, "x2"    # I
+
+    .prologue
+    invoke-direct {p0, p1, p2}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+
+    return-void
 .end method
 
 .method static synthetic access$200(Lcom/android/systemui/statusbar/MotorolaSignalClusterView;)V
@@ -629,6 +647,72 @@
     goto :goto_c
 .end method
 
+.method private applyIconTint()V
+    .locals 3
+
+    .prologue
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mVpn:Landroid/widget/ImageView;
+
+    iget v2, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    invoke-direct {p0, v1, v2}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mWifiActivityView:Landroid/widget/ImageView;
+
+    iget v2, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    invoke-direct {p0, v1, v2}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mWifiSignalView:Landroid/widget/ImageView;
+
+    iget v2, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    invoke-direct {p0, v1, v2}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mNoSims:Landroid/widget/ImageView;
+
+    iget v2, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    invoke-direct {p0, v1, v2}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mAirplaneView:Landroid/widget/ImageView;
+
+    iget v2, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    invoke-direct {p0, v1, v2}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->setTint(Landroid/widget/ImageView;I)V
+
+    const/4 v0, 0x0
+
+    .local v0, "i":I
+    :goto_0
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mPhoneStates:Ljava/util/ArrayList;
+
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    move-result v1
+
+    if-ge v0, v1, :cond_0
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mPhoneStates:Ljava/util/ArrayList;
+
+    invoke-virtual {v1, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;
+
+    iget v2, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;->setIconTint(I)V
+
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_0
+
+    :cond_0
+    return-void
+.end method
+
 .method private getOrInflateState(I)Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;
     .locals 3
     .param p1, "mobileSubId"    # I
@@ -705,6 +789,25 @@
     invoke-virtual {v1, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     return-object v0
+.end method
+
+.method private setTint(Landroid/widget/ImageView;I)V
+    .locals 1
+    .param p1, "v"    # Landroid/widget/ImageView;
+    .param p2, "tint"    # I
+
+    .prologue
+    sget-object v0, Landroid/graphics/PorterDuff$Mode;->SRC_ATOP:Landroid/graphics/PorterDuff$Mode;
+
+    invoke-virtual {p1, v0}, Landroid/widget/ImageView;->setImageTintMode(Landroid/graphics/PorterDuff$Mode;)V
+
+    invoke-static {p2}, Landroid/content/res/ColorStateList;->valueOf(I)Landroid/content/res/ColorStateList;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0}, Landroid/widget/ImageView;->setImageTintList(Landroid/content/res/ColorStateList;)V
+
+    return-void
 .end method
 
 
@@ -913,6 +1016,8 @@
     .end local v1    # "state":Lcom/android/systemui/statusbar/MotorolaSignalClusterView$PhoneState;
     :cond_0
     invoke-direct {p0}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->apply()V
+
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->applyIconTint()V
 
     return-void
 .end method
@@ -1138,6 +1243,41 @@
     invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->post(Ljava/lang/Runnable;)Z
 
     return-void
+.end method
+
+.method public setIconTint(I)V
+    .locals 2
+    .param p1, "tint"    # I
+
+    .prologue
+    iget v1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    if-eq p1, v1, :cond_1
+
+    const/4 v0, 0x1
+
+    .local v0, "changed":Z
+    :goto_0
+    iput p1, p0, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->mIconTint:I
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->isAttachedToWindow()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->applyIconTint()V
+
+    :cond_0
+    return-void
+
+    .end local v0    # "changed":Z
+    :cond_1
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method
 
 .method public setIsAirplaneMode(ZII)V
@@ -1435,6 +1575,15 @@
     goto :goto_0
 
     :cond_1
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->isAttachedToWindow()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_2
+
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/MotorolaSignalClusterView;->applyIconTint()V
+
+    :cond_2
     return-void
 .end method
 

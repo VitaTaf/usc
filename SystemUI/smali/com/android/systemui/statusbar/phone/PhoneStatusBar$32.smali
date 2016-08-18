@@ -3,7 +3,7 @@
 .source "PhoneStatusBar.java"
 
 # interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
@@ -35,13 +35,13 @@
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
-    .locals 0
-    .param p1, "v"    # Landroid/view/View;
-    .param p2, "hasFocus"    # Z
+.method public run()V
+    .locals 1
 
     .prologue
-    invoke-virtual {p1, p2}, Landroid/view/View;->setSelected(Z)V
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$32;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
 
     return-void
 .end method

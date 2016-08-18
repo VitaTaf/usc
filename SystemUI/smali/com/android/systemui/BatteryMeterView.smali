@@ -37,7 +37,7 @@
 
 .field private mButtonHeightFraction:F
 
-.field private final mChargeColor:I
+.field private mChargeColor:I
 
 .field private final mClipPath:Landroid/graphics/Path;
 
@@ -54,6 +54,8 @@
 .field private final mFramePaint:Landroid/graphics/Paint;
 
 .field private mHeight:I
+
+.field private mIconTint:I
 
 .field private mPowerSaveEnabled:Z
 
@@ -139,6 +141,10 @@
     const/4 v8, 0x1
 
     iput-boolean v8, p0, Lcom/android/systemui/BatteryMeterView;->mShowPercent:Z
+
+    const/4 v8, -0x1
+
+    iput v8, p0, Lcom/android/systemui/BatteryMeterView;->mIconTint:I
 
     new-instance v8, Landroid/graphics/Path;
 
@@ -578,6 +584,7 @@
     aget v0, v3, v4
 
     :cond_0
+    :goto_0
     return v0
 
     :cond_1
@@ -587,7 +594,7 @@
     const/4 v1, 0x0
 
     .local v1, "i":I
-    :goto_0
+    :goto_1
     iget-object v3, p0, Lcom/android/systemui/BatteryMeterView;->mColors:[I
 
     array-length v3, v3
@@ -605,11 +612,24 @@
 
     aget v0, v3, v4
 
-    if-le p1, v2, :cond_0
+    if-gt p1, v2, :cond_2
 
-    add-int/lit8 v1, v1, 0x2
+    iget-object v3, p0, Lcom/android/systemui/BatteryMeterView;->mColors:[I
+
+    array-length v3, v3
+
+    add-int/lit8 v3, v3, -0x2
+
+    if-ne v1, v3, :cond_0
+
+    iget v0, p0, Lcom/android/systemui/BatteryMeterView;->mIconTint:I
 
     goto :goto_0
+
+    :cond_2
+    add-int/lit8 v1, v1, 0x2
+
+    goto :goto_1
 .end method
 
 .method private static loadBoltPoints(Landroid/content/res/Resources;)[F
@@ -2453,6 +2473,34 @@
     move-result v0
 
     iput-boolean v0, p0, Lcom/android/systemui/BatteryMeterView;->mPowerSaveEnabled:Z
+
+    return-void
+.end method
+
+.method public setIconTint(I)V
+    .locals 3
+    .param p1, "tint"    # I
+
+    .prologue
+    iput p1, p0, Lcom/android/systemui/BatteryMeterView;->mIconTint:I
+
+    iget-object v0, p0, Lcom/android/systemui/BatteryMeterView;->mFramePaint:Landroid/graphics/Paint;
+
+    new-instance v1, Landroid/graphics/PorterDuffColorFilter;
+
+    sget-object v2, Landroid/graphics/PorterDuff$Mode;->SRC_ATOP:Landroid/graphics/PorterDuff$Mode;
+
+    invoke-direct {v1, p1, v2}, Landroid/graphics/PorterDuffColorFilter;-><init>(ILandroid/graphics/PorterDuff$Mode;)V
+
+    invoke-virtual {v0, v1}, Landroid/graphics/Paint;->setColorFilter(Landroid/graphics/ColorFilter;)Landroid/graphics/ColorFilter;
+
+    iget-object v0, p0, Lcom/android/systemui/BatteryMeterView;->mBoltPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v0, p1}, Landroid/graphics/Paint;->setColor(I)V
+
+    iput p1, p0, Lcom/android/systemui/BatteryMeterView;->mChargeColor:I
+
+    invoke-virtual {p0}, Lcom/android/systemui/BatteryMeterView;->invalidate()V
 
     return-void
 .end method

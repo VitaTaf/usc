@@ -1646,6 +1646,7 @@
     <public type="color" name="clock_gray" id="0x7f080047" />
     <public type="color" name="qs_user_detail_name" id="0x7f080048" />
     <public type="color" name="segmented_button_text_selector" id="0x7f080049" />
+    <public type="color" name="light_mode_icon_color" id="0x7f08004a" />
     <public type="bool" name="config_recents_interface_for_tablets" id="0x7f090000" />
     <public type="bool" name="config_recents_thumbnail_image_fits_to_xy" id="0x7f090001" />
     <public type="bool" name="config_recents_use_hardware_layers" id="0x7f090002" />
@@ -3117,6 +3118,8 @@
     <public type="id" name="inset_right" id="0x7f0f0163" />
     <public type="id" name="inset_bottom" id="0x7f0f0164" />
     <public type="id" name="move_task" id="0x7f0f0165" />
+    <public type="id" name="icon_is_pre_L" id="0x7f0f0166" />
+    <public type="id" name="icon_is_grayscale" id="0x7f0f0167" />
     <public type="plurals" name="status_bar_accessibility_recent_apps" id="0x7f100000" />
     <public type="plurals" name="kg_password_wrong_pin_code" id="0x7f100001" />
     <public type="plurals" name="kg_password_wrong_puk_code" id="0x7f100002" />

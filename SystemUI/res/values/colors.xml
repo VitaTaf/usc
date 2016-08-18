@@ -6,7 +6,7 @@
     <color name="notification_panel_solid_background">#ff000000</color>
     <color name="status_bar_recents_app_label_color">#ffffffff</color>
     <color name="notification_list_shadow_top">#80000000</color>
-    <color name="batterymeter_frame_color">#66ffffff</color>
+    <color name="batterymeter_frame_color">#4dffffff</color>
     <color name="batterymeter_charge_color">#ffffffff</color>
     <color name="batterymeter_bolt_color">#ffffffff</color>
     <color name="qs_batterymeter_frame_color">#ff404040</color>
@@ -72,4 +72,5 @@
     <color name="facelock_spotlight_mask">#cc000000</color>
     <color name="clock_white">#ffffffff</color>
     <color name="clock_gray">#99ffffff</color>
+    <color name="light_mode_icon_color">#ff616161</color>
 </resources>

@@ -2482,113 +2482,103 @@
 .end method
 
 .method protected applyColorsAndBackgrounds(Landroid/service/notification/StatusBarNotification;Lcom/android/systemui/statusbar/NotificationData$Entry;)V
-    .locals 5
+    .locals 6
     .param p1, "sbn"    # Landroid/service/notification/StatusBarNotification;
     .param p2, "entry"    # Lcom/android/systemui/statusbar/NotificationData$Entry;
 
     .prologue
-    const/16 v4, 0x15
+    const/16 v5, 0x15
 
-    const/4 v3, 0x1
+    const/4 v1, 0x1
 
-    iget-object v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
+    iget-object v2, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
 
-    invoke-virtual {v1}, Landroid/view/View;->getId()I
-
-    move-result v1
-
-    const v2, 0x1020335
-
-    if-eq v1, v2, :cond_2
-
-    iget v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->targetSdk:I
-
-    const/16 v2, 0x9
-
-    if-lt v1, v2, :cond_0
-
-    iget v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->targetSdk:I
-
-    if-ge v1, v4, :cond_0
-
-    iget-object v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
-
-    invoke-virtual {v1, v3}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setShowingLegacyBackground(Z)V
-
-    iput-boolean v3, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->legacy:Z
-
-    :cond_0
-    :goto_0
-    iget-object v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
-
-    if-eqz v1, :cond_1
-
-    iget v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->targetSdk:I
-
-    if-lt v1, v4, :cond_4
-
-    iget-object v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/BaseStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v2}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v2
-
-    const v3, 0x106000b
-
-    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getColor(I)I
+    invoke-virtual {v2}, Landroid/view/View;->getId()I
 
     move-result v2
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/StatusBarIconView;->setColorFilter(I)V
+    const v3, 0x1020335
+
+    if-eq v2, v3, :cond_2
+
+    iget v2, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->targetSdk:I
+
+    const/16 v3, 0x9
+
+    if-lt v2, v3, :cond_0
+
+    iget v2, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->targetSdk:I
+
+    if-ge v2, v5, :cond_0
+
+    iget-object v2, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
+
+    invoke-virtual {v2, v1}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setShowingLegacyBackground(Z)V
+
+    iput-boolean v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->legacy:Z
+
+    :cond_0
+    :goto_0
+    iget-object v2, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
+
+    if-eqz v2, :cond_1
+
+    iget-object v2, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
+
+    const v3, 0x7f0f0166
+
+    iget v4, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->targetSdk:I
+
+    if-ge v4, v5, :cond_4
+
+    :goto_1
+    invoke-static {v1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v1
+
+    invoke-virtual {v2, v3, v1}, Lcom/android/systemui/statusbar/StatusBarIconView;->setTag(ILjava/lang/Object;)V
 
     :cond_1
-    :goto_1
     return-void
 
     :cond_2
     invoke-virtual {p1}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
 
-    move-result-object v1
+    move-result-object v2
 
-    iget v0, v1, Landroid/app/Notification;->color:I
+    iget v0, v2, Landroid/app/Notification;->color:I
 
     .local v0, "color":I
     invoke-virtual {p0, p2}, Lcom/android/systemui/statusbar/BaseStatusBar;->isMediaNotification(Lcom/android/systemui/statusbar/NotificationData$Entry;)Z
 
-    move-result v1
+    move-result v2
 
-    if-eqz v1, :cond_0
+    if-eqz v2, :cond_0
 
-    iget-object v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
+    iget-object v2, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
 
     if-nez v0, :cond_3
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/BaseStatusBar;->mContext:Landroid/content/Context;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/BaseStatusBar;->mContext:Landroid/content/Context;
 
-    invoke-virtual {v2}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+    invoke-virtual {v3}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
-    move-result-object v2
+    move-result-object v3
 
-    const v3, 0x7f080028
+    const v4, 0x7f080028
 
-    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getColor(I)I
+    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getColor(I)I
 
     move-result v0
 
     .end local v0    # "color":I
     :cond_3
-    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setTintColor(I)V
+    invoke-virtual {v2, v0}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setTintColor(I)V
 
     goto :goto_0
 
     :cond_4
-    iget-object v1, p2, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
-
-    const/4 v2, 0x0
-
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/StatusBarIconView;->setColorFilter(Landroid/graphics/ColorFilter;)V
+    const/4 v1, 0x0
 
     goto :goto_1
 .end method
@@ -4708,12 +4698,6 @@
 
     iput-object v10, p0, Lcom/android/systemui/statusbar/BaseStatusBar;->mPowerManager:Landroid/os/PowerManager;
 
-    iget-object v10, p0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSettingsObserver:Landroid/database/ContentObserver;
-
-    const/4 v11, 0x0
-
-    invoke-virtual {v10, v11}, Landroid/database/ContentObserver;->onChange(Z)V
-
     iget-object v10, p0, Lcom/android/systemui/statusbar/BaseStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v10}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -4907,6 +4891,12 @@
 
     :goto_0
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/BaseStatusBar;->createAndAddWindows()V
+
+    iget-object v10, p0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSettingsObserver:Landroid/database/ContentObserver;
+
+    const/4 v11, 0x0
+
+    invoke-virtual {v10, v11}, Landroid/database/ContentObserver;->onChange(Z)V
 
     const/4 v10, 0x0
 

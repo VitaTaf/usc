@@ -3,7 +3,7 @@
 .source "PhoneStatusBar.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/view/animation/Animation$AnimationListener;
 
 
 # annotations
@@ -35,14 +35,33 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 1
+.method public onAnimationEnd(Landroid/view/animation/Animation;)V
+    .locals 2
+    .param p1, "animation"    # Landroid/view/animation/Animation;
 
     .prologue
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$36;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    # invokes: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarModes()V
-    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$6700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    const/4 v1, 0x0
 
+    # setter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
+    invoke-static {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$6902(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
+
+    return-void
+.end method
+
+.method public onAnimationRepeat(Landroid/view/animation/Animation;)V
+    .locals 0
+    .param p1, "animation"    # Landroid/view/animation/Animation;
+
+    .prologue
+    return-void
+.end method
+
+.method public onAnimationStart(Landroid/view/animation/Animation;)V
+    .locals 0
+    .param p1, "animation"    # Landroid/view/animation/Animation;
+
+    .prologue
     return-void
 .end method

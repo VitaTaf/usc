@@ -1,4 +1,4 @@
-.class Lcom/android/systemui/statusbar/phone/PhoneStatusBar$33;
+.class Lcom/android/systemui/statusbar/phone/PhoneStatusBar$35;
 .super Ljava/lang/Object;
 .source "PhoneStatusBar.java"
 
@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$33;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+    iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$35;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -39,9 +39,10 @@
     .locals 1
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$33;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$35;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
+    # invokes: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarModes()V
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$6700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     return-void
 .end method

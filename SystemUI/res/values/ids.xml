@@ -331,4 +331,6 @@
     <item type="id" name="inset_right">false</item>
     <item type="id" name="inset_bottom">false</item>
     <item type="id" name="move_task">false</item>
+    <item type="id" name="icon_is_pre_L" />
+    <item type="id" name="icon_is_grayscale" />
 </resources>

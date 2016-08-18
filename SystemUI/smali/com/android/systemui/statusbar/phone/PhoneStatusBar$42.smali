@@ -7,8 +7,8 @@
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->postStartSettingsActivity(Landroid/content/Intent;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,13 +20,17 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
+.field final synthetic val$intent:Landroid/content/Intent;
+
 
 # direct methods
-.method constructor <init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+.method constructor <init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/content/Intent;)V
     .locals 0
 
     .prologue
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$42;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    iput-object p2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$42;->val$intent:Landroid/content/Intent;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,20 +40,17 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 3
 
     .prologue
-    invoke-static {}, Landroid/os/Debug;->stopMethodTracing()V
-
-    const-string v0, "PhoneStatusBar"
-
-    const-string v1, "stopTracing"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$42;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->vibrate()V
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$42;->val$intent:Landroid/content/Intent;
+
+    const/4 v2, 0x1
+
+    # invokes: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->handleStartSettingsActivity(Landroid/content/Intent;Z)V
+    invoke-static {v0, v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$8100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/content/Intent;Z)V
 
     return-void
 .end method

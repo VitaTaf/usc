@@ -36,41 +36,20 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 2
 
     .prologue
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$41;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
-
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->vibrate()V
-
-    const-wide/16 v0, 0xfa
-
-    invoke-static {v0, v1}, Landroid/os/SystemClock;->sleep(J)V
+    invoke-static {}, Landroid/os/Debug;->stopMethodTracing()V
 
     const-string v0, "PhoneStatusBar"
 
-    const-string v1, "startTracing"
+    const-string v1, "stopTracing"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    const-string v0, "/data/statusbar-traces/trace"
-
-    invoke-static {v0}, Landroid/os/Debug;->startMethodTracing(Ljava/lang/String;)V
-
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$41;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    # getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$8000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$41;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
-
-    iget-object v1, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStopTracing:Ljava/lang/Runnable;
-
-    const-wide/16 v2, 0x2710
-
-    invoke-virtual {v0, v1, v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->postDelayed(Ljava/lang/Runnable;J)Z
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->vibrate()V
 
     return-void
 .end method
