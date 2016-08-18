@@ -392,6 +392,8 @@
 
 .field public static final colorBackgroundCacheHint:I = 0x10102ab
 
+.field public static final colorBackgroundFloating:I = 0x10104dc
+
 .field public static final colorButtonNormal:I = 0x101042b
 
 .field public static final colorControlActivated:I = 0x101042a
@@ -1808,6 +1810,8 @@
 
 .field public static final secondaryProgressTintMode:I = 0x1010468
 
+.field public static final seekBarDialogPreferenceStyle:I = 0x11600b8
+
 .field public static final seekBarPreferenceStyle:I = 0x1160021
 
 .field public static final seekBarStyle:I = 0x101007b
@@ -2530,6 +2534,8 @@
 .field public static final windowFrame:I = 0x1010055
 
 .field public static final windowFullscreen:I = 0x101020d
+
+.field public static final windowHasLightStatusBar:I = 0x10104dd
 
 .field public static final windowHideAnimation:I = 0x10100b7
 

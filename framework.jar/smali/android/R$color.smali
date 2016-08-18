@@ -19,6 +19,14 @@
 
 .field public static final accent_material_light:I = 0x10600d5
 
+.field public static final background_cache_hint_selector_holo_dark:I = 0x10600ac
+
+.field public static final background_cache_hint_selector_holo_light:I = 0x10600ad
+
+.field public static final background_cache_hint_selector_material_dark:I = 0x10600ae
+
+.field public static final background_cache_hint_selector_material_light:I = 0x10600af
+
 .field public static final background_dark:I = 0x106000e
 
 .field public static final background_floating_material_dark:I = 0x10600cd
@@ -37,9 +45,19 @@
 
 .field public static final black:I = 0x106000c
 
+.field public static final btn_colored_material:I = 0x10600b0
+
+.field public static final btn_colored_text_material:I = 0x10600b1
+
+.field public static final btn_default_material_dark:I = 0x10600b2
+
+.field public static final btn_default_material_light:I = 0x10600dd
+
 .field public static final button_material_dark:I = 0x10600d7
 
 .field public static final button_material_light:I = 0x10600d8
+
+.field public static final config_defaultNotificationColor:I = 0x10600ab
 
 .field public static final control_checkable_material:I = 0x106013e
 
@@ -49,9 +67,37 @@
 
 .field public static final darker_gray:I = 0x1060000
 
+.field public static final datepicker_default_circle_background_color_material_dark:I = 0x10600a8
+
+.field public static final datepicker_default_circle_background_color_material_light:I = 0x10600a7
+
+.field public static final datepicker_default_disabled_text_color_material_dark:I = 0x10600a2
+
+.field public static final datepicker_default_disabled_text_color_material_light:I = 0x10600a1
+
+.field public static final datepicker_default_header_dayofweek_background_color_material_dark:I = 0x106009e
+
+.field public static final datepicker_default_header_dayofweek_background_color_material_light:I = 0x106009d
+
 .field public static final datepicker_default_header_selector_background_material_dark:I = 0x10600fd
 
 .field public static final datepicker_default_header_selector_background_material_light:I = 0x10600fc
+
+.field public static final datepicker_default_normal_text_color_material_dark:I = 0x10600a0
+
+.field public static final datepicker_default_normal_text_color_material_light:I = 0x106009f
+
+.field public static final datepicker_default_pressed_text_color_material_dark:I = 0x10600a6
+
+.field public static final datepicker_default_pressed_text_color_material_light:I = 0x10600a5
+
+.field public static final datepicker_default_selected_text_color_material_dark:I = 0x10600a4
+
+.field public static final datepicker_default_selected_text_color_material_light:I = 0x10600a3
+
+.field public static final datepicker_default_view_animator_color_material_dark:I = 0x10600aa
+
+.field public static final datepicker_default_view_animator_color_material_light:I = 0x10600a9
 
 .field public static final highlighted_text_material:I = 0x10600df
 
@@ -163,6 +209,8 @@
 
 .field public static final primary_text_holo_light:I = 0x1060123
 
+.field public static final primary_text_inverse_when_activated_material:I = 0x10600e6
+
 .field public static final primary_text_leanback_dark:I = 0x10600b5
 
 .field public static final primary_text_leanback_formwizard_dark:I = 0x1060124
@@ -214,6 +262,8 @@
 .field public static final secondary_text_holo_dark:I = 0x1060130
 
 .field public static final secondary_text_holo_light:I = 0x1060131
+
+.field public static final secondary_text_inverse_when_activated_material:I = 0x10600e9
 
 .field public static final secondary_text_leanback_dark:I = 0x10600b6
 

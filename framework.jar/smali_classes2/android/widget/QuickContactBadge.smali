@@ -158,7 +158,7 @@
     move-result-object v0
 
     .local v0, "styledAttributes":Landroid/content/res/TypedArray;
-    const/16 v1, 0x11c
+    const/16 v1, 0x11d
 
     invoke-virtual {v0, v1}, Landroid/content/res/TypedArray;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 

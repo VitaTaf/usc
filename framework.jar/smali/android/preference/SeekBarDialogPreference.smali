@@ -3,12 +3,8 @@
 .source "SeekBarDialogPreference.java"
 
 
-# static fields
-.field private static final TAG:Ljava/lang/String; = "SeekBarDialogPreference"
-
-
 # instance fields
-.field private mMyIcon:Landroid/graphics/drawable/Drawable;
+.field private final mMyIcon:Landroid/graphics/drawable/Drawable;
 
 
 # direct methods
@@ -30,7 +26,7 @@
     .param p2, "attrs"    # Landroid/util/AttributeSet;
 
     .prologue
-    const v0, 0x1010091
+    const v0, 0x11600b8
 
     invoke-direct {p0, p1, p2, v0}, Landroid/preference/SeekBarDialogPreference;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
@@ -60,10 +56,6 @@
 
     .prologue
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/preference/DialogPreference;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
-
-    const v0, 0x10900c0
-
-    invoke-virtual {p0, v0}, Landroid/preference/SeekBarDialogPreference;->setDialogLayoutResource(I)V
 
     invoke-virtual {p0}, Landroid/preference/SeekBarDialogPreference;->createActionButtons()V
 

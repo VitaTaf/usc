@@ -3244,7 +3244,7 @@
 
 .field public static final Theme_absListViewStyle:I = 0x33
 
-.field public static final Theme_accessibilityFocusedDrawable:I = 0x130
+.field public static final Theme_accessibilityFocusedDrawable:I = 0x131
 
 .field public static final Theme_actionBarDivider:I = 0xcb
 
@@ -3290,7 +3290,7 @@
 
 .field public static final Theme_actionModePasteDrawable:I = 0xa0
 
-.field public static final Theme_actionModePopupWindowStyle:I = 0x120
+.field public static final Theme_actionModePopupWindowStyle:I = 0x121
 
 .field public static final Theme_actionModeSelectAllDrawable:I = 0xc0
 
@@ -3308,11 +3308,11 @@
 
 .field public static final Theme_activatedBackgroundIndicator:I = 0x92
 
-.field public static final Theme_activityChooserViewStyle:I = 0x11f
+.field public static final Theme_activityChooserViewStyle:I = 0x120
 
-.field public static final Theme_alertDialogButtonGroupStyle:I = 0x116
+.field public static final Theme_alertDialogButtonGroupStyle:I = 0x117
 
-.field public static final Theme_alertDialogCenterButtons:I = 0x117
+.field public static final Theme_alertDialogCenterButtons:I = 0x118
 
 .field public static final Theme_alertDialogIcon:I = 0xb4
 
@@ -3366,6 +3366,8 @@
 
 .field public static final Theme_colorBackgroundCacheHint:I = 0x75
 
+.field public static final Theme_colorBackgroundFloating:I = 0x107
+
 .field public static final Theme_colorButtonNormal:I = 0xdf
 
 .field public static final Theme_colorControlActivated:I = 0xde
@@ -3392,7 +3394,7 @@
 
 .field public static final Theme_colorPrimaryDark:I = 0xe4
 
-.field public static final Theme_colorSwitchThumbNormal:I = 0x133
+.field public static final Theme_colorSwitchThumbNormal:I = 0x134
 
 .field public static final Theme_datePickerDialogTheme:I = 0xfc
 
@@ -3400,7 +3402,7 @@
 
 .field public static final Theme_detailsElementBackground:I = 0xae
 
-.field public static final Theme_dialogCustomTitleDecorLayout:I = 0x12a
+.field public static final Theme_dialogCustomTitleDecorLayout:I = 0x12b
 
 .field public static final Theme_dialogPreferenceStyle:I = 0x59
 
@@ -3408,9 +3410,9 @@
 
 .field public static final Theme_dialogTheme:I = 0x99
 
-.field public static final Theme_dialogTitleDecorLayout:I = 0x12b
+.field public static final Theme_dialogTitleDecorLayout:I = 0x12c
 
-.field public static final Theme_dialogTitleIconsDecorLayout:I = 0x129
+.field public static final Theme_dialogTitleIconsDecorLayout:I = 0x12a
 
 .field public static final Theme_disabledAlpha:I = 0x3
 
@@ -3426,7 +3428,7 @@
 
 .field public static final Theme_dropDownSpinnerStyle:I = 0x84
 
-.field public static final Theme_dropdownListPreferredItemHeight:I = 0x113
+.field public static final Theme_dropdownListPreferredItemHeight:I = 0x114
 
 .field public static final Theme_editTextBackground:I = 0xb2
 
@@ -3436,9 +3438,9 @@
 
 .field public static final Theme_editTextStyle:I = 0x37
 
-.field public static final Theme_errorMessageAboveBackground:I = 0x111
+.field public static final Theme_errorMessageAboveBackground:I = 0x112
 
-.field public static final Theme_errorMessageBackground:I = 0x110
+.field public static final Theme_errorMessageBackground:I = 0x111
 
 .field public static final Theme_expandableListPreferredChildIndicatorLeft:I = 0x22
 
@@ -3468,17 +3470,17 @@
 
 .field public static final Theme_fastScrollTrackDrawable:I = 0xac
 
-.field public static final Theme_findOnPageNextDrawable:I = 0x131
+.field public static final Theme_findOnPageNextDrawable:I = 0x132
 
-.field public static final Theme_findOnPagePreviousDrawable:I = 0x132
+.field public static final Theme_findOnPagePreviousDrawable:I = 0x133
 
-.field public static final Theme_fragmentBreadCrumbsStyle:I = 0x11d
+.field public static final Theme_fragmentBreadCrumbsStyle:I = 0x11e
 
 .field public static final Theme_galleryItemBackground:I = 0x1c
 
 .field public static final Theme_galleryStyle:I = 0x39
 
-.field public static final Theme_gestureOverlayViewStyle:I = 0x11b
+.field public static final Theme_gestureOverlayViewStyle:I = 0x11c
 
 .field public static final Theme_gridViewStyle:I = 0x3a
 
@@ -3490,11 +3492,11 @@
 
 .field public static final Theme_imageWellStyle:I = 0x3c
 
-.field public static final Theme_lightRadius:I = 0x136
+.field public static final Theme_lightRadius:I = 0x137
 
-.field public static final Theme_lightY:I = 0x134
+.field public static final Theme_lightY:I = 0x135
 
-.field public static final Theme_lightZ:I = 0x135
+.field public static final Theme_lightZ:I = 0x136
 
 .field public static final Theme_listChoiceBackgroundIndicator:I = 0x8c
 
@@ -3532,7 +3534,7 @@
 
 .field public static final Theme_mediaRouteButtonStyle:I = 0xd2
 
-.field public static final Theme_numberPickerStyle:I = 0x11e
+.field public static final Theme_numberPickerStyle:I = 0x11f
 
 .field public static final Theme_panelBackground:I = 0x2e
 
@@ -3542,41 +3544,41 @@
 
 .field public static final Theme_panelFullBackground:I = 0x2f
 
-.field public static final Theme_panelMenuIsCompact:I = 0x118
+.field public static final Theme_panelMenuIsCompact:I = 0x119
 
-.field public static final Theme_panelMenuListTheme:I = 0x11a
+.field public static final Theme_panelMenuListTheme:I = 0x11b
 
-.field public static final Theme_panelMenuListWidth:I = 0x119
+.field public static final Theme_panelMenuListWidth:I = 0x11a
 
 .field public static final Theme_panelTextAppearance:I = 0x32
 
-.field public static final Theme_pointerStyle:I = 0x12f
+.field public static final Theme_pointerStyle:I = 0x130
 
 .field public static final Theme_popupMenuStyle:I = 0x94
 
 .field public static final Theme_popupWindowStyle:I = 0x3f
 
-.field public static final Theme_preferenceActivityStyle:I = 0x121
+.field public static final Theme_preferenceActivityStyle:I = 0x122
 
 .field public static final Theme_preferenceCategoryStyle:I = 0x54
 
-.field public static final Theme_preferenceFragmentListStyle:I = 0x126
+.field public static final Theme_preferenceFragmentListStyle:I = 0x127
 
-.field public static final Theme_preferenceFragmentPaddingSide:I = 0x127
+.field public static final Theme_preferenceFragmentPaddingSide:I = 0x128
 
-.field public static final Theme_preferenceFragmentStyle:I = 0x122
+.field public static final Theme_preferenceFragmentStyle:I = 0x123
 
-.field public static final Theme_preferenceFrameLayoutStyle:I = 0x12e
+.field public static final Theme_preferenceFrameLayoutStyle:I = 0x12f
 
-.field public static final Theme_preferenceHeaderPanelStyle:I = 0x124
+.field public static final Theme_preferenceHeaderPanelStyle:I = 0x125
 
 .field public static final Theme_preferenceInformationStyle:I = 0x55
 
 .field public static final Theme_preferenceLayoutChild:I = 0x5c
 
-.field public static final Theme_preferenceListStyle:I = 0x125
+.field public static final Theme_preferenceListStyle:I = 0x126
 
-.field public static final Theme_preferencePanelStyle:I = 0x123
+.field public static final Theme_preferencePanelStyle:I = 0x124
 
 .field public static final Theme_preferenceScreenStyle:I = 0x53
 
@@ -3600,7 +3602,7 @@
 
 .field public static final Theme_progressBarStyleSmallTitle:I = 0x62
 
-.field public static final Theme_quickContactBadgeOverlay:I = 0x11c
+.field public static final Theme_quickContactBadgeOverlay:I = 0x11d
 
 .field public static final Theme_quickContactBadgeStyleSmallWindowLarge:I = 0x7b
 
@@ -3626,15 +3628,17 @@
 
 .field public static final Theme_scrollViewStyle:I = 0x48
 
-.field public static final Theme_searchDialogTheme:I = 0x12d
+.field public static final Theme_searchDialogTheme:I = 0x12e
 
-.field public static final Theme_searchResultListItemHeight:I = 0x112
+.field public static final Theme_searchResultListItemHeight:I = 0x113
 
 .field public static final Theme_searchViewStyle:I = 0xf4
 
-.field public static final Theme_searchWidgetCorpusItemBackground:I = 0x10a
+.field public static final Theme_searchWidgetCorpusItemBackground:I = 0x10b
 
-.field public static final Theme_seekBarPreferenceStyle:I = 0x128
+.field public static final Theme_seekBarDialogPreferenceStyle:I = 0x138
+
+.field public static final Theme_seekBarPreferenceStyle:I = 0x129
 
 .field public static final Theme_seekBarStyle:I = 0x44
 
@@ -3664,11 +3668,11 @@
 
 .field public static final Theme_textAppearance:I = 0x4
 
-.field public static final Theme_textAppearanceAutoCorrectionSuggestion:I = 0x10d
+.field public static final Theme_textAppearanceAutoCorrectionSuggestion:I = 0x10e
 
 .field public static final Theme_textAppearanceButton:I = 0x5f
 
-.field public static final Theme_textAppearanceEasyCorrectSuggestion:I = 0x10b
+.field public static final Theme_textAppearanceEasyCorrectSuggestion:I = 0x10c
 
 .field public static final Theme_textAppearanceInverse:I = 0x5
 
@@ -3688,7 +3692,7 @@
 
 .field public static final Theme_textAppearanceMediumInverse:I = 0x14
 
-.field public static final Theme_textAppearanceMisspelledSuggestion:I = 0x10c
+.field public static final Theme_textAppearanceMisspelledSuggestion:I = 0x10d
 
 .field public static final Theme_textAppearanceSearchResultSubtitle:I = 0x73
 
@@ -3714,7 +3718,7 @@
 
 .field public static final Theme_textColorPrimary:I = 0x6
 
-.field public static final Theme_textColorPrimaryActivated:I = 0x107
+.field public static final Theme_textColorPrimaryActivated:I = 0x108
 
 .field public static final Theme_textColorPrimaryDisableOnly:I = 0x7
 
@@ -3726,11 +3730,11 @@
 
 .field public static final Theme_textColorPrimaryNoDisable:I = 0xb
 
-.field public static final Theme_textColorSearchUrl:I = 0x109
+.field public static final Theme_textColorSearchUrl:I = 0x10a
 
 .field public static final Theme_textColorSecondary:I = 0x8
 
-.field public static final Theme_textColorSecondaryActivated:I = 0x108
+.field public static final Theme_textColorSecondaryActivated:I = 0x109
 
 .field public static final Theme_textColorSecondaryInverse:I = 0xa
 
@@ -3762,9 +3766,9 @@
 
 .field public static final Theme_textSuggestionsWindowStyle:I = 0xbe
 
-.field public static final Theme_textUnderlineColor:I = 0x10e
+.field public static final Theme_textUnderlineColor:I = 0x10f
 
-.field public static final Theme_textUnderlineThickness:I = 0x10f
+.field public static final Theme_textUnderlineThickness:I = 0x110
 
 .field public static final Theme_textViewStyle:I = 0x4c
 
@@ -3772,7 +3776,7 @@
 
 .field public static final Theme_timePickerStyle:I = 0xf9
 
-.field public static final Theme_toastFrameBackground:I = 0x12c
+.field public static final Theme_toastFrameBackground:I = 0x12d
 
 .field public static final Theme_toolbarStyle:I = 0xfb
 
@@ -3782,7 +3786,7 @@
 
 .field public static final Theme_windowActionBar:I = 0x82
 
-.field public static final Theme_windowActionBarFullscreenDecorLayout:I = 0x115
+.field public static final Theme_windowActionBarFullscreenDecorLayout:I = 0x116
 
 .field public static final Theme_windowActionBarOverlay:I = 0x8a
 
@@ -3798,7 +3802,7 @@
 
 .field public static final Theme_windowBackground:I = 0x24
 
-.field public static final Theme_windowBackgroundFallback:I = 0x114
+.field public static final Theme_windowBackgroundFallback:I = 0x115
 
 .field public static final Theme_windowCloseOnTouchOutside:I = 0xb6
 
@@ -4500,7 +4504,7 @@
 
 .field public static final Window_windowActionBar:I = 0xf
 
-.field public static final Window_windowActionBarFullscreenDecorLayout:I = 0x2f
+.field public static final Window_windowActionBarFullscreenDecorLayout:I = 0x30
 
 .field public static final Window_windowActionBarOverlay:I = 0x11
 
@@ -4516,7 +4520,7 @@
 
 .field public static final Window_windowBackground:I = 0x1
 
-.field public static final Window_windowBackgroundFallback:I = 0x2e
+.field public static final Window_windowBackgroundFallback:I = 0x2f
 
 .field public static final Window_windowClipToOutline:I = 0x27
 
@@ -4540,17 +4544,19 @@
 
 .field public static final Window_windowExitTransition:I = 0x1d
 
-.field public static final Window_windowFixedHeightMajor:I = 0x33
+.field public static final Window_windowFixedHeightMajor:I = 0x34
 
-.field public static final Window_windowFixedHeightMinor:I = 0x31
+.field public static final Window_windowFixedHeightMinor:I = 0x32
 
-.field public static final Window_windowFixedWidthMajor:I = 0x30
+.field public static final Window_windowFixedWidthMajor:I = 0x31
 
-.field public static final Window_windowFixedWidthMinor:I = 0x32
+.field public static final Window_windowFixedWidthMinor:I = 0x33
 
 .field public static final Window_windowFrame:I = 0x2
 
 .field public static final Window_windowFullscreen:I = 0x9
+
+.field public static final Window_windowHasLightStatusBar:I = 0x2e
 
 .field public static final Window_windowIsFloating:I = 0x4
 
@@ -4564,7 +4570,7 @@
 
 .field public static final Window_windowNoTitle:I = 0x3
 
-.field public static final Window_windowOutsetBottom:I = 0x34
+.field public static final Window_windowOutsetBottom:I = 0x35
 
 .field public static final Window_windowOverscan:I = 0x16
 
@@ -6364,7 +6370,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->TextViewMultiLineBackgroundState:[I
 
-    const/16 v0, 0x137
+    const/16 v0, 0x139
 
     new-array v0, v0, [I
 
@@ -6612,7 +6618,7 @@
 
     sput-object v0, Lcom/android/internal/R$styleable;->WeightedLinearLayout:[I
 
-    const/16 v0, 0x35
+    const/16 v0, 0x36
 
     new-array v0, v0, [I
 
@@ -8892,6 +8898,7 @@
         0x10104cd
         0x10104ce
         0x10104d3
+        0x10104dc
         0x1160000
         0x1160001
         0x1160002
@@ -8940,6 +8947,7 @@
         0x116002d
         0x116002e
         0x116002f
+        0x11600b8
     .end array-data
 
     :array_b7
@@ -9330,6 +9338,7 @@
         0x10104b1
         0x10104bb
         0x10104cd
+        0x10104dd
         0x116000d
         0x116000e
         0x1160030

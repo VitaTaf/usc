@@ -4052,7 +4052,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_26
+    if-eqz v25, :cond_27
 
     const/16 v25, -0x2
 
@@ -4087,7 +4087,7 @@
 
     move-result v25
 
-    if-eqz v25, :cond_27
+    if-eqz v25, :cond_28
 
     const/16 v25, 0x1
 
@@ -4367,7 +4367,7 @@
 
     move/from16 v1, v27
 
-    if-lt v0, v1, :cond_28
+    if-lt v0, v1, :cond_29
 
     const/16 v25, 0x1
 
@@ -4431,7 +4431,7 @@
 
     invoke-virtual {v4, v0, v1}, Landroid/content/res/TypedArray;->getValue(ILandroid/util/TypedValue;)Z
 
-    const/16 v25, 0x30
+    const/16 v25, 0x31
 
     move/from16 v0, v25
 
@@ -4460,7 +4460,7 @@
     iput-object v0, v1, Landroid/view/PhoneWindow;->mFixedWidthMajor:Landroid/util/TypedValue;
 
     :cond_a
-    const/16 v25, 0x30
+    const/16 v25, 0x31
 
     move-object/from16 v0, p0
 
@@ -4475,7 +4475,7 @@
     invoke-virtual {v4, v0, v1}, Landroid/content/res/TypedArray;->getValue(ILandroid/util/TypedValue;)Z
 
     :cond_b
-    const/16 v25, 0x32
+    const/16 v25, 0x33
 
     move/from16 v0, v25
 
@@ -4504,7 +4504,7 @@
     iput-object v0, v1, Landroid/view/PhoneWindow;->mFixedWidthMinor:Landroid/util/TypedValue;
 
     :cond_c
-    const/16 v25, 0x32
+    const/16 v25, 0x33
 
     move-object/from16 v0, p0
 
@@ -4519,7 +4519,7 @@
     invoke-virtual {v4, v0, v1}, Landroid/content/res/TypedArray;->getValue(ILandroid/util/TypedValue;)Z
 
     :cond_d
-    const/16 v25, 0x33
+    const/16 v25, 0x34
 
     move/from16 v0, v25
 
@@ -4548,7 +4548,7 @@
     iput-object v0, v1, Landroid/view/PhoneWindow;->mFixedHeightMajor:Landroid/util/TypedValue;
 
     :cond_e
-    const/16 v25, 0x33
+    const/16 v25, 0x34
 
     move-object/from16 v0, p0
 
@@ -4563,7 +4563,7 @@
     invoke-virtual {v4, v0, v1}, Landroid/content/res/TypedArray;->getValue(ILandroid/util/TypedValue;)Z
 
     :cond_f
-    const/16 v25, 0x31
+    const/16 v25, 0x32
 
     move/from16 v0, v25
 
@@ -4592,7 +4592,7 @@
     iput-object v0, v1, Landroid/view/PhoneWindow;->mFixedHeightMinor:Landroid/util/TypedValue;
 
     :cond_10
-    const/16 v25, 0x31
+    const/16 v25, 0x32
 
     move-object/from16 v0, p0
 
@@ -4689,7 +4689,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_29
+    if-eqz v25, :cond_2a
 
     :cond_14
     const/16 v18, 0x1
@@ -4698,7 +4698,7 @@
     :goto_3
     if-eqz v18, :cond_16
 
-    const/16 v25, 0x34
+    const/16 v25, 0x35
 
     move/from16 v0, v25
 
@@ -4727,7 +4727,7 @@
     iput-object v0, v1, Landroid/view/PhoneWindow;->mOutsetBottom:Landroid/util/TypedValue;
 
     :cond_15
-    const/16 v25, 0x34
+    const/16 v25, 0x35
 
     move-object/from16 v0, p0
 
@@ -4766,7 +4766,7 @@
 
     move/from16 v1, v25
 
-    if-ge v0, v1, :cond_2a
+    if-ge v0, v1, :cond_2b
 
     const/16 v20, 0x1
 
@@ -4778,7 +4778,7 @@
 
     move/from16 v1, v25
 
-    if-ge v0, v1, :cond_2b
+    if-ge v0, v1, :cond_2c
 
     const/16 v21, 0x1
 
@@ -4790,7 +4790,7 @@
 
     move/from16 v1, v25
 
-    if-ge v0, v1, :cond_2c
+    if-ge v0, v1, :cond_2d
 
     const/16 v22, 0x1
 
@@ -4829,7 +4829,7 @@
 
     move-result v25
 
-    if-eqz v25, :cond_2d
+    if-eqz v25, :cond_2e
 
     :cond_17
     const/4 v14, 0x1
@@ -4838,11 +4838,11 @@
     :goto_7
     if-nez v20, :cond_18
 
-    if-eqz v21, :cond_2e
+    if-eqz v21, :cond_2f
 
-    if-eqz v19, :cond_2e
+    if-eqz v19, :cond_2f
 
-    if-eqz v14, :cond_2e
+    if-eqz v14, :cond_2f
 
     :cond_18
     const/16 v25, 0x1
@@ -4959,13 +4959,44 @@
     iput v0, v1, Landroid/view/PhoneWindow;->mNavigationBarColor:I
 
     :cond_1b
+    const/16 v25, 0x2e
+
+    const/16 v26, 0x0
+
+    move/from16 v0, v25
+
+    move/from16 v1, v26
+
+    invoke-virtual {v4, v0, v1}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
+
+    move-result v25
+
+    if-eqz v25, :cond_1c
+
+    invoke-virtual/range {p1 .. p1}, Landroid/view/PhoneWindow$DecorView;->getSystemUiVisibility()I
+
+    move-result v25
+
+    move/from16 v0, v25
+
+    or-int/lit16 v0, v0, 0x2000
+
+    move/from16 v25, v0
+
+    move-object/from16 v0, p1
+
+    move/from16 v1, v25
+
+    invoke-virtual {v0, v1}, Landroid/view/PhoneWindow$DecorView;->setSystemUiVisibility(I)V
+
+    :cond_1c
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Landroid/view/PhoneWindow;->mAlwaysReadCloseOnTouchAttr:Z
 
     move/from16 v25, v0
 
-    if-nez v25, :cond_1c
+    if-nez v25, :cond_1d
 
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getContext()Landroid/content/Context;
 
@@ -4987,9 +5018,9 @@
 
     move/from16 v1, v26
 
-    if-lt v0, v1, :cond_1d
+    if-lt v0, v1, :cond_1e
 
-    :cond_1c
+    :cond_1d
     const/16 v25, 0x15
 
     const/16 v26, 0x0
@@ -5002,7 +5033,7 @@
 
     move-result v25
 
-    if-eqz v25, :cond_1d
+    if-eqz v25, :cond_1e
 
     const/16 v25, 0x1
 
@@ -5012,7 +5043,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/PhoneWindow;->setCloseOnTouchOutsideIfNotSet(Z)V
 
-    :cond_1d
+    :cond_1e
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getAttributes()Landroid/view/WindowManager$LayoutParams;
 
     move-result-object v15
@@ -5022,7 +5053,7 @@
 
     move-result v25
 
-    if-nez v25, :cond_1e
+    if-nez v25, :cond_1f
 
     const/16 v25, 0xd
 
@@ -5042,7 +5073,7 @@
 
     iput v0, v15, Landroid/view/WindowManager$LayoutParams;->softInputMode:I
 
-    :cond_1e
+    :cond_1f
     const/16 v25, 0xb
 
     move-object/from16 v0, p0
@@ -5059,7 +5090,7 @@
 
     move-result v25
 
-    if-eqz v25, :cond_20
+    if-eqz v25, :cond_21
 
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getForcedWindowFlags()I
 
@@ -5067,7 +5098,7 @@
 
     and-int/lit8 v25, v25, 0x2
 
-    if-nez v25, :cond_1f
+    if-nez v25, :cond_20
 
     iget v0, v15, Landroid/view/WindowManager$LayoutParams;->flags:I
 
@@ -5079,12 +5110,12 @@
 
     iput v0, v15, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    :cond_1f
+    :cond_20
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->haveDimAmount()Z
 
     move-result v25
 
-    if-nez v25, :cond_20
+    if-nez v25, :cond_21
 
     const/16 v25, 0x0
 
@@ -5102,12 +5133,12 @@
 
     iput v0, v15, Landroid/view/WindowManager$LayoutParams;->dimAmount:F
 
-    :cond_20
+    :cond_21
     iget v0, v15, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
 
     move/from16 v25, v0
 
-    if-nez v25, :cond_21
+    if-nez v25, :cond_22
 
     const/16 v25, 0x8
 
@@ -5125,12 +5156,12 @@
 
     iput v0, v15, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
 
-    :cond_21
+    :cond_22
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getContainer()Landroid/view/Window;
 
     move-result-object v25
 
-    if-nez v25, :cond_25
+    if-nez v25, :cond_26
 
     move-object/from16 v0, p0
 
@@ -5138,7 +5169,7 @@
 
     move-object/from16 v25, v0
 
-    if-nez v25, :cond_24
+    if-nez v25, :cond_25
 
     move-object/from16 v0, p0
 
@@ -5146,7 +5177,7 @@
 
     move/from16 v25, v0
 
-    if-nez v25, :cond_22
+    if-nez v25, :cond_23
 
     const/16 v25, 0x1
 
@@ -5166,14 +5197,14 @@
 
     iput v0, v1, Landroid/view/PhoneWindow;->mBackgroundResource:I
 
-    :cond_22
+    :cond_23
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/view/PhoneWindow;->mFrameResource:I
 
     move/from16 v25, v0
 
-    if-nez v25, :cond_23
+    if-nez v25, :cond_24
 
     const/16 v25, 0x2
 
@@ -5193,8 +5224,8 @@
 
     iput v0, v1, Landroid/view/PhoneWindow;->mFrameResource:I
 
-    :cond_23
-    const/16 v25, 0x2e
+    :cond_24
+    const/16 v25, 0x2f
 
     const/16 v26, 0x0
 
@@ -5212,7 +5243,7 @@
 
     iput v0, v1, Landroid/view/PhoneWindow;->mBackgroundFallbackResource:I
 
-    :cond_24
+    :cond_25
     const/16 v25, 0x26
 
     const/16 v26, 0x0
@@ -5267,7 +5298,7 @@
 
     iput v0, v1, Landroid/view/PhoneWindow;->mTextColor:I
 
-    :cond_25
+    :cond_26
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getLocalFeatures()I
 
     move-result v9
@@ -5277,7 +5308,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_2f
+    if-eqz v25, :cond_30
 
     const v13, 0x10900b9
 
@@ -5342,7 +5373,7 @@
     check-cast v6, Landroid/view/ViewGroup;
 
     .local v6, "contentParent":Landroid/view/ViewGroup;
-    if-nez v6, :cond_39
+    if-nez v6, :cond_3a
 
     new-instance v25, Ljava/lang/RuntimeException;
 
@@ -5364,7 +5395,7 @@
     .end local v22    # "targetPreL":Z
     .end local v23    # "targetSdk":I
     .end local v24    # "windowService":Landroid/view/WindowManager;
-    :cond_26
+    :cond_27
     const v25, 0x10100
 
     move-object/from16 v0, p0
@@ -5375,7 +5406,7 @@
 
     goto/16 :goto_0
 
-    :cond_27
+    :cond_28
     const/16 v25, 0xf
 
     const/16 v26, 0x0
@@ -5400,14 +5431,14 @@
 
     goto/16 :goto_1
 
-    :cond_28
+    :cond_29
     const/16 v25, 0x0
 
     goto/16 :goto_2
 
     .restart local v8    # "display":Landroid/view/Display;
     .restart local v24    # "windowService":Landroid/view/WindowManager;
-    :cond_29
+    :cond_2a
     const/16 v18, 0x0
 
     goto/16 :goto_3
@@ -5415,32 +5446,32 @@
     .end local v8    # "display":Landroid/view/Display;
     .restart local v7    # "context":Landroid/content/Context;
     .restart local v23    # "targetSdk":I
-    :cond_2a
+    :cond_2b
     const/16 v20, 0x0
 
     goto/16 :goto_4
 
     .restart local v20    # "targetPreHoneycomb":Z
-    :cond_2b
+    :cond_2c
     const/16 v21, 0x0
 
     goto/16 :goto_5
 
     .restart local v21    # "targetPreIcs":Z
-    :cond_2c
+    :cond_2d
     const/16 v22, 0x0
 
     goto/16 :goto_6
 
     .restart local v19    # "targetHcNeedsOptions":Z
     .restart local v22    # "targetPreL":Z
-    :cond_2d
+    :cond_2e
     const/4 v14, 0x0
 
     goto/16 :goto_7
 
     .restart local v14    # "noActionBar":Z
-    :cond_2e
+    :cond_2f
     const/16 v25, 0x2
 
     move-object/from16 v0, p0
@@ -5453,10 +5484,10 @@
 
     .restart local v9    # "features":I
     .restart local v15    # "params":Landroid/view/WindowManager$LayoutParams;
-    :cond_2f
+    :cond_30
     and-int/lit8 v25, v9, 0x18
 
-    if-eqz v25, :cond_31
+    if-eqz v25, :cond_32
 
     move-object/from16 v0, p0
 
@@ -5464,7 +5495,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_30
+    if-eqz v25, :cond_31
 
     new-instance v17, Landroid/util/TypedValue;
 
@@ -5511,23 +5542,23 @@
     goto/16 :goto_9
 
     .end local v13    # "layoutResource":I
-    :cond_30
+    :cond_31
     const v13, 0x10900bb
 
     .restart local v13    # "layoutResource":I
     goto :goto_a
 
     .end local v13    # "layoutResource":I
-    :cond_31
+    :cond_32
     and-int/lit8 v25, v9, 0x24
 
-    if-eqz v25, :cond_32
+    if-eqz v25, :cond_33
 
     and-int/lit16 v0, v9, 0x100
 
     move/from16 v25, v0
 
-    if-nez v25, :cond_32
+    if-nez v25, :cond_33
 
     const v13, 0x10900b6
 
@@ -5535,12 +5566,12 @@
     goto/16 :goto_9
 
     .end local v13    # "layoutResource":I
-    :cond_32
+    :cond_33
     and-int/lit16 v0, v9, 0x80
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_34
+    if-eqz v25, :cond_35
 
     move-object/from16 v0, p0
 
@@ -5548,7 +5579,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_33
+    if-eqz v25, :cond_34
 
     new-instance v17, Landroid/util/TypedValue;
 
@@ -5595,17 +5626,17 @@
     goto/16 :goto_9
 
     .end local v13    # "layoutResource":I
-    :cond_33
+    :cond_34
     const v13, 0x10900b5
 
     .restart local v13    # "layoutResource":I
     goto :goto_b
 
     .end local v13    # "layoutResource":I
-    :cond_34
+    :cond_35
     and-int/lit8 v25, v9, 0x2
 
-    if-nez v25, :cond_37
+    if-nez v25, :cond_38
 
     move-object/from16 v0, p0
 
@@ -5613,7 +5644,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_35
+    if-eqz v25, :cond_36
 
     new-instance v17, Landroid/util/TypedValue;
 
@@ -5651,14 +5682,14 @@
 
     .end local v13    # "layoutResource":I
     .end local v17    # "res":Landroid/util/TypedValue;
-    :cond_35
+    :cond_36
     and-int/lit16 v0, v9, 0x100
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_36
+    if-eqz v25, :cond_37
 
-    const/16 v25, 0x2f
+    const/16 v25, 0x30
 
     const v26, 0x10900b4
 
@@ -5674,19 +5705,19 @@
     goto/16 :goto_9
 
     .end local v13    # "layoutResource":I
-    :cond_36
+    :cond_37
     const v13, 0x10900ba
 
     .restart local v13    # "layoutResource":I
     goto/16 :goto_9
 
     .end local v13    # "layoutResource":I
-    :cond_37
+    :cond_38
     and-int/lit16 v0, v9, 0x400
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_38
+    if-eqz v25, :cond_39
 
     const v13, 0x10900b8
 
@@ -5694,17 +5725,17 @@
     goto/16 :goto_9
 
     .end local v13    # "layoutResource":I
-    :cond_38
+    :cond_39
     const v13, 0x10900b7
 
     .restart local v13    # "layoutResource":I
     goto/16 :goto_9
 
     .restart local v6    # "contentParent":Landroid/view/ViewGroup;
-    :cond_39
+    :cond_3a
     and-int/lit8 v25, v9, 0x20
 
-    if-eqz v25, :cond_3a
+    if-eqz v25, :cond_3b
 
     const/16 v25, 0x0
 
@@ -5717,7 +5748,7 @@
     move-result-object v16
 
     .local v16, "progress":Landroid/widget/ProgressBar;
-    if-eqz v16, :cond_3a
+    if-eqz v16, :cond_3b
 
     const/16 v25, 0x1
 
@@ -5728,21 +5759,21 @@
     invoke-virtual {v0, v1}, Landroid/widget/ProgressBar;->setIndeterminate(Z)V
 
     .end local v16    # "progress":Landroid/widget/ProgressBar;
-    :cond_3a
+    :cond_3b
     and-int/lit16 v0, v9, 0x800
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_3b
+    if-eqz v25, :cond_3c
 
     invoke-direct/range {p0 .. p0}, Landroid/view/PhoneWindow;->registerSwipeCallbacks()V
 
-    :cond_3b
+    :cond_3c
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getContainer()Landroid/view/Window;
 
     move-result-object v25
 
-    if-nez v25, :cond_3e
+    if-nez v25, :cond_3f
 
     move-object/from16 v0, p0
 
@@ -5750,7 +5781,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_3f
+    if-eqz v25, :cond_40
 
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getContext()Landroid/content/Context;
 
@@ -5784,7 +5815,7 @@
 
     move/from16 v25, v0
 
-    if-eqz v25, :cond_40
+    if-eqz v25, :cond_41
 
     invoke-virtual/range {p0 .. p0}, Landroid/view/PhoneWindow;->getContext()Landroid/content/Context;
 
@@ -5846,7 +5877,7 @@
 
     move-object/from16 v25, v0
 
-    if-eqz v25, :cond_3c
+    if-eqz v25, :cond_3d
 
     move-object/from16 v0, p0
 
@@ -5860,14 +5891,14 @@
 
     invoke-virtual {v0, v1}, Landroid/view/PhoneWindow;->setTitle(Ljava/lang/CharSequence;)V
 
-    :cond_3c
+    :cond_3d
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/view/PhoneWindow;->mTitleColor:I
 
     move/from16 v25, v0
 
-    if-nez v25, :cond_3d
+    if-nez v25, :cond_3e
 
     move-object/from16 v0, p0
 
@@ -5881,7 +5912,7 @@
 
     iput v0, v1, Landroid/view/PhoneWindow;->mTitleColor:I
 
-    :cond_3d
+    :cond_3e
     move-object/from16 v0, p0
 
     iget v0, v0, Landroid/view/PhoneWindow;->mTitleColor:I
@@ -5896,7 +5927,7 @@
 
     .end local v5    # "background":Landroid/graphics/drawable/Drawable;
     .end local v11    # "frame":Landroid/graphics/drawable/Drawable;
-    :cond_3e
+    :cond_3f
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/view/PhoneWindow;->mDecor:Landroid/view/PhoneWindow$DecorView;
@@ -5907,7 +5938,7 @@
 
     return-object v6
 
-    :cond_3f
+    :cond_40
     move-object/from16 v0, p0
 
     iget-object v5, v0, Landroid/view/PhoneWindow;->mBackgroundDrawable:Landroid/graphics/drawable/Drawable;
@@ -5915,7 +5946,7 @@
     .restart local v5    # "background":Landroid/graphics/drawable/Drawable;
     goto/16 :goto_c
 
-    :cond_40
+    :cond_41
     const/4 v11, 0x0
 
     .restart local v11    # "frame":Landroid/graphics/drawable/Drawable;

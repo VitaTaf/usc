@@ -300,6 +300,7 @@
         <item name="windowActivityTransitions">false</item>
         <item name="colorEdgeEffect">?colorPrimary</item>
         <item name="dialogPreferredPadding">@dimen/dialog_padding</item>
+        <item name="colorBackgroundFloating">?colorBackground</item>
         <item name="textColorPrimaryActivated">@color/primary_text_dark</item>
         <item name="textColorSecondaryActivated">@color/secondary_text_dark</item>
         <item name="textColorSearchUrl">@color/search_url_text</item>
@@ -348,6 +349,7 @@
         <item name="windowFixedWidthMinor">0.0dip</item>
         <item name="windowFixedHeightMajor">0.0dip</item>
         <item name="keyboardViewStyle">@style/Widget.KeyboardView</item>
+        <item name="seekBarDialogPreferenceStyle">@style/Preference.DialogPreference.SeekBarPreference</item>
     </style>
     <style name="Theme.NoTitleBar" parent="@style/Theme">
         <item name="windowNoTitle">true</item>
@@ -1182,6 +1184,7 @@
         <item name="timePickerDialogTheme">?alertDialogTheme</item>
         <item name="datePickerDialogTheme">?alertDialogTheme</item>
         <item name="colorEdgeEffect">?colorPrimary</item>
+        <item name="colorBackgroundFloating">@color/background_holo_dark</item>
         <item name="textColorPrimaryActivated">@color/primary_text_holo_dark</item>
         <item name="textColorSecondaryActivated">@color/secondary_text_holo_dark</item>
         <item name="textColorSearchUrl">@color/search_url_text_holo</item>
@@ -1446,6 +1449,7 @@
         <item name="timePickerStyle">@style/Widget.Holo.Light.TimePicker</item>
         <item name="timePickerDialogTheme">?alertDialogTheme</item>
         <item name="datePickerDialogTheme">?alertDialogTheme</item>
+        <item name="colorBackgroundFloating">@color/background_holo_light</item>
         <item name="textColorPrimaryActivated">@color/primary_text_holo_light</item>
         <item name="textColorSecondaryActivated">@color/secondary_text_holo_light</item>
         <item name="textColorSearchUrl">@color/search_url_text_holo</item>
@@ -3088,7 +3092,7 @@
         <item name="listDividerAlertDialog">@null</item>
         <item name="textColorAlertDialogListItem">@color/primary_text_material_dark</item>
         <item name="dialogTheme">@style/ThemeOverlay.Material.Dialog</item>
-        <item name="alertDialogTheme">@style/ThemeOverlay.Material.Dialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Material.Dialog.Alert</item>
         <item name="dividerVertical">?listDivider</item>
         <item name="homeAsUpIndicator">@drawable/ic_ab_back_material</item>
         <item name="selectableItemBackground">@drawable/item_background_material</item>
@@ -3171,6 +3175,7 @@
         <item name="windowActivityTransitions">true</item>
         <item name="colorEdgeEffect">?colorPrimary</item>
         <item name="dialogPreferredPadding">@dimen/dialog_padding_material</item>
+        <item name="colorBackgroundFloating">@color/background_floating_material_dark</item>
         <item name="textColorPrimaryActivated">@color/primary_text_inverse_when_activated_material</item>
         <item name="textColorSecondaryActivated">@color/secondary_text_inverse_when_activated_material</item>
         <item name="textColorSearchUrl">@color/search_url_text_material_dark</item>
@@ -3207,6 +3212,7 @@
         <item name="findOnPagePreviousDrawable">@drawable/ic_find_previous_material</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_dark</item>
         <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
+        <item name="seekBarDialogPreferenceStyle">@style/Preference.Material.DialogPreference.SeekBarPreference</item>
     </style>
     <style name="Theme.Material.Dialog" parent="@style/Theme.Material.BaseDialog" />
     <style name="Theme.Material.Dialog.Alert" parent="@style/Theme.Material.Dialog.BaseAlert" />
@@ -3265,7 +3271,6 @@
         <item name="presentationTheme">@style/Theme.Material.Settings.Dialog.Presentation</item>
         <item name="colorPrimary">@color/material_blue_grey_900</item>
         <item name="colorPrimaryDark">@color/material_blue_grey_950</item>
-        <item name="colorAccent">@color/material_deep_teal_500</item>
         <item name="panelMenuListTheme">@style/Theme.Material.Settings.CompactMenu</item>
         <item name="searchDialogTheme">@style/Theme.Material.Settings.SearchBar</item>
     </style>
@@ -3436,7 +3441,7 @@
         <item name="listDividerAlertDialog">@null</item>
         <item name="textColorAlertDialogListItem">@color/primary_text_material_light</item>
         <item name="dialogTheme">@style/ThemeOverlay.Material.Dialog</item>
-        <item name="alertDialogTheme">@style/ThemeOverlay.Material.Dialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Material.Dialog.Alert</item>
         <item name="dividerVertical">?listDivider</item>
         <item name="homeAsUpIndicator">@drawable/ic_ab_back_material</item>
         <item name="selectableItemBackground">@drawable/item_background_material</item>
@@ -3462,6 +3467,8 @@
         <item name="alertDialogIcon">@drawable/ic_dialog_alert_material</item>
         <item name="datePickerStyle">@style/Widget.Material.Light.DatePicker</item>
         <item name="calendarViewStyle">@style/Widget.Material.Light.CalendarView</item>
+        <item name="actionMenuTextAppearance">@style/TextAppearance.Material.Widget.ActionBar.Menu</item>
+        <item name="actionMenuTextColor">?textColorPrimary</item>
         <item name="textCursorDrawable">@drawable/text_cursor_material</item>
         <item name="switchPreferenceStyle">@style/Preference.Material.SwitchPreference</item>
         <item name="textSuggestionsWindowStyle">@style/Widget.Material.Light.TextSuggestionsPopupWindow</item>
@@ -3507,13 +3514,17 @@
         <item name="actionModeFindDrawable">@drawable/ic_menu_find_material</item>
         <item name="actionModeWebSearchDrawable">@drawable/ic_menu_search_material</item>
         <item name="searchViewStyle">@style/Widget.Material.Light.SearchView</item>
+        <item name="actionBarPopupTheme">?popupTheme</item>
         <item name="timePickerStyle">@style/Widget.Material.Light.TimePicker</item>
         <item name="timePickerDialogTheme">?dialogTheme</item>
+        <item name="popupTheme">@null</item>
         <item name="toolbarStyle">@style/Widget.Material.Toolbar</item>
         <item name="windowClipToOutline">true</item>
         <item name="datePickerDialogTheme">?dialogTheme</item>
         <item name="windowActivityTransitions">true</item>
+        <item name="colorEdgeEffect">?colorPrimary</item>
         <item name="dialogPreferredPadding">@dimen/dialog_padding_material</item>
+        <item name="colorBackgroundFloating">@color/background_floating_material_light</item>
         <item name="textColorPrimaryActivated">@color/primary_text_inverse_when_activated_material</item>
         <item name="textColorSecondaryActivated">@color/secondary_text_inverse_when_activated_material</item>
         <item name="textColorSearchUrl">@color/search_url_text_material_light</item>
@@ -3550,6 +3561,7 @@
         <item name="findOnPagePreviousDrawable">@drawable/ic_find_previous_material</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
         <item name="keyboardViewStyle">@style/Widget.Material.KeyboardView</item>
+        <item name="seekBarDialogPreferenceStyle">@style/Preference.Material.DialogPreference.SeekBarPreference</item>
     </style>
     <style name="Theme.Material.Light.DarkActionBar" parent="@style/Theme.Material.Light">
         <item name="actionBarWidgetTheme">@null</item>
@@ -3639,6 +3651,7 @@
         <item name="colorControlNormal">?textColorSecondary</item>
         <item name="colorButtonNormal">@color/btn_default_material_light</item>
         <item name="colorControlHighlight">@color/ripple_material_light</item>
+        <item name="colorBackgroundFloating">@color/background_floating_material_light</item>
         <item name="textColorSearchUrl">@color/search_url_text_material_light</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
     </style>
@@ -3666,6 +3679,7 @@
         <item name="colorControlNormal">?textColorSecondary</item>
         <item name="colorButtonNormal">@color/btn_default_material_dark</item>
         <item name="colorControlHighlight">@color/ripple_material_dark</item>
+        <item name="colorBackgroundFloating">@color/background_floating_material_dark</item>
         <item name="textColorSearchUrl">@color/search_url_text_material_dark</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_dark</item>
     </style>
@@ -4961,6 +4975,12 @@
         <item name="textColor">?colorControlActivated</item>
         <item name="fontFamily">sans-serif-medium</item>
     </style>
+    <style name="Preference.DialogPreference.SeekBarPreference" parent="@style/Preference.DialogPreference">
+        <item name="dialogLayout">@layout/preference_dialog_seekbar</item>
+    </style>
+    <style name="Preference.Material.DialogPreference.SeekBarPreference" parent="@style/Preference.Material.DialogPreference">
+        <item name="dialogLayout">@layout/preference_dialog_seekbar_material</item>
+    </style>
     <style name="Widget.Holo.FastScroll" parent="@style/Widget.FastScroll">
         <item name="thumbMinWidth">0.0dip</item>
         <item name="thumbMinHeight">0.0dip</item>
@@ -5628,7 +5648,7 @@
         <item name="windowElevation">@dimen/floating_window_z</item>
     </style>
     <style name="Theme.Material.BaseDialog" parent="@style/Theme.Material">
-        <item name="colorBackground">@color/background_floating_material_dark</item>
+        <item name="colorBackground">?colorBackgroundFloating</item>
         <item name="windowBackground">@drawable/dialog_background_material</item>
         <item name="windowFrame">@null</item>
         <item name="windowIsFloating">true</item>
@@ -5675,7 +5695,7 @@
         <item name="windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
     </style>
     <style name="Theme.Material.Light.BaseDialog" parent="@style/Theme.Material.Light">
-        <item name="colorBackground">@color/background_floating_material_light</item>
+        <item name="colorBackground">?colorBackgroundFloating</item>
         <item name="windowBackground">@drawable/dialog_background_material</item>
         <item name="windowFrame">@null</item>
         <item name="windowIsFloating">true</item>
@@ -5716,19 +5736,16 @@
         <item name="colorBackground">@color/white</item>
         <item name="colorPrimary">@color/material_blue_grey_900</item>
         <item name="colorPrimaryDark">@color/material_blue_grey_950</item>
-        <item name="colorAccent">@color/material_deep_teal_500</item>
     </style>
     <style name="Theme.Material.Settings.Dialog.BaseAlert" parent="@style/Theme.Material.Light.Dialog.BaseAlert">
         <item name="colorBackground">@color/white</item>
         <item name="colorPrimary">@color/material_blue_grey_900</item>
         <item name="colorPrimaryDark">@color/material_blue_grey_950</item>
-        <item name="colorAccent">@color/material_deep_teal_500</item>
     </style>
     <style name="Theme.Material.Settings.Dialog.Presentation" parent="@style/Theme.Material.Light.Dialog.Presentation">
         <item name="colorBackground">@color/white</item>
         <item name="colorPrimary">@color/material_blue_grey_900</item>
         <item name="colorPrimaryDark">@color/material_blue_grey_950</item>
-        <item name="colorAccent">@color/material_deep_teal_500</item>
     </style>
     <style name="Theme.Material.Settings.SearchBar" parent="@style/Theme.Material.Light.SearchBar">
         <item name="colorBackground">@color/white</item>
@@ -5740,7 +5757,6 @@
         <item name="colorBackground">@color/white</item>
         <item name="colorPrimary">@color/material_blue_grey_900</item>
         <item name="colorPrimaryDark">@color/material_blue_grey_950</item>
-        <item name="colorAccent">@color/material_deep_teal_500</item>
     </style>
     <style name="Theme.Micro" parent="@style/Theme.Holo.NoActionBar">
         <item name="windowBackground">@color/black</item>
@@ -5802,7 +5818,7 @@
         <item name="background">@drawable/btn_colored_material</item>
     </style>
     <style name="ThemeOverlay.Material.Dialog" parent="@style/ThemeOverlay.Material">
-        <item name="colorBackground">@color/background_floating_material_light</item>
+        <item name="colorBackground">?colorBackgroundFloating</item>
         <item name="windowBackground">@drawable/dialog_background_material</item>
         <item name="windowFrame">@null</item>
         <item name="windowIsFloating">true</item>
@@ -5826,8 +5842,14 @@
     <style name="TextAppearance.Material.Widget.Button.Inverse" parent="@style/TextAppearance.Material.Widget.Button">
         <item name="textColor">?textColorPrimaryInverse</item>
     </style>
-    <item type="style" name="APKTOOL_DUMMY_3ec">false</item>
-    <item type="style" name="APKTOOL_DUMMY_3ed">false</item>
+    <style name="ThemeOverlay.Material.Dialog.Alert" parent="@style/ThemeOverlay.Material.Dialog">
+        <item name="windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+    </style>
+    <style name="Theme.Material.Light.LightStatusBar" parent="@style/Theme.Material.Light">
+        <item name="colorPrimaryDark">@color/primary_dark_material_light_light_status_bar</item>
+        <item name="windowHasLightStatusBar">true</item>
+    </style>
     <item type="style" name="APKTOOL_DUMMY_3ee">false</item>
     <item type="style" name="APKTOOL_DUMMY_3ef">false</item>
     <item type="style" name="APKTOOL_DUMMY_3f0">false</item>

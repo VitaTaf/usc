@@ -543,6 +543,8 @@
 
 .field public static final TextAppearance_Material_Caption:I = 0x10301f1
 
+.field public static final TextAppearance_Material_DatePicker_DateLabel:I = 0x1030372
+
 .field public static final TextAppearance_Material_DatePicker_List_YearLabel:I = 0x1030428
 
 .field public static final TextAppearance_Material_DatePicker_List_YearLabel_Activated:I = 0x10303eb
@@ -782,6 +784,8 @@
 .field public static final ThemeOverlay_Material_Dark_ActionBar:I = 0x103024c
 
 .field public static final ThemeOverlay_Material_Dialog:I = 0x10304c2
+
+.field public static final ThemeOverlay_Material_Dialog_Alert:I = 0x10304c4
 
 .field public static final ThemeOverlay_Material_Light:I = 0x103024a
 
@@ -1066,6 +1070,8 @@
 .field public static final Theme_Material_Light_Dialog_NoActionBar_MinWidth:I = 0x103023d
 
 .field public static final Theme_Material_Light_Dialog_Presentation:I = 0x103023e
+
+.field public static final Theme_Material_Light_LightStatusBar:I = 0x10304c5
 
 .field public static final Theme_Material_Light_NoActionBar:I = 0x1030241
 

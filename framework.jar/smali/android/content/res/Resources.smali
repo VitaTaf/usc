@@ -47,8 +47,10 @@
         value = {
             "Landroid/util/LongSparseArray",
             "<",
-            "Landroid/content/res/ColorStateList$ColorStateListFactory;",
-            ">;"
+            "Landroid/content/res/ConstantState",
+            "<",
+            "Landroid/content/res/ColorStateList;",
+            ">;>;"
         }
     .end annotation
 .end field
@@ -85,8 +87,6 @@
 .end field
 
 .field final mAssets:Landroid/content/res/AssetManager;
-
-.field private mCachedStyledAttributes:Landroid/content/res/TypedArray;
 
 .field private final mCachedXmlBlockIds:[I
 
@@ -242,9 +242,9 @@
     .locals 4
 
     .prologue
-    const/4 v3, 0x4
+    const/4 v3, 0x0
 
-    const/4 v2, 0x0
+    const/4 v2, 0x4
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -304,19 +304,17 @@
 
     iput-object v0, p0, Landroid/content/res/Resources;->mTmpValue:Landroid/util/TypedValue;
 
-    iput-object v2, p0, Landroid/content/res/Resources;->mCachedStyledAttributes:Landroid/content/res/TypedArray;
-
     const/4 v0, -0x1
 
     iput v0, p0, Landroid/content/res/Resources;->mLastCachedXmlBlockIndex:I
 
-    new-array v0, v3, [I
+    new-array v0, v2, [I
 
     fill-array-data v0, :array_0
 
     iput-object v0, p0, Landroid/content/res/Resources;->mCachedXmlBlockIds:[I
 
-    new-array v0, v3, [Landroid/content/res/XmlBlock;
+    new-array v0, v2, [Landroid/content/res/XmlBlock;
 
     iput-object v0, p0, Landroid/content/res/Resources;->mCachedXmlBlocks:[Landroid/content/res/XmlBlock;
 
@@ -350,7 +348,7 @@
 
     invoke-virtual {v0}, Landroid/util/DisplayMetrics;->setToDefaults()V
 
-    invoke-virtual {p0, v2, v2}, Landroid/content/res/Resources;->updateConfiguration(Landroid/content/res/Configuration;Landroid/util/DisplayMetrics;)V
+    invoke-virtual {p0, v3, v3}, Landroid/content/res/Resources;->updateConfiguration(Landroid/content/res/Configuration;Landroid/util/DisplayMetrics;)V
 
     iget-object v0, p0, Landroid/content/res/Resources;->mAssets:Landroid/content/res/AssetManager;
 
@@ -449,10 +447,6 @@
 
     iput-object v0, p0, Landroid/content/res/Resources;->mTmpValue:Landroid/util/TypedValue;
 
-    const/4 v0, 0x0
-
-    iput-object v0, p0, Landroid/content/res/Resources;->mCachedStyledAttributes:Landroid/content/res/TypedArray;
-
     const/4 v0, -0x1
 
     iput v0, p0, Landroid/content/res/Resources;->mLastCachedXmlBlockIndex:I
@@ -499,8 +493,6 @@
     invoke-virtual {p1}, Landroid/content/res/AssetManager;->ensureStringBlocks()V
 
     return-void
-
-    nop
 
     :array_0
     .array-data 4
@@ -1268,47 +1260,21 @@
 
     if-nez v5, :cond_0
 
-    new-instance v5, Landroid/content/res/Resources$NotFoundException;
+    new-instance v5, Ljava/lang/UnsupportedOperationException;
 
     new-instance v6, Ljava/lang/StringBuilder;
 
     invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "Resource \""
+    const-string v7, "Can\'t convert to color state list: type=0x"
 
     invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v6
 
-    invoke-virtual {p0, p2}, Landroid/content/res/Resources;->getResourceName(I)Ljava/lang/String;
+    iget v7, p1, Landroid/util/TypedValue;->type:I
 
-    move-result-object v7
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    const-string v7, "\" ("
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-static {p2}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    const-string v7, ") is not a ColorStateList: "
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-virtual {v6, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v6
 
@@ -1316,7 +1282,7 @@
 
     move-result-object v6
 
-    invoke-direct {v5, v6}, Landroid/content/res/Resources$NotFoundException;-><init>(Ljava/lang/String;)V
+    invoke-direct {v5, v6}, Ljava/lang/UnsupportedOperationException;-><init>(Ljava/lang/String;)V
 
     throw v5
 
@@ -4746,21 +4712,25 @@
 
     move-result-object v2
 
-    check-cast v2, Landroid/content/res/ColorStateList$ColorStateListFactory;
+    check-cast v2, Landroid/content/res/ConstantState;
 
-    .local v2, "factory":Landroid/content/res/ColorStateList$ColorStateListFactory;
+    .local v2, "factory":Landroid/content/res/ConstantState;, "Landroid/content/res/ConstantState<Landroid/content/res/ColorStateList;>;"
     if-eqz v2, :cond_1
 
-    invoke-virtual {v2}, Landroid/content/res/ColorStateList$ColorStateListFactory;->newInstance()Landroid/content/res/ColorStateList;
+    invoke-virtual {v2}, Landroid/content/res/ConstantState;->newInstance()Ljava/lang/Object;
 
-    move-result-object v1
+    move-result-object v3
 
-    .end local v2    # "factory":Landroid/content/res/ColorStateList$ColorStateListFactory;
+    check-cast v3, Landroid/content/res/ColorStateList;
+
+    move-object v1, v3
+
+    .end local v2    # "factory":Landroid/content/res/ConstantState;, "Landroid/content/res/ConstantState<Landroid/content/res/ColorStateList;>;"
     :cond_0
     :goto_0
     return-object v1
 
-    .restart local v2    # "factory":Landroid/content/res/ColorStateList$ColorStateListFactory;
+    .restart local v2    # "factory":Landroid/content/res/ConstantState;, "Landroid/content/res/ConstantState<Landroid/content/res/ColorStateList;>;"
     :cond_1
     iget v3, p1, Landroid/util/TypedValue;->data:I
 
@@ -4787,7 +4757,7 @@
 
     sget-object v3, Landroid/content/res/Resources;->sPreloadedColorStateLists:Landroid/util/LongSparseArray;
 
-    invoke-virtual {v1}, Landroid/content/res/ColorStateList;->getFactory()Landroid/content/res/ColorStateList$ColorStateListFactory;
+    invoke-virtual {v1}, Landroid/content/res/ColorStateList;->getConstantState()Landroid/content/res/ConstantState;
 
     move-result-object v6
 
@@ -4796,7 +4766,7 @@
     goto :goto_0
 
     .end local v1    # "csl":Landroid/content/res/ColorStateList;
-    .end local v2    # "factory":Landroid/content/res/ColorStateList$ColorStateListFactory;
+    .end local v2    # "factory":Landroid/content/res/ConstantState;, "Landroid/content/res/ConstantState<Landroid/content/res/ColorStateList;>;"
     :cond_2
     iget-object v0, p0, Landroid/content/res/Resources;->mColorStateListCache:Landroid/content/res/ConfigurationBoundResourceCache;
 
@@ -4816,15 +4786,19 @@
 
     move-result-object v2
 
-    check-cast v2, Landroid/content/res/ColorStateList$ColorStateListFactory;
+    check-cast v2, Landroid/content/res/ConstantState;
 
-    .restart local v2    # "factory":Landroid/content/res/ColorStateList$ColorStateListFactory;
+    .restart local v2    # "factory":Landroid/content/res/ConstantState;, "Landroid/content/res/ConstantState<Landroid/content/res/ColorStateList;>;"
     if-eqz v2, :cond_3
 
-    invoke-virtual {v2, p0, p3}, Landroid/content/res/ColorStateList$ColorStateListFactory;->newInstance(Landroid/content/res/Resources;Landroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;
+    invoke-virtual {v2, p0, p3}, Landroid/content/res/ConstantState;->newInstance(Landroid/content/res/Resources;Landroid/content/res/Resources$Theme;)Ljava/lang/Object;
 
     move-result-object v1
 
+    .end local v1    # "csl":Landroid/content/res/ColorStateList;
+    check-cast v1, Landroid/content/res/ColorStateList;
+
+    .restart local v1    # "csl":Landroid/content/res/ColorStateList;
     :cond_3
     if-nez v1, :cond_4
 
@@ -4853,7 +4827,7 @@
 
     sget-object v3, Landroid/content/res/Resources;->sPreloadedColorStateLists:Landroid/util/LongSparseArray;
 
-    invoke-virtual {v1}, Landroid/content/res/ColorStateList;->getFactory()Landroid/content/res/ColorStateList$ColorStateListFactory;
+    invoke-virtual {v1}, Landroid/content/res/ColorStateList;->getConstantState()Landroid/content/res/ConstantState;
 
     move-result-object v6
 
@@ -4862,7 +4836,7 @@
     goto :goto_0
 
     :cond_5
-    invoke-virtual {v1}, Landroid/content/res/ColorStateList;->getFactory()Landroid/content/res/ColorStateList$ColorStateListFactory;
+    invoke-virtual {v1}, Landroid/content/res/ColorStateList;->getConstantState()Landroid/content/res/ConstantState;
 
     move-result-object v3
 
@@ -6236,50 +6210,6 @@
     return-void
 .end method
 
-.method recycleCachedStyledAttributes(Landroid/content/res/TypedArray;)V
-    .locals 4
-    .param p1, "attrs"    # Landroid/content/res/TypedArray;
-
-    .prologue
-    iget-object v2, p0, Landroid/content/res/Resources;->mAccessLock:Ljava/lang/Object;
-
-    monitor-enter v2
-
-    :try_start_0
-    iget-object v0, p0, Landroid/content/res/Resources;->mCachedStyledAttributes:Landroid/content/res/TypedArray;
-
-    .local v0, "cached":Landroid/content/res/TypedArray;
-    if-eqz v0, :cond_0
-
-    iget-object v1, v0, Landroid/content/res/TypedArray;->mData:[I
-
-    array-length v1, v1
-
-    iget-object v3, p1, Landroid/content/res/TypedArray;->mData:[I
-
-    array-length v3, v3
-
-    if-ge v1, v3, :cond_1
-
-    :cond_0
-    iput-object p1, p0, Landroid/content/res/Resources;->mCachedStyledAttributes:Landroid/content/res/TypedArray;
-
-    :cond_1
-    monitor-exit v2
-
-    return-void
-
-    .end local v0    # "cached":Landroid/content/res/TypedArray;
-    :catchall_0
-    move-exception v1
-
-    monitor-exit v2
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v1
-.end method
-
 .method public setCompatibilityInfo(Landroid/content/res/CompatibilityInfo;)V
     .locals 2
     .param p1, "ci"    # Landroid/content/res/CompatibilityInfo;
@@ -6554,7 +6484,7 @@
 
     iget v3, v3, Landroid/util/DisplayMetrics;->heightPixels:I
 
-    if-lt v2, v3, :cond_7
+    if-lt v2, v3, :cond_6
 
     move-object/from16 v0, p0
 
@@ -6575,12 +6505,11 @@
 
     iget-object v2, v0, Landroid/content/res/Resources;->mConfiguration:Landroid/content/res/Configuration;
 
-    iget v10, v2, Landroid/content/res/Configuration;->keyboardHidden:I
+    iget v2, v2, Landroid/content/res/Configuration;->keyboardHidden:I
 
-    .local v10, "keyboardHidden":I
-    const/4 v2, 0x1
+    const/4 v3, 0x1
 
-    if-ne v10, v2, :cond_5
+    if-ne v2, v3, :cond_7
 
     move-object/from16 v0, p0
 
@@ -6590,11 +6519,12 @@
 
     const/4 v3, 0x2
 
-    if-ne v2, v3, :cond_5
+    if-ne v2, v3, :cond_7
 
     const/4 v10, 0x3
 
-    :cond_5
+    .local v10, "keyboardHidden":I
+    :goto_1
     move-object/from16 v0, p0
 
     iget-object v2, v0, Landroid/content/res/Resources;->mAssets:Landroid/content/res/AssetManager;
@@ -6764,7 +6694,7 @@
 
     iget-object v2, v0, Landroid/content/res/Resources;->mPluralRule:Llibcore/icu/NativePluralRules;
 
-    if-eqz v2, :cond_6
+    if-eqz v2, :cond_5
 
     move-object/from16 v0, p1
 
@@ -6778,7 +6708,7 @@
 
     iput-object v2, v0, Landroid/content/res/Resources;->mPluralRule:Llibcore/icu/NativePluralRules;
 
-    :cond_6
+    :cond_5
     monitor-exit v3
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_1
@@ -6788,7 +6718,7 @@
     .end local v10    # "keyboardHidden":I
     .end local v12    # "width":I
     .end local v13    # "height":I
-    :cond_7
+    :cond_6
     :try_start_2
     move-object/from16 v0, p0
 
@@ -6806,7 +6736,18 @@
     .restart local v13    # "height":I
     goto/16 :goto_0
 
+    :cond_7
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Landroid/content/res/Resources;->mConfiguration:Landroid/content/res/Configuration;
+
+    iget v10, v2, Landroid/content/res/Configuration;->keyboardHidden:I
+
+    .restart local v10    # "keyboardHidden":I
+    goto/16 :goto_1
+
     .end local v5    # "locale":Ljava/lang/String;
+    .end local v10    # "keyboardHidden":I
     .end local v12    # "width":I
     .end local v13    # "height":I
     .end local v21    # "configChanges":I

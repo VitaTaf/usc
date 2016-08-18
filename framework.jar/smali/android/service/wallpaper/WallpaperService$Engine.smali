@@ -1954,7 +1954,7 @@
     :goto_a
     if-eqz v37, :cond_10
 
-    const/16 v2, 0x34
+    const/16 v2, 0x35
 
     move-object/from16 v0, v43
 
@@ -1979,7 +1979,7 @@
     iput-object v2, v0, Landroid/service/wallpaper/WallpaperService$Engine;->mOutsetBottom:Landroid/util/TypedValue;
 
     :cond_5
-    const/16 v2, 0x34
+    const/16 v2, 0x35
 
     move-object/from16 v0, p0
 

@@ -1214,6 +1214,8 @@
     <public type="attr" name="trackTintMode" id="0x010104d9" />
     <public type="attr" name="numbersInnerTextColor" id="0x010104da" />
     <public type="attr" name="thumbPosition" id="0x010104db" />
+    <public type="attr" name="colorBackgroundFloating" id="0x010104dc" />
+    <public type="attr" name="windowHasLightStatusBar" id="0x010104dd" />
     <public type="attr" name="APKTOOL_DUMMY_267" id="0x01010267" />
     <public type="attr" name="APKTOOL_DUMMY_3a8" id="0x010103a8" />
     <public type="attr" name="APKTOOL_DUMMY_3c3" id="0x010103c3" />
@@ -3257,6 +3259,8 @@
     <public type="style" name="DialogWindowTitle.Holo.Light" id="0x010303e9" />
     <public type="style" name="Widget.Holo.PreferenceFrameLayout" id="0x010303ea" />
     <public type="style" name="TextAppearance.Material.DatePicker.List.YearLabel.Activated" id="0x010303eb" />
+    <public type="style" name="Preference.DialogPreference.SeekBarPreference" id="0x010303ec" />
+    <public type="style" name="Preference.Material.DialogPreference.SeekBarPreference" id="0x010303ed" />
     <public type="style" name="Widget.Holo.FastScroll" id="0x010303fb" />
     <public type="style" name="Widget.Holo.Light.FastScroll" id="0x010303fc" />
     <public type="style" name="AlertDialog.Leanback" id="0x010303fd" />
@@ -3454,6 +3458,8 @@
     <public type="style" name="Widget.Material.Button.Colored" id="0x010304c1" />
     <public type="style" name="ThemeOverlay.Material.Dialog" id="0x010304c2" />
     <public type="style" name="TextAppearance.Material.Widget.Button.Inverse" id="0x010304c3" />
+    <public type="style" name="ThemeOverlay.Material.Dialog.Alert" id="0x010304c4" />
+    <public type="style" name="Theme.Material.Light.LightStatusBar" id="0x010304c5" />
     <public type="string" name="APKTOOL_DUMMY_6a3" id="0x010406a3" />
     <public type="string" name="APKTOOL_DUMMY_6a4" id="0x010406a4" />
     <public type="string" name="APKTOOL_DUMMY_6a5" id="0x010406a5" />
@@ -5811,6 +5817,7 @@
     <public type="color" name="hint_foreground_material_dark" id="0x010600e7" />
     <public type="color" name="hint_foreground_material_light" id="0x010600e8" />
     <public type="color" name="secondary_text_inverse_when_activated_material" id="0x010600e9" />
+    <public type="color" name="primary_dark_material_light_light_status_bar" id="0x010600ea" />
     <public type="color" name="link_text_material_dark" id="0x010600eb" />
     <public type="color" name="link_text_material_light" id="0x010600ec" />
     <public type="color" name="primary_text_default_material_light" id="0x010600ed" />
@@ -5830,6 +5837,13 @@
     <public type="color" name="timepicker_default_numbers_background_color_material" id="0x010600fb" />
     <public type="color" name="datepicker_default_header_selector_background_material_light" id="0x010600fc" />
     <public type="color" name="datepicker_default_header_selector_background_material_dark" id="0x010600fd" />
+    <public type="color" name="material_grey_900" id="0x010600fe" />
+    <public type="color" name="material_grey_850" id="0x010600ff" />
+    <public type="color" name="material_grey_800" id="0x01060100" />
+    <public type="color" name="material_grey_600" id="0x01060101" />
+    <public type="color" name="material_grey_300" id="0x01060102" />
+    <public type="color" name="material_grey_100" id="0x01060103" />
+    <public type="color" name="material_grey_50" id="0x01060104" />
     <public type="color" name="primary_text_dark_disable_only" id="0x0106011b" />
     <public type="color" name="primary_text_dark_focused" id="0x0106011c" />
     <public type="color" name="primary_text_disable_only_holo_dark" id="0x0106011d" />
@@ -8043,7 +8057,7 @@
     <public type="layout" name="search_bar" id="0x010900bd" />
     <public type="layout" name="search_dropdown_item_icons_2line" id="0x010900be" />
     <public type="layout" name="search_view" id="0x010900bf" />
-    <public type="layout" name="seekbar_dialog" id="0x010900c0" />
+    <public type="layout" name="preference_dialog_seekbar" id="0x010900c0" />
     <public type="layout" name="select_dialog" id="0x010900c1" />
     <public type="layout" name="select_dialog_holo" id="0x010900c2" />
     <public type="layout" name="select_dialog_item_holo" id="0x010900c3" />
@@ -8100,6 +8114,7 @@
     <public type="layout" name="time_picker_material" id="0x010900f6" />
     <public type="layout" name="date_picker_view_animator_material" id="0x010900f7" />
     <public type="layout" name="day_picker_content_material" id="0x010900f8" />
+    <public type="layout" name="preference_dialog_seekbar_material" id="0x010900f9" />
     <public type="layout" name="icon_menu_layout" id="0x01090059" />
     <public type="anim" name="fade_in" id="0x010a0000" />
     <public type="anim" name="fade_out" id="0x010a0001" />
@@ -8999,4 +9014,5 @@
     <public type="^attr-private" name="daySelectorColor" id="0x011600b5" />
     <public type="^attr-private" name="dayHighlightColor" id="0x011600b6" />
     <public type="^attr-private" name="defaultQueryHint" id="0x011600b7" />
+    <public type="^attr-private" name="seekBarDialogPreferenceStyle" id="0x011600b8" />
 </resources>

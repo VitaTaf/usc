@@ -1029,6 +1029,10 @@
 
 .field public static final CalendarView_dateTextAppearance:I = 0xc
 
+.field public static final CalendarView_dayHighlightColor:I = 0x10
+
+.field public static final CalendarView_daySelectorColor:I = 0xf
+
 .field public static final CalendarView_firstDayOfWeek:I = 0x0
 
 .field public static final CalendarView_focusedMonthDateColor:I = 0x6
@@ -1039,6 +1043,8 @@
 .field public static final CalendarView_maxDate:I = 0x3
 
 .field public static final CalendarView_minDate:I = 0x2
+
+.field public static final CalendarView_monthTextAppearance:I = 0xe
 
 .field public static final CalendarView_selectedDateVerticalBar:I = 0xa
     .annotation runtime Ljava/lang/Deprecated;
@@ -1194,6 +1200,8 @@
     .end annotation
 .end field
 
+.field public static final DatePicker_headerTextColor:I = 0x12
+
 .field public static final DatePicker_headerYearTextAppearance:I = 0xc
     .annotation runtime Ljava/lang/Deprecated;
     .end annotation
@@ -1213,6 +1221,8 @@
     .annotation runtime Ljava/lang/Deprecated;
     .end annotation
 .end field
+
+.field public static final DatePicker_yearListItemActivatedTextAppearance:I = 0x14
 
 .field public static final DatePicker_yearListItemTextAppearance:I = 0xd
     .annotation runtime Ljava/lang/Deprecated;
@@ -2629,6 +2639,8 @@
 
 .field public static final SearchView_commitIcon:I = 0xb
 
+.field public static final SearchView_defaultQueryHint:I = 0x10
+
 .field public static final SearchView_focusable:I = 0x0
 
 .field public static final SearchView_goIcon:I = 0x8
@@ -3228,6 +3240,8 @@
 
 .field public static final Theme_absListViewStyle:I = 0x33
 
+.field public static final Theme_accessibilityFocusedDrawable:I = 0x131
+
 .field public static final Theme_actionBarDivider:I = 0xcb
 
 .field public static final Theme_actionBarItemBackground:I = 0xcc
@@ -3340,6 +3354,8 @@
 
 .field public static final Theme_colorBackgroundCacheHint:I = 0x75
 
+.field public static final Theme_colorBackgroundFloating:I = 0x107
+
 .field public static final Theme_colorButtonNormal:I = 0xdf
 
 .field public static final Theme_colorControlActivated:I = 0xde
@@ -3366,17 +3382,25 @@
 
 .field public static final Theme_colorPrimaryDark:I = 0xe4
 
+.field public static final Theme_colorSwitchThumbNormal:I = 0x134
+
 .field public static final Theme_datePickerDialogTheme:I = 0xfc
 
 .field public static final Theme_datePickerStyle:I = 0xb7
 
 .field public static final Theme_detailsElementBackground:I = 0xae
 
+.field public static final Theme_dialogCustomTitleDecorLayout:I = 0x12b
+
 .field public static final Theme_dialogPreferenceStyle:I = 0x59
 
 .field public static final Theme_dialogPreferredPadding:I = 0x106
 
 .field public static final Theme_dialogTheme:I = 0x99
+
+.field public static final Theme_dialogTitleDecorLayout:I = 0x12c
+
+.field public static final Theme_dialogTitleIconsDecorLayout:I = 0x12a
 
 .field public static final Theme_disabledAlpha:I = 0x3
 
@@ -3428,6 +3452,10 @@
 
 .field public static final Theme_fastScrollTrackDrawable:I = 0xac
 
+.field public static final Theme_findOnPageNextDrawable:I = 0x132
+
+.field public static final Theme_findOnPagePreviousDrawable:I = 0x133
+
 .field public static final Theme_galleryItemBackground:I = 0x1c
 
 .field public static final Theme_galleryStyle:I = 0x39
@@ -3442,11 +3470,11 @@
 
 .field public static final Theme_imageWellStyle:I = 0x3c
 
-.field public static final Theme_lightRadius:I = 0x136
+.field public static final Theme_lightRadius:I = 0x137
 
-.field public static final Theme_lightY:I = 0x134
+.field public static final Theme_lightY:I = 0x135
 
-.field public static final Theme_lightZ:I = 0x135
+.field public static final Theme_lightZ:I = 0x136
 
 .field public static final Theme_listChoiceBackgroundIndicator:I = 0x8c
 
@@ -3494,15 +3522,29 @@
 
 .field public static final Theme_panelTextAppearance:I = 0x32
 
+.field public static final Theme_pointerStyle:I = 0x130
+
 .field public static final Theme_popupMenuStyle:I = 0x94
 
 .field public static final Theme_popupWindowStyle:I = 0x3f
 
 .field public static final Theme_preferenceCategoryStyle:I = 0x54
 
+.field public static final Theme_preferenceFragmentListStyle:I = 0x127
+
+.field public static final Theme_preferenceFragmentPaddingSide:I = 0x128
+
+.field public static final Theme_preferenceFrameLayoutStyle:I = 0x12f
+
+.field public static final Theme_preferenceHeaderPanelStyle:I = 0x125
+
 .field public static final Theme_preferenceInformationStyle:I = 0x55
 
 .field public static final Theme_preferenceLayoutChild:I = 0x5c
+
+.field public static final Theme_preferenceListStyle:I = 0x126
+
+.field public static final Theme_preferencePanelStyle:I = 0x124
 
 .field public static final Theme_preferenceScreenStyle:I = 0x53
 
@@ -3550,7 +3592,11 @@
 
 .field public static final Theme_scrollViewStyle:I = 0x48
 
+.field public static final Theme_searchDialogTheme:I = 0x12e
+
 .field public static final Theme_searchViewStyle:I = 0xf4
+
+.field public static final Theme_seekBarPreferenceStyle:I = 0x129
 
 .field public static final Theme_seekBarStyle:I = 0x44
 
@@ -3672,6 +3718,8 @@
 
 .field public static final Theme_timePickerStyle:I = 0xf9
 
+.field public static final Theme_toastFrameBackground:I = 0x12d
+
 .field public static final Theme_toolbarStyle:I = 0xfb
 
 .field public static final Theme_webTextViewStyle:I = 0x7d
@@ -3776,6 +3824,8 @@
 .end field
 
 .field public static final TimePicker_headerBackground:I = 0x0
+
+.field public static final TimePicker_headerTextColor:I = 0xb
 
 .field public static final TimePicker_headerTimeTextAppearance:I = 0x1
     .annotation runtime Ljava/lang/Deprecated;
@@ -4428,17 +4478,19 @@
 
 .field public static final Window_windowExitTransition:I = 0x1d
 
-.field public static final Window_windowFixedHeightMajor:I = 0x33
+.field public static final Window_windowFixedHeightMajor:I = 0x34
 
-.field public static final Window_windowFixedHeightMinor:I = 0x31
+.field public static final Window_windowFixedHeightMinor:I = 0x32
 
-.field public static final Window_windowFixedWidthMajor:I = 0x30
+.field public static final Window_windowFixedWidthMajor:I = 0x31
 
-.field public static final Window_windowFixedWidthMinor:I = 0x32
+.field public static final Window_windowFixedWidthMinor:I = 0x33
 
 .field public static final Window_windowFrame:I = 0x2
 
 .field public static final Window_windowFullscreen:I = 0x9
+
+.field public static final Window_windowHasLightStatusBar:I = 0x2e
 
 .field public static final Window_windowIsFloating:I = 0x4
 
@@ -4452,7 +4504,7 @@
 
 .field public static final Window_windowNoTitle:I = 0x3
 
-.field public static final Window_windowOutsetBottom:I = 0x34
+.field public static final Window_windowOutsetBottom:I = 0x35
 
 .field public static final Window_windowOverscan:I = 0x16
 
@@ -6252,7 +6304,7 @@
 
     sput-object v0, Landroid/R$styleable;->TextViewMultiLineBackgroundState:[I
 
-    const/16 v0, 0x137
+    const/16 v0, 0x139
 
     new-array v0, v0, [I
 
@@ -6500,7 +6552,7 @@
 
     sput-object v0, Landroid/R$styleable;->WeightedLinearLayout:[I
 
-    const/16 v0, 0x35
+    const/16 v0, 0x36
 
     new-array v0, v0, [I
 
@@ -8780,6 +8832,7 @@
         0x10104cd
         0x10104ce
         0x10104d3
+        0x10104dc
         0x1160000
         0x1160001
         0x1160002
@@ -8828,6 +8881,7 @@
         0x116002d
         0x116002e
         0x116002f
+        0x11600b8
     .end array-data
 
     :array_b7
@@ -9218,6 +9272,7 @@
         0x10104b1
         0x10104bb
         0x10104cd
+        0x10104dd
         0x116000d
         0x116000e
         0x1160030

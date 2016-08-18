@@ -105,6 +105,8 @@
 
 .field public static final date_picker_month_item_material:I = 0x1090045
 
+.field public static final date_picker_view_animator_material:I = 0x10900f7
+
 .field public static final day_picker_content_material:I = 0x10900f8
 
 .field public static final default_navigation:I = 0x1090046
@@ -356,8 +358,6 @@
 .field public static final search_dropdown_item_icons_2line:I = 0x10900be
 
 .field public static final search_view:I = 0x10900bf
-
-.field public static final seekbar_dialog:I = 0x10900c0
 
 .field public static final select_dialog:I = 0x10900c1
 

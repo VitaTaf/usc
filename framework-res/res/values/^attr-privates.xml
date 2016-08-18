@@ -214,4 +214,5 @@
     <attr name="daySelectorColor" format="color" />
     <attr name="dayHighlightColor" format="color" />
     <attr name="defaultQueryHint" format="string" />
+    <attr name="seekBarDialogPreferenceStyle" format="reference" />
 </resources>

@@ -586,6 +586,8 @@
 
 .field public static final SYSTEM_UI_FLAG_LAYOUT_STABLE:I = 0x100
 
+.field public static final SYSTEM_UI_FLAG_LIGHT_STATUS_BAR:I = 0x2000
+
 .field public static final SYSTEM_UI_FLAG_LOW_PROFILE:I = 0x1
 
 .field public static final SYSTEM_UI_FLAG_VISIBLE:I = 0x0
