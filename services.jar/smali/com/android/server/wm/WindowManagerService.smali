@@ -36029,7 +36029,7 @@
     check-cast v0, Lcom/android/server/wm/DisplayContent;
 
     .local v0, "displayContent":Lcom/android/server/wm/DisplayContent;
-    invoke-virtual {v0, p1}, Lcom/android/server/wm/DisplayContent;->switchUserStacks(I)V
+    invoke-virtual {v0}, Lcom/android/server/wm/DisplayContent;->switchUserStacks()V
 
     invoke-direct {p0, v0}, Lcom/android/server/wm/WindowManagerService;->rebuildAppWindowListLocked(Lcom/android/server/wm/DisplayContent;)V
 

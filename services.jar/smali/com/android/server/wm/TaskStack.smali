@@ -784,7 +784,25 @@
 
     iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mDimLayer:Lcom/android/server/wm/DimLayer;
 
-    invoke-virtual {v3, p1, p2}, Lcom/android/server/wm/DimLayer;->printTo(Ljava/lang/String;Ljava/io/PrintWriter;)V
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    const-string v5, " "
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4, p2}, Lcom/android/server/wm/DimLayer;->printTo(Ljava/lang/String;Ljava/io/PrintWriter;)V
 
     invoke-virtual {p2, p1}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 
@@ -1464,38 +1482,69 @@
 .end method
 
 .method startDimmingIfNeeded(Lcom/android/server/wm/WindowStateAnimator;)V
-    .locals 3
+    .locals 2
     .param p1, "newWinAnimator"    # Lcom/android/server/wm/WindowStateAnimator;
 
     .prologue
+    iget-boolean v0, p1, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceShown:Z
+
+    if-eqz v0, :cond_1
+
     iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDimWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
-
-    .local v0, "existingDimWinAnimator":Lcom/android/server/wm/WindowStateAnimator;
-    iget-boolean v1, p1, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceShown:Z
-
-    if-eqz v1, :cond_1
 
     if-eqz v0, :cond_0
 
-    iget-boolean v1, v0, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceShown:Z
+    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDimWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
 
-    if-eqz v1, :cond_0
+    iget-boolean v0, v0, Lcom/android/server/wm/WindowStateAnimator;->mSurfaceShown:Z
 
-    iget v1, v0, Lcom/android/server/wm/WindowStateAnimator;->mAnimLayer:I
+    if-eqz v0, :cond_0
 
-    iget v2, p1, Lcom/android/server/wm/WindowStateAnimator;->mAnimLayer:I
+    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDimWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
 
-    if-ge v1, v2, :cond_1
+    iget v0, v0, Lcom/android/server/wm/WindowStateAnimator;->mAnimLayer:I
+
+    iget v1, p1, Lcom/android/server/wm/WindowStateAnimator;->mAnimLayer:I
+
+    if-ge v0, v1, :cond_1
 
     :cond_0
     iput-object p1, p0, Lcom/android/server/wm/TaskStack;->mDimWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
+
+    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDimWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
+
+    iget-object v0, v0, Lcom/android/server/wm/WindowStateAnimator;->mWin:Lcom/android/server/wm/WindowState;
+
+    iget-object v0, v0, Lcom/android/server/wm/WindowState;->mAppToken:Lcom/android/server/wm/AppWindowToken;
+
+    if-nez v0, :cond_1
+
+    iget-boolean v0, p0, Lcom/android/server/wm/TaskStack;->mFullscreen:Z
+
+    if-nez v0, :cond_1
+
+    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
+
+    if-eqz v0, :cond_1
+
+    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDisplayContent:Lcom/android/server/wm/DisplayContent;
+
+    iget-object v1, p0, Lcom/android/server/wm/TaskStack;->mTmpRect:Landroid/graphics/Rect;
+
+    invoke-virtual {v0, v1}, Lcom/android/server/wm/DisplayContent;->getLogicalDisplayRect(Landroid/graphics/Rect;)V
+
+    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDimLayer:Lcom/android/server/wm/DimLayer;
+
+    iget-object v1, p0, Lcom/android/server/wm/TaskStack;->mTmpRect:Landroid/graphics/Rect;
+
+    invoke-virtual {v0, v1}, Lcom/android/server/wm/DimLayer;->setBounds(Landroid/graphics/Rect;)V
 
     :cond_1
     return-void
 .end method
 
 .method stopDimmingIfNeeded()V
-    .locals 1
+    .locals 2
 
     .prologue
     iget-boolean v0, p0, Lcom/android/server/wm/TaskStack;->mDimmingTag:Z
@@ -1512,13 +1561,18 @@
 
     iput-object v0, p0, Lcom/android/server/wm/TaskStack;->mDimWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
 
+    iget-object v0, p0, Lcom/android/server/wm/TaskStack;->mDimLayer:Lcom/android/server/wm/DimLayer;
+
+    iget-object v1, p0, Lcom/android/server/wm/TaskStack;->mBounds:Landroid/graphics/Rect;
+
+    invoke-virtual {v0, v1}, Lcom/android/server/wm/DimLayer;->setBounds(Landroid/graphics/Rect;)V
+
     :cond_0
     return-void
 .end method
 
-.method switchUser(I)V
+.method switchUser()V
     .locals 5
-    .param p1, "userId"    # I
 
     .prologue
     iget-object v3, p0, Lcom/android/server/wm/TaskStack;->mTasks:Ljava/util/ArrayList;
